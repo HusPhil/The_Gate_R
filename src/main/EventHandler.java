@@ -50,6 +50,7 @@ public class EventHandler {
 		if(realDistance > gp.tileSize) touchEventON = true;
 		
 		if(touchEventON) {
+			//SAVING EVENT
 			if(eventCollision(0, 33, 29, "any")) {
 				gp.player.startDialogue(gp.player, 2);
 				
@@ -60,18 +61,28 @@ public class EventHandler {
 				}
 				
 			}
-			
-			else if(eventCollision(gp.worldMapA, 14, 30, "right")) transition(gp.merchantHouse, 24, 24, gp.indoor);
+			//GOING INSIDE AND OUTSIDE MERCHANT HOUSE
 			else if(eventCollision(gp.worldMapA, 14, 39, "up")) transition(gp.merchantHouse, 24, 23, gp.indoor);
+			else if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.worldMapA, 14, 39, gp.outside);
+			//WORLDMAP-A to F1_Dungeon (ViceVersa)
 			else if(eventCollision(gp.worldMapA, 35, 37, "right")) transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
 			else if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.worldMapA, 34, 37, gp.outside);
-			else if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.worldMapA, 14, 39, gp.outside);
+			//F1_Dungeon to F2_Dungeon (ViceVersa)
 			else if(eventCollision(gp.dungeonMap_F1, 12, 9, "left")) transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
 			else if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
+			
+			//MERCHANT HOUSE DIALOGUE
 			else if(eventCollision(gp.merchantHouse, 18, 20, "up")) {
 				gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
 				touchEventON = false;
 			}
+			
+			//CUTSCENES
+			///////////////////////////////////////////////
+			else if(eventCollision(gp.dungeonMap_F2, 36, 28, "any")) CS_skeletonLord();
+			
+			
+			//////////////////////////////////////////////
 		}
 	}
 	public boolean eventCollision(int map, int eventCol, int eventRow, String reqDirection) {
@@ -114,25 +125,6 @@ public class EventHandler {
 			
 		}
 	}
-	
-	public void damagePit(int map, int x, int y) {
-		if(eventCollision(map, x, y, "any")) {
-			gp.player.life--;
-			if(gp.player.life <= 0) gp.player.life = 0;
-			System.out.println("you hit it");
-		}
-		touchEventON = false;
-	}
-	public void teleport(int map, int x, int y) {
-		gp.player.attackCanceled = true;
-		System.out.println(gp.player.attackCanceled);
-		if(gp.keys.enterPressed) {
-			gp.player.worldX = x*48;
-			gp.player.worldY = y*48; 
-			gp.createAssets.makeMonster();
-			gp.createAssets.makeItems();
-		}
-	}
 	public void transition(int map, int x, int y, int area) {
 		gp.gameState = gp.transitionState;
 		gp.nextArea = area;
@@ -141,17 +133,14 @@ public class EventHandler {
 		tempRow = y;
 		touchEventON = false;
 	}
-	public void talkToNpc(int mapNum, int npcIndex) {
-		gp.npc[mapNum][npcIndex].pathAI = true;
-		prevEventX = gp.player.worldX;
-		prevEventY = gp.player.worldY;
-	}
-	public void dialogue() {
-		
-		int nworldX = (gp.npc[1][0].worldX + gp.npc[1][0].solidArea.x)/gp.tileSize;
-		int nworldY = (gp.npc[1][0].worldY + gp.npc[1][0].solidArea.y)/gp.tileSize;
-		if(nworldX == 58 && nworldY == 35) {
-			
+	
+	//CUTSCENES
+	public void CS_skeletonLord() {
+		if(!gp.bossBattleOn) {
+//			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
+			gp.player.worldX = 36*48; gp.player.worldY = 28*48;
 		}
 	}
+
 }

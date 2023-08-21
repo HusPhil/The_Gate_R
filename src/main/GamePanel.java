@@ -451,8 +451,13 @@ this.requestFocus();
 			//draw mini map
 			map.drawMiniMap(g2);
 			
+			//draw cutscenes
+			csHandler.draw(g2);
+			
 			//DRAW GUI
 			gui.draw(g2);
+			
+			
 			
 		}
 
@@ -488,7 +493,12 @@ this.requestFocus();
 	}
 	public void resetStatus(boolean reset) {
  		//set default pos
+		removeTempEnt();
 		currentArea = outside;
+		currentMap = worldMapA;
+		bossBattleOn = false;
+		csHandler.scenePhase = csHandler.sceneNum = 0; //might bug the scene
+		
  		player.worldX = (35*48); 
  		player.worldY = (12*48);
  		player.direction = "down";
@@ -537,7 +547,13 @@ this.requestFocus();
 		createAssets.makeMonster();
 		//change bg music as transitioning later
 	}
-	
+	public void removeTempEnt() {
+		for(int mapNum = 0; mapNum < maxMap; mapNum++) {
+			for(int i = 0; i < gameObjs[1].length; i++) {
+				if(gameObjs[mapNum][i] != null && gameObjs[mapNum][i].temp) gameObjs[mapNum][i] = null;
+			}
+		}
+	}
 	
 	
 	

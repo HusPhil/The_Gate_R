@@ -191,7 +191,7 @@ public class KeyHandler implements KeyListener {
 			gp.gameState = gp.pauseState; 
 			
 			gp.createAssets.makeMonster();
-			gp.currentMap = 1;
+			gp.currentMap = gp.dungeonMap_F2;
 			switch(gp.currentMap) {
 			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
 			case 1: gp.tManager.loadMap("/maps/dungeonMap_F1.txt", 1); break;

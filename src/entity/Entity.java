@@ -59,6 +59,7 @@ public class Entity {
 	public Random rN = new Random();
 		
 	//Entity State
+	public boolean temp = false;
 	public boolean collisionOn = false;
 	public boolean collision = false;
 	public boolean attacking = false;

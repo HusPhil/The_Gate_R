@@ -52,6 +52,12 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 24*48;
 		gp.gameObjs[mapNum][i].worldY = 14*48; i++;
 		
+		i = 0;
+		mapNum = gp.dungeonMap_F2;
+		gp.gameObjs[mapNum][i] = new OBJ_IronDoor(gp);
+		gp.gameObjs[mapNum][i].worldX = 16*48;
+		gp.gameObjs[mapNum][i].worldY = 41*48; i++;
+		
 	}
 	public void makeItems() {
 		int i = 0;
