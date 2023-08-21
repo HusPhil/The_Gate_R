@@ -144,7 +144,7 @@ public class AssetsHandler {
 		mapNum = gp.dungeonMap_F2;
 		gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
 		gp.monsters[mapNum][i].worldX = 25*48;
-		gp.monsters[mapNum][i].worldY = 34*48;
+		gp.monsters[mapNum][i].worldY = 35*48;
 		i++;
 	}
 	public void makeInteractiveTiles() {

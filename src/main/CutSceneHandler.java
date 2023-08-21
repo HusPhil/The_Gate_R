@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics2D;
 
 import entity.NPC_PlayerDummy;
+import monster.BOSS_SkeletonLord;
 import object.OBJ_IronDoor;
 
 public class CutSceneHandler {
@@ -65,7 +66,18 @@ public class CutSceneHandler {
 		}
 		//PHASE 2 
 		if(scenePhase == 2) {
-			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_SkeletonLord.monName)) {
+					gp.monsters[gp.currentMap][i].asleep = false;
+					gp.gui.npc = gp.monsters[gp.currentMap][i];
+					scenePhase++;
+					break;
+				}
+			}
+		}
+		//PHASE 3
+		if(scenePhase == 3) {
+			gp.gui.dialougeScreen();
 		}
 	}
 }

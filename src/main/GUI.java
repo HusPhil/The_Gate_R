@@ -406,28 +406,32 @@ public class GUI {
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 			currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
-			if(npc.name !=  OBJ_Chest.objName) {
+			if(npc.name !=  OBJ_Chest.objName && npc.type != gp.player.type_player) {
 				char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
 				if(charIndex < characters.length) {
 					String s = String.valueOf(characters[charIndex]);
 					combinedText += s;
 					currentDialogue = combinedText;
 					charIndex++;
-				}
+				}	
 			}
-			if(gp.keys.enterPressed && gp.gameState == gp.dialogueState) {
+			if(gp.keys.enterPressed && (gp.gameState == gp.dialogueState || gp.gameState == gp.cutSceneState)) {
 				charIndex = 0; combinedText = "";
 				npc.dialogueIndex++;
 			} gp.keys.enterPressed = false;
 		} else {
 			
+			npc.dialogueIndex = 0;
+
 			if(npc.type == npc.type_merchant) {
 				gp.gameState = gp.tradingState;
 			}
 			if(gp.gameState == gp.dialogueState) {
 				gp.gameState = gp.playState;
 			}
-			npc.dialogueIndex = 0;
+			if(gp.gameState == gp.cutSceneState) {
+				gp.csHandler.scenePhase++;
+			}
 		}
 		
 		for(String line: currentDialogue.split("\n")) {			
