@@ -1,7 +1,9 @@
 package monster;
 
+import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_IronDoor;
 
 public class BOSS_SkeletonLord extends Entity{
 	GamePanel gp;
@@ -185,7 +187,25 @@ public class BOSS_SkeletonLord extends Entity{
 		
 		pathAI = true;
 	}
-	public void checkDrop() {}
+	public void checkDrop() {
+		gp.bossBattleOn = false;
+		GameProgress.defeatedSkeletonLord = true;
+		
+		//stopTheBossMusic
+		//playDungeonMusic
+		
+		//open iron doors
+		
+		for(int i = 0; i < gp.gameObjs[1].length; i++) {
+			if(gp.gameObjs[gp.currentMap][i] != null) {
+				
+				if(gp.gameObjs[gp.currentMap][i].name.equals(OBJ_IronDoor.objName))
+				gp.gameObjs[gp.currentMap][i] = null;
+				
+				gp.playSE(7);
+			}
+		}
+	}
 	public void setDialogue() {
 		int dialogueSet, dialogueNum;
 		

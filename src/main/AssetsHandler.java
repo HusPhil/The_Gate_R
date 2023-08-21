@@ -18,6 +18,7 @@ import object.OBJ_Health_Potion;
 import object.OBJ_Heart;
 import object.OBJ_IronDoor;
 import object.OBJ_Key;
+import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
 import object.OBJ_Slime_Shield;
 import object.OBJ_Wooden_Axe;
@@ -57,6 +58,21 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new OBJ_IronDoor(gp);
 		gp.gameObjs[mapNum][i].worldX = 16*48;
 		gp.gameObjs[mapNum][i].worldY = 41*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Slime_Shield(gp));
+		gp.gameObjs[mapNum][i].worldX = 15*48;
+		gp.gameObjs[mapNum][i].worldY = 43*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Key(gp));
+		gp.gameObjs[mapNum][i].worldX = 16*48;
+		gp.gameObjs[mapNum][i].worldY = 43*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Lantern(gp));
+		gp.gameObjs[mapNum][i].worldX = 17*48;
+		gp.gameObjs[mapNum][i].worldY = 43*48; i++;
 		
 	}
 	public void makeItems() {

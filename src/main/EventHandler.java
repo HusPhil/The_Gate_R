@@ -1,5 +1,7 @@
 package main;
 
+import DataHandling.GameProgress;
+
 public class EventHandler {
 	
 	GamePanel gp;
@@ -136,7 +138,7 @@ public class EventHandler {
 	
 	//CUTSCENES
 	public void CS_skeletonLord() {
-		if(!gp.bossBattleOn) {
+		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
 			gp.player.worldX = 27*48; gp.player.worldY = 29*48;
