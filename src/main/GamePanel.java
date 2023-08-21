@@ -119,6 +119,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker collCheck = new CollisionChecker(this);
 	//========================//
 	
+	//HANDLING THE CUTSCENES//
+	//------------------------//
+	public CutSceneHandler csHandler = new CutSceneHandler(this);
+	//========================//
+	
 	//Objects Handler//
 	//--------------------------//
 	public Entity gameObjs[][] = new Entity[maxMap][200];
