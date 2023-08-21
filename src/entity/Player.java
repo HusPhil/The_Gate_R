@@ -596,9 +596,6 @@ public class Player extends Entity{
  			
  		} //else debugOn = true;
 		
-
-		
-		
 		collisionOn = false;
 		//Tile Collision Checker, turns the collisionOn property true or false
 		gp.collCheck.checkTile(this); 	
@@ -732,7 +729,6 @@ public class Player extends Entity{
 			
 		}
 		
-		int itemIndex = gp.collCheck.checkItem(this, true); 
 		int objIndex = gp.collCheck.checkObj(this, true);
 //		pickupItem(itemIndex);
 		interactObj(objIndex);
@@ -764,17 +760,6 @@ public class Player extends Entity{
 		
 		BufferedImage image = null;
 		
-//		if(screenX > worldX) tempScreenX = worldX;
-//		if(screenY > worldY) tempScreenY = worldY;
-//		
-//		int rightOffset = gp.screenWidth - screenX;
-//		if(rightOffset > (gp.worldWidth - worldX))
-//			tempScreenX = gp.screenWidth - (gp.worldWidth - worldX);
-//		
-//		int bottomOffset = gp.screenHeight - screenY;
-//		if(bottomOffset > (gp.worldHeight - worldY))
-//			tempScreenY = gp.screenHeight - (gp.worldHeight - worldY);
-		
 			switch(direction) {
 			case "up":
 				if(!attacking) {
@@ -790,7 +775,6 @@ public class Player extends Entity{
 					if(spriteNum == 3) {image = attackUp3;}
 					if(spriteNum == 4) {image = attackUp4;}
 				}
-				
 				break;
 			case "down":
 				if(!attacking) {
@@ -839,16 +823,12 @@ public class Player extends Entity{
 			
 			if(invincible) g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 			
+			if(drawing) g2.drawImage(image, tempScreenX, tempScreenY, null);
 			
-			
-			
-			
-			
-			g2.drawImage(image, tempScreenX, tempScreenY, null);
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 			
 			// DEBUG
-//			 /AttackArea
+			//AttackArea
 			if(debugOn) {
 				
 				tempScreenX = screenX + solidArea.x;

@@ -60,6 +60,7 @@ public class Entity {
 		
 	//Entity State
 	public boolean temp = false;
+	public boolean drawing = true;
 	public boolean collisionOn = false;
 	public boolean collision = false;
 	public boolean attacking = false;

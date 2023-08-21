@@ -28,20 +28,26 @@ public class CutSceneHandler {
 		}
 	}
 	public void scene_SkeletonLord() {
+		//PHASE 0
 		if(scenePhase == 0) {
 			gp.bossBattleOn = true;
 			
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
 				if(gp.gameObjs[gp.currentMap][i] == null) {
 					gp.gameObjs[gp.currentMap][i] = new OBJ_IronDoor(gp);
-					gp.gameObjs[gp.currentMap][i].worldX = 36*48;
-					gp.gameObjs[gp.currentMap][i].worldY = 27*48;
+					gp.gameObjs[gp.currentMap][i].worldX = 27*48;
+					gp.gameObjs[gp.currentMap][i].worldY = 28*48;
 					gp.gameObjs[gp.currentMap][i].temp = true;
 					gp.playSE(7);
 					break;
 				}
 			}
+			gp.player.drawing = false;
 			scenePhase++;
+		}
+		//PHASE 1
+		if(scenePhase == 1) {
+			if(gp.player.worldY <= 35*48) gp.player.worldY += 2;
 		}
 	}
 }

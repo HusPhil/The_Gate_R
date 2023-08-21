@@ -79,7 +79,7 @@ public class EventHandler {
 			
 			//CUTSCENES
 			///////////////////////////////////////////////
-			else if(eventCollision(gp.dungeonMap_F2, 36, 28, "any")) CS_skeletonLord();
+			else if(eventCollision(gp.dungeonMap_F2, 27, 29, "any")) CS_skeletonLord();
 			
 			
 			//////////////////////////////////////////////
@@ -139,7 +139,7 @@ public class EventHandler {
 		if(!gp.bossBattleOn) {
 //			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
-			gp.player.worldX = 36*48; gp.player.worldY = 28*48;
+			gp.player.worldX = 27*48; gp.player.worldY = 29*48;
 		}
 	}
 
