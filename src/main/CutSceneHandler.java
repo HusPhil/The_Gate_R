@@ -79,5 +79,21 @@ public class CutSceneHandler {
 		if(scenePhase == 3) {
 			gp.gui.dialougeScreen();
 		}
+		//PHASE 4
+		if(scenePhase == 4) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase = sceneNum = NONE;
+			gp.gameState = gp.playState;
+			
+			//change the music [stop current music and play new music]
+		}
 	}
 }

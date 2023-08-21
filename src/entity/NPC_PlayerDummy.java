@@ -6,7 +6,7 @@ import main.GamePanel;
 import object.SKL_MudBall;
 
 public class NPC_PlayerDummy extends Entity{
-
+	public static final String NPC_Name = "Player Dummy";
 
 	public NPC_PlayerDummy(GamePanel gp) {
 		super(gp);
@@ -16,7 +16,7 @@ public class NPC_PlayerDummy extends Entity{
 		solidArea = new Rectangle(12, 18, 24, 30);
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
-		
+		name = NPC_Name;
 		speed = 0;
 		getNpcImage();
 	}
