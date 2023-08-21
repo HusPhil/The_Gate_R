@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 
+import entity.NPC_PlayerDummy;
 import object.OBJ_IronDoor;
 
 public class CutSceneHandler {
@@ -32,6 +33,7 @@ public class CutSceneHandler {
 		if(scenePhase == 0) {
 			gp.bossBattleOn = true;
 			
+			//place a temp door
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
 				if(gp.gameObjs[gp.currentMap][i] == null) {
 					gp.gameObjs[gp.currentMap][i] = new OBJ_IronDoor(gp);
@@ -42,12 +44,28 @@ public class CutSceneHandler {
 					break;
 				}
 			}
+			
+			//place player dummy
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
 			gp.player.drawing = false;
 			scenePhase++;
 		}
 		//PHASE 1
 		if(scenePhase == 1) {
-			if(gp.player.worldY <= 35*48) gp.player.worldY += 2;
+			if(gp.player.worldY >= 35*48) scenePhase++; 
+			gp.player.worldY += 2; 
+		}
+		//PHASE 2 
+		if(scenePhase == 2) {
+			
 		}
 	}
 }

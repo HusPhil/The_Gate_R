@@ -544,7 +544,7 @@ public class GUI {
 	public void showBossLife() {
 		for(int i = 0; i < gp.monsters[1].length; i++) {
 			Entity monster = gp.monsters[gp.currentMap][i];
-			if(monster != null && monster.type_boss && monster.inCamera()) {
+			if(monster != null && monster.type_boss && monster.inCamera() && gp.bossBattleOn) {
 				int length = gp.tileSize*15;
 				
 				double oneScale = (double)length/monster.maxLife;

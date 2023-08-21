@@ -137,7 +137,7 @@ public class EventHandler {
 	//CUTSCENES
 	public void CS_skeletonLord() {
 		if(!gp.bossBattleOn) {
-//			gp.gameState = gp.cutSceneState;
+			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
 			gp.player.worldX = 27*48; gp.player.worldY = 29*48;
 		}
