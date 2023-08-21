@@ -7,16 +7,16 @@ import main.GamePanel;
 
 public class SKL_MudBall extends Projectile{
 	GamePanel gp;
-	
+	public static final String objName = "Mud ball";
 	public SKL_MudBall(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		
-		name = "Mud ball";
-		speed = 5;
-		maxLife = 40;
+		name = objName;
+		speed = 3;
+		maxLife = 60;
 		life = maxLife;
-		atk = 10; 
+		atk = 3; 
 		manaCost = 1;
 		alive = false;
 		getImage();

@@ -1,17 +1,26 @@
 package main;
 
-import entity.Entity;
+
+
+import entity.NPC_BigRock;
 import entity.NPC_Hermit;
-import interactive_tiles.IT_Tree;
+import entity.NPC_Merchant;
+import interactive_tiles.IT_DryTree;
+import interactive_tiles.IT_MetalPlate;
+import monster.BOSS_SkeletonLord;
+import monster.MON_Bat;
 import monster.MON_FireSlime;
+import monster.MON_Zombie;
 import object.ITM_Coin;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Health_Potion;
 import object.OBJ_Heart;
+import object.OBJ_IronDoor;
 import object.OBJ_Key;
+import object.OBJ_Pickaxe;
 import object.OBJ_Slime_Shield;
-import object.OBJ_Wood_Axe;
+import object.OBJ_Wooden_Axe;
 
 public class AssetsHandler {
 	GamePanel gp;
@@ -20,160 +29,224 @@ public class AssetsHandler {
 	}
 	
 	public void makeObjects() {
+		
 		int i = 0;
-		setEntity(i, "objA","Key", 55, 46);
-		i++;
-		setEntity(i, "objA","Key", 57, 57);
-		i++;
-		setEntity(i, "objB","ChestA", 58, 57);
-		i++;
-		setEntity(i, "objC","Door", 56, 43);
-		i++;
-		setEntity(i, "objC","Door 2", 49, 12);
-		i++;
-		setEntity(i, "objB", "ChestB", 55, 43);
-		i++;
+		int mapNum = gp.worldMapA;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].worldX = 15*48;
+		gp.gameObjs[mapNum][i].worldY = 29*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].worldX = 25*48;
+		gp.gameObjs[mapNum][i].worldY = 33*48; i++;
+		
+		i = 0;
+		mapNum = gp.dungeonMap_F1;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
+		gp.gameObjs[mapNum][i].worldX = 38*48;
+		gp.gameObjs[mapNum][i].worldY = 36*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_IronDoor(gp);
+		gp.gameObjs[mapNum][i].worldX = 24*48;
+		gp.gameObjs[mapNum][i].worldY = 14*48; i++;
+		
 	}
 	public void makeItems() {
-		int i = 7;
-		gp.items[i] = new ITM_Coin(gp);
-		gp.items[i].worldX = 73*48;
-		gp.items[i].worldY = 27*48;
-		i++;
+		int i = 0;
+		int mapNum = 0;
 		
-		gp.items[i] = new OBJ_Health_Potion(gp);
-		gp.items[i].worldX = 73*48;
-		gp.items[i].worldY = 28*48;
-		i++;
-		
-		gp.items[i] = new OBJ_Slime_Shield(gp);
-		gp.items[i].worldX = 57*48;
-		gp.items[i].worldY = 43*48;
-		i++;
-		
-		gp.items[i] = new OBJ_Wood_Axe(gp);
-		gp.items[i].worldX = 57*48;
-		gp.items[i].worldY = 45*48;
-		i++;
-		
-		gp.items[i] = new OBJ_Heart(gp);
-		gp.items[i].worldX = (57*48) + 12;
-		gp.items[i].worldY = (46*48) + 12;
-		i++;
-		
-		gp.items[i] = new OBJ_Heart(gp);
-		gp.items[i].worldX = (57*48) + 12;
-		gp.items[i].worldY = (47*48) + 12;
-		i++;
-		
-		gp.items[i] = new OBJ_Heart(gp);
-		gp.items[i].worldX = (57*48) + 12;
-		gp.items[i].worldY = (48*48) + 12;
-		i++;
-		
-		gp.items[i] = new OBJ_Heart(gp);
-		gp.items[i].worldX = (57*48) + 12;
-		gp.items[i].worldY = (49*48) + 12;
-		i++;
 	}
 	public void makeNpc() {
-		int i = 0;
-		setEntity(i, "npcA", "Hermit 1", 54, 40);
-		i++;
-		setEntity(i, "npcA", "Hermit 2", 36, 29);
-		i++;
-	}
-	
-	public void makeMonster() {
-		setEntity(0, "monA", "Fire Slime", 36, 30);
-		setEntity(1, "monA", "Fire Slime", 37, 30);
-		setEntity(2, "monA", "Fire Slime", 64, 49);
-		gp.monsters[2].life =100;
-		gp.monsters[2].speed = 0;
-		gp.monsters[2].exp = 1000;
-		setEntity(3, "monA", "F_Slime 4", 27, 26);
-		int i = 3;
+		int i; int mapNum;
 		
-		setEntity(i, "monA", "Fire Slime", 60, 52);
-		i++;
-		setEntity(i, "monA", "Fire Slime", 61, 54);
-		i++;
-		setEntity(i, "monA", "Fire Slime", 64, 53);
-		i++;
-		setEntity(i, "monA", "Fire Slime", 66, 51);
-		i++;
-		setEntity(i, "monA", "Fire Slime", 66, 54);
-		i++;
-		setEntity(i, "monA", "Fire Slime", 64, 56);
-		i++;
+		i = 0;
+		mapNum = gp.worldMapA; // OVERWORLD
+		setEntity(mapNum, i, "npcA", "", 15, 30); i++;
+		
+		setDungeonRocks();
+		
+		i = 0;
+		mapNum = gp.merchantHouse; //STORE/ MERCHANT
+		setEntity(mapNum, i, "npcB", "", 18, 18); i++;
+		gp.npc[2][0].speed = 0;
 	}
-	
-	public void makeInteractiveTiles() {
+	public void makeMonster() {
 		int i = 0;
-		gp.IT_Manager[i] = new IT_Tree(gp, 18, 27);
+		int mapNum = gp.worldMapA;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp); 
+		gp.monsters[mapNum][i].worldY = 26*48;
+		gp.monsters[mapNum][i].worldX = 14*48; 
+		gp.monsters[mapNum][i].name = "slime"; i++;
+		
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 26*48;
+		gp.monsters[mapNum][i].worldX = 15*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 26*48;
+		gp.monsters[mapNum][i].worldX = 16*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 27*48;
+		gp.monsters[mapNum][i].worldX = 14*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 27*48;
+		gp.monsters[mapNum][i].worldX = 15*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 27*48;
+		gp.monsters[mapNum][i].worldX = 16*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+		gp.monsters[mapNum][i].worldY = 28*48;
+		gp.monsters[mapNum][i].worldX = 14*48;
+		gp.monsters[mapNum][i].name = "slime";i++;
+		
+		gp.monsters[mapNum][i] = new MON_Zombie(gp);
+		gp.monsters[mapNum][i].worldX = 18*48;
+		gp.monsters[mapNum][i].worldY = 21*48;
 		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 18, 28);
+		
+		i = 0;
+		mapNum = gp.dungeonMap_F1;
+		gp.monsters[mapNum][i] = new MON_Bat(gp);
+		gp.monsters[mapNum][i].worldY = 38*48;
+		gp.monsters[mapNum][i].worldX = 24*48;
 		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 17, 27);
+		
+		gp.monsters[mapNum][i] = new MON_Bat(gp);
+		gp.monsters[mapNum][i].worldY = 38*48;
+		gp.monsters[mapNum][i].worldX = 25*48;
 		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 17, 28);
+		
+		gp.monsters[mapNum][i] = new MON_Bat(gp);
+		gp.monsters[mapNum][i].worldX = 28*48;
+		gp.monsters[mapNum][i].worldY = 39*48;
 		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 17, 29);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 17, 30);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 18, 30);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 17, 31);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 18, 31);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 18, 29);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 52, 40);
-		i++;
-		gp.IT_Manager[i] = new IT_Tree(gp, 52, 41);
+		
+		i = 0;
+		mapNum = gp.dungeonMap_F2;
+		gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
+		gp.monsters[mapNum][i].worldX = 25*48;
+		gp.monsters[mapNum][i].worldY = 34*48;
 		i++;
 	}
+	public void makeInteractiveTiles() {
+		int i = 0; 
+		int mapNum = 0;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 18, 33); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 19, 33); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 20, 33); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 18, 34); i++;
+		
+		i = 0;
+		mapNum = 1;
+//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 35); i++;
+//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 36); i++;
+//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 19, 36); i++;
+		
+		gp.IT_Manager[mapNum][i] = new IT_MetalPlate(gp, 14, 23); i++;
+		gp.IT_Manager[mapNum][i] = new IT_MetalPlate(gp, 38, 25); i++;
+		gp.IT_Manager[mapNum][i] = new IT_MetalPlate(gp, 38, 7); i++;
+		
+	}
 	
-	public void setEntity(int i, String type, String name, int x, int y) {
+	
+	public void setDungeonRocks() {
+		int i = 0;
+		int mapNum = gp.dungeonMap_F1; // DUNGEON
+		setEntity(mapNum, i, "npcC", "", 16, 33); i++;
+		setEntity(mapNum, i, "npcC", "", 34, 32); i++;
+		setEntity(mapNum, i, "npcC", "", 34, 15); i++;
+	}
+	public void setEntity(int mapNum, int i, String type, String name, int x, int y) {
 		switch(type) {
 		//SET NPCs
 		case "npcA":
-				gp.npc[i] = new NPC_Hermit(gp);
-				gp.npc[i].worldX = x*48;
-				gp.npc[i].worldY = y*48;
-				gp.npc[i].name = name;
-				break;
+			gp.npc[mapNum][i] = new NPC_Hermit(gp);
+			gp.npc[mapNum][i].worldX = x*48;
+			gp.npc[mapNum][i].worldY = y*48;
+			break;
 		case "npcB":
+			gp.npc[mapNum][i] = new NPC_Merchant(gp);
+			gp.npc[mapNum][i].worldX = x*48;
+			gp.npc[mapNum][i].worldY = y*48;
+			break;
+		case "npcC":
+			gp.npc[mapNum][i] = new NPC_BigRock(gp);
+			gp.npc[mapNum][i].worldX = x*48;
+			gp.npc[mapNum][i].worldY = y*48;
 			break;
 			
 		//SET OBJECTS
 		case "objA":
-			gp.gameObjs[i] = new OBJ_Key(gp);
-			gp.gameObjs[i].worldX = (x*48)+12;
-			gp.gameObjs[i].worldY = (y*48)+12;
-			gp.gameObjs[i].name = name;
+			gp.gameObjs[mapNum][i] = new OBJ_Key(gp);
+			gp.gameObjs[mapNum][i].worldX = (x*48)+12;
+			gp.gameObjs[mapNum][i].worldY = (y*48)+12;
+			gp.gameObjs[mapNum][i].name = name;
 			break;
 		case "objB":
-			gp.gameObjs[i] = new OBJ_Chest(gp);
-			gp.gameObjs[i].worldX = x*48;
-			gp.gameObjs[i].worldY = y*48;
-			gp.gameObjs[i].name = name;
+			gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+			gp.gameObjs[mapNum][i].worldX = x*48;
+			gp.gameObjs[mapNum][i].worldY = y*48;
+			gp.gameObjs[mapNum][i].name = name;
 			break;
 		case "objC":
-			gp.gameObjs[i] = new OBJ_Door(gp);
-			gp.gameObjs[i].worldX = x*48;
-			gp.gameObjs[i].worldY = y*48;
-			gp.gameObjs[i].name = name;
+			gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+			gp.gameObjs[mapNum][i].worldX = x*48;
+			gp.gameObjs[mapNum][i].worldY = y*48;
+			gp.gameObjs[mapNum][i].name = name;
+			break;
+		
+		//SET ITEMS
+		case "itemA":
+			gp.items[mapNum][i] = new ITM_Coin(gp);
+			gp.items[mapNum][i].worldX = x*48;
+			gp.items[mapNum][i].worldY = y*48;
+			break;
+		case "itemB":
+			gp.items[mapNum][i] = new OBJ_Health_Potion(gp);
+			gp.items[mapNum][i].worldX = x*48;
+			gp.items[mapNum][i].worldY = y*48;
+			break;
+		case "itemC":
+			gp.items[mapNum][i] = new OBJ_Slime_Shield(gp);
+			gp.items[mapNum][i].worldX = x*48;
+			gp.items[mapNum][i].worldY = y*48;
+			break;
+		case "itemD":
+			gp.items[mapNum][i] = new OBJ_Wooden_Axe(gp);
+			gp.items[mapNum][i].worldX = x*48;
+			gp.items[mapNum][i].worldY = y*48;
+			break;
+		case "itemE":
+			gp.items[mapNum][i] = new OBJ_Heart(gp);
+			gp.items[mapNum][i].worldX = x*48;
+			gp.items[mapNum][i].worldY = y*48;
 			break;
 			
 		//SET MONSTERS
 		case "monA":
-			gp.monsters[i] = new MON_FireSlime(gp);
-			gp.monsters[i].worldX = x*48;
-			gp.monsters[i].worldY = y*48;
-			gp.monsters[i].name = name;
+			gp.monsters[mapNum][i] = new MON_FireSlime(gp);
+			gp.monsters[mapNum][i].worldX = x*48;
+			gp.monsters[mapNum][i].worldY = y*48;
+			gp.monsters[mapNum][i].name = name;
+			break;
+		case "monB":
+			gp.monsters[mapNum][i] = new MON_Zombie(gp);
+			gp.monsters[mapNum][i].worldX = x*48;
+			gp.monsters[mapNum][i].worldY = y*48;
+			gp.monsters[mapNum][i].name = name;
 			break;
 		default:
 			System.out.println("Please type the variant");

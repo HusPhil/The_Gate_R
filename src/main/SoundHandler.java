@@ -21,6 +21,8 @@ public class SoundHandler {
 		soundURL[3] = getClass().getResource("/sounds/BlueBoyAdventure.wav");
 		soundURL[4] = getClass().getResource("/sounds/cuttree.wav");
 		soundURL[5] = getClass().getResource("/sounds/cursor.wav");
+		soundURL[6] = getClass().getResource("/sounds/chipwall.wav");
+		soundURL[7] = getClass().getResource("/sounds/dooropen.wav");
 	}
 	public void setAudioFile(int i) {
 		

@@ -7,12 +7,13 @@ import main.GamePanel;
 
 public class SKL_SmallFireBall extends Projectile{
 	GamePanel gp;
-	
+	public static final String objName = "Small Fireball";
 	public SKL_SmallFireBall(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		
-		name = "Small Fireball";
+		name = objName;
+		knockBackPower = 2;
 		speed = 3;
 		maxLife = 60;
 		life = maxLife;

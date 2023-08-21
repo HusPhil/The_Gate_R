@@ -5,6 +5,7 @@ import main.GamePanel;
 
 public class OBJ_Heart extends Entity{
 	GamePanel gp;
+	public static final String objName = "Heart";
 	public OBJ_Heart(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
@@ -14,7 +15,7 @@ public class OBJ_Heart extends Entity{
 		image = createImage("objects", "heart_blank");
 		image1 = createImage("objects", "heart_half");
 		image2 = createImage("objects", "heart_full");
-		name = "Heart";
+		name = objName;
 		plus = 2;
 	}
 	public void use(Entity user) {

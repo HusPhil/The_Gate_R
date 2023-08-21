@@ -7,6 +7,7 @@
 /axePA_up0.png
 /axePA_up1.png
 /axe_wood.png
+/bin/
 /interactive_tiles/
 /maps/
 /monsters/
@@ -18,7 +19,11 @@
 /skills/
 /sounds/
 /tiles/
+/AI/
+/DataHandling/
+/buildings/
 /entity/
+/environment/
 /main/
 /monster/
 /object/

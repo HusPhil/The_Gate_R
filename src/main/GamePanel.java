@@ -12,35 +12,58 @@ import java.util.Comparator;
 
 import javax.swing.JPanel;
 
+import AI.PathFinder;
+import DataHandling.SaveLoad;
 import entity.Entity;
 import entity.Player;
-import entity.Projectile;
+import environment.EffectsHandler;
 import interactive_tiles.InteractiveTiles;
 import object.DropChanceSystem;
+import object.ObjectGenerator;
+import tiles.Map;
 import tiles.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	//Game Settings//
+	public boolean bossBattleOn = false;
 	final short FPS = 60;
 	public int gameState;
 	public final int gameMenu = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
-	public final int dialougeState = 3;
+	public final int dialogueState = 3;
 	public final int viewCharState = 4;
 	public final int optionsState = 5;
+	public final int transitionState = 6;
+	public final int tradingState = 7;
+	public final int sleepState = 8;
+	public final int viewMapState = 9;
+	public final int gameOverState = 10;
+	public final int cutSceneState = 11;
+
 	
 	
 	//MAP SETTINGS
-	public int maxMap = 20;
-	public int currentMap = 1;
+	public final int maxMap = 5;
+	public int currentMap = 0;
 	
+	public int nextArea;
+	public int currentArea;
+	public final int outside = 50;
+	public final int indoor = 51;
+	public final int dungeon = 52;
+	
+	public final int worldMapA = 0;
+	public final int merchantHouse = 2;
+	public final int dungeonMap_F1 = 1;
+	public final int dungeonMap_F2 = 3;
+
 	//Screen settings//
 	//---------------//
-	final int originalTileSize = 16;
-	final int scale = 3;
+	final int originalTileSize =24;
+	public final int scale = 2;
 	
 	public final int tileSize = originalTileSize * scale;
 	public final int maxCol = 22; 
@@ -73,6 +96,9 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	//==============//
 	
+	//Game Saving and Loading Handler
+	public SaveLoad saverLoader = new SaveLoad(this);
+	
 	//Game Controls//
 	//--------------------------------//
 	public KeyHandler keys = new KeyHandler(this);
@@ -85,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Tile Manager//
 	//------------------------//
-	TileManager tManager = new TileManager(this);
+	public TileManager tManager = new TileManager(this);
 	//========================//
 	
 	//Collision Checker//
@@ -95,9 +121,11 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Objects Handler//
 	//--------------------------//
-	public Entity gameObjs[] = new Entity[20];
-	public Entity items[] = new Entity[50];
-	public InteractiveTiles IT_Manager[] = new InteractiveTiles[50];
+	public Entity gameObjs[][] = new Entity[maxMap][200];
+	public Entity items[][] = new Entity[maxMap][50];
+	public InteractiveTiles IT_Manager[][] = new InteractiveTiles[maxMap][50];
+	public Entity buildings[][] = new Entity[maxMap][10];
+	public ObjectGenerator objGen = new ObjectGenerator(this);
 	//==========================//
 	
 	//GUI Screen//
@@ -113,17 +141,17 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Manage Entities NPC//
 	//------------------------------//
-	public Entity npc[] = new Entity[20];
+	public Entity npc[][] = new Entity[maxMap][20];
 	//==============================//
 	
 	//Manage Monsters//
 	//-------------------------------//
-	public Entity monsters[] = new Entity[30];
+	public Entity monsters[][] = new Entity[maxMap][50];
 	//===============================//
 	
 	//Assets Maker//
 	//----------------------------//
-	AssetsHandler createAssets =  new AssetsHandler(this);
+	public AssetsHandler createAssets =  new AssetsHandler(this);
 	//===================================================//
 	
 	//EventRectangle and EventHadler//
@@ -136,10 +164,11 @@ public class GamePanel extends JPanel implements Runnable{
 	//------------//
 	ArrayList<Entity> entList = new ArrayList<>();
 	//==============//
+	boolean isRunning;
 	
 	//MANAGE PROJECTILES
 	//------------------------//
-	public ArrayList<Entity> projectileList = new ArrayList<>();
+	public Entity projectiles[][] = new Entity[maxMap][50];
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	//========================//
 	
@@ -148,19 +177,38 @@ public class GamePanel extends JPanel implements Runnable{
 	public DropChanceSystem dcs = new DropChanceSystem();
 	//=====================//
 	
+	//Path finding //
+	//--------------------//
+	public PathFinder pathFinder = new PathFinder(this); 
+	//==================//
+	
+	//Environment effects manager//
+	//---------------------------//
+	public EffectsHandler fxHandler = new EffectsHandler(this);
+	//==========================//
+	
+	//Game MAP//
+	//-----------------//
+	public Map map = new Map(this);
+	//=================//
+	
 	//sAVING AND LOADING//
 	//-----------------------//
 	public Config config = new Config(this);
 	//========================//
 	
 	public void setupGame() {
+		
+		
 		createAssets.makeObjects();
 		createAssets.makeNpc();
 		createAssets.makeMonster();
 		createAssets.makeItems();
 		createAssets.makeInteractiveTiles();
-		gameState = gameMenu;
 		
+		fxHandler.setUp();
+		gameState = gameMenu;
+		currentArea = outside;
 		playMusic(3);
 		
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -186,71 +234,86 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public void startGameThread() {
+		isRunning = true;
 		gameThread = new Thread(this);
 		gameThread.start();
+	}
+	
+	public void stop() {
+		isRunning = false;
+		try {
+			gameThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	//GAME LOOP//
 	//------------------//
 	@Override
 	public void run() {
 		
+this.requestFocus();
 		
+		long lastTime = System.nanoTime();
+		double ammountOfTicks = 60.0;
+		double ns = 1000000000 / ammountOfTicks;
+		double delta = 0;
+		long timer = System.currentTimeMillis();
 		
-		double drawInterval = 1000000000/FPS;
-		double nextDraw = System.nanoTime() + drawInterval;
+		int frames = 0;
 		
-		while(gameThread != null) 
-		{
-			update();
+		while(isRunning) {
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			
+			while (delta >= 1) { 
+				update();
+				delta--;
+			}
 			drawTempScreen();
 			drawFullScreen();
-			//repaint();
-			long remainingTime = (long) (nextDraw - System.nanoTime());
-				 remainingTime /= 1000000;
+			frames++;
 			
-				 if (remainingTime < 0) 
-					 remainingTime = 0;
-				 
-				 try {
-					
-					 Thread.sleep(remainingTime);
-					 nextDraw += drawInterval;
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-			
-			
+			if(System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				frames = 0;
+				//updates = 0;
+			}
 		}
+		stop();
+		
+		
+		
 	}
 	//====================================================//
 	public void update() {
+		if(gameState == gameOverState) keys.delayCounter++;
+		else keys.delayCounter= 0;
 		
 		if (gameState == gameMenu) {
 			
 		}
 		if (gameState == playState) {
 			player.update();
-			for(int i = 0; i < npc.length; i++) {
-				if(npc[i] != null) {
-					npc[i].update();
+			for(int i = 0; i < npc[1].length; i++) {
+				if(npc[currentMap][i] != null) {
+					npc[currentMap][i].update();
 				}
 			}
-			for(int i = 0; i < monsters.length; i++) {
-				if(monsters[i] != null) {
-					if(monsters[i].alive && !monsters[i].dying) monsters[i].update();
-					if(!monsters[i].alive) {
-						monsters[i].checkDrop();
-						monsters[i] = null;
+			for(int i = 0; i < monsters[1].length; i++) {
+				if(monsters[currentMap][i] != null) {
+					if(monsters[currentMap][i].alive && !monsters[currentMap][i].dying) monsters[currentMap][i].update();
+					if(!monsters[currentMap][i].alive) {
+						monsters[currentMap][i].checkDrop();
+						monsters[currentMap][i] = null;
 					}
 				}
 			}
-			for(int i = 0; i < projectileList.size(); i++) {
-				if(projectileList.get(i) != null) {
-					if(projectileList.get(i).alive) projectileList.get(i).update();
-					if(!projectileList.get(i).alive) projectileList.remove(i);
+			for(int i = 0; i < projectiles[1].length; i++) {
+				if(projectiles[currentMap][i] != null) {
+					if(projectiles[currentMap][i].alive) projectiles[currentMap][i].update();
+					if(!projectiles[currentMap][i].alive) projectiles[currentMap][i] = null;
 				}
 			}
 			for(int i = 0; i < particleList.size(); i++) {
@@ -259,16 +322,22 @@ public class GamePanel extends JPanel implements Runnable{
 					if(!particleList.get(i).alive) particleList.remove(i);
 				} 
 			}
-			for(int i = 0; i < IT_Manager.length; i++) {
-				if(IT_Manager[i] != null) {
-					IT_Manager[i].update();
+			for(int i = 0; i < IT_Manager[1].length; i++) {
+				if(IT_Manager[currentMap][i] != null) {
+					IT_Manager[currentMap][i].update();
 				}
 			}
+			for(int i = 0; i < buildings[1].length; i++) {
+				if(buildings[currentMap][i] != null) {
+					buildings[currentMap][i].update();
+				}
+			}
+			fxHandler.update();
 		}
 		if (gameState == pauseState) {
 			player.spriteNum = 1;
 		}
-		if (gameState == dialougeState) {
+		if (gameState == dialogueState) {
 			player.spriteNum = 1;
 		}
 		if (gameState == viewCharState) {
@@ -278,18 +347,31 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void drawTempScreen() {
+		//Menu Screen
 		if (gameState == gameMenu) {
 			gui.draw(g2);
 		}
-		
+		//Map Screen
+		 if(gameState == viewMapState) {
+			map.drawFullMapScreen(g2);	
+		}
+		//Others
 		else {
 			
 			//DRAW TILES
 			tManager.draw(g2);
+			
+			//DRAW BUILDINGS
+			for(int i = 0; i < buildings[1].length; i++) {
+				if(buildings[currentMap][i] !=  null) {
+					buildings[currentMap][i].draw(g2);
+				}
+			}
+			
 			//draw interactive tiles
-			for(int i = 0; i < IT_Manager.length; i++) {
-				if(IT_Manager[i] !=  null) {
-					IT_Manager[i].draw(g2);
+			for(int i = 0; i < IT_Manager[1].length; i++) {
+				if(IT_Manager[currentMap][i] !=  null) {
+					IT_Manager[currentMap][i].draw(g2);
 				}
 			}
 			
@@ -298,38 +380,37 @@ public class GamePanel extends JPanel implements Runnable{
 			entList.add(player);
 			
 			//Add NPC
-			for(int i = 0; i < npc.length; i++) {
-				if(npc[i] != null) {
-					entList.add(npc[i]);
+			for(int i = 0; i < npc[1].length; i++) {
+				if(npc[currentMap][i] != null) {
+					entList.add(npc[currentMap][i]);
+				}
+			}
+			
+			//Add Monsters
+			for(int i = 0; i < monsters[1].length; i++) {
+				if(monsters[currentMap][i] != null) {
+					entList.add(monsters[currentMap][i]);
 				}
 			}
 			
 			//Add Objects
-			for(int i = 0; i < gameObjs.length; i++) {
-				if(gameObjs[i] != null) {
-					entList.add(gameObjs[i]);
+			for(int i = 0; i < gameObjs[1].length; i++) {
+				if(gameObjs[currentMap][i] != null) {
+					entList.add(gameObjs[currentMap][i]);
 				}
 			}
 			
-			//Add items
-			for(int i = 0; i < items.length; i++) {
-				if(items[i] != null) {
-					entList.add(items[i]);
-				}
-			}
-			
-			
-			//Add Monsters
-			for(int i = 0; i < monsters.length; i++) {
-				if(monsters[i] != null) {
-					entList.add(monsters[i]);
+//			//Add items
+			for(int i = 0; i < items[1].length; i++) {
+				if(items[currentMap][i] != null) {
+					entList.add(items[currentMap][i]);
 				}
 			}
 			
 			//Add Prjocetiles	
-			for(int i = 0; i < projectileList.size(); i++) {
-				if(projectileList.get(i) != null) {
-					entList.add(projectileList.get(i)); 
+			for(int i = 0; i < projectiles[1].length; i++) {
+				if(projectiles[currentMap][i] != null) {
+					entList.add(projectiles[currentMap][i]); 
 				}
 			}	
 			
@@ -359,11 +440,16 @@ public class GamePanel extends JPanel implements Runnable{
 			//RESET entList 
 			entList.clear();
 			
+			//draw environment effects
+			fxHandler.draw(g2);
+			
+			//draw mini map
+			map.drawMiniMap(g2);
 			
 			//DRAW GUI
 			gui.draw(g2);
+			
 		}
-		
 
 	}
 	public void setFullScreen() {
@@ -395,8 +481,57 @@ public class GamePanel extends JPanel implements Runnable{
 	public void stopMusic() {
 		soundM.stop();
 	}
-	
-	
+	public void resetStatus(boolean reset) {
+ 		//set default pos
+		currentArea = outside;
+ 		player.worldX = (35*48); 
+ 		player.worldY = (12*48);
+ 		player.direction = "down";
+		
+		//restore life and mana
+ 		player.life = player.maxLife;
+ 		player.mana = player.maxMana;
+ 		player.attacking = false;
+ 		player.knockBackState = false;
+ 		player.lightUpdated = true;
+ 		player.invincible = false;
+		
+		//reset nps and mobs pos
+		createAssets.makeNpc();
+		createAssets.makeMonster();
+		
+		if(reset) {
+			player.inventory.clear();
+			player.setDefaultValues();
+			player.addInventoryItems();
+			fxHandler.lighting.resetDay();
+			createAssets.makeInteractiveTiles();
+			createAssets.makeObjects();
+			createAssets.makeItems();
+		}
+ 		
+ 		
+ 	}
+	public void changeArea() {
+		if(currentArea != nextArea) {
+			stopMusic();
+			
+			if(nextArea == outside) {
+				//playmusic for this
+			}
+			if(nextArea == indoor) {
+				//playmusic for this
+			}
+			if(nextArea == dungeon) {
+				//playmusic for this
+				createAssets.setDungeonRocks();
+			}
+		}
+		
+		currentArea = nextArea;
+		createAssets.makeMonster();
+		//change bg music as transitioning later
+	}
 	
 	
 	

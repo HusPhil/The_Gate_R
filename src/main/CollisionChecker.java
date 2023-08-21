@@ -1,4 +1,4 @@
-package main;
+ package main;
 
 import entity.Entity;
 
@@ -11,6 +11,8 @@ public class CollisionChecker{
 	}
 	
 	public void checkTile(Entity ent) {
+		
+		
 		int leftX = ent.worldX + ent.solidArea.x;
 		int rightX = ent.worldX + ent.solidArea.x + ent.solidArea.width;
 		int topY = ent.worldY + ent.solidArea.y;
@@ -23,7 +25,10 @@ public class CollisionChecker{
 		
 		int tileNum1, tileNum2;
 		
-		switch(ent.direction) {
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
+		
+		switch(currentDirection) {
 		case "up":
 			topTilePos = (topY - ent.speed)/gp.tileSize;
 			tileNum1 = gp.tManager.mapTileNum[gp.currentMap][leftTilePos][topTilePos];
@@ -55,95 +60,99 @@ public class CollisionChecker{
 		}
 		
 	}
-	
 	public int checkObj(Entity ent, boolean player) {
 		int index = 777;
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
 		
-			for (int i = 0; i < gp.gameObjs.length; i++) {
-				if(gp.gameObjs[i] != null) {
+			for (int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[gp.currentMap][i] != null) {
 					
 					ent.solidArea.x += ent.worldX;
 					ent.solidArea.y += ent.worldY;
 					
-					gp.gameObjs[i].solidArea.x += gp.gameObjs[i].worldX;
-					gp.gameObjs[i].solidArea.y += gp.gameObjs[i].worldY;
+					gp.gameObjs[gp.currentMap][i].solidArea.x += gp.gameObjs[gp.currentMap][i].worldX;
+					gp.gameObjs[gp.currentMap][i].solidArea.y += gp.gameObjs[gp.currentMap][i].worldY;
 					
-					switch(ent.direction) {
+					switch(currentDirection) {
 					case "up": ent.solidArea.y -= ent.speed; break;
 					case "down": ent.solidArea.y += ent.speed; break;
 					case "left": ent.solidArea.x -= ent.speed; break;
 					case "right": ent.solidArea.x += ent.speed; break;
 					}
 					
-					if(ent.solidArea.intersects(gp.gameObjs[i].solidArea)) {
-						if(gp.gameObjs[i].collision) ent.collisionOn = true;
+					if(ent.solidArea.intersects(gp.gameObjs[gp.currentMap][i].solidArea)) {
+						if(gp.gameObjs[gp.currentMap][i].collision) ent.collisionOn = true;
 						if(player) index = i;
 					}
 					
 					ent.solidArea.x = ent.defaultSolidAreaX;
 					ent.solidArea.y = ent.defaultSolidAreaY;
 					
-					gp.gameObjs[i].solidArea.x = gp.gameObjs[i].defaultSolidAreaX;
-					gp.gameObjs[i].solidArea.y = gp.gameObjs[i].defaultSolidAreaY;
+					gp.gameObjs[gp.currentMap][i].solidArea.x = gp.gameObjs[gp.currentMap][i].defaultSolidAreaX;
+					gp.gameObjs[gp.currentMap][i].solidArea.y = gp.gameObjs[gp.currentMap][i].defaultSolidAreaY;
 				}
 			}
 		return index;
 	}
 	public int checkItem(Entity ent, boolean player) {
 		int index = 777;
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
 		
-			for (int i = 0; i < gp.items.length; i++) {
-				if(gp.items[i] != null) {
+			for (int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[gp.currentMap][i] != null) {
 					
 					ent.solidArea.x += ent.worldX;
 					ent.solidArea.y += ent.worldY;
 					
-					gp.items[i].solidArea.x += gp.items[i].worldX;
-					gp.items[i].solidArea.y += gp.items[i].worldY;
+					gp.gameObjs[gp.currentMap][i].solidArea.x += gp.gameObjs[gp.currentMap][i].worldX;
+					gp.gameObjs[gp.currentMap][i].solidArea.y += gp.gameObjs[gp.currentMap][i].worldY;
 					
-					switch(ent.direction) {
+					switch(currentDirection) {
 					case "up": ent.solidArea.y -= ent.speed; break;
 					case "down": ent.solidArea.y += ent.speed; break;
 					case "left": ent.solidArea.x -= ent.speed; break;
 					case "right": ent.solidArea.x += ent.speed; break;
 					}
 					
-					if(ent.solidArea.intersects(gp.items[i].solidArea)) {
-						if(gp.items[i].collision) ent.collisionOn = true;
+					if(ent.solidArea.intersects(gp.gameObjs[gp.currentMap][i].solidArea)) {
+						if(gp.gameObjs[gp.currentMap][i].collision) ent.collisionOn = true;
 						if(player) index = i;
 					}
 					
 					ent.solidArea.x = ent.defaultSolidAreaX;
 					ent.solidArea.y = ent.defaultSolidAreaY;
 					
-					gp.items[i].solidArea.x = gp.items[i].defaultSolidAreaX;
-					gp.items[i].solidArea.y = gp.items[i].defaultSolidAreaY;
+					gp.gameObjs[gp.currentMap][i].solidArea.x = gp.gameObjs[gp.currentMap][i].defaultSolidAreaX;
+					gp.gameObjs[gp.currentMap][i].solidArea.y = gp.gameObjs[gp.currentMap][i].defaultSolidAreaY;
 				}
 			}
 		return index;
 	}
-	
-	public int checkEntity(Entity ent, Entity[] entType) {
+	public int checkEntity(Entity ent, Entity[][] entType) {
 		int index = 777;
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
 		
-		for (int i = 0; i < entType.length; i++) {
-			if(entType[i] != null) {
+		for (int i = 0; i < entType[1].length; i++) {
+			if(entType[gp.currentMap][i] != null) {
 				
 				ent.solidArea.x += ent.worldX;
 				ent.solidArea.y += ent.worldY;
 				
-				entType[i].solidArea.x += entType[i].worldX;
-				entType[i].solidArea.y += entType[i].worldY;
+				entType[gp.currentMap][i].solidArea.x += entType[gp.currentMap][i].worldX;
+				entType[gp.currentMap][i].solidArea.y += entType[gp.currentMap][i].worldY;
 				
-				switch(ent.direction) {
+				switch(currentDirection) {
 				case "up": ent.solidArea.y -= ent.speed; break;
 				case "down": ent.solidArea.y += ent.speed; break;
 				case "left": ent.solidArea.x -= ent.speed; break;
 				case "right": ent.solidArea.x += ent.speed; break;
 				}
 				
-				if(ent.solidArea.intersects(entType[i].solidArea)) {
-					if (entType[i] != ent) {
+				if(ent.solidArea.intersects(entType[gp.currentMap][i].solidArea)) {
+					if (entType[gp.currentMap][i] != ent) {
 						ent.collisionOn = true;
 						index = i;
 					}
@@ -152,14 +161,56 @@ public class CollisionChecker{
 				ent.solidArea.x = ent.defaultSolidAreaX;
 				ent.solidArea.y = ent.defaultSolidAreaY;
 				
-				entType[i].solidArea.x = entType[i].defaultSolidAreaX;
-				entType[i].solidArea.y = entType[i].defaultSolidAreaY;
+				entType[gp.currentMap][i].solidArea.x = entType[gp.currentMap][i].defaultSolidAreaX;
+				entType[gp.currentMap][i].solidArea.y = entType[gp.currentMap][i].defaultSolidAreaY;
 			}
 		}
 	return index;
 	}
+	public int checkEntityCol(Entity ent, Entity[][] entType) {
+
+		int index = 777;
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
+		
+		for (int i = 0; i < entType[1].length; i++) {
+			if(entType[gp.currentMap][i] != null) {
+				
+				ent.solidArea.x += ent.worldX;
+				ent.solidArea.y += ent.worldY;
+				
+				entType[gp.currentMap][i].solidArea.x += entType[gp.currentMap][i].worldX;
+				entType[gp.currentMap][i].solidArea.y += entType[gp.currentMap][i].worldY;
+				
+				switch(currentDirection) {
+				case "up": ent.solidArea.y -= ent.speed+48; break;
+				case "down": ent.solidArea.y += ent.speed+48; break;
+				case "left": ent.solidArea.x -= ent.speed+48; break;
+				case "right": ent.solidArea.x += ent.speed+48; break;
+				}
+				
+				if(ent.solidArea.intersects(entType[gp.currentMap][i].solidArea)) {
+					if (entType[gp.currentMap][i] != ent) {
+						ent.collisionOn = true;
+						index = i;
+					}
+				}
+				
+				ent.solidArea.x = ent.defaultSolidAreaX;
+				ent.solidArea.y = ent.defaultSolidAreaY;
+				
+				entType[gp.currentMap][i].solidArea.x = entType[gp.currentMap][i].defaultSolidAreaX;
+				entType[gp.currentMap][i].solidArea.y = entType[gp.currentMap][i].defaultSolidAreaY;
+			}
+		}
+	return index;
+	
+	}
+	
 	
 	public boolean playerIntersect(Entity ent) {
+		String currentDirection = ent.direction;
+		if(ent.knockBackState) currentDirection = ent.knockDirection;
 		boolean result = false;
 		
 		ent.solidArea.x += ent.worldX;
@@ -168,7 +219,7 @@ public class CollisionChecker{
 		gp.player.solidArea.x += gp.player.worldX;
 		gp.player.solidArea.y += gp.player.worldY;
 		
-		switch(ent.direction) {
+		switch(currentDirection) {
 		case "up": ent.solidArea.y -= ent.speed; break;
 		case "down": ent.solidArea.y += ent.speed; break;
 		case "left": ent.solidArea.x -= ent.speed; break;

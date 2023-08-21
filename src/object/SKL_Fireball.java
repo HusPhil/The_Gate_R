@@ -8,16 +8,16 @@ import main.GamePanel;
 
 public class SKL_Fireball extends Projectile{
 	GamePanel gp;
-	
+	public static final String objName = "Fireball";
 	public SKL_Fireball(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		
-		name = " Fireball";
-		speed = 10;
+		name = objName;
+		speed = 5;
 		maxLife = 80;
 		life = maxLife;
-		atk = 10; 
+		atk = 3; 
 		manaCost = 10;
 		alive = false;
 		getImage();

@@ -8,10 +8,11 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Key extends Entity{
-	
+	public static final String objName = "Key";
 	public OBJ_Key(GamePanel gp) {
 		super(gp);
-		name = "Key";
+		name = objName;
+		stackable = true;
 		try {
 			down1 = ImageIO.read(getClass().getResourceAsStream("/objects/items/key.png"));
 		} catch (IOException e) {

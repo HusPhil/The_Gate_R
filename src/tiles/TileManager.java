@@ -18,6 +18,7 @@ public class TileManager {
 	public Tile[] tile;
 	ArrayList<String> fileNames = new ArrayList<>();
 	ArrayList<String> colStat = new ArrayList<>();
+	boolean drawPath;
 	
 	
 	
@@ -36,7 +37,7 @@ public class TileManager {
 			while((line = br.readLine()) != null) {
 				fileNames.add(line);
 				colStat.add(br.readLine());
-			} 
+			}
 			br.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +47,7 @@ public class TileManager {
 		tile = new Tile[fileNames.size()];
 		getTileImage();
 		
-		is = getClass().getResourceAsStream("/maps/cave.txt");
+		is = getClass().getResourceAsStream("/maps/worldMapA.txt");
 		br = new BufferedReader(new InputStreamReader(is));
 		
 		try {
@@ -64,8 +65,13 @@ public class TileManager {
 			e.printStackTrace();
 		}
 		
-		loadMap("/maps/WorldMap.txt", 0);
-		loadMap("/maps/cave.txt", 1);
+		
+		
+		
+		loadMap("/maps/worldMapA.txt", gp.worldMapA);
+		loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
+		loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
+		loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
 		
 	}
 	
@@ -150,13 +156,34 @@ public class TileManager {
 			int screenX = worldX - gp.player.worldX + gp.player.screenX; 
 			int screenY = worldY - gp.player.worldY + gp.player.screenY;
 			
+			if(gp.player.screenX > gp.player.worldX) screenX = worldX;
+			if(gp.player.screenY > gp.player.worldY) screenY = worldY;
+			
+			int rightOffset = gp.screenWidth - gp.player.screenX;
+			if(rightOffset > (gp.worldWidth - gp.player.worldX))
+				screenX = gp.screenWidth - (gp.worldWidth - worldX);
+			
+			int bottomOffset = gp.screenHeight - gp.player.screenY;			
+			if(bottomOffset > (gp.worldHeight - gp.player.worldY))
+				screenY = gp.screenHeight - (gp.worldHeight - worldY);
+			
+			
+			
+			if(gp.player.screenX > gp.player.worldX ||
+					gp.player.screenY > gp.player.worldY ||
+					rightOffset > (gp.screenWidth - gp.player.worldX) ||
+					bottomOffset > (gp.screenHeight - gp.player.worldY))
+				g2.drawImage(tile[tileNum].tileIMG, screenX, screenY, null);
+			else
 			if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && 
 			   worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
 			   worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
 			   worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 				
+				
 				g2.drawImage(tile[tileNum].tileIMG, screenX, screenY, null);
 			}
+			
 			
 			worldCol++;
 			if(worldCol == gp.maxWorldCol) {
@@ -165,7 +192,19 @@ public class TileManager {
 			}
 			
 		}
-		
+//		g2.setColor(Color.red);
+//		for(int i = 0; i < gp.pathFinder.pathList.size(); i++) {
+//			int worldX = gp.pathFinder.pathList.get(i).col * gp.tileSize;
+//			int worldY = gp.pathFinder.pathList.get(i).row * gp.tileSize;
+//			
+//			int screenX = worldX - gp.player.worldX + gp.player.screenX;
+//			int screenY = worldY - gp.player.worldY + gp.player.screenY;
+//			
+//			g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
+//		if(!drawPath) {
+//			
+//			}
+//		}
 	}
 	
 }

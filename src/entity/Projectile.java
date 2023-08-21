@@ -8,32 +8,69 @@ public class Projectile extends Entity{
 	
 	public Projectile(GamePanel gp) {
 		super(gp);
+		direction = "down";
 	}
 	public void set(int worldX, int worldY, boolean alive, String direction, Entity user) {
+		
 		this.worldX = worldX;
 		this.worldY = worldY;
 		this.alive = alive;
 		this.direction = direction;
 		this.user = user;
 		this.life = maxLife;
+		solidAreaHorizontal();
+		
 	}
 	public void update() {
 		setDamage();
 		setAnimation();
-		int monIndex = gp.collCheck.checkEntity(this, gp.monsters);
+		
+		if(direction == "up" || direction == "down")
+			solidAreaVertical();
+		
+		collisionOn = false;
+		gp.collCheck.checkTile(this);
+		gp.collCheck.checkObj(this, true);
+		gp.collCheck.checkEntity(this, gp.IT_Manager);
+		
+		
+		if(collisionOn) {
+			alive = false;
+			generateParticle(this, this);
+		}
+		
+		//int monIndex = gp.collCheck.checkEntity(this, gp.monsters);
 		life--;
 		if(life <= 0) {
 			alive = false;
 		}
 		
 	}
+	public void solidAreaHorizontal() {
+		solidArea.x = 0;
+		solidArea.y = 18;
+		solidArea.width = 48;
+		solidArea.height = 20;
+		
+		defaultSolidAreaX = solidArea.x; 
+		defaultSolidAreaY = solidArea.y; 
+	}
+	public void solidAreaVertical() {
+		solidArea.x = 14;
+		solidArea.y = 0;
+		solidArea.width = 20;
+		solidArea.height = 48;
+		
+		defaultSolidAreaX = solidArea.x; 
+		defaultSolidAreaY = solidArea.y; 
+	}
 	public void setDamage() {
 		if(user == gp.player) {
 			int monIndex = gp.collCheck.checkEntity(this, gp.monsters);
 			if(monIndex != 777) {
 				gp.playSE(1);
-				generateParticle(user.projectile, gp.monsters[monIndex]);
-				gp.player.manageMonDmg(monIndex, atk);
+				generateParticle(user.projectile, gp.monsters[gp.currentMap][monIndex]);
+				gp.player.manageMonDmg(monIndex, atk * (gp.player.level/2), knockBackPower, direction);
 				alive = false; 
 			}
 		}

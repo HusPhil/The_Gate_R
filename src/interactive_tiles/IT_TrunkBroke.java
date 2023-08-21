@@ -1,6 +1,5 @@
 package interactive_tiles;
 
-import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
@@ -17,16 +16,16 @@ public class IT_TrunkBroke extends InteractiveTiles{
 		this.worldY = gp.tileSize*row;
 		life = 3;
 		reqItem = type_axe;
-		down1 = createImage("interactive_tiles", "trunk_broke");
+		down1 = createImage("interactive_tiles", "trunk");
 		destroyOn = true;
 		
-		solidArea.width = 24;
-		solidArea.height = 24;
+		solidArea.width = 0;
+		solidArea.height = 0;
 		solidArea.x = 12;
-		solidArea.y = 12;
+		solidArea.y = 24;
 		
 		defaultSolidAreaX = solidArea.x;
-		defaultSolidAreaX = solidArea.y;
+		defaultSolidAreaY = solidArea.y;
 		
 	}
 	public boolean checkReqItem(Entity item) {
