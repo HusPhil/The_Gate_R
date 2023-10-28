@@ -13,6 +13,7 @@ import java.util.Comparator;
 import javax.swing.JPanel;
 
 import AI.PathFinder;
+import DataHandling.DatabaseManagement;
 import DataHandling.SaveLoad;
 import entity.Entity;
 import entity.Player;
@@ -200,6 +201,7 @@ public class GamePanel extends JPanel implements Runnable{
 	//sAVING AND LOADING//
 	//-----------------------//
 	public Config config = new Config(this);
+	public DatabaseManagement DBMS = new DatabaseManagement(this);
 	//========================//
 	
 	public void setupGame() {

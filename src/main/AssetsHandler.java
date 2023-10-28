@@ -6,6 +6,7 @@ import entity.NPC_BigRock;
 import entity.NPC_Hermit;
 import entity.NPC_Merchant;
 import interactive_tiles.IT_DryTree;
+import interactive_tiles.IT_FeebleWall;
 import interactive_tiles.IT_MetalPlate;
 import monster.BOSS_SkeletonLord;
 import monster.MON_Bat;
@@ -41,6 +42,11 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
 		gp.gameObjs[mapNum][i].worldX = 25*48;
 		gp.gameObjs[mapNum][i].worldY = 33*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
+		gp.gameObjs[mapNum][i].worldX = 27*48;
+		gp.gameObjs[mapNum][i].worldY = 18*48; i++;
 		
 		i = 0;
 		mapNum = gp.dungeonMap_F1;
@@ -173,9 +179,9 @@ public class AssetsHandler {
 		
 		i = 0;
 		mapNum = 1;
-//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 35); i++;
-//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 36); i++;
-//		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 19, 36); i++;
+		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 35); i++;
+		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 36); i++;
+		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 19, 36); i++;
 		
 		gp.IT_Manager[mapNum][i] = new IT_MetalPlate(gp, 14, 23); i++;
 		gp.IT_Manager[mapNum][i] = new IT_MetalPlate(gp, 38, 25); i++;

@@ -59,6 +59,7 @@ public class Entity {
 	public Random rN = new Random();
 		
 	//Entity State
+	public boolean contactOn = false;
 	public boolean temp = false;
 	public boolean drawing = true;
 	public boolean collisionOn = false;
@@ -606,6 +607,7 @@ public class Entity {
 		ent.knockBackState = true;
 	}
 	public void reaction() {}
+	public void changePic() {}
 	public void setLoot(Entity loot) {}
 	public void move(String direction) {}
 	public void huntPlayer(int interval) {

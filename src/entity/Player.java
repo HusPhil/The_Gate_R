@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
+import object.OBJ_Chest;
 import object.OBJ_Lantern;
 import object.OBJ_Wooden_Axe;
 import object.OBJ_Wooden_Shield;
@@ -19,9 +20,10 @@ import object.SKL_Fireball;
 public class Player extends Entity{
 
 	KeyHandler keys;
+	String ID = "";
 	String temp;
 	int keynum = 0;
-	public final int screenX;
+	public final int screenX; 
 	public final int screenY;
 	public boolean attackCanceled = false;
 	
@@ -496,10 +498,20 @@ public class Player extends Entity{
 		//ADD THE PICKED UP OBJECT TO INVENTORY
 		//the inventory must be checked if full
 		//Non-inventory type items
+		
+		
+		
+		
 		if(i != 777) {
 		String text = "";
 		Entity obj = gp.gameObjs[gp.currentMap][i];
 		
+		
+		
+//		if(gp.gameObjs[gp.currentMap][i].name == OBJ_Chest.objName) {
+//			gp.gameObjs[gp.currentMap][i].contactOn = true;
+//			gp.gameObjs[gp.currentMap][i].changePic();
+//		}
 		if(obj.type == non_inventory) {
 			gp.playSE(0);
 			obj.use(this);
@@ -508,6 +520,8 @@ public class Player extends Entity{
 		//Interactive objects type
 		else if(gp.gameObjs[gp.currentMap][i].type == type_interactiveObjects ) {
 			attackCanceled = true;
+			
+			
 			if(gp.keys.enterPressed) {
 				gp.gameObjs[gp.currentMap][i].reaction();
 				attackCanceled = false;
@@ -527,6 +541,8 @@ public class Player extends Entity{
 		}
 		
 		}
+		
+		
 	}
 	public void interactNPC(int i) {
 		if (i != 777) {
@@ -732,12 +748,22 @@ public class Player extends Entity{
 		int objIndex = gp.collCheck.checkObj(this, true);
 //		pickupItem(itemIndex);
 		interactObj(objIndex);
+//		if(!collisionOn) {
+//			for(int itemIndex = 0; itemIndex < gp.gameObjs[1].length; itemIndex++) {
+//				if(gp.gameObjs[gp.currentMap][itemIndex] != null) {
+//					if(gp.gameObjs[gp.currentMap][itemIndex].name == OBJ_Chest.objName)				
+//					gp.gameObjs[gp.currentMap][itemIndex].changePic();			
+//				}
+//			
+////				System.out.println(gp.gameObjs[gp.currentMap][itemIndex]);
+//			}
+//		}
 		//Check event collision
 		gp.eventHandler.checkEvent();
 		
 		projectileAction();
 		if(mana <= 0) mana = maxMana;
-		if(life <= 0) life = maxLife;
+//		if(life <= 0) life = maxLife;
 		
 		//delay players damage receive
 		if(invincible) {

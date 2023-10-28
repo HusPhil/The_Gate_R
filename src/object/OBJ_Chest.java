@@ -18,8 +18,8 @@ public class OBJ_Chest extends Entity{
 		type = type_interactiveObjects;
 		name = objName;
 		
-		
 		down1 = createImage("objects", "items/ClosedChest");
+		
 		collision = true;
 		
 		description = "["+name+"]" + "\nIt feels heavy, maybe it \ncontains a lot of items!";
@@ -42,7 +42,21 @@ public class OBJ_Chest extends Entity{
 		dialogues[2][1] = "The chest was opened. It's empty.";
 		
 	}
+	public void changePic() {
+		
+		System.out.println(gp.player.collision);
+		
+		if (contactOn) 
+			down1 = createImage("objects", "coin22");
+		else {
+			down1 = createImage("objects", "items/ClosedChest");
+		} 
+		
+		if (!gp.player.collisionOn) contactOn = false;
+	}
 	public void reaction() {
+		
+		
 		if(!opened) {
 			if(!gp.player.itemObtainable(loot)) {
 				startDialogue(this, 0);

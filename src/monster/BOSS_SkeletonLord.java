@@ -199,10 +199,11 @@ public class BOSS_SkeletonLord extends Entity{
 		for(int i = 0; i < gp.gameObjs[1].length; i++) {
 			if(gp.gameObjs[gp.currentMap][i] != null) {
 				
-				if(gp.gameObjs[gp.currentMap][i].name.equals(OBJ_IronDoor.objName))
-				gp.gameObjs[gp.currentMap][i] = null;
+				if(gp.gameObjs[gp.currentMap][i].name.equals(OBJ_IronDoor.objName)) {
+					gp.gameObjs[gp.currentMap][i] = null;
+					gp.playSE(7);
+				}
 				
-				gp.playSE(7);
 			}
 		}
 	}

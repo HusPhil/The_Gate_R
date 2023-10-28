@@ -37,7 +37,7 @@ public class Config {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("config.txt"));
 			String t = br.readLine();
-			
+			 
 			//reading full screen config
 			if(t.equals("on")) gp.fullScreen = true;
 			if(t.equals("off")) gp.fullScreen = !true;

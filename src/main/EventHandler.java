@@ -2,7 +2,7 @@ package main;
 
 import DataHandling.GameProgress;
 
-public class EventHandler {
+public class EventHandler { 
 	
 	GamePanel gp;
 	EventRectangle eventRect[][][];

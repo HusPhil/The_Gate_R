@@ -2,6 +2,10 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JOptionPane;
+
+import DataHandling.DatabaseManagement;
+
 
 public class KeyHandler implements KeyListener {
 	
@@ -161,7 +165,14 @@ public class KeyHandler implements KeyListener {
 			if(gp.gui.selectItem > 2) gp.gui.selectItem = 0;
 			break;
 		case KeyEvent.VK_ENTER:
-			if(gp.gui.selectItem == 0) {gp.gameState = gp.playState;}
+			gp.gui.messages.clear();
+			if(gp.gui.selectItem == 0) {
+			String input = JOptionPane.showInputDialog(null, " Tell me, brave one, what name echoes through the annals of your valor?", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
+			gp.gameState = gp.playState; 
+			if (input != null) { 
+	            gp.gui.addMessage("The player's name is: " + input);
+	            gp.player.name = input;
+	        }}
 			else if(gp.gui.selectItem == 1) {gp.saverLoader.loadData(); gp.gameState = gp.playState;}
 			else if(gp.gui.selectItem == 2) System.exit(0);
 			break;
@@ -185,6 +196,8 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_M: 
 			System.out.println("X:" + x + " Y: " + y); 
+			gp.DBMS.testPrintData();
+			gp.gui.addMessage(DatabaseManagement.generatePlayerID());
 			//gp.gameState = gp.viewMapState;
 			break;
 		case KeyEvent.VK_P: 

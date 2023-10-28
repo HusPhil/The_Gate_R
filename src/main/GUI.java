@@ -17,7 +17,7 @@ public class GUI {
 	Font arial_80B;
 	public Entity npc;
 
-	ArrayList<String> message = new ArrayList<>();
+	ArrayList<String> messages = new ArrayList<>();
 	ArrayList<Integer> messageCounter = new ArrayList<>();
 	
 	BufferedImage heart_blank, heart_half, heart_full;
@@ -27,7 +27,7 @@ public class GUI {
 	public int npcX, npcY;
 	public int selectItem = 0;
 	public int slotRow = 0;
-	public int slotCol = 0;
+	public int slotCol = 0; 
 	public int substate = 0;
 	public int charIndex = 0;
 	public String combinedText = "";
@@ -64,6 +64,9 @@ public class GUI {
 		int lineHeight = 35;
 		
 		//LABEL
+		g2.drawString("Name: ", textX, textY);
+		textY += lineHeight;
+		
 		g2.drawString("Level:", textX, textY);
 		textY += lineHeight;
 		
@@ -90,6 +93,11 @@ public class GUI {
 		textY = frameY + (gp.tileSize)-12;
 		lineHeight = 35;
 		String value;
+		
+		value = String.valueOf(gp.player.name);
+		textX = textAlignRight(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY+=lineHeight;
 		
 		value = String.valueOf(gp.player.level);
 		textX = textAlignRight(value, tailX);
@@ -455,8 +463,8 @@ public class GUI {
 	        return newString;
 	    }
 	public void addMessage(String text) {
-		if(message.size() < 10) {
-		message.add(text);
+		if(messages.size() < 10) {
+		messages.add(text);
 		messageCounter.add(0);
 		}
 	}
@@ -466,17 +474,17 @@ public class GUI {
 		int messageY = gp.screenHeight-gp.tileSize;
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
 		
-		for(int i = 0; i < message.size(); i++) {
-				if(message.get(i) != null) {
+		for(int i = 0; i < messages.size(); i++) {
+				if(messages.get(i) != null) {
 					g2.setColor(Color.yellow);
-					g2.drawString(message.get(i), messageX, messageY);
+					g2.drawString(messages.get(i), messageX, messageY);
 					
 					int counter = messageCounter.get(i)+1;
 					messageCounter.set(i, counter);
 					messageY -= gp.tileSize-12;
 					
 					if(messageCounter.get(i)  > 180) {
-						message.remove(i);
+						messages.remove(i);
 						messageCounter.remove(i);
 					}
 				}

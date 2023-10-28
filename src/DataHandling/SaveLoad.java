@@ -17,7 +17,7 @@ public class SaveLoad {
 	
 	public void saveData() {
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.txt")));
 			
 			DataStorage ds = new DataStorage();
 			
@@ -65,13 +65,15 @@ public class SaveLoad {
 				}
 			}
 			
+			System.out.println("Content to be written: " + ds);
+			
 			//save/write the data to save.dat
 			oos.writeObject(ds);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 	public void loadData( ) {
 		
 		try {
