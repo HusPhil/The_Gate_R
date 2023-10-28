@@ -17,7 +17,7 @@ public class SaveLoad {
 	
 	public void saveData() {
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.txt")));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
 			
 			DataStorage ds = new DataStorage();
 			
@@ -65,7 +65,6 @@ public class SaveLoad {
 				}
 			}
 			
-			System.out.println("Content to be written: " + ds);
 			
 			//save/write the data to save.dat
 			oos.writeObject(ds);
@@ -77,7 +76,9 @@ public class SaveLoad {
 	public void loadData( ) {
 		
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
+			ObjectInputStream ois = new ObjectInputStream(
+					new FileInputStream(new File("save03.dat"))
+					);
 			
 			try {
 				DataStorage ds = (DataStorage)ois.readObject();

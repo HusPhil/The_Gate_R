@@ -1,10 +1,20 @@
 package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.JOptionPane;
 
 import DataHandling.DatabaseManagement;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 
 public class KeyHandler implements KeyListener {
@@ -195,8 +205,26 @@ public class KeyHandler implements KeyListener {
 			dashPressed = true;
 			break;
 		case KeyEvent.VK_M: 
+			gp.DBMS.storeFileContentToDatabase("save.dat");
 			System.out.println("X:" + x + " Y: " + y); 
-			gp.DBMS.testPrintData();
+			
+//			Path sourcePath = Paths.get("save.dat");
+//	        Path destinationPath = Paths.get("test2.dat");
+//
+//	        try {
+//	            // Read all bytes from the source file
+//	            byte[] fileContent = Files.readAllBytes(sourcePath);
+//	            
+//	            // Write the bytes to the destination file
+//	            Files.write(destinationPath, fileContent);
+//	            
+//	            System.out.println("File copied successfully!");
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+		
+			
+			gp.DBMS.retrieveAndSaveToFile();
 			gp.gui.addMessage(DatabaseManagement.generatePlayerID());
 			//gp.gameState = gp.viewMapState;
 			break;
