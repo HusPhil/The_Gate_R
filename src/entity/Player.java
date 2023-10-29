@@ -20,7 +20,9 @@ import object.SKL_Fireball;
 public class Player extends Entity{
 
 	KeyHandler keys;
-	String ID = "";
+	public String ID = "";
+	public int score = 0;
+	public int progress = 0;
 	String temp;
 	int keynum = 0;
 	public final int screenX; 

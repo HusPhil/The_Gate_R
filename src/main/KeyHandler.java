@@ -179,11 +179,21 @@ public class KeyHandler implements KeyListener {
 			if(gp.gui.selectItem == 0) {
 			String input = JOptionPane.showInputDialog(null, " Tell me, brave one, what name echoes through the annals of your valor?", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
 			gp.gameState = gp.playState; 
-			if (input != null) { 
+			if (input != null && input != "") { 
 	            gp.gui.addMessage("The player's name is: " + input);
 	            gp.player.name = input;
-	        }}
-			else if(gp.gui.selectItem == 1) {gp.saverLoader.loadData(); gp.gameState = gp.playState;}
+	            gp.player.ID = DatabaseManagement.generatePlayerID();
+	        	}
+			gp.DBMS.createPlayerData();
+			}
+			else if(gp.gui.selectItem == 1) {
+				String input = JOptionPane.showInputDialog(null, "Enter your player ID", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
+				
+				if (input != null && input != "") gp.player.ID = input;
+		       
+				gp.saverLoader.loadData(); 
+				gp.gameState = gp.playState;
+				}
 			else if(gp.gui.selectItem == 2) System.exit(0);
 			break;
 		}
@@ -205,27 +215,15 @@ public class KeyHandler implements KeyListener {
 			dashPressed = true;
 			break;
 		case KeyEvent.VK_M: 
-			gp.DBMS.storeFileContentToDatabase("save.dat");
+//			gp.DBMS.storeFileContentToDatabase("save.dat");
 			System.out.println("X:" + x + " Y: " + y); 
 			
-//			Path sourcePath = Paths.get("save.dat");
-//	        Path destinationPath = Paths.get("test2.dat");
-//
-//	        try {
-//	            // Read all bytes from the source file
-//	            byte[] fileContent = Files.readAllBytes(sourcePath);
-//	            
-//	            // Write the bytes to the destination file
-//	            Files.write(destinationPath, fileContent);
-//	            
-//	            System.out.println("File copied successfully!");
-//	        } catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
-		
+//			gp.DBMS.createPlayerData();
+//			gp.DBMS.loadPlayerData();
+
 			
-			gp.DBMS.retrieveAndSaveToFile();
-			gp.gui.addMessage(DatabaseManagement.generatePlayerID());
+//			gp.DBMS.retrieveAndSaveToFile();
+//			gp.gui.addMessage(DatabaseManagement.generatePlayerID());
 			//gp.gameState = gp.viewMapState;
 			break;
 		case KeyEvent.VK_P: 

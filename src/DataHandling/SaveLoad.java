@@ -17,7 +17,7 @@ public class SaveLoad {
 	
 	public void saveData() {
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("temp0.dat")));
 			
 			DataStorage ds = new DataStorage();
 			
@@ -72,12 +72,21 @@ public class SaveLoad {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
+		//ditoo
+		System.out.println(gp.player.ID);
+		gp.DBMS.updatePlayerData("temp0.dat");
+		
+		
 	} 
 	public void loadData( ) {
 		
+		gp.DBMS.loadPlayerData();
+		
 		try {
 			ObjectInputStream ois = new ObjectInputStream(
-					new FileInputStream(new File("save03.dat"))
+					new FileInputStream(new File("save_data.dat"))
 					);
 			
 			try {

@@ -88,6 +88,9 @@ public class GUI {
 		g2.drawString("EXP:", textX, textY);
 		textY += lineHeight;
 		
+		g2.drawString("Player ID:", textX, textY);
+		textY += lineHeight;
+		
 		//VALUES	
 		int tailX = (frameX + frameW) - 30;
 		textY = frameY + (gp.tileSize)-12;
@@ -130,6 +133,11 @@ public class GUI {
 		textY+=lineHeight;
 		
 		value = String.valueOf(gp.player.exp + "/" + gp.player.nextLvlExp);
+		textX = textAlignRight(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY+=lineHeight;
+		
+		value = gp.player.ID;
 		textX = textAlignRight(value, tailX);
 		g2.drawString(value, textX, textY);
 		textY+=lineHeight;

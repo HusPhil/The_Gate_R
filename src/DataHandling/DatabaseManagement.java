@@ -21,9 +21,9 @@ public class DatabaseManagement {
 		this.gp = gp;
 	}
 
-	String url = "jdbc:mysql://localhost:3306/gamedb";
-	String username = "root";
-	String password = "";
+	static String url = "jdbc:mysql://localhost:3306/gamedb";
+	static String username = "root";
+	static String password = "";
 	
 	public static String generatePlayerID() {
 		// Generate a random UUID (Universally Unique Identifier)
@@ -60,81 +60,108 @@ public class DatabaseManagement {
 			System.out.print(e);
 		}
 	}
+
+	public static boolean checkUserExist(String user) {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+
+		    String query = "SELECT player_name FROM player";
+		    Statement statement = connection.createStatement();
+		    ResultSet resultSet = statement.executeQuery(query);
+
+		    while (resultSet.next()) {
+		    	String data = resultSet.getString("player_name");
+		    	if(data.equals(user)) return true;
+		    }
+		    connection.close();
+		    
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return false;
+	}
 	
-	public void storeFileContentToDatabase(String filePath) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
+	public void createPlayerData() {
+		
 
-            byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
-
-            String query = "INSERT INTO player (player_id, player_name, player_score, player_progress, player_savedata) VALUES (?,?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, generatePlayerID());
-            preparedStatement.setString(2, gp.player.name);
-            preparedStatement.setInt(3, 200); // Change this to the appropriate integer value
-            preparedStatement.setInt(4, 10); // Change this to the appropriate integer value
-            preparedStatement.setBytes(5, fileContent);
-
-            preparedStatement.executeUpdate();
-
-            System.out.println("Content from save.dat has been inserted into the database.");
-            connection.close();
-        } catch (IOException | SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-	public String retrieveFileContentFromDatabase() {
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection connection = DriverManager.getConnection(url, username, password);
 
-	        Statement statement = connection.createStatement();
-	        ResultSet resultSet = statement.executeQuery("SELECT player_savedata FROM gamedb");
+	        String query = "INSERT IGNORE INTO player (player_id, player_name, player_score, player_progress, player_savedata) VALUES (?,?,null,null,null)";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, gp.player.ID);
+	        preparedStatement.setString(2, gp.player.name);
 
-	        StringBuilder contentBuilder = new StringBuilder();
+	        
+	        preparedStatement.executeUpdate();
 
-	        while (resultSet.next()) {
-	            String content = resultSet.getString("player_savedata");
-	            // Append the retrieved content to the StringBuilder
-	            contentBuilder.append(content).append("\n");
-	        }
-
+	        System.out.println("Content has been inserted into the database.");
 	        connection.close();
-
-	        // Return the accumulated content as a string
-	        return contentBuilder.toString();
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    }
-
-	    return null; // Return null if an exception occurs
-	}
 	
 
-	public void retrieveAndSaveToFile() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
+	}
+	
+	public void updatePlayerData(String saveFile) {
+		try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+	        
+	        byte[] playerSavedData = null;
+	        
+			try {
+				playerSavedData = Files.readAllBytes(Paths.get(saveFile));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ? WHERE player_id = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setInt(1, gp.player.score);
+	        preparedStatement.setInt(2, gp.player.progress);
+	        preparedStatement.setBytes(3, playerSavedData);	        
+	        preparedStatement.setString(4, gp.player.ID);
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT player_savedata FROM player WHERE player_id = 'PL_58dd5be90'");
+	        preparedStatement.executeUpdate();
 
-            if (resultSet.next()) {
-                byte[] content = resultSet.getBytes("player_savedata");
-                FileOutputStream fileOutputStream = new FileOutputStream("save03.dat");
-                fileOutputStream.write(content);
-                fileOutputStream.close();
-                System.out.println("Content from the database has been saved to save3.dat.");
-            } else {
-                System.out.println("No data found in the database.");
-            }
+	        System.out.println("Player data has been updated in the database.");
+	        connection.close();
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void loadPlayerData() {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
 
-            connection.close();
-        } catch (SQLException | ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.ID + "'";
+		    Statement statement = connection.createStatement();
+		    ResultSet resultSet = statement.executeQuery(query);
+
+		    if (resultSet.next()) {
+		        gp.player.ID = resultSet.getString("player_id");
+		        gp.player.name = resultSet.getString("player_name");
+		        gp.player.score = resultSet.getInt("player_score");
+		        gp.player.progress = resultSet.getInt("player_progress");
+		        
+		        byte[] content = resultSet.getBytes("player_savedata");
+		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");
+		        fileOutputStream.write(content);
+		        fileOutputStream.close();
+		        System.out.println("Content from the database has been saved to save_data.dat.");
+		    } else {
+		        System.out.println("No data found in the database.");
+		    }
+		    connection.close();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}
 }
