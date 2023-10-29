@@ -201,36 +201,44 @@ public class Player extends Entity{
 		if(currentWeapon.type == type_axe) {
 			attackUp1 = createImage("player", "attacking/axePA_up0", gp.tileSize, gp.tileSize*2);
 			attackUp2 = createImage("player", "attacking/axePA_up1", gp.tileSize, gp.tileSize*2);
+			attackUp3 = createImage("player", "attacking/axePA_up2", gp.tileSize, gp.tileSize*2);
+			attackUp4 = createImage("player", "attacking/axePA_up3", gp.tileSize, gp.tileSize*2);
 			
 			attackDown1 = createImage("player", "attacking/axePA_down0", gp.tileSize, gp.tileSize*2);
 			attackDown2 = createImage("player", "attacking/axePA_down1", gp.tileSize, gp.tileSize*2);
+			attackDown3 = createImage("player", "attacking/axePA_down2", gp.tileSize, gp.tileSize*2);
+			attackDown4 = createImage("player", "attacking/axePA_down3", gp.tileSize, gp.tileSize*2);
 			
 			attackLeft1 = createImage("player", "attacking/axePA_left0", gp.tileSize*2, gp.tileSize);
 			attackLeft2 = createImage("player", "attacking/axePA_left1", gp.tileSize*2, gp.tileSize);
+			attackLeft3 = createImage("player", "attacking/axePA_left2", gp.tileSize*2, gp.tileSize);
+			attackLeft4 = createImage("player", "attacking/axePA_left3", gp.tileSize*2, gp.tileSize);
 			
 			attackRight1 = createImage("player", "attacking/axePA_right0", gp.tileSize*2, gp.tileSize);
 			attackRight2 = createImage("player", "attacking/axePA_right1", gp.tileSize*2, gp.tileSize);
+			attackRight3 = createImage("player", "attacking/axePA_right2", gp.tileSize*2, gp.tileSize);
+			attackRight4 = createImage("player", "attacking/axePA_right3", gp.tileSize*2, gp.tileSize);
 		}
 		if(currentWeapon.type == type_pickaxe) {
-			attackUp1 = createImage("player", "attacking/boy_pick_up_1", gp.tileSize, gp.tileSize*2);
-			attackUp2 = createImage("player", "attacking/boy_pick_up_2", gp.tileSize, gp.tileSize*2);
-			attackUp3 = attackUp1;
-			attackUp4 = attackUp2;
+			attackUp1 = createImage("player", "attacking/pickAxePA_up0", gp.tileSize, gp.tileSize*2);
+			attackUp2 = createImage("player", "attacking/pickAxePA_up1", gp.tileSize, gp.tileSize*2);
+			attackUp3 = createImage("player", "attacking/pickAxePA_up2", gp.tileSize, gp.tileSize*2);
+			attackUp4 = createImage("player", "attacking/pickAxePA_up3", gp.tileSize, gp.tileSize*2);
 			
-			attackDown1 = createImage("player", "attacking/boy_pick_down_1", gp.tileSize, gp.tileSize*2);
-			attackDown2 = createImage("player", "attacking/boy_pick_down_2", gp.tileSize, gp.tileSize*2);
-			attackDown3 = attackDown1;
-			attackDown4 = attackDown2;
+			attackDown1 = createImage("player", "attacking/pickAxePA_down0", gp.tileSize, gp.tileSize*2);
+			attackDown2 = createImage("player", "attacking/pickAxePA_down1", gp.tileSize, gp.tileSize*2);
+			attackDown3 = createImage("player", "attacking/pickAxePA_down2", gp.tileSize, gp.tileSize*2);
+			attackDown4 = createImage("player", "attacking/pickAxePA_down3", gp.tileSize, gp.tileSize*2);
 			
-			attackLeft1 = createImage("player", "attacking/boy_pick_left_1", gp.tileSize*2, gp.tileSize);
-			attackLeft2 = createImage("player", "attacking/boy_pick_left_2", gp.tileSize*2, gp.tileSize);
-			attackLeft3 = attackLeft1;
-			attackLeft4 = attackLeft2;
+			attackLeft1 = createImage("player", "attacking/pickAxePA_left0", gp.tileSize*2, gp.tileSize);
+			attackLeft2 = createImage("player", "attacking/pickAxePA_left1", gp.tileSize*2, gp.tileSize);
+			attackLeft3 = createImage("player", "attacking/pickAxePA_left2", gp.tileSize*2, gp.tileSize);
+			attackLeft4 = createImage("player", "attacking/pickAxePA_left3", gp.tileSize*2, gp.tileSize);
 			
-			attackRight1 = createImage("player", "attacking/boy_pick_right_1", gp.tileSize*2, gp.tileSize);
-			attackRight2 = createImage("player", "attacking/boy_pick_right_2", gp.tileSize*2, gp.tileSize);
-			attackRight3 = attackRight1;
-			attackRight4 = attackRight2;
+			attackRight1 = createImage("player", "attacking/pickAxePA_right0", gp.tileSize*2, gp.tileSize);
+			attackRight2 = createImage("player", "attacking/pickAxePA_right1", gp.tileSize*2, gp.tileSize);
+			attackRight3 = createImage("player", "attacking/pickAxePA_right2", gp.tileSize*2, gp.tileSize);
+			attackRight4 = createImage("player", "attacking/pickAxePA_right3", gp.tileSize*2, gp.tileSize);
 		}
      
 	}
