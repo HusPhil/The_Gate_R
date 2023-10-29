@@ -446,7 +446,6 @@ public class Entity {
 		for(int i = 0; i < gp.gameObjs[1].length; i++) {
 			
 			if(gp.gameObjs[gp.currentMap][i] == null) {
-				System.out.println("working here " + i);
 				gp.gameObjs[gp.currentMap][i] = item;
 				if (k == 0) gp.gameObjs[gp.currentMap][i].worldX = worldX + j*(gp.tileSize/2);
 				if (k == 1) gp.gameObjs[gp.currentMap][i].worldX = worldX - j*(gp.tileSize/2);

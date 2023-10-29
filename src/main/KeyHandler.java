@@ -151,7 +151,6 @@ public class KeyHandler implements KeyListener {
 					}
 					delayCounter = 0;
 				
-				System.out.println(delayCounter);
 				break;
 			}
 		}
@@ -178,21 +177,28 @@ public class KeyHandler implements KeyListener {
 			gp.gui.messages.clear();
 			if(gp.gui.selectItem == 0) {
 			String input = JOptionPane.showInputDialog(null, " Tell me, brave one, what name echoes through the annals of your valor?", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
-			gp.gameState = gp.playState; 
-			if (input != null && input != "") { 
-	            gp.gui.addMessage("The player's name is: " + input);
-	            gp.player.name = input;
-	            gp.player.ID = DatabaseManagement.generatePlayerID();
-	        	}
-			gp.DBMS.createPlayerData();
+			if (!DatabaseManagement.checkUserExist("player_name", input)) {
+				gp.gameState = gp.playState; 
+				if (input != null && input != "") { 
+		            gp.gui.addMessage("The player's name is: " + input);
+		            gp.player.name = input;
+		            gp.player.ID = DatabaseManagement.generatePlayerID();
+		        	}
+				gp.DBMS.createPlayerData();
+			}
+			else if(input.equals("")) JOptionPane.showConfirmDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+			else JOptionPane.showConfirmDialog(null, "This name is already taken, try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			}
 			else if(gp.gui.selectItem == 1) {
-				String input = JOptionPane.showInputDialog(null, "Enter your player ID", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
+				String input = JOptionPane.showInputDialog(null, "Enter your player ID", "Verification", JOptionPane.PLAIN_MESSAGE);
 				
-				if (input != null && input != "") gp.player.ID = input;
-		       
-				gp.saverLoader.loadData(); 
-				gp.gameState = gp.playState;
+				if (DatabaseManagement.checkUserExist("player_id", input)) {
+					gp.player.ID = input;
+					gp.saverLoader.loadData(); 
+					gp.gameState = gp.playState;
+				} 
+				else JOptionPane.showConfirmDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+				
 				}
 			else if(gp.gui.selectItem == 2) System.exit(0);
 			break;
@@ -283,12 +289,10 @@ public class KeyHandler implements KeyListener {
 			gp.gameState = gp.playState;
 			break;
 		case KeyEvent.VK_Y:
-			System.out.println("haks");
 			if(gp.eventHandler.dialogue_type == gp.eventHandler.dt_save) {
 				gp.saverLoader.saveData();
 				gp.gameState = gp.playState;
 				gp.gui.addMessage("The game was successfully saved!");
-				System.out.println("hakdog");
 				gp.eventHandler.dialogue_type = 0;
 			}
 			break;

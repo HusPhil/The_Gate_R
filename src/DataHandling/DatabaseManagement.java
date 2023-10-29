@@ -31,10 +31,9 @@ public class DatabaseManagement {
 
         // Convert the UUID to a string and limit its length to 12 characters
         String uuidString = uuid.toString().replaceAll("-", "");
-        String truncatedUUID = uuidString.substring(0, 9);
+        String truncatedUUID = uuidString.substring(0, 5);
 
-        String player_id = "PL_" + truncatedUUID;
-        System.out.println(player_id.length());
+        String player_id = "pl_" + truncatedUUID;
         // Return the truncated UUID as the player ID
         return player_id;
     }
@@ -61,17 +60,17 @@ public class DatabaseManagement {
 		}
 	}
 
-	public static boolean checkUserExist(String user) {
+	public static boolean checkUserExist(String column, String user) {
 		try {
 		    Class.forName("com.mysql.cj.jdbc.Driver");
 		    Connection connection = DriverManager.getConnection(url, username, password);
 
-		    String query = "SELECT player_name FROM player";
+		    String query = "SELECT " + column +" FROM player";
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
 
 		    while (resultSet.next()) {
-		    	String data = resultSet.getString("player_name");
+		    	String data = resultSet.getString(column);
 		    	if(data.equals(user)) return true;
 		    }
 		    connection.close();

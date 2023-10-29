@@ -25,7 +25,7 @@ public class OBJ_Wooden_Axe extends Entity{
 		attackAreaY.width = 18;
 		attackAreaY.height = 32;
 		
-		motion_duration1 = 15;
-		motion_duration2 = 20;
+		motion_duration1 = 5;
+		motion_duration2 = 10;
 	}
 }

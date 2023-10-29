@@ -15,7 +15,6 @@ public class DropChanceSystem {
 	
 	public Entity pickDrop() {
 		int rand = new Random().nextInt(500)+1;
-		System.out.println(rand);
 		for(int i = 0; i < possibleDrops.length; i++) {
 			if(possibleDrops[i] != null) {
 				if(rand <= possibleDrops[i].dropChance) {

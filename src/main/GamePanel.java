@@ -501,8 +501,8 @@ this.requestFocus();
 		bossBattleOn = false;
 		csHandler.scenePhase = csHandler.sceneNum = 0; //might bug the scene
 		
- 		player.worldX = (35*48); 
- 		player.worldY = (12*48);
+ 		player.worldX = (14*48); 
+ 		player.worldY = (10*48);
  		player.direction = "down";
 		
 		//restore life and mana

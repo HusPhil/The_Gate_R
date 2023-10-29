@@ -3,8 +3,8 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Wood_Axe extends Entity{
-	public OBJ_Wood_Axe(GamePanel gp) {
+public class OBJ_Woo_Axe extends Entity{
+	public OBJ_Woo_Axe(GamePanel gp) {
 		super(gp);
 		// TODO Auto-generated constructor stub
 		type = type_axe;
