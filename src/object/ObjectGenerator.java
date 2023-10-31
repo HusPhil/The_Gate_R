@@ -22,7 +22,7 @@ public class ObjectGenerator {
 			obj = new OBJ_Heart(gp);
 			break;
 		case OBJ_Iron_Axe.objName:
-			obj = new OBJ_Iron_Axe(gp);
+			obj = new OBJ_Iron_Axe(gp); 
 			break;
 		case ITM_Key.objName:
 			obj = new ITM_Key(gp);
