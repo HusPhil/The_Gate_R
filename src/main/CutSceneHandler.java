@@ -17,6 +17,7 @@ public class CutSceneHandler {
 	public final int NONE = 0;
 	public final int bossSkeletonLord = 1;
 	public final int introduction = 2;
+	public final int cs = 3;
 	
 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
@@ -137,6 +138,7 @@ public class CutSceneHandler {
 		}
 	}
 	
+//	public void 
 	
 	public void draw(Graphics2D g2) {
 		this.g2 = g2;

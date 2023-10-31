@@ -65,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int merchantHouse = 2;
 	public final int dungeonMap_F1 = 1;
 	public final int dungeonMap_F2 = 3;
+	public final int corrupted1 = 4;
 
 	//Screen settings//
 	//---------------//

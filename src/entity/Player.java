@@ -37,7 +37,7 @@ public class Player extends Entity{
 	
 	//Abilities
 	int timer;
-	boolean DashAbility =true;
+	boolean DashAbility = true;
 	
 	public Player(GamePanel gp, KeyHandler keys) {
 		super(gp);
@@ -727,20 +727,22 @@ public class Player extends Entity{
 		   keys.leftPressed ||
 		   keys.rightPressed ||
 		   keys.talkOn) 
-		{	attackCanceled = false;
+		{	
+			
+			attackCanceled = false;
 			
 			attacking = false;
 		
 			if(keys.upPressed) {
 				direction = "up";
 			}
-			else if(keys.downPressed) {
+			if(keys.downPressed) {
 				direction = "down";
 			}
-			else if(keys.leftPressed) {
+			if(keys.leftPressed) {
 				direction = "left";
 			}
-			else if(keys.rightPressed) {
+			if(keys.rightPressed) {
 				direction = "right";
 			} 
 			
@@ -750,20 +752,20 @@ public class Player extends Entity{
 			interactNPC(npcIndex);
 			int monIndex = gp.collCheck.checkEntity(this, gp.monsters);
 			monContact(monIndex);
-			
+			gp.collCheck.checkTile(this); 
 			if(!collisionOn && !keys.talkOn) {
 				switch(direction) {
 				case "up":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldY-=(speed*5);} 
 					else { timer = 0; speed = 5; worldY -= speed; } 
 					break;
-				case "down":
-					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldY+=(speed*5);} 
-					else { timer = 0; speed = 5; worldY += speed; } 
-					break;
 				case "left":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldX-=(speed*5);} 
 					else { timer = 0; speed = 5; worldX -= speed; } 
+					break;
+				case "down":
+					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldY+=(speed*5);} 
+					else { timer = 0; speed = 5; worldY += speed; } 
 					break;
 				case "right":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldX+=(speed*5);} 
