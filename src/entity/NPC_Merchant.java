@@ -29,7 +29,7 @@ public class NPC_Merchant extends Entity{
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
-		
+		 
 		speed = 1;
 		getNpcImage();
 		setDialouge();
