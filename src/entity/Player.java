@@ -11,8 +11,9 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
 import object.OBJ_Chest;
+import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
-import object.OBJ_Wooden_Axe;
+import object.OBJ_Iron_Axe;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
 import object.SKL_Fireball;
@@ -40,7 +41,6 @@ public class Player extends Entity{
 	
 	public Player(GamePanel gp, KeyHandler keys) {
 		super(gp);
-		setDialogue();
 		//PressTime for DASH
 		name = "Player";
 		timer = 0; 
@@ -58,6 +58,7 @@ public class Player extends Entity{
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
+		setDialogue();
 		setDefaultValues();
 		getPlayerImage();
 		getPlayerAttackImage();
@@ -100,14 +101,29 @@ public class Player extends Entity{
  	public void setDialogue() {
 		int i = 0;
 		int j = 0;
+		//SET 0 leveling up
 		dialogues[i][j] = "You leveled up!"; j++;
 		dialogues[i][j] = "You leveled up! You feel stronger."; j++;
 		
 		i++; j = 0;
+		//SET 1 full inventory
 		dialogues[i][j] = "You are heavily burdened, you cannot \ncarry anymore."; j++;
 		
 		i++; j = 0;
+		//SET 2 Saving the game
 		dialogues[i][j] = "Press 'Y' to save the game. Esc to cancel"; j++;
+
+		i++; j = 0;
+		//SET 3 Iintro Dialogues
+		dialogues[i][j] = "Where... where am I? This place, it's nothing like I've "
+				+ "\never seen before. "; j++;
+		dialogues[i][j] = "I remember being asleep while on the bus during \n"
+				+ "the school trip,  but now.."; j++;
+		dialogues[i][j] = "How did I even get here? And why?"; j++;
+		dialogues[i][j] = "It's as if the very fabric of time has unraveled before "
+				+ "\nmy eyes."; j++;
+		dialogues[i][j] = "There must be a reason. A purpose for me being here. "
+				+ "\nI need to find out what it is, before it's too late. "; j++;
 		
 	}
  	
@@ -177,7 +193,7 @@ public class Player extends Entity{
 		return image;
 	}
 	public void getPlayerAttackImage() {
-		if(currentWeapon.type == type_sword) {
+		if(currentWeapon.name == OBJ_Wooden_Sword.objName) {
 			attackUp1 = createImage("player", "attacking/PA_up0", gp.tileSize, gp.tileSize*2);
 			attackUp2 = createImage("player", "attacking/PA_up1", gp.tileSize, gp.tileSize*2);
 			attackUp3 = createImage("player", "attacking/PA_up2", gp.tileSize, gp.tileSize*2);
@@ -197,6 +213,27 @@ public class Player extends Entity{
 			attackRight2 = createImage("player", "attacking/PA_right1", gp.tileSize*2, gp.tileSize);
 			attackRight3 = createImage("player", "attacking/PA_right2", gp.tileSize*2, gp.tileSize);
 			attackRight4 = createImage("player", "attacking/PA_right3", gp.tileSize*2, gp.tileSize);
+		}
+		if(currentWeapon.name == OBJ_Iron_Sword.objName) {
+			attackUp1 = createImage("player", "attacking/ironPA_up0", gp.tileSize, gp.tileSize*2);
+			attackUp2 = createImage("player", "attacking/ironPA_up1", gp.tileSize, gp.tileSize*2);
+			attackUp3 = createImage("player", "attacking/ironPA_up2", gp.tileSize, gp.tileSize*2);
+			attackUp4 = createImage("player", "attacking/ironPA_up3", gp.tileSize, gp.tileSize*2);
+			
+			attackDown1 = createImage("player", "attacking/ironPA_down0", gp.tileSize, gp.tileSize*2);
+			attackDown2 = createImage("player", "attacking/ironPA_down1", gp.tileSize, gp.tileSize*2);
+			attackDown3 = createImage("player", "attacking/ironPA_down2", gp.tileSize, gp.tileSize*2);
+			attackDown4 = createImage("player", "attacking/ironPA_down3", gp.tileSize, gp.tileSize*2);
+			
+			attackLeft1 = createImage("player", "attacking/ironPA_left0", gp.tileSize*2, gp.tileSize);
+			attackLeft2 = createImage("player", "attacking/ironPA_left1", gp.tileSize*2, gp.tileSize);
+			attackLeft3 = createImage("player", "attacking/ironPA_left2", gp.tileSize*2, gp.tileSize);
+			attackLeft4 = createImage("player", "attacking/ironPA_left3", gp.tileSize*2, gp.tileSize);
+			
+			attackRight1 = createImage("player", "attacking/ironPA_right0", gp.tileSize*2, gp.tileSize);
+			attackRight2 = createImage("player", "attacking/ironPA_right1", gp.tileSize*2, gp.tileSize);
+			attackRight3 = createImage("player", "attacking/ironPA_right2", gp.tileSize*2, gp.tileSize);
+			attackRight4 = createImage("player", "attacking/ironPA_right3", gp.tileSize*2, gp.tileSize);
 		}
 		if(currentWeapon.type == type_axe) {
 			attackUp1 = createImage("player", "attacking/axePA_up0", gp.tileSize, gp.tileSize*2);
@@ -265,7 +302,7 @@ public class Player extends Entity{
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
 		inventory.add(new OBJ_Lantern(gp));
-		inventory.add(new OBJ_Wooden_Axe(gp));
+		inventory.add(new OBJ_Iron_Axe(gp));
 	}
 	
 	public void attackState() {
@@ -593,7 +630,7 @@ public class Player extends Entity{
 			}
 			if(selectedItem.type == type_shield) {
 				currentShield = selectedItem;
-				atk = getDef();
+				def = getDef();
 			}
 			if(selectedItem.type == type_lightSource) {
 				if(currentLightItem == selectedItem)

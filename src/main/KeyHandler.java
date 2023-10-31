@@ -1,4 +1,5 @@
 package main;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
@@ -45,7 +46,9 @@ public class KeyHandler implements KeyListener {
 		}
 		
 		//KEYS DURING DIALOUGE
-		else if(gp.gameState == gp.dialogueState || gp.gameState == gp.cutSceneState) {
+		else if(gp.gameState == gp.dialogueState || 
+				gp.gameState == gp.cutSceneState ||
+				gp.gameState == gp.loadingDialogueState) {
 			dialogueStateKeys(code);
 		}
 		
@@ -177,17 +180,28 @@ public class KeyHandler implements KeyListener {
 			gp.gui.messages.clear();
 			if(gp.gui.selectItem == 0) {
 			String input = JOptionPane.showInputDialog(null, " Tell me, brave one, what name echoes through the annals of your valor?", "WHO ARE YOU?", JOptionPane.PLAIN_MESSAGE);
-			if (!DatabaseManagement.checkUserExist("player_name", input)) {
-				gp.gameState = gp.playState; 
-				if (input != null && input != "") { 
-		            gp.gui.addMessage("The player's name is: " + input);
-		            gp.player.name = input;
-		            gp.player.ID = DatabaseManagement.generatePlayerID();
-		        	}
-				gp.DBMS.createPlayerData();
+			if(input != null) {
+				
+				input = input.trim();
 			}
-			else if(input.equals("")) JOptionPane.showConfirmDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
-			else JOptionPane.showConfirmDialog(null, "This name is already taken, try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+			if (input == null) {
+				JOptionPane.showMessageDialog(null, "Hmm, so you decided not to partake in this journey, what a shame.", "What a shame..", JOptionPane.PLAIN_MESSAGE);
+			}
+			else if (!DatabaseManagement.checkUserExist("player_name", input)) {
+//				gp.gui.showTransition(true);
+				gp.narrator.player_name = input;
+				gp.narrator.setDialogue();
+				gp.player.name = input;
+//				gp.gameState = gp.playState; 
+				gp.gui.addMessage("The player's name is: " + input);
+				gp.player.ID = DatabaseManagement.generatePlayerID();
+				gp.DBMS.createPlayerData();
+				
+				gp.gameState = gp.cutSceneState;
+				gp.csHandler.sceneNum = gp.csHandler.introduction;
+			}
+			else if(input.isEmpty()) JOptionPane.showMessageDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+			else JOptionPane.showMessageDialog(null, "This name is already taken, try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			}
 			else if(gp.gui.selectItem == 1) {
 				String input = JOptionPane.showInputDialog(null, "Enter your player ID", "Verification", JOptionPane.PLAIN_MESSAGE);
@@ -195,9 +209,9 @@ public class KeyHandler implements KeyListener {
 				if (DatabaseManagement.checkUserExist("player_id", input)) {
 					gp.player.ID = input;
 					gp.saverLoader.loadData(); 
-					gp.gameState = gp.playState;
+					gp.gameState = gp.fadeIN;
 				} 
-				else JOptionPane.showConfirmDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 				
 				}
 			else if(gp.gui.selectItem == 2) System.exit(0);

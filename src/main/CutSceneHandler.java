@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import entity.NPC_PlayerDummy;
@@ -15,6 +16,7 @@ public class CutSceneHandler {
 	//Scenes' Number
 	public final int NONE = 0;
 	public final int bossSkeletonLord = 1;
+	public final int introduction = 2;
 	
 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
@@ -22,15 +24,9 @@ public class CutSceneHandler {
 		
 	}
 	
-	public void draw(Graphics2D g2) {
-		this.g2 = g2;
-		
-		switch(sceneNum) {
-		case bossSkeletonLord: scene_SkeletonLord(); break;
-		}
-	}
 	public void scene_SkeletonLord() {
 		//PHASE 0
+		
 		if(scenePhase == 0) {
 			gp.bossBattleOn = true;
 			
@@ -69,6 +65,7 @@ public class CutSceneHandler {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_SkeletonLord.monName)) {
 					gp.monsters[gp.currentMap][i].asleep = false;
+					System.out.println("Monster" + i + " " + gp.currentMap);
 					gp.gui.npc = gp.monsters[gp.currentMap][i];
 					scenePhase++;
 					break;
@@ -77,7 +74,7 @@ public class CutSceneHandler {
 		}
 		//PHASE 3
 		if(scenePhase == 3) {
-			gp.gui.dialougeScreen();
+			gp.gui.dialougeScreen(false);
 		}
 		//PHASE 4
 		if(scenePhase == 4) {
@@ -94,6 +91,59 @@ public class CutSceneHandler {
 			gp.gameState = gp.playState;
 			
 			//change the music [stop current music and play new music]
+		}
+	}
+	
+	public void scene_Intro() {
+		//PHASE 0
+		if(scenePhase == 0) {
+//			gp.gameState = gp.loadingState;
+//			gp.gui.fadeIn();
+			gp.eventHandler.loadingScreen(0, 14, 10, gp.outside);
+			scenePhase++;
+		}
+		
+		//PHASE 1
+		if(gp.gameState == gp.playState) scenePhase++;
+		
+		//PHASE 2
+		if(scenePhase == 2) {
+			g2.setColor(Color.DARK_GRAY);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			
+			gp.gameState = gp.fadeOUT;
+			scenePhase++;
+		}
+		
+		//PHASE 3
+		if(gp.gameState == gp.playState && scenePhase == 3) {
+			scenePhase++;
+		}
+		
+		//PHASE 4
+		if(scenePhase == 4) {
+			gp.gameState = gp.cutSceneState;
+			
+			gp.gui.npc = gp.player;
+			gp.player.dialogueSet = 3;
+			
+			gp.gui.dialougeScreen(false);
+		}
+		//PHASE 5
+		if(scenePhase == 5) {
+			System.out.println(gp.player.dialogueSet);
+			gp.gameState = gp.playState;
+			scenePhase = sceneNum = NONE;
+		}
+	}
+	
+	
+	public void draw(Graphics2D g2) {
+		this.g2 = g2;
+		
+		switch(sceneNum) {
+		case bossSkeletonLord: scene_SkeletonLord(); break;
+		case introduction: scene_Intro(); break;
 		}
 	}
 }

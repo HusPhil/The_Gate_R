@@ -1,0 +1,40 @@
+STORYLINE OF GAME
+
+SCENE 1:
+	Setting: Corrupted Island ()
+	-player confused
+	-meet the old man who will explain
+	-quick tutorial
+	-old man will give him the first quest
+
+	QUEST: (SDGs: 1, 2, 3, 4)
+		*Defeat seed monster, give seed to farmers (they don't know how)
+		*Retrieve tome of farming from maze or something
+		*Retrieve the tome of healing as well
+		*The village will eat the harvested goods
+
+
+
+
+
+1. No Poverty 
+2. Zero Hunger
+4. Quality Education
+3. Good Health and Well-being
+
+7. Affordable and Clean Energy
+12. Responsible Consumption and Production
+
+8. Decent Work and Economic Growth
+9. Industry, Innovation, and Infrastructure
+11. Sustainable Cities and Communities
+
+13. Climate Action
+6. Clean Water and Sanitation
+14. Life Below Water
+15. Life on Land
+
+5. Gender Equality
+10. Reduced Inequality
+16. Peace, Justice, and Strong Institutions
+17. Partnerships for the Goals

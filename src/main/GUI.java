@@ -22,6 +22,7 @@ public class GUI {
 	
 	BufferedImage heart_blank, heart_half, heart_full;
 	int counter = 0;
+	int fadeCounter = 50;
 	
 	public String currentDialogue = "";
 	public int npcX, npcY;
@@ -405,7 +406,13 @@ public class GUI {
 		g2.drawString(text, x, y);
 		
 	}
-	public void dialougeScreen() {
+	public void dialougeScreen(boolean loading) {
+		if (loading) {
+			g2.setColor(new Color(0,0,0));
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		}
+
+		
 		int x = gp.tileSize*3;
 		int y = gp.tileSize;
 		
@@ -422,7 +429,7 @@ public class GUI {
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 			currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
-			if(npc.name !=  OBJ_Chest.objName && npc.type != gp.player.type_player) {
+			if(npc.name !=  OBJ_Chest.objName) {
 				char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
 				if(charIndex < characters.length) {
 					String s = String.valueOf(characters[charIndex]);
@@ -431,18 +438,24 @@ public class GUI {
 					charIndex++;
 				}	
 			}
-			if(gp.keys.enterPressed && (gp.gameState == gp.dialogueState || gp.gameState == gp.cutSceneState)) {
+			if(gp.keys.enterPressed && 
+					(
+					gp.gameState == gp.dialogueState ||
+					gp.gameState == gp.cutSceneState || 
+					gp.gameState == gp.loadingDialogueState
+					)) {
 				charIndex = 0; combinedText = "";
 				npc.dialogueIndex++;
 			} gp.keys.enterPressed = false;
 		} else {
 			
 			npc.dialogueIndex = 0;
+			npc.dialogueSet = 0;
 
 			if(npc.type == npc.type_merchant) {
 				gp.gameState = gp.tradingState;
 			}
-			if(gp.gameState == gp.dialogueState) {
+			if(gp.gameState == gp.dialogueState || gp.gameState == gp.loadingDialogueState) {
 				gp.gameState = gp.playState;
 			}
 			if(gp.gameState == gp.cutSceneState) {
@@ -538,7 +551,11 @@ public class GUI {
 		//save the config
 		gp.config.saveConfig();
 	}
-	public void showTransition() {
+	public void showTransition(boolean loading) {
+		if(loading) {
+			g2.setColor(Color.DARK_GRAY);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		}
 		counter++;
 		//draw the a rectangle that covers the entire screen
 		//its opacity is scaled by the counter which starts from 0 so it creates a fade iout effect
@@ -547,7 +564,12 @@ public class GUI {
 		//when the counter hits a certain amoun, it stops and imlements the transition
 		if(counter == 50) {
 			
-			gp.gameState = gp.playState;
+			if(loading) {
+				
+				loadingDialogue(gp.narrator, 0);
+			}
+			else gp.gameState = gp.playState;
+
 			//teleport the player
 			gp.currentMap = gp.eventHandler.tempMap;
 			gp.player.worldX = gp.eventHandler.tempCol*gp.tileSize;
@@ -560,6 +582,45 @@ public class GUI {
 			//ALWAYS RESET THE COUNTER
 			counter = 0;
 		}
+	}
+	public void fadeIn() {
+		
+		g2.setColor(new Color(255,255,255));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+	
+		counter++;
+		//draw the a rectangle that covers the entire screen
+		//its opacity is scaled by the counter which starts from 0 so it creates a fade iout effect
+		g2.setColor(new Color(0,0,0,counter*5));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		//when the counter hits a certain amoun, it stops and imlements the transition
+		if(counter == 50) {
+			gp.gameState = gp.playState;
+
+			//ALWAYS RESET THE COUNTER
+			counter = 0;
+		}
+	}
+	public void fadeOut() {
+		fadeCounter--;
+		//draw the a rectangle that covers the entire screen
+		//its opacity is scaled by the counter which starts from 0 so it creates a fade iout effect
+		g2.setColor(new Color(255,255,255,fadeCounter*5));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		//when the counter hits a certain amoun, it stops and imlements the transition
+		if(fadeCounter == 0) {
+			
+			gp.gameState = gp.playState;
+
+			//ALWAYS RESET THE COUNTER
+			fadeCounter = 50;
+		}
+	}
+	public void loadingDialogue(Entity ent, int setNum) {
+		gp.keys.enterPressed = false;
+		gp.gameState = gp.loadingDialogueState;
+		gp.gui.npc = ent;
+		ent.dialogueSet = setNum;
 	}
 	public void showBossLife() {
 		for(int i = 0; i < gp.monsters[1].length; i++) {
@@ -587,6 +648,8 @@ public class GUI {
 			}
 		}
 	}
+	
+	
 	
 	//TRADING STATE
 	public void showTrade() {
@@ -1250,7 +1313,11 @@ public class GUI {
 		
 		//DRAW DIALOGUE SCREEN
 		if (gp.gameState == gp.dialogueState) {
-			dialougeScreen();
+			dialougeScreen(false);
+		}
+		//DRAW LOOADING DIALOGUE SCREE
+		if (gp.gameState == gp.loadingDialogueState) {
+			dialougeScreen(true);
 		}
 		
 		//DRAW VIEW CHAR SCREEN
@@ -1265,7 +1332,23 @@ public class GUI {
 		}
 		//DRAW TRANSITION STATE
 		if(gp.gameState == gp.transitionState) {
-			showTransition();
+			showTransition(false);
+			
+		}
+		//DRAW LOADING STATE
+		if(gp.gameState == gp.loadingState) {
+			showTransition(true);
+		}
+
+		//DRAW FADE IN
+		if(gp.gameState == gp.fadeIN) {
+			fadeIn();
+		}
+
+		
+		//DRAW FADE OUT
+		if(gp.gameState == gp.fadeOUT) {
+			fadeOut();
 		}
 		
 		//DRAW TRADING STATE

@@ -15,7 +15,7 @@ public class OBJ_Pickaxe extends Entity{
 		dropChance = 0;
 		name = objName;
 		down1 = createImage("objects", "equips/pickaxe");
-		description = "["+name+"]" + "\nA very sharp pickaxe, can it knock down walls?" + "\n-PICKAXE-";
+		description = "["+name+"]" + "\nA very sharp pickaxe, \ncan it knock down walls?" + "\n-PICKAXE-";
 		
 		//attributes
 		atkVal = 3;

@@ -135,7 +135,15 @@ public class EventHandler {
 		tempRow = y;
 		touchEventON = false;
 	}
-	
+
+	public void loadingScreen(int map, int x, int y, int area) {
+		gp.gameState = gp.loadingState;
+		gp.nextArea = area;
+		tempMap = map;
+		tempCol = x;
+		tempRow = y;
+	}
+
 	//CUTSCENES
 	public void CS_skeletonLord() {
 		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {

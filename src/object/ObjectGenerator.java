@@ -21,8 +21,8 @@ public class ObjectGenerator {
 		case OBJ_Heart.objName:
 			obj = new OBJ_Heart(gp);
 			break;
-		case OBJ_Wooden_Axe.objName:
-			obj = new OBJ_Wooden_Axe(gp);
+		case OBJ_Iron_Axe.objName:
+			obj = new OBJ_Iron_Axe(gp);
 			break;
 		case ITM_Key.objName:
 			obj = new ITM_Key(gp);
@@ -36,8 +36,8 @@ public class ObjectGenerator {
 		case OBJ_Wooden_Shield.objName:
 			obj = new OBJ_Wooden_Shield(gp);
 			break;
-		case OBJ_Slime_Shield.objName:
-			obj = new OBJ_Slime_Shield(gp);
+		case OBJ_Iron_Shield.objName:
+			obj = new OBJ_Iron_Shield(gp);
 			break;
 		case OBJ_Wooden_Sword.objName:
 			obj = new OBJ_Wooden_Sword(gp);
@@ -53,6 +53,9 @@ public class ObjectGenerator {
 			break;
 		case OBJ_Pickaxe.objName:
 			obj = new OBJ_Pickaxe(gp);
+			break;
+		case OBJ_Iron_Sword.objName:
+			obj = new OBJ_Iron_Sword(gp);
 			break;
 		}
 		

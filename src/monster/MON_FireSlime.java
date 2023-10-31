@@ -4,7 +4,7 @@ import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
 import object.OBJ_Health_Potion;
-import object.OBJ_Slime_Shield;
+import object.OBJ_Iron_Shield;
 import object.SKL_MudBall;
 
 public class MON_FireSlime extends Entity{
@@ -105,7 +105,7 @@ public class MON_FireSlime extends Entity{
 		int i = 0;
 		gp.dcs.possibleDrops[i] = new OBJ_Health_Potion(gp);
 		i++;
-		gp.dcs.possibleDrops[i] = new OBJ_Slime_Shield(gp);
+		gp.dcs.possibleDrops[i] = new OBJ_Iron_Shield(gp);
 		i++;
 		
 		gp.dcs.defaultItem = new ITM_Coin(gp);

@@ -16,6 +16,7 @@ import AI.PathFinder;
 import DataHandling.DatabaseManagement;
 import DataHandling.SaveLoad;
 import entity.Entity;
+import entity.Narrator;
 import entity.Player;
 import environment.EffectsHandler;
 import interactive_tiles.InteractiveTiles;
@@ -43,6 +44,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int viewMapState = 9;
 	public final int gameOverState = 10;
 	public final int cutSceneState = 11;
+	public final int loadingDialogueState = 12;
+	public final int loadingState = 13;
+	public final int fadeIN = 14;
+	public final int fadeOUT = 15;
 
 	
 	
@@ -109,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable{
 	//-------
 	public Player player = new Player(this, keys);
 	//======
+	
 	
 	//Tile Manager//
 	//------------------------//
@@ -203,6 +209,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public Config config = new Config(this);
 	public DatabaseManagement DBMS = new DatabaseManagement(this);
 	//========================//
+
+	//Narrator//
+	//-------
+	public Narrator narrator = new Narrator(this);
+	//======
 	
 	public void setupGame() {
 		

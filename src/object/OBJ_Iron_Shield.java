@@ -3,9 +3,9 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Slime_Shield extends Entity{
+public class OBJ_Iron_Shield extends Entity{
 	public static final String objName = "Slime Shield";
-	public OBJ_Slime_Shield(GamePanel gp) {
+	public OBJ_Iron_Shield(GamePanel gp) {
 		super(gp);
 		type = type_shield;
 		dropChance = 11;

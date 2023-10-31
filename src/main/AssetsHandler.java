@@ -21,8 +21,8 @@ import object.OBJ_IronDoor;
 import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
-import object.OBJ_Slime_Shield;
-import object.OBJ_Wooden_Axe;
+import object.OBJ_Iron_Shield;
+import object.OBJ_Iron_Axe;
 
 public class AssetsHandler {
 	GamePanel gp;
@@ -66,7 +66,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 41*48; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Slime_Shield(gp));
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Iron_Shield(gp));
 		gp.gameObjs[mapNum][i].worldX = 15*48;
 		gp.gameObjs[mapNum][i].worldY = 43*48; i++;
 		
@@ -248,12 +248,12 @@ public class AssetsHandler {
 			gp.items[mapNum][i].worldY = y*48;
 			break;
 		case "itemC":
-			gp.items[mapNum][i] = new OBJ_Slime_Shield(gp);
+			gp.items[mapNum][i] = new OBJ_Iron_Shield(gp);
 			gp.items[mapNum][i].worldX = x*48;
 			gp.items[mapNum][i].worldY = y*48;
 			break;
 		case "itemD":
-			gp.items[mapNum][i] = new OBJ_Wooden_Axe(gp);
+			gp.items[mapNum][i] = new OBJ_Iron_Axe(gp);
 			gp.items[mapNum][i].worldX = x*48;
 			gp.items[mapNum][i].worldY = y*48;
 			break;
