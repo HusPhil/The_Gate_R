@@ -35,9 +35,9 @@ true
 017.png
 false
 018.png
-false
+true
 019.png
-false
+true
 020.png
 true
 021.png
@@ -145,7 +145,7 @@ false
 072.png
 false
 073.png
-true
+false
 074.png
 true
 075.png
@@ -159,13 +159,13 @@ false
 079.png
 false
 080.png
-true
+false
 081.png
-true
+false
 082.png
-true
+false
 083.png
-true
+false
 084.png
 false
 085.png
@@ -190,3 +190,5 @@ false
 true
 095.png
 false
+096.png
+true

@@ -24,6 +24,7 @@ public class Player extends Entity{
 	public String ID = "";
 	public int score = 0;
 	public int progress = 0;
+	public int setNpcDialogue;
 	String temp;
 	int keynum = 0;
 	public final int screenX; 
@@ -115,6 +116,7 @@ public class Player extends Entity{
 
 		i++; j = 0;
 		//SET 3 Iintro Dialogues
+		dialogues[i][j] = "... .. ."; j++;
 		dialogues[i][j] = "Where... where am I? This place, it's nothing like I've "
 				+ "\never seen before. "; j++;
 		dialogues[i][j] = "I remember being asleep while on the bus during \n"
@@ -595,7 +597,7 @@ public class Player extends Entity{
 		if (i != 777) {
 			if(gp.keys.talkOn) {
 				attackCanceled = true;
-				gp.npc[gp.currentMap][i].speak();
+				gp.npc[gp.currentMap][i].speak(setNpcDialogue);
 			} 
 //			if(gp.gui.currentDialogue == gp.npc[gp.currentMap][i].dialouges[19]) {
 //				magicOn = true;

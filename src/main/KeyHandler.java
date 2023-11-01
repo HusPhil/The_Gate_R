@@ -195,7 +195,7 @@ public class KeyHandler implements KeyListener {
 //				gp.gameState = gp.playState; 
 				gp.gui.addMessage("The player's name is: " + input);
 				gp.player.ID = DatabaseManagement.generatePlayerID();
-				gp.DBMS.createPlayerData();
+//				gp.DBMS.createPlayerData();
 				
 				gp.gameState = gp.cutSceneState;
 				gp.csHandler.sceneNum = gp.csHandler.introduction;
@@ -300,7 +300,8 @@ public class KeyHandler implements KeyListener {
 			//gp.gameState = gp.playState;
 			break;
 		case KeyEvent.VK_ESCAPE:
-			gp.gameState = gp.playState;
+			if(gp.gameState != gp.cutSceneState)
+				gp.gameState = gp.playState;
 			break;
 		case KeyEvent.VK_Y:
 			if(gp.eventHandler.dialogue_type == gp.eventHandler.dt_save) {

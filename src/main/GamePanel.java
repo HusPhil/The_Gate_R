@@ -29,7 +29,6 @@ public class GamePanel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	//Game Settings//
-	public boolean bossBattleOn = false;
 	final short FPS = 60;
 	public int gameState;
 	public final int gameMenu = 0;
@@ -48,8 +47,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int loadingState = 13;
 	public final int fadeIN = 14;
 	public final int fadeOUT = 15;
-
 	
+	//CUTSCENE Booelans
+	public boolean bossBattleOn = false;
+		
 	
 	//MAP SETTINGS
 	public final int maxMap = 5;

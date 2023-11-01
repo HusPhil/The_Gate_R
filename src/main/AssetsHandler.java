@@ -80,6 +80,14 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 17*48;
 		gp.gameObjs[mapNum][i].worldY = 43*48; i++;
 		
+		
+		i = 0;
+		mapNum = gp.corrupted1;
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].cs_id = "001";
+		gp.gameObjs[mapNum][i].worldX = 14*48;
+		gp.gameObjs[mapNum][i].worldY = 29*48; i++;
+		
 	}
 	public void makeItems() {
 		int i = 0;
@@ -99,6 +107,14 @@ public class AssetsHandler {
 		mapNum = gp.merchantHouse; //STORE/ MERCHANT
 		setEntity(mapNum, i, "npcB", "", 18, 18); i++;
 		gp.npc[2][0].speed = 0;
+		
+		i = 0;
+		mapNum = gp.corrupted1; // OVERWORLD
+		gp.npc[mapNum][i] = new NPC_Hermit(gp);
+		gp.npc[mapNum][i].name = "Silvio";
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 12*48;
+		gp.npc[mapNum][i].worldY = 30*48; i++;
 	}
 	public void makeMonster() {
 		int i = 0;

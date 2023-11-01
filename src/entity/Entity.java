@@ -57,6 +57,12 @@ public class Entity {
 	public int shotCounter = 0;
 	public int knockBackCounter = 0;
 	public Random rN = new Random();
+	
+	//Entity's paths
+	public int currentSearchPath;
+	public static final int pathOFF = 0;
+	public static final int npc_oldManFreed = 1;
+	public static final int npc_oldManExplain = 2;
 		
 	//Entity State
 	public boolean contactOn = false;
@@ -102,6 +108,7 @@ public class Entity {
 	public String description = "";
 	public ArrayList<Entity> inventory = new ArrayList<>();
 	public final int maxInventorySize = 28;
+	public String cs_id = "000";
 	
 	//Item Stats
 	public int atkVal;
@@ -289,7 +296,7 @@ public class Entity {
 	}
 	public void damageReaction() {}
 	public void setAction() {}
-	public void speak() {
+	public void speak(int dialogueSetNum) {
 	}
 	public void facePlayer() {
 		//Face the player
@@ -573,12 +580,12 @@ public class Entity {
 					direction = "right";
 				}
 			}
-//			int nextCol =  gp.pathFinder.pathList.get(0).col;
-//			int nextRow = gp.pathFinder.pathList.get(0).row;
-//			
-//			if(nextCol+1 == goalCol+1 && nextRow+1 == goalRow+1) {
-//				pathAI= false;
-//			}
+			int nextCol =  gp.pathFinder.pathList.get(0).col;
+			int nextRow = gp.pathFinder.pathList.get(0).row;
+			
+			if(nextCol+gp.tileSize == goalCol+gp.tileSize && nextRow+gp.tileSize == goalRow+gp.tileSize) {
+				currentSearchPath = pathOFF;
+			}
 			
 		}
 		
@@ -872,31 +879,5 @@ public class Entity {
 		}
 		
 		return index;
-	}
-	public void getNextTile(Entity user, Entity[][] target) {
-		
-		
-		//temp values which would change with the players direction
-		int nextWorldX = user.getLeftX();
-		int nextWorldY = user.getTopY();
-		
-		switch(user.direction) {
-		case "up": nextWorldY = (user.getTopY() - user.speed) -  1; break;
-		case "left": nextWorldX = (user.getLeftX() - user.speed) - 1; break;
-		case "down": nextWorldY = (user.getBottomY() + user.speed) + 1; break;
-		case "right": nextWorldX = (user.getRightX() + user.speed) + 1; break;
-		}
-		
-		//get the col and roww
-		int col = (nextWorldX/gp.tileSize);
-		int row = (nextWorldY/gp.tileSize);
-		
-		for(int i = 0; i < target[1].length; i++) {
-			if(target[gp.currentMap][i] != null && target[gp.currentMap][i].getCol() == col&&
-			   target[gp.currentMap][i].getRow() == row) {
-				collisionOn = true;
-				
-			}
-		}
 	}
 }
