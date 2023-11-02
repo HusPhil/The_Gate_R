@@ -6,12 +6,18 @@ import main.GamePanel;
 import object.SKL_MudBall;
 
 public class NPC_Hermit extends Entity{
-	public static int newYear = 0;
-	public static int warnDialogue = 1;
-	public static int goodLuck = 2;
-	public static int encounter = 3;
-	public static int thanking = 4;
+	//DialogueSets
+	public static final int newYear = 0;
+	public static final int warnDialogue = 1;
+	public static final int goodLuck = 2;
+	public static final int encounter = 3;
+	public static final int thanking = 4;
+	public static final int explaining = 5;
 
+	//SearchPaths
+	public static final int oldManFreed = 1;
+	public static final int oldManExplain = 2;
+	
 	public NPC_Hermit(GamePanel gp) {
 		super(gp);
 		int i = rN.nextInt(4)+1;
@@ -65,10 +71,11 @@ public class NPC_Hermit extends Entity{
 //				pathAI = false;
 		}
 		
-		System.out.println(currentSearchPath);
+		
 		
 		switch (currentSearchPath) {
 		case pathOFF: 
+			
 			actionDelay++;
 			if(actionDelay == 120 ) {
 				int n = rN.nextInt(100)+1;
@@ -80,8 +87,8 @@ public class NPC_Hermit extends Entity{
 				actionDelay = 0;
 			}
 			break;
-		case npc_oldManFreed: searchPath(16, 25); break;
-		case npc_oldManExplain: searchPath(27,27); break;
+		case oldManFreed: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
+		case oldManExplain: searchPath(27,27); break;
 		}
 		
 //		else {
@@ -142,8 +149,31 @@ public class NPC_Hermit extends Entity{
 		dialogues[encounter][i] = "I might die in here.. *sob *sob .."; i++;
 		
 		i = 0;
-		dialogues[thanking][i] = "Thank you for saving me"; i++;
-		dialogues[thanking][i] = "Thank you for saving me"; i++;
+		dialogues[thanking][i] = "Thank you for saving me, young man."; i++;
+		dialogues[thanking][i] = "However, you don't look like you're from here.."; i++;
+		dialogues[thanking][i] = "Wait.."; i++;
+		dialogues[thanking][i] = "Those clothes.. It can't be.."; i++;
+		dialogues[thanking][i] = "Tell me, young man, where are you from? "; i++;
+		dialogues[thanking][i] = "You wouldn't happen to be a student from BatStateU \nfrom the past are you?"; i++;
+		dialogues[thanking][i] = "You are? Well, now it it makes sense why you look \nso confused."; i++;
+		dialogues[thanking][i] = "You see, this is stil Earth.. 150 years from your age."; i++;
+		dialogues[thanking][i] = "However, this area of the world has now became "
+				+ "\ncorrupted because people failed to fulfill the SDGs."; i++;
+		dialogues[thanking][i] = "Maybe it was destined that a young man, such as "
+				+ "\nyourself, will save this now corrupted world and "
+				+ "\ntell the tales of your adventure to your people"
+				+ "\nwhen you have finished your quest!"; i++;
+		dialogues[thanking][i] = "... ... ... .. ."; i++;
+		dialogues[thanking][i] = "No! I have to hurry! My village, it's in danger!"; i++;
+		dialogues[thanking][i] = "Will you help me, young man?"; i++;
+		dialogues[thanking][i] = ".... .. .. ."; i++;
+		dialogues[thanking][i] = "You will!? Thank you so much!!"; i++;
+		dialogues[thanking][i] = "Now come, let's go save the village!"; i++;
+		
+		i = 0;
+		dialogues[explaining][i] = "This is the village"; i++;
+		dialogues[explaining][i] = "Aint it cool, huh?"; i++;
+		
 	}
 	public void speak(int dialogueSetNum) {
 		facePlayer();

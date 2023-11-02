@@ -584,9 +584,9 @@ public class GUI {
 		}
 	}
 	public void fadeIn() {
-		
-		g2.setColor(new Color(255,255,255));
-		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+//		
+//		g2.setColor(new Color(255,255,255));
+//		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 	
 		counter++;
 		//draw the a rectangle that covers the entire screen
@@ -605,7 +605,7 @@ public class GUI {
 		fadeCounter--;
 		//draw the a rectangle that covers the entire screen
 		//its opacity is scaled by the counter which starts from 0 so it creates a fade iout effect
-		g2.setColor(new Color(255,255,255,fadeCounter*5));
+		g2.setColor(new Color(0,0,0,fadeCounter*5));
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		//when the counter hits a certain amoun, it stops and imlements the transition
 		if(fadeCounter == 0) {

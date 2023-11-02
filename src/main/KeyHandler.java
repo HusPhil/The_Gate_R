@@ -220,8 +220,8 @@ public class KeyHandler implements KeyListener {
 	}
 	
 	public void playStateKeys(int code) {
-		int x = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-		int y = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+		int x = gp.player.getPlayerWordlX();
+		int y = gp.player.getPlayerWordlY();
 		
 		switch (code) {
 		case KeyEvent.VK_W: upPressed = true; break;

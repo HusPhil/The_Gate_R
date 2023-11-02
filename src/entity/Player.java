@@ -163,6 +163,13 @@ public class Player extends Entity{
 	public int getDef() {
 		return dex * currentShield.defVal;
 	}
+	public int getPlayerWordlX() {
+		return (worldX + solidArea.x) / gp.tileSize;
+	}
+	public int getPlayerWordlY() {
+		return (worldY + solidArea.y) / gp.tileSize;
+	}
+	
 	public void getPlayerImage() {
 		up1 = createImage("player", "walking/up0");
 		up2 = createImage("player", "walking/up1");

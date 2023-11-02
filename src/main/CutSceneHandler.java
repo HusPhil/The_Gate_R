@@ -212,19 +212,65 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 1) {
-			gp.gui.npc.direction = "left";
-			gp.gui.npc.pathAI = true;
-			gp.gui.npc.currentSearchPath = Entity.npc_oldManFreed;
+			gp.gui.npc.currentSearchPath = NPC_Hermit.oldManFreed;
 			scenePhase++;
 			
 		}
 		if(scenePhase == 2) {
-//			gp.gui.npc.speed = 0;
 //			gp.gui.dialougeScreen(false);
-			scenePhase = NONE;
-			sceneNum = NONE;
 			gp.gameState = gp.playState;
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				scenePhase++;
+				gp.gameState = gp.cutSceneState;
+			}
 			
+		}
+		if(scenePhase == 3) {
+			gp.gui.npc.facePlayer();
+			gp.gui.dialougeScreen(false);
+		}
+		
+		//PHASE 3
+		if(scenePhase == 4) {
+			GameProgress.oldManExplained = true;
+//			g2.setColor(Color.DARK_GRAY);
+//			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.worldMapA][i] == null) {
+					gp.npc[gp.worldMapA][i] = new NPC_Hermit(gp);
+					gp.npc[gp.worldMapA][i].name = "Silvio";
+					gp.npc[gp.worldMapA][i].speed = 0;
+					gp.npc[gp.worldMapA][i].worldX = 18*48;
+					gp.npc[gp.worldMapA][i].worldY = 11*48;
+					gp.gui.npc = gp.npc[gp.worldMapA][i];
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 5) {
+			gp.eventHandler.transition(gp.worldMapA, 17, 10, gp.outside);
+			gp.gui.npc.direction = "down";
+			scenePhase++;
+		}
+		if(gp.gameState == gp.gameState && scenePhase == 6) {
+			if(gp.currentMap == gp.worldMapA) {
+				gp.player.direction = "down";
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 7) {
+			gp.gameState = gp.fadeOUT;
+			scenePhase++;
+		}
+		if(scenePhase == 8 && gp.gameState == gp.playState) scenePhase++;
+		if(scenePhase == 9) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc.dialogueSet = NPC_Hermit.explaining;
+			gp.gui.dialougeScreen(false);
+		}
+		if(scenePhase == 10) {
+			gp.gameState = gp.playState;
 		}
 	}
 	

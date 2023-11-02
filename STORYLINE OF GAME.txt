@@ -1,6 +1,6 @@
 STORYLINE OF GAME
 
-SCENE 1:
+SCENE 1:sss
 	Setting: Corrupted Island ()
 	-player confused
 	-meet the old man who will explain
@@ -14,13 +14,107 @@ SCENE 1:
 		*The village will eat the harvested goods
 
 
-
+09b0e0341434cc8e6c31763825726771e4a6f679
 
 
 1. No Poverty 
 2. Zero Hunger
 4. Quality Education
 3. Good Health and Well-being
+
+
+
+	//PHASE 3
+		if(scenePhase == 4) {
+			GameProgress.oldManExplained = true;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.worldMapA][i] == null) {
+					gp.npc[gp.worldMapA][i] = new NPC_Hermit(gp);
+					gp.npc[gp.worldMapA][i].name = "Silvio";
+					gp.npc[gp.worldMapA][i].speed = 0;
+					gp.npc[gp.worldMapA][i].worldX = 18*48;
+					gp.npc[gp.worldMapA][i].worldY = 11*48;
+					gp.gui.npc = gp.npc[gp.worldMapA][i];
+					break;
+				}
+			}
+//			g2.setColor(Color.DARK_GRAY);
+//			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			scenePhase++;
+		}
+		
+		if(scenePhase == 5) {
+			gp.eventHandler.transition(gp.worldMapA, 17, 10, gp.outside);
+			gp.gui.npc.direction = "down";
+			scenePhase++;
+		}
+		if(gp.gameState == gp.playState) {
+			scenePhase++;
+		}
+		if(scenePhase == 7) {
+		}
+
+
+
+
+
+
+
+
+
+I remember you when it rains
+Her eyes, her smile, i miss them so
+Lost in thought, far away, I stare
+Missing her dearly as raindrops fall
+
+Must the night come, the cold winds may blow
+In a blink of an eye, I miss her without reason
+Having her in my arms, keeping her close
+Alone, I long her beautiful soul
+
+
+I fear to be the man her forsake
+for having her suffer my immaturity
+I made her sad, commited some mistakes
+Deeply saddened, I offer sincere apology.
+
+In this blissful story, the subject is you
+For being your baby, I'm the luckiest, it's true
+
+I remember you when it rains.
+Your eyes, your smile—I miss them so.
+Lost in thought, far away, I stare,
+Missing you dearly as raindrops fall.
+
+I fear to be the man you forsake,
+For having you suffer my immaturity.
+I made you sad, committed some mistakes,
+Deeply saddened, I offer a sincere apology.
+
+Must the night come, the cold winds may blow.
+In a blink of an eye, I miss you without reason,
+Having you in my arms, keeping you close,
+Alone, I long for your beautiful soul.
+
+
+And in this blissful story, the subject is you,
+For being your baby, I'm the luckiest, it's true.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 7. Affordable and Clean Energy
 12. Responsible Consumption and Production

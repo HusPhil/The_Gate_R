@@ -9,7 +9,7 @@ public class EventHandler {
 	EventRectangle eventRect[][][];
 	int tempMap, tempCol, tempRow;
 	int dialogue_type;
-	public final int dt_save = 1;
+	public final int dt_ave = 1;
 	public int prevEventX, prevEventY;
 	public boolean touchEventON = !false;
 	public boolean telOn = false;
@@ -215,17 +215,19 @@ public class EventHandler {
 		}
 	}
 	public void CS_oldManExplain() {
-		Entity obj = null;
-		for(int i = 0; i < gp.gameObjs[1].length; i++) {
-			if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("001")) {
-				System.out.println();
-				obj = gp.gameObjs[gp.currentMap][i];
+		if(!GameProgress.oldManExplained) {
+			Entity obj = null;
+			for(int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("001")) {
+					System.out.println();
+					obj = gp.gameObjs[gp.currentMap][i];
+				}
 			}
-		}
-		
-		if(obj == null) {
-			gp.gameState = gp.cutSceneState;
-			gp.csHandler.sceneNum = gp.csHandler.oldManExplain;
+			
+			if(obj == null) {
+				gp.gameState = gp.cutSceneState;
+				gp.csHandler.sceneNum = gp.csHandler.oldManExplain;
+			}
 		}
 	}
 	

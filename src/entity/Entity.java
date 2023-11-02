@@ -61,8 +61,7 @@ public class Entity {
 	//Entity's paths
 	public int currentSearchPath;
 	public static final int pathOFF = 0;
-	public static final int npc_oldManFreed = 1;
-	public static final int npc_oldManExplain = 2;
+	
 		
 	//Entity State
 	public boolean contactOn = false;
@@ -585,6 +584,7 @@ public class Entity {
 			
 			if(nextCol+gp.tileSize == goalCol+gp.tileSize && nextRow+gp.tileSize == goalRow+gp.tileSize) {
 				currentSearchPath = pathOFF;
+				System.out.println(worldX/gp.tileSize+ "::"+ worldY/gp.tileSize);
 			}
 			
 		}
