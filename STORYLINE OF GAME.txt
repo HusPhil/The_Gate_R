@@ -8,13 +8,30 @@ SCENE 1:sss
 	-old man will give him the first quest
 
 	QUEST: (SDGs: 1, 2, 3, 4)
+		*get ingredients for healing as well
 		*Defeat seed monster, give seed to farmers (they don't know how)
 		*Retrieve tome of farming from maze or something
-		*Retrieve the tome of healing as well
 		*The village will eat the harvested goods
 
 
 09b0e0341434cc8e6c31763825726771e4a6f679
+
+
+**arrived at the village
+-some monsters are seen in the village
+-the old  man will give the player the wooden sword
+-defeat the monsters
+- heal the people(first quest)
+-people will come out (hear their complains) 
+-old man will go to his home
+-give you second quest (find a way to feed the starving village)
+-old man told you about a hidden axe
+-find the axe
+-go the woods, kill the tree monster
+-get the loot
+-old man give the third quest (get the book of farming knowledge)
+-
+
 
 
 1. No Poverty 
@@ -56,10 +73,11 @@ SCENE 1:sss
 
 
 
+We are going to use the cardboard to build a ramp to act as an inclined planed which will be used in our  experimental set up
 
 
 
-
+We taped the ruler on the wall to measure and control the height we are going to use in each trial
 
 
 I remember you when it rains
@@ -104,7 +122,14 @@ For being your baby, I'm the luckiest, it's true.
 
 
 
-
+Cardboard (58cm)
+Tape
+Small Toy Car (0.1kg)
+Scissor
+Ruer
+Pencil 
+Notebook
+Calculator
 
 
 

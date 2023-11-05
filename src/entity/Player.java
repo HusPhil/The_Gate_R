@@ -660,13 +660,18 @@ public class Player extends Entity{
 	
 
 	public void update() {
+		
+		//IDEA to not attack while the sword is not given: make booelean in GameProgress
+		
 		setDialogue();
 		if(gp.keys.debugPressed) {
  			System.out.println(debugOn);
  			if(debugOn) debugOn = false;
  			else debugOn = true;
  			
- 		} //else debugOn = true;
+ 		} 
+
+		
 		
 		collisionOn = false;
 		//Tile Collision Checker, turns the collisionOn property true or false
@@ -821,7 +826,7 @@ public class Player extends Entity{
 		
 		projectileAction();
 		if(mana <= 0) mana = maxMana;
-//		if(life <= 0) life = maxLife;
+		if(life <= 0) life = maxLife;
 		
 		//delay players damage receive
 		if(invincible) {

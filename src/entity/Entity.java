@@ -307,6 +307,8 @@ public class Entity {
 		}
 	}
 	public void startDialogue(Entity ent, int setNum) {
+		System.out.println("ediwow");
+
 		gp.keys.enterPressed = false;
 		gp.gameState = gp.dialogueState;
 		gp.gui.npc = ent;

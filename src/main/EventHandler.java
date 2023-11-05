@@ -9,7 +9,7 @@ public class EventHandler {
 	EventRectangle eventRect[][][];
 	int tempMap, tempCol, tempRow;
 	int dialogue_type;
-	public final int dt_ave = 1;
+	public final int dt_save = 1;
 	public int prevEventX, prevEventY;
 	public boolean touchEventON = !false;
 	public boolean telOn = false;
@@ -59,7 +59,7 @@ public class EventHandler {
 		
 		if(touchEventON) {
 			//SAVING EVENT
-			if(eventCollision(0, 33, 29, "any")) {
+			if(eventCollision(gp.worldMapA, 33, 29, "any")) {
 				gp.player.startDialogue(gp.player, 2);
 				
 				if(gp.gameState == gp.dialogueState && !gp.keys.yesOn) {

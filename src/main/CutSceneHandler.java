@@ -271,6 +271,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 10) {
 			gp.gameState = gp.playState;
+			scenePhase++;
 		}
 	}
 	

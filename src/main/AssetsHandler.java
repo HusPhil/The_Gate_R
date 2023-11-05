@@ -11,6 +11,7 @@ import interactive_tiles.IT_MetalPlate;
 import monster.BOSS_SkeletonLord;
 import monster.MON_Bat;
 import monster.MON_FireSlime;
+import monster.MON_TreeMonster;
 import monster.MON_Zombie;
 import object.ITM_Coin;
 import object.OBJ_Chest;
@@ -183,6 +184,15 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
 		gp.monsters[mapNum][i].worldX = 25*48;
 		gp.monsters[mapNum][i].worldY = 35*48;
+		i++;
+		
+		
+		
+		i = 0;
+		mapNum = gp.corrupted1;
+		gp.monsters[mapNum][i] = new MON_TreeMonster(gp);
+		gp.monsters[mapNum][i].worldX = 15*48;
+		gp.monsters[mapNum][i].worldY = 16*48;
 		i++;
 	}
 	public void makeInteractiveTiles() {

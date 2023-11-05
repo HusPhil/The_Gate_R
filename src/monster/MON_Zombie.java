@@ -103,22 +103,22 @@ public class MON_Zombie extends Entity{
 				searchPath(pWorldX, pWorldY);
 			
 			}
-		}
-		
-		
-		else {
-			actionDelay++;
-			if(actionDelay == 120 ) {
-				int n = rN.nextInt(100)+1;
+			else {
+				actionDelay++;
+				if(actionDelay == 120 ) {
+					int n = rN.nextInt(100)+1;
+					
+					if(n<=25) direction = "up";
+					if(n>=25 && n<=50) direction = "down";
+					if(n>=50 && n<=75) direction = "left";
+					if(n>=75 && n<=100) direction = "right";
+					actionDelay = 0;
+				}
 				
-				if(n<=25) direction = "up";
-				if(n>=25 && n<=50) direction = "down";
-				if(n>=50 && n<=75) direction = "left";
-				if(n>=75 && n<=100) direction = "right";
-				actionDelay = 0;
 			}
-			
 		}
+		
+		
 		
 	}
 	public void damageReaction() {

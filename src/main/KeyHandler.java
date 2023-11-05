@@ -195,7 +195,7 @@ public class KeyHandler implements KeyListener {
 //				gp.gameState = gp.playState; 
 				gp.gui.addMessage("The player's name is: " + input);
 				gp.player.ID = DatabaseManagement.generatePlayerID();
-//				gp.DBMS.createPlayerData();
+				gp.DBMS.createPlayerData();
 				
 				gp.gameState = gp.cutSceneState;
 				gp.csHandler.sceneNum = gp.csHandler.introduction;
