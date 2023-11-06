@@ -1,0 +1,17 @@
+DISCRETE REVIEW
+
+-Relations are made when ordered pairs met the conditions
+ 	-You must get the cartesian product first
+-Domains are the x, Range are all the y, when x maps to y (IN VALID RELATION)
+	-Co domains are all the elements of y when the cartesian product is acquired
+-Properties of Relations are:
+	-Reflexive (a R a for all a on set A)
+	-Symmetric (a R b and b R a on set A)
+	-Transitive (a R b and b R c implies that a R c on set A)
+	-Equivalence (all the above properties were met)
+
+-functions are relations where x cannot be repeated
+-quartic means polynomial of degree 4
+-quintic means polynomial of degree 5
+-a one-to-one (injective) function means that no two different elements in the domain are mapped to the same element in the co-domain.
+-an onto (surjective) function means that no element in the co-domain is left unmatched or without a pre-image in the domain.
