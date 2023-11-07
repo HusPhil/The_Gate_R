@@ -7,12 +7,15 @@ import DataHandling.GameProgress;
 import entity.Entity;
 import entity.NPC_Hermit;
 import entity.NPC_PlayerDummy;
+import entity.Narrator;
 import monster.BOSS_SkeletonLord;
+import monster.MON_TreeMonster;
 import object.OBJ_IronDoor;
 
 public class CutSceneHandler {
 	GamePanel gp;
 	Graphics2D g2;
+	Entity npc;
 	public int scenePhase;
 	public int sceneNum;
 	
@@ -28,6 +31,8 @@ public class CutSceneHandler {
 		
 		
 	}
+	
+	
 	
 	public void scene_SkeletonLord() {
 		//PHASE 0
@@ -78,7 +83,7 @@ public class CutSceneHandler {
 		}
 		//PHASE 3
 		if(scenePhase == 3) {
-			gp.gui.dialougeScreen(false);
+			gp.gui.dialogueScreen(false);
 		}
 		//PHASE 4
 		if(scenePhase == 4) {
@@ -131,7 +136,7 @@ public class CutSceneHandler {
 			gp.gui.npc = gp.player;
 			gp.player.dialogueSet = 3;
 			
-			gp.gui.dialougeScreen(false);
+			gp.gui.dialogueScreen(false);
 		}
 		//PHASE 5
 		if(scenePhase == 5) {
@@ -174,7 +179,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 3) {
-			gp.gui.dialougeScreen(false);
+			gp.gui.dialogueScreen(false);
 			gp.gui.npc.speed = 1;
 //			gp.gui.npc.pathAI = true;
 		
@@ -227,39 +232,76 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 3) {
 			gp.gui.npc.facePlayer();
-			gp.gui.dialougeScreen(false);
+			gp.gui.dialogueScreen(false);
 		}
 		
 		//PHASE 3
 		if(scenePhase == 4) {
-			GameProgress.oldManExplained = true;
 //			g2.setColor(Color.DARK_GRAY);
 //			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			for(int i = 0; i < gp.npc[1].length; i++) {
-				if(gp.npc[gp.worldMapA][i] == null) {
-					gp.npc[gp.worldMapA][i] = new NPC_Hermit(gp);
-					gp.npc[gp.worldMapA][i].name = "Silvio";
-					gp.npc[gp.worldMapA][i].speed = 0;
-					gp.npc[gp.worldMapA][i].worldX = 18*48;
-					gp.npc[gp.worldMapA][i].worldY = 11*48;
-					gp.gui.npc = gp.npc[gp.worldMapA][i];
+				if(gp.npc[gp.silvioVillage][i] == null) {
+					gp.npc[gp.silvioVillage][i] = new NPC_Hermit(gp);
+					gp.npc[gp.silvioVillage][i].name = "Silvio";
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].worldX = 18*48;
+					gp.npc[gp.silvioVillage][i].worldY = 11*48;
+					gp.gui.npc = gp.npc[gp.silvioVillage][i];
 					break;
 				}
 			}
 			scenePhase++;
 		}
 		if(scenePhase == 5) {
-			gp.eventHandler.transition(gp.worldMapA, 17, 10, gp.outside);
-			gp.gui.npc.direction = "down";
+			gp.eventHandler.transition(gp.silvioVillage, 17, 10, gp.outside);
+			gp.gui.npc.direction = "right";
 			scenePhase++;
 		}
 		if(gp.gameState == gp.gameState && scenePhase == 6) {
-			if(gp.currentMap == gp.worldMapA) {
-				gp.player.direction = "down";
+			if(gp.currentMap == gp.silvioVillage) {
+				gp.player.direction = "right";
 				scenePhase++;
 			}
 		}
 		if(scenePhase == 7) {
+			
+			int j;
+			int mapNum = gp.silvioVillage;
+			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					
+					j = i;
+					
+					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
+					gp.monsters[mapNum][j].worldX = 27*48;
+					gp.monsters[mapNum][j].worldY = 11*48;
+					j++;
+					
+					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
+					gp.monsters[mapNum][j].worldX = 16*48;
+					gp.monsters[mapNum][j].worldY = 16*48;
+					j++;
+					
+					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
+					gp.monsters[mapNum][j].worldX = 22*48;
+					gp.monsters[mapNum][j].worldY = 18*48;
+					j++;
+					
+					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
+					gp.monsters[mapNum][j].worldX = 30*48;
+					gp.monsters[mapNum][j].worldY = 21*48;
+					j++;
+					
+					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
+					gp.monsters[mapNum][j].worldX = 33*48;
+					gp.monsters[mapNum][j].worldY = 11*48;
+					j++;
+					
+					break;
+				}
+			}
+			
 			gp.gameState = gp.fadeOUT;
 			scenePhase++;
 		}
@@ -267,11 +309,106 @@ public class CutSceneHandler {
 		if(scenePhase == 9) {
 			gp.gameState = gp.cutSceneState;
 			gp.gui.npc.dialogueSet = NPC_Hermit.explaining;
-			gp.gui.dialougeScreen(false);
+			gp.gui.dialogueScreen(false);
 		}
+		//in  the village
 		if(scenePhase == 10) {
-			gp.gameState = gp.playState;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY = 10*48;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
 			scenePhase++;
+			 
+		}
+		if(scenePhase == 11) {
+			if(gp.player.worldX <= 34*48 && gp.player.worldY <= 15*48) {
+				gp.player.worldX += 4;
+				gp.player.worldY += 3;
+			}
+			else {
+				
+				gp.gui.npc = gp.narrator;
+				gp.gui.npc.dialogueSet = Narrator.village_monster;
+				gp.gui.informationScreen();
+//				scenePhase++;
+			}
+			
+			
+		}
+		if(scenePhase == 12) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		if(scenePhase == 13) {
+			setGuiNpc("Silvio");
+			gp.gui.npc.dialogueSet = NPC_Hermit.explaining_2;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase ==  14) {
+			gp.gui.npc = gp.narrator;
+			gp.gui.npc.dialogueSet = Narrator.player_agree;
+			gp.gui.informationScreen();
+//			
+		}
+		if(scenePhase ==  15) {
+			setGuiNpc("Silvio");
+			gp.gui.npc.dialogueSet = NPC_Hermit.explaining_3;
+			gp.gui.dialogueScreen(false);
+
+		}
+		if(scenePhase == 16) {
+			
+			showInfoScreen(Narrator.player_acquiredWS);
+			GameProgress.oldManExplained = true;
+			
+//			sceneNum = NONE;
+//			scenePhase = NONE;
+		}
+		if(scenePhase == 17) {
+			gp.gameState = gp.playState;
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].type == gp.player.type_mon_cs) {
+					
+					
+					
+				}else scenePhase++;
+			}
+		}
+
+		
+		if(scenePhase == 18) {
+			System.out.println("what da hek");
+		}
+	}
+
+	
+	
+	public void showInfoScreen(int dialogueSet) {
+		gp.gui.npc = gp.narrator;
+		gp.gui.npc.dialogueSet = dialogueSet;
+		gp.gui.informationScreen();
+	}
+	
+	public void setGuiNpc (String npcName) {
+		for(int i = 0; i < gp.npc[1].length; i++) {
+			if(gp.npc[gp.currentMap][i] != null &&
+			gp.npc[gp.currentMap][i].name.equals(npcName)) {
+				gp.gui.npc = gp.npc[gp.currentMap][i];
+			}
 		}
 	}
 	

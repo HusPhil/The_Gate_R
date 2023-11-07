@@ -188,12 +188,12 @@ public class AssetsHandler {
 		
 		
 		
-//		i = 0;
-//		mapNum = gp.corrupted1;
-//		gp.monsters[mapNum][i] = new MON_TreeMonster(gp);
-//		gp.monsters[mapNum][i].worldX = 15*48;
-//		gp.monsters[mapNum][i].worldY = 16*48;
-//		i++;
+		i = 0;
+		mapNum = gp.corrupted1;
+		gp.monsters[mapNum][i] = new MON_TreeMonster(gp);
+		gp.monsters[mapNum][i].worldX = 15*48;
+		gp.monsters[mapNum][i].worldY = 16*48;
+		i++;
 	}
 	public void makeInteractiveTiles() {
 		int i = 0; 

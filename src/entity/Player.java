@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import DataHandling.GameProgress;
 import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
@@ -663,6 +664,8 @@ public class Player extends Entity{
 		
 		//IDEA to not attack while the sword is not given: make booelean in GameProgress
 		
+		
+		
 		setDialogue();
 		if(gp.keys.debugPressed) {
  			System.out.println(debugOn);
@@ -731,7 +734,7 @@ public class Player extends Entity{
 			}
 		}
 		
-		if(keys.enterPressed && !attackCanceled) {
+		if(keys.enterPressed && !attackCanceled && GameProgress.oldManExplained) {
 			attacking = true;
 			//spriteCounter = 0;
 		}

@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	
 	//MAP SETTINGS
-	public final int maxMap = 5;
+	public final int maxMap = 10;
 	public int currentMap = 0;
 	
 	public int nextArea;
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//Screen settings//
 	//---------------//
-	final int originalTileSize =24;
+	final int originalTileSize = 24;
 	public final int scale = 2;
 	
 	public final int tileSize = originalTileSize * scale;

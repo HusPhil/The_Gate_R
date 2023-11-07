@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.Narrator;
 import object.OBJ_Chest;
 import object.OBJ_Heart;
 
@@ -406,7 +407,7 @@ public class GUI {
 		g2.drawString(text, x, y);
 		
 	}
-	public void dialougeScreen(boolean loading) {
+	public void dialogueScreen(boolean loading) {
 		if (loading) {
 			g2.setColor(new Color(0,0,0));
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -468,6 +469,71 @@ public class GUI {
 			y+=40;
 		}
 		
+	}
+	public void informationScreen() {
+
+		int x = gp.tileSize*5;
+		int y = gp.screenHeight - (gp.tileSize*3);
+		int textX = 0;
+		int textY = 0;
+		
+		int width = gp.screenWidth - (gp.tileSize*11); //gp.screenWidth - (4*gp.tileSize);
+		int height = gp.tileSize *2; //gp.screenHeight - (gp.tileSize*6) ;
+		
+		subWindow(x, y, width, height);
+		
+		
+		
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+		
+		
+		
+		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
+			
+			currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+			textX = x + windowCenterX(currentDialogue, width); textY = y + gp.tileSize+12;
+			
+			if(npc.name !=  OBJ_Chest.objName) {
+				char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+				if(charIndex < characters.length) {
+					String s = String.valueOf(characters[charIndex]);
+					combinedText += s;
+					currentDialogue = combinedText;
+					charIndex++;
+				}	
+			}
+			if(gp.keys.enterPressed && 
+					(
+					gp.gameState == gp.dialogueState ||
+					gp.gameState == gp.cutSceneState || 
+					gp.gameState == gp.loadingDialogueState
+					)) {
+				charIndex = 0; combinedText = "";
+				npc.dialogueIndex++;
+			} gp.keys.enterPressed = false;
+		} else {
+			
+			
+			npc.dialogueIndex = 0;
+			npc.dialogueSet = 0;
+
+			if(npc.type == npc.type_merchant) {
+				gp.gameState = gp.tradingState;
+			}
+			if(gp.gameState == gp.dialogueState || gp.gameState == gp.loadingDialogueState) {
+				gp.gameState = gp.playState;
+			}
+			if(gp.gameState == gp.cutSceneState) {
+				gp.csHandler.scenePhase++;
+			}
+		}
+		
+		for(String line: currentDialogue.split("\n")) {			
+			g2.drawString(line, textX,  textY);
+			y+=40;
+		}
+		
+	
 	}
 	public String insertString(
 	        String originalString,
@@ -561,12 +627,12 @@ public class GUI {
 		//its opacity is scaled by the counter which starts from 0 so it creates a fade iout effect
 		g2.setColor(new Color(0,0,0,counter*5));
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-		//when the counter hits a certain amoun, it stops and imlements the transition
+		//when the counter hits a certain amount, it stops and imlements the transition
 		if(counter == 50) {
 			
 			if(loading) {
 				
-				loadingDialogue(gp.narrator, 0);
+				loadingDialogue(gp.narrator, Narrator.intro_story);
 			}
 			else gp.gameState = gp.playState;
 
@@ -1313,11 +1379,11 @@ public class GUI {
 		
 		//DRAW DIALOGUE SCREEN
 		if (gp.gameState == gp.dialogueState) {
-			dialougeScreen(false);
+			dialogueScreen(false);
 		}
 		//DRAW LOOADING DIALOGUE SCREE
 		if (gp.gameState == gp.loadingDialogueState) {
-			dialougeScreen(true);
+			dialogueScreen(true);
 		}
 		
 		//DRAW VIEW CHAR SCREEN

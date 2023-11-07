@@ -6,3 +6,4 @@ public class Tile {
 	BufferedImage tileIMG;
 	public boolean collisionOn;
 }
+

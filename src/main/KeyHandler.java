@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 
 import DataHandling.DatabaseManagement;
+import entity.Narrator;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;

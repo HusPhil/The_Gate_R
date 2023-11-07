@@ -13,6 +13,8 @@ public class NPC_Hermit extends Entity{
 	public static final int encounter = 3;
 	public static final int thanking = 4;
 	public static final int explaining = 5;
+	public static final int explaining_2 = 6;
+	public static final int explaining_3 = 7;
 
 	//SearchPaths
 	public static final int oldManFreed = 1;
@@ -171,8 +173,24 @@ public class NPC_Hermit extends Entity{
 		dialogues[thanking][i] = "Now come, let's go save the village!"; i++;
 		
 		i = 0;
-		dialogues[explaining][i] = "This is the village"; i++;
-		dialogues[explaining][i] = "Aint it cool, huh?"; i++;
+		dialogues[explaining][i] = "Oh noo...!"; i++;
+		dialogues[explaining][i] = "The village! It's being attacked by monsters!"; i++;
+		
+		i = 0;
+		dialogues[explaining_2][i] = "Oh no.. What do we do!?"; i++;
+		dialogues[explaining_2][i] = "I want to deafeat these monsters but my already"
+				+ "\nweak body cannot defeat these vile monsters.."; i++;
+		dialogues[explaining_2][i] = "Young man, would you help me..?"; i++;
+		
+		
+		
+		i = 0;
+		dialogues[explaining_3][i] = "Thank you young man! here's an old sword of mine!"; i++;
+		dialogues[explaining_3][i] = "Go ahead and take care of these monsters!"; i++;
+		
+		
+		
+		
 		
 	}
 	public void speak(int dialogueSetNum) {
