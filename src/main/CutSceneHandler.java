@@ -227,7 +227,6 @@ public class CutSceneHandler {
 			
 		}
 		if(scenePhase == 2) {
-//			gp.gui.dialougeScreen(false);
 			gp.gameState = gp.playState;
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				scenePhase++;
@@ -242,8 +241,6 @@ public class CutSceneHandler {
 		
 		//PHASE 3
 		if(scenePhase == 4) {
-//			g2.setColor(Color.DARK_GRAY);
-//			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.silvioVillage][i] == null) {
 					gp.npc[gp.silvioVillage][i] = new NPC_Hermit(gp);
@@ -251,6 +248,7 @@ public class CutSceneHandler {
 					gp.npc[gp.silvioVillage][i].speed = 0;
 					gp.npc[gp.silvioVillage][i].worldX = 18*48;
 					gp.npc[gp.silvioVillage][i].worldY = 11*48;
+					gp.npc[gp.silvioVillage][i].currentSearchPath = NPC_Hermit.oldManFindHome;
 					gp.gui.npc = gp.npc[gp.silvioVillage][i];
 					break;
 				}
@@ -259,7 +257,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 5) {
 			gp.eventHandler.transition(gp.silvioVillage, 17, 10, gp.outside);
-			gp.gui.npc.direction = "right";
+//			gp.gui.npc.direction = "right";
 			scenePhase++;
 		}
 		if(gp.gameState == gp.gameState && scenePhase == 6) {
@@ -325,6 +323,7 @@ public class CutSceneHandler {
 		}
 		//in  the village
 		if(scenePhase == 10) {
+//			gp.gui.npc.currentSearchPath = NPC_Hermit.oldManFindHome;
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
@@ -348,7 +347,6 @@ public class CutSceneHandler {
 				gp.gui.npc = gp.narrator;
 				gp.gui.npc.dialogueSet = Narrator.village_monster;
 				gp.gui.informationScreen();
-//				scenePhase++;
 			}
 			
 			
@@ -374,7 +372,6 @@ public class CutSceneHandler {
 			gp.gui.npc = gp.narrator;
 			gp.gui.npc.dialogueSet = Narrator.player_agree;
 			gp.gui.informationScreen();
-//			
 		}
 		if(scenePhase ==  15) {
 			setGuiNpc("Silvio");
@@ -386,9 +383,6 @@ public class CutSceneHandler {
 			
 			showInfoScreen(Narrator.player_acquiredWS);
 			GameProgress.oldManExplained = true;
-			
-//			sceneNum = NONE;
-//			scenePhase = NONE;
 		}
 		if(scenePhase == 17) {
 			
@@ -431,8 +425,6 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 22) {
-//			gp.player.setNpcDialogue = NPC_Cursed_Villager.cursed_talk;
-//			int i = 0;
 			int mapNum = gp.silvioVillage;
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[mapNum][i] == null) {
@@ -466,12 +458,75 @@ public class CutSceneHandler {
 			}
 			scenePhase++;
 		}
-		if(scenePhase == 23) {
+		
+		if(scenePhase == 23 ) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		if(scenePhase == 24 ) {
+			if(gp.player.worldX <= 34*48 && gp.player.worldY <= 15*48) {
+				gp.player.worldX += 4;
+				gp.player.worldY += 3;
+			}
+			else {
+				
+				gp.gui.npc = gp.narrator;
+				gp.gui.npc.dialogueSet = Narrator.villager_comeout;
+				gp.gui.informationScreen();
+			}
+		}
+		
+		if(scenePhase == 25 ) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		if(scenePhase == 26) {
+			setGuiNpc("Silvio");
 			gp.gui.npc.dialogueSet = NPC_Hermit.intro_end_2;
+			gp.gui.npc.speed = 1;
 			gp.gui.dialogueScreen(false);
 		}
-		if(scenePhase ==  24) {
+		if(scenePhase ==  27) {
+			
 			gp.gui.npc.dialogueSet = NPC_Hermit.intro_end_3;
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		if(scenePhase == 28) {
+			
+			scenePhase++;
+		}
+		if(scenePhase == 29) {
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.currentMap][i] != null &&
+					gp.npc[gp.currentMap][i].name.equals("Silvio")) {
+						gp.npc[gp.currentMap][i] = null;
+						scenePhase++;
+						break;
+					}
+				}
+			}
+		}
+		if(scenePhase == 30) {
+			GameProgress.intro_done = true;
 			endScene();
 		}
 	}
@@ -479,28 +534,26 @@ public class CutSceneHandler {
 	public void axeHint() {
 		if(scenePhase == 0) {
 			showInfoScreen(Narrator.axeHint_1);
-			
 		}
 		if(scenePhase == 1) endScene();
 	}
 	
+	
+	
+	
+	
+	//UTILS
 	
 	public void showInfoScreen(int dialogueSet) {
 		gp.gui.npc = gp.narrator;
 		gp.gui.npc.dialogueSet = dialogueSet;
 		gp.gui.informationScreen();
 	}
-	
-	
-	
-	//UTILS
-	
 	public void endScene() {
 		gp.gameState = gp.playState;
 		sceneNum = NONE;
 		scenePhase = NONE;
 	}
-	
 	public void setGuiNpc (String npcName) {
 		for(int i = 0; i < gp.npc[1].length; i++) {
 			if(gp.npc[gp.currentMap][i] != null &&

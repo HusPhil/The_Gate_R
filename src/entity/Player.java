@@ -313,7 +313,7 @@ public class Player extends Entity{
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
 		inventory.add(new OBJ_Lantern(gp));
-		inventory.add(new OBJ_Iron_Axe(gp));
+//		inventory.add(new OBJ_Iron_Axe(gp));
 		inventory.add(new OBJ_Health_Potion(gp));
 		inventory.add(new OBJ_Health_Potion(gp));
 		inventory.add(new OBJ_Health_Potion(gp));

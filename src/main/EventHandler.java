@@ -72,7 +72,7 @@ public class EventHandler {
 			}
 			//GOING INSIDE AND OUTSIDE MERCHANT HOUSE
 			else if(eventCollision(gp.worldMapA, 14, 39, "up")) transition(gp.merchantHouse, 24, 23, gp.indoor);
-			else if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.worldMapA, 14, 39, gp.outside);
+			else if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.silvioVillage, 35, 15, gp.outside);
 			//WORLDMAP-A to F1_Dungeon (ViceVersa)
 			else if(eventCollision(gp.worldMapA, 35, 37, "right")) transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
 			else if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.worldMapA, 34, 37, gp.outside);
@@ -96,8 +96,12 @@ public class EventHandler {
 			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,48,48)) {
 				CS_oldManExplain();
 			}
-			else if(eventCollision(gp.corrupted1, 35, 14, "down", 0,0,48,48)) {
-				CS_oldManExplain();
+			else if(eventCollision(gp.silvioVillage, 35, 14, "any")) {
+				transition(gp.merchantHouse, 24, 23, gp.indoor);
+			}
+			else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
+				CS_axeHint();
+				touchEventON = false;
 			}
 			
 			//////////////////////////////////////////////
@@ -232,7 +236,7 @@ public class EventHandler {
 		}
 	}
 	public void CS_axeHint() {
-		if(!gp.player.itemIsInsideInventory(OBJ_Iron_Axe.objName)) {
+		if(!gp.player.itemIsInsideInventory(OBJ_Iron_Axe.objName) && GameProgress.intro_done) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.axeHint;
 		}

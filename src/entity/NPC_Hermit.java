@@ -22,6 +22,7 @@ public class NPC_Hermit extends Entity{
 	//SearchPaths
 	public static final int find_player = 1;
 	public static final int oldManExplain = 2;
+	public static final int oldManFindHome = 3;
 	
 	public NPC_Hermit(GamePanel gp) {
 		super(gp);
@@ -31,7 +32,6 @@ public class NPC_Hermit extends Entity{
 		if(i ==2) direction = "down";
 		if(i ==3) direction = "left";
 		if(i ==4) direction = "right";
-		direction = "up";
 		//SOLID AREA FOR COLLISION DETECT
 		solidArea = new Rectangle(12, 18, 24, 26);
 		defaultSolidAreaX = solidArea.x;
@@ -68,6 +68,8 @@ public class NPC_Hermit extends Entity{
 	}
 	
 	public void setAction() {
+		
+		
 		switch (currentSearchPath) {
 		case pathOFF: 
 			
@@ -84,6 +86,7 @@ public class NPC_Hermit extends Entity{
 			break;
 		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
 		case oldManExplain: searchPath(27,27); break;
+		case oldManFindHome: searchPath(28,12); break;
 		}
 		
 //		else {
@@ -200,6 +203,7 @@ public class NPC_Hermit extends Entity{
 				+ "\n'Good Health and Well-being'!"; i++;
 		dialogues[intro_end_2][i] = "There seems to be a witch living down south!"
 				+ "\nask her for further instruction!"; i++;
+		dialogues[intro_end_2][i] = "I have to rest in my home for the day.."; i++;
 		dialogues[intro_end_2][i] = "Hurry now! Good luck on your adventure, young man!"; i++;
 		
 		i = 0;

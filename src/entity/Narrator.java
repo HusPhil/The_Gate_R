@@ -16,6 +16,7 @@ public class Narrator extends Entity{
 	public static final int defeated_all_enemy = 6;
 	public static final int axeHint_1 = 7;
 	public static final int axeHint_2 = 8;
+	public static final int villager_comeout = 9;
 
 	public Narrator(GamePanel gp) {
 		super(gp);
@@ -62,7 +63,8 @@ public class Narrator extends Entity{
 		
 		j = 0;
 		dialogues[defeated_all_enemy][j] = "You have defeated all the enemy!"; j++;
-		dialogues[defeated_all_enemy][j] = "Talk to the old man (Press T near him)"; j++;
+		dialogues[defeated_all_enemy][j] = "Talk to the old man"; j++;
+		dialogues[defeated_all_enemy][j] = "(Press T near him)"; j++;
 		
 		
 		j = 0;
@@ -70,6 +72,10 @@ public class Narrator extends Entity{
 		dialogues[axeHint_1][j] = "You mights need a tool to cut them!"; j++;
 		dialogues[axeHint_1][j] = "Maybe.. you can find it in the village!"; j++;
 	
+		j = 0;
+		dialogues[villager_comeout][j] = "The villagers came out of the house"; j++;
+		dialogues[villager_comeout][j] = "They look weird.."; j++;
+		
 	}
 
 }
