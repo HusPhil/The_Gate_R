@@ -2,6 +2,7 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import object.OBJ_Iron_Axe;
 
 public class EventHandler { 
 	
@@ -94,9 +95,10 @@ public class EventHandler {
 			}
 			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,48,48)) {
 				CS_oldManExplain();
-				System.out.println("TOUCHINGEEE");
 			}
-			
+			else if(eventCollision(gp.corrupted1, 35, 14, "down", 0,0,48,48)) {
+				CS_oldManExplain();
+			}
 			
 			//////////////////////////////////////////////
 		}
@@ -219,7 +221,6 @@ public class EventHandler {
 			Entity obj = null;
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
 				if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("001")) {
-					System.out.println();
 					obj = gp.gameObjs[gp.currentMap][i];
 				}
 			}
@@ -230,6 +231,11 @@ public class EventHandler {
 			}
 		}
 	}
-	
+	public void CS_axeHint() {
+		if(!gp.player.itemIsInsideInventory(OBJ_Iron_Axe.objName)) {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.axeHint;
+		}
+	}
 
 }

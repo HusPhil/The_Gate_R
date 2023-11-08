@@ -79,6 +79,7 @@ public class Entity {
 	public boolean debugOn = false;
 	public boolean enraged = false;
 	public boolean asleep = false;
+	public boolean talking = false;
 		
 	//Entity's Attributes
 	public Entity loot;
@@ -296,7 +297,7 @@ public class Entity {
 	}
 	public void damageReaction() {}
 	public void setAction() {}
-	public void speak(int dialogueSetNum) {
+	public void speak() {
 	}
 	public void facePlayer() {
 		//Face the player

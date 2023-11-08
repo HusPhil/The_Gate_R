@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import DataHandling.GameProgress;
 import entity.Entity;
 import entity.Narrator;
 import object.OBJ_Chest;
@@ -239,6 +240,11 @@ public class GUI {
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 					}
 					
+					
+					if(GameProgress.oldManExplained && 
+							(gp.player.inventory.get(i) == gp.player.currentWeapon || 
+							 gp.player.inventory.get(i) == gp.player.currentShield ||
+							 gp.player.inventory.get(i) == gp.player.currentLightItem))
 					g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
 					
 					//DISPLAY AMOUNT OF STACKABLE ITEMS
@@ -450,8 +456,8 @@ public class GUI {
 			} gp.keys.enterPressed = false;
 		} else {
 			
+			npc.talking = false;
 			npc.dialogueIndex = 0;
-			npc.dialogueSet = 0;
 
 			if(npc.type == npc.type_merchant) {
 				gp.gameState = gp.tradingState;

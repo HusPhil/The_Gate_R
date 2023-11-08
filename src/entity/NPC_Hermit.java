@@ -15,9 +15,12 @@ public class NPC_Hermit extends Entity{
 	public static final int explaining = 5;
 	public static final int explaining_2 = 6;
 	public static final int explaining_3 = 7;
+	public static final int intro_end = 8;
+	public static final int intro_end_2 = 9;
+	public static final int intro_end_3 = 10;
 
 	//SearchPaths
-	public static final int oldManFreed = 1;
+	public static final int find_player = 1;
 	public static final int oldManExplain = 2;
 	
 	public NPC_Hermit(GamePanel gp) {
@@ -43,38 +46,28 @@ public class NPC_Hermit extends Entity{
 	}
 
 	private void getNpcImage() {
-		up1 = createImage("npc", "up0");
-		up2 = createImage("npc", "up1");
-		up3 = createImage("npc", "up2");
-		up4 = createImage("npc", "up3");
+		up1 = createImage("npc", "old_man/up0");
+		up2 = createImage("npc", "old_man/up1");
+		up3 = createImage("npc", "old_man/up2");
+		up4 = createImage("npc", "old_man/up3");
 		
-		down1 = createImage("npc", "down0");
-		down2 = createImage("npc", "down1");
-		down3 = createImage("npc", "down2");
-		down4 = createImage("npc", "down3");
+		down1 = createImage("npc", "old_man/down0");
+		down2 = createImage("npc", "old_man/down1");
+		down3 = createImage("npc", "old_man/down2");
+		down4 = createImage("npc", "old_man/down3");
 		
-		right1 = createImage("npc", "left0");
-		right2 = createImage("npc", "left1");
-		right3 = createImage("npc", "left2");
-		right4 = createImage("npc", "left3");
+		right1 = createImage("npc", "old_man/left0");
+		right2 = createImage("npc", "old_man/left1");
+		right3 = createImage("npc", "old_man/left2");
+		right4 = createImage("npc", "old_man/left3");
 		
-		left1 = createImage("npc", "right0");
-		left2 = createImage("npc", "right1");
-		left3 = createImage("npc", "right2");
-		left4 = createImage("npc", "right3");
+		left1 = createImage("npc", "old_man/right0");
+		left2 = createImage("npc", "old_man/right1");
+		left3 = createImage("npc", "old_man/right2");
+		left4 = createImage("npc", "old_man/right3");
 	}
 	
 	public void setAction() {
-		if(pathAI) {
-//			searchPath(15, 27);
-			
-			
-////			if(worldX <= 15 || worldY == 26) 
-//				pathAI = false;
-		}
-		
-		
-		
 		switch (currentSearchPath) {
 		case pathOFF: 
 			
@@ -89,7 +82,7 @@ public class NPC_Hermit extends Entity{
 				actionDelay = 0;
 			}
 			break;
-		case oldManFreed: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
+		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
 		case oldManExplain: searchPath(27,27); break;
 		}
 		
@@ -185,17 +178,36 @@ public class NPC_Hermit extends Entity{
 		
 		
 		i = 0;
-		dialogues[explaining_3][i] = "Thank you young man! here's an old sword of mine!"; i++;
+		dialogues[explaining_3][i] = "Thank you young man!"; i++;
+		dialogues[explaining_3][i] = "Here's an old sword and old shield of mine!"; i++;
 		dialogues[explaining_3][i] = "Go ahead and take care of these monsters!"; i++;
+		dialogues[explaining_3][i] = "(Press the enter key to attack!)"; i++;
+		dialogues[explaining_3][i] = "(Press letter C to view your inventory!)"; i++;
 		
+		i = 0;
+		dialogues[intro_end][i] = "Thank you again, young man!"; i++;
+		dialogues[intro_end][i] = "You saved the village, and owe my life to you!"; i++;
+		dialogues[intro_end][i] = "Oh, by the way, my name is Silvio! I'm sorry for"
+				+ "\nthe late introduction..."; i++;
 		
+		i = 0;
+		dialogues[intro_end_2][i] = "What is this !!?"; i++;
+		dialogues[intro_end_2][i] = "The people, what happened to them!?"; i++;
+		dialogues[intro_end_2][i] = "...!"; i++;
+		dialogues[intro_end_2][i] = "Don't tell me, are they cursed!?"; i++;
+		dialogues[intro_end_2][i] = "Young man! I shall now give you your first quest!"; i++;
+		dialogues[intro_end_2][i] = "Fulfill SDG #3 and provide the people with"
+				+ "\n'Good Health and Well-being'!"; i++;
+		dialogues[intro_end_2][i] = "There seems to be a witch living down south!"
+				+ "\nask her for further instruction!"; i++;
+		dialogues[intro_end_2][i] = "Hurry now! Good luck on your adventure, young man!"; i++;
 		
-		
-		
+		i = 0;
+		dialogues[intro_end_3][i] = "Good luck on your adventure young man!"; i++;
 	}
-	public void speak(int dialogueSetNum) {
+	public void speak() {
 		facePlayer();
-		startDialogue(this, dialogueSetNum);
+		startDialogue(this, dialogueSet);
 	}	
 
 

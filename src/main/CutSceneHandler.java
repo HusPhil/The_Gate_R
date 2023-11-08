@@ -2,9 +2,11 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_PlayerDummy;
 import entity.Narrator;
@@ -25,6 +27,7 @@ public class CutSceneHandler {
 	public final int introduction = 2;
 	public final int oldManEncounter = 3;
 	public final int oldManExplain = 4;
+	public final int axeHint = 5;
 	
 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
@@ -206,6 +209,8 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManExplain() {
+		
+		
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] != null &&
@@ -217,7 +222,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 1) {
-			gp.gui.npc.currentSearchPath = NPC_Hermit.oldManFreed;
+			gp.gui.npc.currentSearchPath = NPC_Hermit.find_player;
 			scenePhase++;
 			
 		}
@@ -268,6 +273,8 @@ public class CutSceneHandler {
 			int j;
 			int mapNum = gp.silvioVillage;
 			
+			
+			
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
 					
@@ -276,26 +283,31 @@ public class CutSceneHandler {
 					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
 					gp.monsters[mapNum][j].worldX = 27*48;
 					gp.monsters[mapNum][j].worldY = 11*48;
+					gp.monsters[mapNum][j].cs_id = "mon0001";
 					j++;
 					
 					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
 					gp.monsters[mapNum][j].worldX = 16*48;
 					gp.monsters[mapNum][j].worldY = 16*48;
+					gp.monsters[mapNum][j].cs_id = "mon0002";
 					j++;
 					
 					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
 					gp.monsters[mapNum][j].worldX = 22*48;
 					gp.monsters[mapNum][j].worldY = 18*48;
+					gp.monsters[mapNum][j].cs_id = "mon0003";
 					j++;
 					
 					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
 					gp.monsters[mapNum][j].worldX = 30*48;
 					gp.monsters[mapNum][j].worldY = 21*48;
+					gp.monsters[mapNum][j].cs_id = "mon0004";
 					j++;
 					
 					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
 					gp.monsters[mapNum][j].worldX = 33*48;
 					gp.monsters[mapNum][j].worldY = 11*48;
+					gp.monsters[mapNum][j].cs_id = "mon0005";
 					j++;
 					
 					break;
@@ -379,28 +391,114 @@ public class CutSceneHandler {
 //			scenePhase = NONE;
 		}
 		if(scenePhase == 17) {
+			
+			
+			boolean monstersAlive = false;
 			gp.gameState = gp.playState;
-			for(int i = 0; i < gp.monsters[1].length; i++) {
-				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].type == gp.player.type_mon_cs) {
-					
-					
-					
-				}else scenePhase++;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("mon0001") || csId.equals("mon0002") || csId.equals("mon0003") || csId.equals("mon0004") || csId.equals("mon0005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
 			}
 		}
 
 		
 		if(scenePhase == 18) {
-			System.out.println("what da hek");
+			gp.gameState = gp.cutSceneState;
+			showInfoScreen(Narrator.defeated_all_enemy);
+		}
+		if(scenePhase == 19) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		if(scenePhase == 20) {
+			setGuiNpc("Silvio");
+			gp.gui.npc.dialogueSet =  NPC_Hermit.intro_end;
+			if(gp.gui.npc.talking) scenePhase++; 
+		}
+		if(scenePhase == 21) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 22) {
+//			gp.player.setNpcDialogue = NPC_Cursed_Villager.cursed_talk;
+//			int i = 0;
+			int mapNum = gp.silvioVillage;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[mapNum][i] == null) {
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 23*48;
+					gp.npc[mapNum][i].worldY = 11*48; i++;
+
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 16*48;
+					gp.npc[mapNum][i].worldY = 16*48; i++;
+					
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 23*48;
+					gp.npc[mapNum][i].worldY = 20*48; i++;
+					
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 28*48;
+					gp.npc[mapNum][i].worldY = 19*48; i++;
+					
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 34*48;
+					gp.npc[mapNum][i].worldY = 20*48; i++;
+					
+					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+					gp.npc[mapNum][i].worldX = 30*48;
+					gp.npc[mapNum][i].worldY = 21*48; i++;
+					
+					break;
+				}
+				
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 23) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.intro_end_2;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase ==  24) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.intro_end_3;
+			endScene();
 		}
 	}
 
+	public void axeHint() {
+		if(scenePhase == 0) {
+			showInfoScreen(Narrator.axeHint_1);
+			
+		}
+		if(scenePhase == 1) endScene();
+	}
 	
 	
 	public void showInfoScreen(int dialogueSet) {
 		gp.gui.npc = gp.narrator;
 		gp.gui.npc.dialogueSet = dialogueSet;
 		gp.gui.informationScreen();
+	}
+	
+	
+	
+	//UTILS
+	
+	public void endScene() {
+		gp.gameState = gp.playState;
+		sceneNum = NONE;
+		scenePhase = NONE;
 	}
 	
 	public void setGuiNpc (String npcName) {
@@ -420,6 +518,7 @@ public class CutSceneHandler {
 		case introduction: scene_Intro(); break;
 		case oldManEncounter: oldManEncounter(); break; 
 		case oldManExplain: oldManExplain(); break;
+		case axeHint: axeHint(); break;
 		}
 	}
 }

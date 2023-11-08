@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 
 import DataHandling.DatabaseManagement;
+import DataHandling.GameProgress;
 import entity.Narrator;
 
 import java.io.BufferedReader;
@@ -264,7 +265,10 @@ public class KeyHandler implements KeyListener {
 			if(gp.player.attacking == false) gp.player.spriteNum = 1; 
 			break;
 		case KeyEvent.VK_Y: yesOn = true; break;
-		case KeyEvent.VK_C: gp.gameState = gp.viewCharState; break;
+		case KeyEvent.VK_C: 
+//			if(GameProgress.oldManExplained)
+				gp.gameState = gp.viewCharState; 
+			break;
 		case KeyEvent.VK_F: fireAway = true; break;
 		case KeyEvent.VK_ESCAPE: gp.gameState = gp.optionsState; break;
 		case KeyEvent.VK_L: debugPressed = true; break;

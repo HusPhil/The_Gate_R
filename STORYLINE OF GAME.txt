@@ -21,7 +21,7 @@ SCENE 1:sss
 -some monsters are seen in the village
 -the old  man will give the player the wooden sword
 -defeat the monsters
-- heal the people(first quest)
+-heal the people(first quest)
 -people will come out (hear their complains) 
 -old man will go to his home
 -give you second quest (find a way to feed the starving village)
@@ -31,6 +31,87 @@ SCENE 1:sss
 -get the loot
 -old man give the third quest (get the book of farming knowledge)
 -
+
+
+35 14 = where the axe is
+22 22 = hint of the axe
+
+
+down0
+down1
+down2
+down3
+left0
+left1
+left2
+left3
+right0
+right1
+right2
+right3
+up0
+up1
+up2
+up3
+
+
+
+up1 = createImage("npc", "villager_cursed/villager_cursed_up0");
+up2 = createImage("npc", "villager_cursed/villager_cursed_up1");
+up3 = createImage("npc", "villager_cursed/villager_cursed_up2");
+up4 = createImage("npc", "village_cursed/villager_cursed_up3");
+
+down1 = createImage("npc", "villager_cursed/villager_cursed_down0");
+down2 = createImage("npc", "villager_cursed/villager_cursed_down1");
+down3 = createImage("npc", "villager_cursed/villager_cursed_down2");
+down4 = createImage("npc", "villager_cursed/villager_cursed_down3");
+
+right1 = createImage("npc", "villager_cursed/villager_cursed_right0");
+right2 = createImage("npc", "villager_cursed/villager_cursed_right1");
+right3 = createImage("npc", "villager_cursed/villager_cursed_right2");
+right4 = createImage("npc", "villager_cursed/villager_cursed_right3");
+
+left1 = createImage("npc", "villager_cursed/villager_cursed_left0");
+left2 = createImage("npc", "villager_cursed/villager_cursed_left1");
+left3 = createImage("npc", "villager_cursed/villager_cursed_left2");
+left4 = createImage("npc", "villager_cursed/villager_cursed_left3");
+
+
+
+
+
+dialogues[intro_story][j] = "In the annals of time, fate weaves its intricate tapestry, "
+				+ "\nguided by the hands of heroes known and unknown."; j++;
+		dialogues[intro_story][j] = "Now, " + player_name + ", you stand at the precipice of a "
+				+ "\nfractured world, a testament to humanity's forgotten "
+				+ "\nvows."; j++;
+		dialogues[intro_story][j] = "As the tendrils of an ancient relic thrust you into the "
+				+ "\nheart of a desolate future Earth, the echoes of an "
+				+ "\nage-old plea resonate within your being."; j++;
+		dialogues[intro_story][j] = "Your quest is clear: resurrect the fading embers of the "
+				+ "\nSustainable Development Goals, rekindle hope, and "
+				+ "\ncarve a new legacy upon the barren canvas of time."; j++;
+		dialogues[intro_story][j] = "Heed the call, " + player_name + ", and weave a new "
+				+ "chapter \nin the timeless saga of Earth's redemption."; j++;
+		
+		
+		j = 0;
+		dialogues[full_inventory][j] = "You are heavily burdened, you cannot \ncarry anymore."; j++;
+		
+		j = 0;
+		dialogues[save_dialouge][j] = "Press 'Y' to save the game. Esc to cancel"; j++;
+		
+		j = 0;
+		dialogues[village_monster][j] = "Press 'Y' to save the game. Esc to cancel"; j++;
+
+
+
+
+
+
+
+
+
 
 
 

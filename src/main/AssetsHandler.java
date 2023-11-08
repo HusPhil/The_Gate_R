@@ -3,6 +3,7 @@ package main;
 
 
 import entity.NPC_BigRock;
+import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_Merchant;
 import interactive_tiles.IT_DryTree;
@@ -116,6 +117,8 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 12*48;
 		gp.npc[mapNum][i].worldY = 30*48; i++;
+		
+		
 	}
 	public void makeMonster() {
 		int i = 0;

@@ -12,6 +12,7 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
 import object.OBJ_Chest;
+import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
 import object.OBJ_Iron_Axe;
@@ -25,7 +26,7 @@ public class Player extends Entity{
 	public String ID = "";
 	public int score = 0;
 	public int progress = 0;
-	public int setNpcDialogue;
+
 	String temp;
 	int keynum = 0;
 	public final int screenX; 
@@ -313,6 +314,9 @@ public class Player extends Entity{
 		inventory.add(new ITM_Key(gp));
 		inventory.add(new OBJ_Lantern(gp));
 		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new OBJ_Health_Potion(gp));
+		inventory.add(new OBJ_Health_Potion(gp));
+		inventory.add(new OBJ_Health_Potion(gp));
 	}
 	
 	public void attackState() {
@@ -500,6 +504,14 @@ public class Player extends Entity{
 		}
 		return index;
 	}
+	public boolean itemIsInsideInventory(String itemName) {
+		for(int i = 0; i < inventory.size(); i++) {
+			if(inventory.get(i).name.equals(itemName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public boolean itemObtainable(Entity item) {
 		Entity newItem = gp.objGen.getObjectFromName(item.name);
@@ -605,7 +617,8 @@ public class Player extends Entity{
 		if (i != 777) {
 			if(gp.keys.talkOn) {
 				attackCanceled = true;
-				gp.npc[gp.currentMap][i].speak(setNpcDialogue);
+				gp.npc[gp.currentMap][i].speak();
+				gp.npc[gp.currentMap][i].talking = true;
 			} 
 //			if(gp.gui.currentDialogue == gp.npc[gp.currentMap][i].dialouges[19]) {
 //				magicOn = true;

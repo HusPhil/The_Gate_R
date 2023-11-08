@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
 
 public class Narrator extends Entity{
@@ -12,6 +13,9 @@ public class Narrator extends Entity{
 	public static final int village_monster = 3;
 	public static final int player_agree = 4;
 	public static final int player_acquiredWS = 5;
+	public static final int defeated_all_enemy = 6;
+	public static final int axeHint_1 = 7;
+	public static final int axeHint_2 = 8;
 
 	public Narrator(GamePanel gp) {
 		super(gp);
@@ -54,7 +58,18 @@ public class Narrator extends Entity{
 		
 		j = 0;
 		dialogues[player_acquiredWS][j] = "You acquired: " + OBJ_Wooden_Sword.objName; j++;
+		dialogues[player_acquiredWS][j] = "You acquired: " + OBJ_Wooden_Shield.objName; j++; 
 		
+		j = 0;
+		dialogues[defeated_all_enemy][j] = "You have defeated all the enemy!"; j++;
+		dialogues[defeated_all_enemy][j] = "Talk to the old man (Press T near him)"; j++;
+		
+		
+		j = 0;
+		dialogues[axeHint_1][j] = "You noticed some dry trees!"; j++;
+		dialogues[axeHint_1][j] = "You mights need a tool to cut them!"; j++;
+		dialogues[axeHint_1][j] = "Maybe.. you can find it in the village!"; j++;
+	
 	}
 
 }
