@@ -68,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int dungeonMap_F2 = 3;
 	public final int corrupted1 = 4;
 	public final int silvioVillage = 5;
+	public final int silvioHouse = 6;
 
 	//Screen settings//
 	//---------------//
@@ -217,6 +218,8 @@ public class GamePanel extends JPanel implements Runnable{
 	//-------
 	public Narrator narrator = new Narrator(this);
 	//======
+
+	
 	
 	public void setupGame() {
 		

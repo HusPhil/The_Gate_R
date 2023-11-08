@@ -69,8 +69,9 @@ public class TileManager {
 		loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
 		loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
 		loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
-		loadMap("/maps/trymap.txt", gp.corrupted1);
+		loadMap("/maps/corrupted_area1.txt", gp.corrupted1);
 		loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
+		loadMap("/maps/silvioHouse.txt", gp.silvioHouse); 
 		
 	}
 	

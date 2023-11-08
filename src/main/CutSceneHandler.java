@@ -12,6 +12,7 @@ import entity.NPC_PlayerDummy;
 import entity.Narrator;
 import monster.BOSS_SkeletonLord;
 import monster.MON_TreeMonster;
+import object.ITM_Key;
 import object.OBJ_IronDoor;
 
 public class CutSceneHandler {
@@ -416,6 +417,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 20) {
+			gp.gameState = gp.playState;
 			setGuiNpc("Silvio");
 			gp.gui.npc.dialogueSet =  NPC_Hermit.intro_end;
 			if(gp.gui.npc.talking) scenePhase++; 
@@ -526,6 +528,16 @@ public class CutSceneHandler {
 			}
 		}
 		if(scenePhase == 30) {
+			
+			int mapNum = gp.silvioVillage;
+			for(int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[mapNum][i] == null) {
+					gp.gameObjs[mapNum][i] = new ITM_Key(gp);
+					gp.gameObjs[mapNum][i].worldX = 38*48;
+					gp.gameObjs[mapNum][i].worldY = 9*48; i++;
+					break;
+				}
+			}
 			GameProgress.intro_done = true;
 			endScene();
 		}

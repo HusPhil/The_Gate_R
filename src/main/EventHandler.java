@@ -85,6 +85,12 @@ public class EventHandler {
 				gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
 				touchEventON = false;
 			}
+			else if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
+				transition(gp.silvioHouse, 24, 23, gp.indoor);
+			}
+			else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
+				transition(gp.silvioVillage, 28, 12, gp.outside);
+			}
 			
 			//CUTSCENES
 			///////////////////////////////////////////////
@@ -96,9 +102,7 @@ public class EventHandler {
 			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,48,48)) {
 				CS_oldManExplain();
 			}
-			else if(eventCollision(gp.silvioVillage, 35, 14, "any")) {
-				transition(gp.merchantHouse, 24, 23, gp.indoor);
-			}
+			
 			else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
 				CS_axeHint();
 				touchEventON = false;

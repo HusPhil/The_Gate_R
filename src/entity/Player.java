@@ -314,9 +314,6 @@ public class Player extends Entity{
 		inventory.add(new ITM_Key(gp));
 		inventory.add(new OBJ_Lantern(gp));
 //		inventory.add(new OBJ_Iron_Axe(gp));
-		inventory.add(new OBJ_Health_Potion(gp));
-		inventory.add(new OBJ_Health_Potion(gp));
-		inventory.add(new OBJ_Health_Potion(gp));
 	}
 	
 	public void attackState() {
@@ -524,7 +521,8 @@ public class Player extends Entity{
 					result = true;
 				} else {
 					if(inventory.size() != maxInventorySize) {
-						inventory.add(newItem);
+						if(newItem.type != newItem.non_inventory)
+							inventory.add(newItem);
 						result = true;
 					}
 				}

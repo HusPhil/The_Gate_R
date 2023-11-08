@@ -41,25 +41,23 @@ public class OBJ_Chest extends Entity{
 		dialogues[2][0] = "The chest was opened.";
 		dialogues[2][1] = "The chest was opened. It's empty.";
 		
+		dialogues[3][0] = "You opened the chest. ";
+		dialogues[3][1] = "You opened the chest. " + "You found a " + loot.name + "!";
+		dialogues[3][2] = "You opened the chest. You found a " + loot.name + "!\n..You obtained a 100 coins.";
 	}
-	public void changePic() {
-		
-		System.out.println(gp.player.collision);
-		
-		if (contactOn) 
-			down1 = createImage("objects", "coin22");
-		else {
-			down1 = createImage("objects", "items/ClosedChest");
-		} 
-		
-		if (!gp.player.collisionOn) contactOn = false;
-	}
+	
 	public void reaction() {
 		
 		
 		if(!opened) {
 			if(!gp.player.itemObtainable(loot)) {
 				startDialogue(this, 0);
+			}
+			else if(loot.name.equals(ITM_Coin.objName)) {
+				gp.player.coin += 100;
+				startDialogue(this, 3);
+				down1 = image2;
+				opened = true;
 			}
 			else {
 				startDialogue(this, 1);

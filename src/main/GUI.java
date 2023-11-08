@@ -240,11 +240,6 @@ public class GUI {
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 					}
 					
-					
-					if(GameProgress.oldManExplained && 
-							(gp.player.inventory.get(i) == gp.player.currentWeapon || 
-							 gp.player.inventory.get(i) == gp.player.currentShield ||
-							 gp.player.inventory.get(i) == gp.player.currentLightItem))
 					g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
 					
 					//DISPLAY AMOUNT OF STACKABLE ITEMS

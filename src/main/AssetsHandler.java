@@ -6,7 +6,9 @@ import entity.NPC_BigRock;
 import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_Merchant;
+import entity.NPC_Witch;
 import interactive_tiles.IT_DryTree;
+import interactive_tiles.IT_DryTree_Corrupted;
 import interactive_tiles.IT_FeebleWall;
 import interactive_tiles.IT_MetalPlate;
 import monster.BOSS_SkeletonLord;
@@ -15,6 +17,7 @@ import monster.MON_FireSlime;
 import monster.MON_TreeMonster;
 import monster.MON_Zombie;
 import object.ITM_Coin;
+import object.ITM_Key;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Health_Potion;
@@ -90,6 +93,33 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 14*48;
 		gp.gameObjs[mapNum][i].worldY = 29*48; i++;
 		
+		gp.gameObjs[mapNum][i] = new ITM_Key(gp);
+		gp.gameObjs[mapNum][i].worldX = 14*48;
+		gp.gameObjs[mapNum][i].worldY = 28*48; i++;
+		
+		i = 0;
+		mapNum = gp.silvioHouse;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Iron_Axe(gp));
+		gp.gameObjs[mapNum][i].worldX = 17*48;
+		gp.gameObjs[mapNum][i].worldY = 16*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new ITM_Coin(gp));
+		gp.gameObjs[mapNum][i].worldX = 18*48;
+		gp.gameObjs[mapNum][i].worldY = 16*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Health_Potion(gp));
+		gp.gameObjs[mapNum][i].worldX = 19*48;
+		gp.gameObjs[mapNum][i].worldY = 16*48; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].worldX = 30*48;
+		gp.gameObjs[mapNum][i].worldY = 18*48; i++;
+		
+		
+		
 	}
 	public void makeItems() {
 		int i = 0;
@@ -118,7 +148,20 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].worldX = 12*48;
 		gp.npc[mapNum][i].worldY = 30*48; i++;
 		
+		i = 0;
+		mapNum = gp.silvioHouse; // OVERWORLD
+		gp.npc[mapNum][i] = new NPC_Hermit(gp);
+		gp.npc[mapNum][i].name = "Silvio";
+		gp.npc[mapNum][i].dialogueSet = NPC_Hermit.intro_end_3;
+		gp.npc[mapNum][i].worldX = 18*48;
+		gp.npc[mapNum][i].worldY = 21*48; i++;
 		
+		gp.npc[mapNum][i] = new NPC_Witch(gp);
+		gp.npc[mapNum][i].name = "Witch";
+		gp.npc[mapNum][i].dialogueSet = NPC_Witch.quest1a;
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 18*48;
+		gp.npc[mapNum][i].worldY = 35*48; i++;
 	}
 	public void makeMonster() {
 		int i = 0;
@@ -200,14 +243,22 @@ public class AssetsHandler {
 	}
 	public void makeInteractiveTiles() {
 		int i = 0; 
-		int mapNum = 0;
+		int mapNum = gp.worldMapA;
 		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 18, 33); i++;
 		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 19, 33); i++;
 		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 20, 33); i++;
 		gp.IT_Manager[mapNum][i] = new IT_DryTree(gp, 18, 34); i++;
 		
 		i = 0;
-		mapNum = 1;
+		mapNum = gp.silvioVillage;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree_Corrupted(gp, 22, 23); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree_Corrupted(gp, 21, 23); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree_Corrupted(gp, 21, 24); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree_Corrupted(gp, 21, 25); i++;
+		gp.IT_Manager[mapNum][i] = new IT_DryTree_Corrupted(gp, 20, 25); i++;
+		
+		i = 0;
+		mapNum = gp.dungeonMap_F1;
 		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 35); i++;
 		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 18, 36); i++;
 		gp.IT_Manager[mapNum][i] = new IT_FeebleWall(gp, 19, 36); i++;

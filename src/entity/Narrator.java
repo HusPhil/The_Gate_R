@@ -69,7 +69,7 @@ public class Narrator extends Entity{
 		
 		j = 0;
 		dialogues[axeHint_1][j] = "You noticed some dry trees!"; j++;
-		dialogues[axeHint_1][j] = "You mights need a tool to cut them!"; j++;
+		dialogues[axeHint_1][j] = "You might need a tool to cut them!"; j++;
 		dialogues[axeHint_1][j] = "Maybe.. you can find it in the village!"; j++;
 	
 		j = 0;
