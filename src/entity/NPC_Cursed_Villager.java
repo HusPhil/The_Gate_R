@@ -13,6 +13,7 @@ public class NPC_Cursed_Villager extends Entity{
 	public static final int oldManFreed = 1;
 	public static final int oldManExplain = 2;
 	
+	public static final String NPC_Name = "Cursed Villager";
 	public NPC_Cursed_Villager(GamePanel gp) {
 		super(gp);
 		int i = rN.nextInt(4)+1;
@@ -20,7 +21,7 @@ public class NPC_Cursed_Villager extends Entity{
 		direction = "down";
 //		direction = "dwo";
 		
-		
+		name = NPC_Name;
 		//SOLID AREA FOR COLLISION DETECT
 		solidArea = new Rectangle(12, 18, 24, 26);
 		defaultSolidAreaX = solidArea.x;

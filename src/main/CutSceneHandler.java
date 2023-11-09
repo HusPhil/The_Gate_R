@@ -2,14 +2,14 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 import DataHandling.GameProgress;
 import entity.Entity;
 import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
+import entity.NPC_Narrator;
 import entity.NPC_PlayerDummy;
-import entity.Narrator;
+import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
 import monster.MON_TreeMonster;
 import object.ITM_Key;
@@ -29,6 +29,7 @@ public class CutSceneHandler {
 	public final int oldManEncounter = 3;
 	public final int oldManExplain = 4;
 	public final int axeHint = 5;
+	public final int witchEncounter = 6;
 	
 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
@@ -346,7 +347,7 @@ public class CutSceneHandler {
 			else {
 				
 				gp.gui.npc = gp.narrator;
-				gp.gui.npc.dialogueSet = Narrator.village_monster;
+				gp.gui.npc.dialogueSet = NPC_Narrator.village_monster;
 				gp.gui.informationScreen();
 			}
 			
@@ -371,7 +372,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase ==  14) {
 			gp.gui.npc = gp.narrator;
-			gp.gui.npc.dialogueSet = Narrator.player_agree;
+			gp.gui.npc.dialogueSet = NPC_Narrator.player_agree;
 			gp.gui.informationScreen();
 		}
 		if(scenePhase ==  15) {
@@ -382,7 +383,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 16) {
 			
-			showInfoScreen(Narrator.player_acquiredWS);
+			showInfoScreen(NPC_Narrator.player_acquiredWS);
 			GameProgress.oldManExplained = true;
 		}
 		if(scenePhase == 17) {
@@ -410,7 +411,7 @@ public class CutSceneHandler {
 		
 		if(scenePhase == 18) {
 			gp.gameState = gp.cutSceneState;
-			showInfoScreen(Narrator.defeated_all_enemy);
+			showInfoScreen(NPC_Narrator.defeated_all_enemy);
 		}
 		if(scenePhase == 19) {
 			gp.gameState = gp.playState;
@@ -482,7 +483,7 @@ public class CutSceneHandler {
 			else {
 				
 				gp.gui.npc = gp.narrator;
-				gp.gui.npc.dialogueSet = Narrator.villager_comeout;
+				gp.gui.npc.dialogueSet = NPC_Narrator.villager_comeout;
 				gp.gui.informationScreen();
 			}
 		}
@@ -545,11 +546,59 @@ public class CutSceneHandler {
 
 	public void axeHint() {
 		if(scenePhase == 0) {
-			showInfoScreen(Narrator.axeHint_1);
+			showInfoScreen(NPC_Narrator.axeHint_1);
 		}
 		if(scenePhase == 1) endScene();
 	}
 	
+	public void witchEncounter() {
+		if(scenePhase == 0) {
+//			for(int i = 0; i < gp.npc[1].length; i++) {
+//				if(gp.npc[gp.currentMap][i] != null) {
+//					System.out.println(gp.npc[gp.currentMap][i].name);
+//				}
+//			}
+//			
+			setGuiNpc(NPC_Witch.NPC_Name);
+//			gp.gui.npc = gp.npc[gp.silvioHouse][1];
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			System.out.println(gp.gui.npc.name);
+			gp.gui.npc.dialogueSet = NPC_Witch.quest1a;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 2) {
+			showInfoScreen(NPC_Narrator.witchEncounter);
+		}
+		if(scenePhase == 3) {
+			setGuiNpc(NPC_Witch.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Witch.quest1b;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 4) {
+//			GameProgress.witchEncountered = true;
+			endScene();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
@@ -584,6 +633,7 @@ public class CutSceneHandler {
 		case oldManEncounter: oldManEncounter(); break; 
 		case oldManExplain: oldManExplain(); break;
 		case axeHint: axeHint(); break;
+		case witchEncounter: witchEncounter(); break;
 		}
 	}
 }

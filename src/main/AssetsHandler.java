@@ -119,6 +119,13 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 18*48; i++;
 		
 		
+		i = 0;
+		mapNum = gp.silvioVillage;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new ITM_Key(gp));
+		gp.gameObjs[mapNum][i].worldX = 38*48;
+		gp.gameObjs[mapNum][i].worldY = 29*48; i++;
+		
 		
 	}
 	public void makeItems() {
@@ -157,8 +164,7 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].worldY = 21*48; i++;
 		
 		gp.npc[mapNum][i] = new NPC_Witch(gp);
-		gp.npc[mapNum][i].name = "Witch";
-		gp.npc[mapNum][i].dialogueSet = NPC_Witch.quest1a;
+//		gp.npc[mapNum][i].dialogueSet = NPC_Witch.quest1a;
 		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 18*48;
 		gp.npc[mapNum][i].worldY = 35*48; i++;
@@ -231,8 +237,6 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i].worldX = 25*48;
 		gp.monsters[mapNum][i].worldY = 35*48;
 		i++;
-		
-		
 		
 		i = 0;
 		mapNum = gp.corrupted1;

@@ -15,9 +15,11 @@ public class NPC_Witch extends Entity{
 	public final static int quest1a = 0;
 	public final static int quest1b = 1;
 
+	public static final String NPC_Name = "Witch";
 	public NPC_Witch(GamePanel gp) {
 		super(gp);
 		type = type_npc;
+		name = NPC_Name;
 		int i = rN.nextInt(4)+1;
 		if(i ==1) direction = "up";
 		if(i ==2) direction = "down";
@@ -118,10 +120,19 @@ public class NPC_Witch extends Entity{
 		
 		i = 0;
 		dialogues[quest1b][i] = "I see, then someone sent you here, huh?"; i++;
-		dialogues[quest1b][i] = "Well, hunt some monster in the forest and get some"
+		dialogues[quest1b][i] = "Well, hunt some monsters in the forest and get some"
 				+ "\ningredients for me.."; i++;
 		dialogues[quest1b][i] = "Maybe then, I could help you with your problem.."; i++;
-		dialogues[quest1b][i] = "I see, the someone sent you here, huh?"; i++;
+		dialogues[quest1b][i] = "Get me the following: "
+				+ "\n \t*3 Gels from Slimes"
+				+ "\n \t*5 Trenkflesh from Trenklins"; i++;
+		dialogues[quest1b][i] = "You need to go downstairs to reach the other side\n"
+				+ "of the forest. However, I lost the key for the door."; i++;
+		dialogues[quest1b][i] = "So now you have to find the key first before you\n"
+				+ "can proceed."; i++;
+		dialogues[quest1b][i] = "Well, that's all.. good luck young man. "; i++;
+		dialogues[quest1b][i] = "Don't die now.. hihihi"; i++;
+
 	}
 	public void speak() {
 		facePlayer();

@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 import DataHandling.DatabaseManagement;
 import DataHandling.GameProgress;
-import entity.Narrator;
+import entity.NPC_Narrator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

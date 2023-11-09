@@ -16,7 +16,7 @@ import AI.PathFinder;
 import DataHandling.DatabaseManagement;
 import DataHandling.SaveLoad;
 import entity.Entity;
-import entity.Narrator;
+import entity.NPC_Narrator;
 import entity.Player;
 import environment.EffectsHandler;
 import interactive_tiles.InteractiveTiles;
@@ -216,7 +216,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//Narrator//
 	//-------
-	public Narrator narrator = new Narrator(this);
+	public NPC_Narrator narrator = new NPC_Narrator(this);
 	//======
 
 	

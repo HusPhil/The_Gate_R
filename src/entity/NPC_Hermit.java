@@ -24,10 +24,12 @@ public class NPC_Hermit extends Entity{
 	public static final int oldManExplain = 2;
 	public static final int oldManFindHome = 3;
 	
+	public static final String NPC_Name = "Silvio";
 	public NPC_Hermit(GamePanel gp) {
 		super(gp);
 		int i = rN.nextInt(4)+1;
 		type = type_npc;
+		name = NPC_Name;
 		if(i ==1) direction = "up";
 		if(i ==2) direction = "down";
 		if(i ==3) direction = "left";

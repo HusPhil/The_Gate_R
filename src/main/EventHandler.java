@@ -2,6 +2,7 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import entity.NPC_Witch;
 import object.OBJ_Iron_Axe;
 
 public class EventHandler { 
@@ -91,6 +92,18 @@ public class EventHandler {
 			else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
 				transition(gp.silvioVillage, 28, 12, gp.outside);
 			}
+			else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
+				transition(gp.silvioHouse, 24, 40, gp.indoor);
+			}
+			else if(eventCollision(gp.silvioHouse, 24, 41, "any")) {
+				transition(gp.silvioVillage, 36, 38, gp.outside);
+			}
+			else if(eventCollision(gp.silvioHouse, 30, 34, "any")) {
+				transition(gp.silvioHouse, 17, 6, gp.dungeon);
+			}
+			else if(eventCollision(gp.silvioHouse, 16, 6, "any")) {
+				transition(gp.silvioHouse, 29, 34, gp.indoor);
+			}
 			
 			//CUTSCENES
 			///////////////////////////////////////////////
@@ -102,11 +115,15 @@ public class EventHandler {
 			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,48,48)) {
 				CS_oldManExplain();
 			}
-			
 			else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
 				CS_axeHint();
 				touchEventON = false;
 			}
+			else if(eventCollision(gp.silvioHouse, 18, 37, "any")) {
+				CS_witchEncounter();
+				touchEventON = false;
+			}
+			
 			
 			//////////////////////////////////////////////
 		}
@@ -244,6 +261,13 @@ public class EventHandler {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.axeHint;
 		}
+	}
+	
+	public void CS_witchEncounter() {
+		if(!GameProgress.witchEncountered) {
+		}
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.witchEncounter;
 	}
 
 }

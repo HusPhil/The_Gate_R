@@ -13,11 +13,12 @@ import object.OBJ_Wooden_Sword;
 
 public class NPC_Merchant extends Entity{
 
-
+	public static final String NPC_Name = "Merchant";
 	public NPC_Merchant(GamePanel gp) {
 		super(gp);
 		int i = rN.nextInt(4)+1;
 		type = type_merchant;
+		name = NPC_Name;
 		if(i ==1) direction = "up";
 		if(i ==2) direction = "down";
 		if(i ==3) direction = "left";

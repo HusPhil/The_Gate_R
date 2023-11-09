@@ -4,7 +4,7 @@ import main.GamePanel;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
 
-public class Narrator extends Entity{
+public class NPC_Narrator extends Entity{
 	public String player_name;
 	
 	public static final int intro_story = 0;
@@ -17,11 +17,13 @@ public class Narrator extends Entity{
 	public static final int axeHint_1 = 7;
 	public static final int axeHint_2 = 8;
 	public static final int villager_comeout = 9;
+	public static final int witchEncounter = 10;
 
-	public Narrator(GamePanel gp) {
+	public final static String NPC_Name ="Narrator";
+	public NPC_Narrator(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		name = "Narrator";
+		name = NPC_Name;
 		setDialogue();
 	}
 	
@@ -75,7 +77,9 @@ public class Narrator extends Entity{
 		j = 0;
 		dialogues[villager_comeout][j] = "The villagers came out of the house"; j++;
 		dialogues[villager_comeout][j] = "They look weird.."; j++;
-		
+	
+		j = 0;
+		dialogues[witchEncounter][j] = "You told the her about your journey.."; j++;
 	}
 
 }

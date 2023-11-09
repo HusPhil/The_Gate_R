@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import DataHandling.GameProgress;
 import entity.Entity;
-import entity.Narrator;
+import entity.NPC_Narrator;
 import object.OBJ_Chest;
 import object.OBJ_Heart;
 
@@ -633,7 +633,7 @@ public class GUI {
 			
 			if(loading) {
 				
-				loadingDialogue(gp.narrator, Narrator.intro_story);
+				loadingDialogue(gp.narrator, NPC_Narrator.intro_story);
 			}
 			else gp.gameState = gp.playState;
 
