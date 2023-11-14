@@ -252,12 +252,15 @@ public class KeyHandler implements KeyListener {
 		case KeyEvent.VK_P: 
 			gp.gameState = gp.pauseState; 
 			
-			gp.createAssets.makeMonster();
-			gp.currentMap = gp.corrupted1;
-			switch(gp.currentMap) {
-			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
-			case 4: gp.tManager.loadMap("/maps/trymap.txt", gp.corrupted1); break;
-			}
+//			gp.createAssets.makeMonster();
+//			gp.tManager.loadMap("/maps/worldMapA.txt", gp.worldMapA);
+//		    gp.tManager.loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
+//		    gp.tManager.loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
+//		    gp.tManager.loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
+//		    gp.tManager.loadMap("/maps/corrupted_area1.txt", gp.corrupted1);
+//		    gp.tManager.loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
+//		    gp.tManager.loadMap("/maps/silvioHouse.txt", gp.silvioHouse);
+//		    gp.tManager.loadMap("/maps/forest.txt", gp.forest);
 			
 			break;
 		case KeyEvent.VK_T: talkOn = true; break;
@@ -274,11 +277,11 @@ public class KeyHandler implements KeyListener {
 		case KeyEvent.VK_L: debugPressed = true; break;
 		case KeyEvent.VK_X: 
 //			gp.gameState = gp.tradingState;
-			gp.currentMap = 0;
-			switch(gp.currentMap) {
-			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
-			case 1: gp.tManager.loadMap("/maps/dungeonMap.txt", 1); break;
-			}
+//			gp.currentMap = 0;
+//			switch(gp.currentMap) {
+//			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
+//			case 1: gp.tManager.loadMap("/maps/dungeonMap.txt", 1); break;
+//			}
 //			if(!gp.map.minimapON) gp.map.minimapON = true;
 //			else if(gp.map.minimapON) gp.map.minimapON = false;
 			break;

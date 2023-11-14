@@ -10,7 +10,7 @@ public class main {
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("The Gate (R)"); 
+		window.setTitle("SDG Game Eme"); 
 		 
 		window.add(gamePanel);		
 		gamePanel.config.loadConfig();

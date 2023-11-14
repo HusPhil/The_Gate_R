@@ -23,57 +23,78 @@ public class TileManager {
 	
 	
 	public TileManager(GamePanel gp) {
-		this.gp = gp;
-		
-		
-		//Read the tiledata file
-		InputStream is = getClass().getResourceAsStream("/maps/WorldMapData.txt");
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		
-		//Get tile names  and collsion stats
-		String line;
-		
-		try {
-			while((line = br.readLine()) != null) {
-				fileNames.add(line);
-				colStat.add(br.readLine());
-			}
-			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		tile = new Tile[fileNames.size()];
-		getTileImage();
-		
-		is = getClass().getResourceAsStream("/maps/worldMapA.txt");
-		br = new BufferedReader(new InputStreamReader(is));
-		
-		try {
-			String line2 = br.readLine();
-			String mapSize[] = line2.split(" ");
-			
-			gp.maxWorldCol = mapSize.length;
-			gp.maxWorldRow = mapSize.length;
-			
-			mapTileNum = new int [gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
-			
-			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		loadMap("/maps/worldMapA.txt", gp.worldMapA);
-		loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
-		loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
-		loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
-		loadMap("/maps/corrupted_area1.txt", gp.corrupted1);
-		loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
-		loadMap("/maps/silvioHouse.txt", gp.silvioHouse); 
-		
+	    this.gp = gp;
+
+	    // Read the tiledata file
+	    loadTileData("/maps/WorldMapData.txt");
+
+	    tile = new Tile[fileNames.size()];
+	    getTileImage();
+
+	    // Initialize map size
+	    initializeMapSize("/maps/worldMapA.txt");
+
+	    // Load maps
+	    loadMap("/maps/worldMapA.txt", gp.worldMapA);
+	    loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
+	    loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
+	    loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
+	    loadMap("/maps/corrupted_area1.txt", gp.corrupted1);
+	    loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
+	    loadMap("/maps/silvioHouse.txt", gp.silvioHouse);
+	    loadMap("/maps/forest.txt", gp.forest);
 	}
+
+	private void loadTileData(String filePath) {
+	    try (InputStream is = getClass().getResourceAsStream(filePath);
+	         BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	            fileNames.add(line);
+	            colStat.add(br.readLine());
+	        }
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private void initializeMapSize(String filePath) {
+	    try (InputStream is = getClass().getResourceAsStream(filePath);
+	         BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+
+	        String line = br.readLine();
+	        String[] mapSize = line.split(" ");
+
+	        gp.maxWorldCol = mapSize.length;
+	        gp.maxWorldRow = mapSize.length;
+
+	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private void loadMap(String filePath, int[][] map) {
+	    try (InputStream is = getClass().getResourceAsStream(filePath);
+	         BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+
+	        for (int i = 0; i < gp.maxMap; i++) {
+	            for (int j = 0; j < gp.maxWorldCol; j++) {
+	                String[] tiles = br.readLine().split(" ");
+	                for (int k = 0; k < gp.maxWorldRow; k++) {
+	                    mapTileNum[i][j][k] = Integer.parseInt(tiles[k]);
+	                }
+	            }
+	        }
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public void getTileImage() {
 		

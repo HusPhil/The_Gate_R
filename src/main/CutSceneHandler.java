@@ -11,8 +11,11 @@ import entity.NPC_Narrator;
 import entity.NPC_PlayerDummy;
 import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
-import monster.MON_TreeMonster;
+import monster.MON_Trenklin;
 import object.ITM_Key;
+import object.ITM_SlimeGel;
+import object.ITM_TrenkAmulet;
+import object.ITM_TrenkMeat;
 import object.OBJ_IronDoor;
 
 public class CutSceneHandler {
@@ -30,6 +33,13 @@ public class CutSceneHandler {
 	public final int oldManExplain = 4;
 	public final int axeHint = 5;
 	public final int witchEncounter = 6;
+	public final int witchQuest1Complete = 7;
+	public final int oldManQuest2 = 8;
+	
+	
+	int gelAmmount = 0;
+	int meatAmmount = 0;
+	
 	
 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
@@ -49,8 +59,8 @@ public class CutSceneHandler {
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
 				if(gp.gameObjs[gp.currentMap][i] == null) {
 					gp.gameObjs[gp.currentMap][i] = new OBJ_IronDoor(gp);
-					gp.gameObjs[gp.currentMap][i].worldX = 27*48;
-					gp.gameObjs[gp.currentMap][i].worldY = 28*48;
+					gp.gameObjs[gp.currentMap][i].worldX = 27*gp.tileSize;
+					gp.gameObjs[gp.currentMap][i].worldY = 28*gp.tileSize;
 					gp.gameObjs[gp.currentMap][i].temp = true;
 					gp.playSE(7);
 					break;
@@ -72,7 +82,7 @@ public class CutSceneHandler {
 		}
 		//PHASE 1
 		if(scenePhase == 1) {
-			if(gp.player.worldY >= 35*48) scenePhase++; 
+			if(gp.player.worldY >= 35*gp.tileSize) scenePhase++; 
 			gp.player.worldY += 2; 
 		}
 		//PHASE 2 
@@ -109,11 +119,14 @@ public class CutSceneHandler {
 	}
 	
 	public void scene_Intro() {
+		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
 		//PHASE 0
 		if(scenePhase == 0) {
 //			gp.gameState = gp.loadingState;
 //			gp.gui.fadeIn();
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+//			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
+//			GameProgress.oldManExplained = true;
 			scenePhase++;
 		}
 		
@@ -153,6 +166,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManEncounter() {
+		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
 		if(scenePhase == 0) {
 			GameProgress.encounterOldMan = true;
 			//place player dummy
@@ -169,7 +183,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 1) {
-			if(gp.player.worldX <= 14*48) scenePhase++; 
+			if(gp.player.worldX <= 14*gp.tileSize) scenePhase++; 
 			gp.player.worldX -= 3; 
 		}
 		if(scenePhase == 2) {
@@ -211,7 +225,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManExplain() {
-		
+		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
 		
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
@@ -248,8 +262,8 @@ public class CutSceneHandler {
 					gp.npc[gp.silvioVillage][i] = new NPC_Hermit(gp);
 					gp.npc[gp.silvioVillage][i].name = "Silvio";
 					gp.npc[gp.silvioVillage][i].speed = 0;
-					gp.npc[gp.silvioVillage][i].worldX = 18*48;
-					gp.npc[gp.silvioVillage][i].worldY = 11*48;
+					gp.npc[gp.silvioVillage][i].worldX = 18*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = 11*gp.tileSize;
 					gp.npc[gp.silvioVillage][i].currentSearchPath = NPC_Hermit.oldManFindHome;
 					gp.gui.npc = gp.npc[gp.silvioVillage][i];
 					break;
@@ -280,33 +294,33 @@ public class CutSceneHandler {
 					
 					j = i;
 					
-					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
-					gp.monsters[mapNum][j].worldX = 27*48;
-					gp.monsters[mapNum][j].worldY = 11*48;
+					gp.monsters[mapNum][j] = new MON_Trenklin(gp);
+					gp.monsters[mapNum][j].worldX = 27*gp.tileSize;
+					gp.monsters[mapNum][j].worldY = 11*gp.tileSize;
 					gp.monsters[mapNum][j].cs_id = "mon0001";
 					j++;
 					
-					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
-					gp.monsters[mapNum][j].worldX = 16*48;
-					gp.monsters[mapNum][j].worldY = 16*48;
+					gp.monsters[mapNum][j] = new MON_Trenklin(gp);
+					gp.monsters[mapNum][j].worldX = 16*gp.tileSize;
+					gp.monsters[mapNum][j].worldY = 16*gp.tileSize;
 					gp.monsters[mapNum][j].cs_id = "mon0002";
 					j++;
 					
-					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
-					gp.monsters[mapNum][j].worldX = 22*48;
-					gp.monsters[mapNum][j].worldY = 18*48;
+					gp.monsters[mapNum][j] = new MON_Trenklin(gp);
+					gp.monsters[mapNum][j].worldX = 22*gp.tileSize;
+					gp.monsters[mapNum][j].worldY = 18*gp.tileSize;
 					gp.monsters[mapNum][j].cs_id = "mon0003";
 					j++;
 					
-					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
-					gp.monsters[mapNum][j].worldX = 30*48;
-					gp.monsters[mapNum][j].worldY = 21*48;
+					gp.monsters[mapNum][j] = new MON_Trenklin(gp);
+					gp.monsters[mapNum][j].worldX = 30*gp.tileSize;
+					gp.monsters[mapNum][j].worldY = 21*gp.tileSize;
 					gp.monsters[mapNum][j].cs_id = "mon0004";
 					j++;
 					
-					gp.monsters[mapNum][j] = new MON_TreeMonster(gp);
-					gp.monsters[mapNum][j].worldX = 33*48;
-					gp.monsters[mapNum][j].worldY = 11*48;
+					gp.monsters[mapNum][j] = new MON_Trenklin(gp);
+					gp.monsters[mapNum][j].worldX = 33*gp.tileSize;
+					gp.monsters[mapNum][j].worldY = 11*gp.tileSize;
 					gp.monsters[mapNum][j].cs_id = "mon0005";
 					j++;
 					
@@ -330,7 +344,7 @@ public class CutSceneHandler {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
 					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
-					gp.npc[gp.currentMap][i].worldY = 10*48;
+					gp.npc[gp.currentMap][i].worldY = 10*gp.tileSize;
 					gp.npc[gp.currentMap][i].direction = gp.player.direction;
 					break;
 				}
@@ -340,7 +354,7 @@ public class CutSceneHandler {
 			 
 		}
 		if(scenePhase == 11) {
-			if(gp.player.worldX <= 34*48 && gp.player.worldY <= 15*48) {
+			if(gp.player.worldX <= 34*gp.tileSize && gp.player.worldY <= 15*gp.tileSize) {
 				gp.player.worldX += 4;
 				gp.player.worldY += 3;
 			}
@@ -388,6 +402,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 17) {
 			
+			gp.keys.talkOn = false;
 			
 			boolean monstersAlive = false;
 			gp.gameState = gp.playState;
@@ -432,28 +447,28 @@ public class CutSceneHandler {
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[mapNum][i] == null) {
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 23*48;
-					gp.npc[mapNum][i].worldY = 11*48; i++;
+					gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 11*gp.tileSize; i++;
 
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 16*48;
-					gp.npc[mapNum][i].worldY = 16*48; i++;
+					gp.npc[mapNum][i].worldX = 16*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 16*gp.tileSize; i++;
 					
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 23*48;
-					gp.npc[mapNum][i].worldY = 20*48; i++;
+					gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
 					
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 28*48;
-					gp.npc[mapNum][i].worldY = 19*48; i++;
+					gp.npc[mapNum][i].worldX = 28*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 19*gp.tileSize; i++;
 					
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 34*48;
-					gp.npc[mapNum][i].worldY = 20*48; i++;
+					gp.npc[mapNum][i].worldX = 34*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
 					
 					gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
-					gp.npc[mapNum][i].worldX = 30*48;
-					gp.npc[mapNum][i].worldY = 21*48; i++;
+					gp.npc[mapNum][i].worldX = 30*gp.tileSize;
+					gp.npc[mapNum][i].worldY = 21*gp.tileSize; i++;
 					
 					break;
 				}
@@ -476,7 +491,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 24 ) {
-			if(gp.player.worldX <= 34*48 && gp.player.worldY <= 15*48) {
+			if(gp.player.worldX <= 34*gp.tileSize && gp.player.worldY <= 15*gp.tileSize) {
 				gp.player.worldX += 4;
 				gp.player.worldY += 3;
 			}
@@ -534,8 +549,8 @@ public class CutSceneHandler {
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
 				if(gp.gameObjs[mapNum][i] == null) {
 					gp.gameObjs[mapNum][i] = new ITM_Key(gp);
-					gp.gameObjs[mapNum][i].worldX = 38*48;
-					gp.gameObjs[mapNum][i].worldY = 9*48; i++;
+					gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
+					gp.gameObjs[mapNum][i].worldY = 9*gp.tileSize; i++;
 					break;
 				}
 			}
@@ -552,34 +567,98 @@ public class CutSceneHandler {
 	}
 	
 	public void witchEncounter() {
+		
+		if(!GameProgress.witchQuest1Complete) {
+			if(scenePhase == 0) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				scenePhase++;
+			}
+			if(scenePhase == 1) {
+				System.out.println(gp.gui.npc.name);
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1a;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 2) {
+				showInfoScreen(NPC_Narrator.witchEncounter);
+			}
+			if(scenePhase == 3) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1b;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 4) {
+				endScene();
+			}
+		}
+		else {
+			if(scenePhase == 0) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1e;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 1) {
+				endScene();
+			}
+		}
+	}
+	
+	public void witchQuest1Complete() {
+		System.out.println(gelAmmount + "::" + meatAmmount);
+		
 		if(scenePhase == 0) {
-//			for(int i = 0; i < gp.npc[1].length; i++) {
-//				if(gp.npc[gp.currentMap][i] != null) {
-//					System.out.println(gp.npc[gp.currentMap][i].name);
-//				}
-//			}
-//			
-			setGuiNpc(NPC_Witch.NPC_Name);
-//			gp.gui.npc = gp.npc[gp.silvioHouse][1];
+			int gelIndex = gp.player.searchItemInInventory(ITM_SlimeGel.objName);
+			int trenkIndex = gp.player.searchItemInInventory(ITM_TrenkMeat.objName);
+			
+			gelAmmount = gp.player.inventory.get(gelIndex).ammount;
+			meatAmmount = gp.player.inventory.get(trenkIndex).ammount;
+			
 			scenePhase++;
 		}
-		if(scenePhase == 1) {
-			System.out.println(gp.gui.npc.name);
-			gp.gui.npc.dialogueSet = NPC_Witch.quest1a;
-			gp.gui.dialogueScreen(false);
+		
+		if(gelAmmount < 5 || meatAmmount < 5) {
+			if(scenePhase == 1) {
+				gp.gui.npc = gp.narrator;
+				showInfoScreen(NPC_Narrator.witchQuest1Incomplete);
+			}
+			if(scenePhase == 2) {
+				endScene();
+			}
 		}
-		if(scenePhase == 2) {
-			showInfoScreen(NPC_Narrator.witchEncounter);
+		else {
+
+			if(scenePhase == 1) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1c;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 2) {
+				gp.gui.npc = gp.narrator;
+				showInfoScreen(NPC_Narrator.witchQuest1Complete);
+			}
+			if(scenePhase == 3) {
+				int gelIndex = gp.player.searchItemInInventory(ITM_SlimeGel.objName);
+				gp.player.inventory.remove(gelIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 4) {
+				int trenkIndex = gp.player.searchItemInInventory(ITM_TrenkMeat.objName);
+				gp.player.inventory.remove(trenkIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 5) {
+				gp.player.inventory.add(new ITM_TrenkAmulet(gp));
+				scenePhase++;
+			}
+			if(scenePhase == 6) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1d;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 7) {
+				GameProgress.witchQuest1Complete = true;
+				endScene();
+			}
 		}
-		if(scenePhase == 3) {
-			setGuiNpc(NPC_Witch.NPC_Name);
-			gp.gui.npc.dialogueSet = NPC_Witch.quest1b;
-			gp.gui.dialogueScreen(false);
-		}
-		if(scenePhase == 4) {
-//			GameProgress.witchEncountered = true;
-			endScene();
-		}
 		
 		
 		
@@ -595,13 +674,44 @@ public class CutSceneHandler {
 		
 		
 		
+		////
+		
+	
+		
+		
+		
+		
+		
+		
+	
 		
 		
 		
 	}
 	
-	
-	
+	public void oldManQuest2(){
+		// talk to the old man 
+		// give the old man the amulet
+		// transition outside, people will go back to normal
+		// old man will thank you and tell you about the tree monster
+		
+		//player will talk to the old man
+		if(scenePhase == 0) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2a;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			gp.gameState = gp.playState;
+			if(gp.gui.npc.talking) {
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 2) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.dialogueScreen(false);
+		}
+	}
 	
 	//UTILS
 	
@@ -634,6 +744,8 @@ public class CutSceneHandler {
 		case oldManExplain: oldManExplain(); break;
 		case axeHint: axeHint(); break;
 		case witchEncounter: witchEncounter(); break;
+		case witchQuest1Complete: witchQuest1Complete(); break;
+		case oldManQuest2: oldManQuest2(); break;
 		}
 	}
 }

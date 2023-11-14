@@ -15,12 +15,12 @@ public class LigthingEffect {
 	int timeCounter = 0;
 	float filterAlpha = 0f;
 	
-	final int day = 0;
-	final int dusk = 1;
-	final int night = 2;
-	final int dawn = 3;
+	public final int day = 0;
+	public final int dusk = 1;
+	public final int night = 2;
+	public final int dawn = 3;
 	
-	int timeState = day;
+	public int timeState = day;
 	
 	public LigthingEffect(GamePanel gp) {
 		this.gp = gp;

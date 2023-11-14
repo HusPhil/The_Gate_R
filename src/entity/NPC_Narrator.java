@@ -18,6 +18,8 @@ public class NPC_Narrator extends Entity{
 	public static final int axeHint_2 = 8;
 	public static final int villager_comeout = 9;
 	public static final int witchEncounter = 10;
+	public static final int witchQuest1Complete = 11;
+	public static final int witchQuest1Incomplete = 12;
 
 	public final static String NPC_Name ="Narrator";
 	public NPC_Narrator(GamePanel gp) {
@@ -80,6 +82,12 @@ public class NPC_Narrator extends Entity{
 	
 		j = 0;
 		dialogues[witchEncounter][j] = "You told the her about your journey.."; j++;
+		
+		j = 0;
+		dialogues[witchQuest1Complete][j] = "You received a Trenk Amulet!"; j++;
+		
+		j = 0;
+		dialogues[witchQuest1Incomplete][j] = "You have yet to acquire all the materials!"; j++;
 	}
 
 }

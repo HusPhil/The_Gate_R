@@ -1,22 +1,25 @@
 package monster;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
+import object.ITM_TrenkMeat;
 import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Shield;
 import object.OBJ_Iron_Axe;
 import object.SKL_MudBall;
 
-public class MON_TreeMonster extends Entity{
+public class MON_Trenklin extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
-	public MON_TreeMonster(GamePanel gp) {
+	public MON_Trenklin(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Tree Monster";
+		name = "Trenklin";
 		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxLife = 25;
@@ -28,13 +31,10 @@ public class MON_TreeMonster extends Entity{
 		exp = 5;
 		
 		//SolidArea
-		solidArea.x = 4;
-		solidArea.y = 4;
-		solidArea.width = 36;
-		solidArea.height = 38;
+		solidArea = new Rectangle((gp.tileSize/4)-4, gp.tileSize/4, ( gp.tileSize/2)+8, gp.tileSize-(gp.tileSize/4));
 		
-		attackArea.width = 48;
-		attackArea.height = 48;
+		attackArea.width = gp.tileSize;
+		attackArea.height = gp.tileSize;
 		
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
@@ -131,11 +131,7 @@ public class MON_TreeMonster extends Entity{
 	public void checkDrop() {
 		
 		int i = 0;
-		gp.dcs.possibleDrops[i] = new OBJ_Iron_Axe(gp);
-		i++;
-		gp.dcs.possibleDrops[i] = new OBJ_Health_Potion(gp);
-		i++;
-		gp.dcs.possibleDrops[i] = new OBJ_Iron_Shield(gp);
+		gp.dcs.possibleDrops[i] = new ITM_TrenkMeat(gp);
 		i++;
 		
 		gp.dcs.defaultItem = new ITM_Coin(gp);

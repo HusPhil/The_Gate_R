@@ -15,9 +15,9 @@ public class IT_DryTree extends InteractiveTiles{
 		
 		this.worldX = gp.tileSize*col;
 		this.worldY = gp.tileSize*row;
-		solidArea.width = 32;
-		solidArea.height = 48;
-		solidArea.x = 8;
+		solidArea.width = gp.tileSize;
+		solidArea.height = gp.tileSize;
+		solidArea.x = 0;
 		solidArea.y = 0;
 		
 		defaultSolidAreaX = solidArea.x;

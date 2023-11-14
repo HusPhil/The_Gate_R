@@ -1,5 +1,7 @@
 package monster;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
@@ -28,10 +30,7 @@ public class MON_Zombie extends Entity{
 		exp = 5;
 		
 		//SolidArea
-		solidArea.x = 4;
-		solidArea.y = 4;
-		solidArea.width = 36;
-		solidArea.height = 38;
+		solidArea = new Rectangle(gp.tileSize/4, gp.tileSize/4, gp.tileSize/2, gp.tileSize-(gp.tileSize/4));
 		
 		attackArea.width = 48;
 		attackArea.height = 48;

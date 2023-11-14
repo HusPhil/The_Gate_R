@@ -11,6 +11,8 @@ import DataHandling.GameProgress;
 import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
+import object.ITM_SlimeGel;
+import object.ITM_TrenkMeat;
 import object.OBJ_Chest;
 import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Sword;
@@ -40,6 +42,7 @@ public class Player extends Entity{
 	
 	//Abilities
 	int timer;
+	float expMultiplier = 1.2f;
 	boolean DashAbility = true;
 	
 	public Player(GamePanel gp, KeyHandler keys) {
@@ -53,11 +56,12 @@ public class Player extends Entity{
 		screenX = (gp.screenWidth/2) - (gp.tileSize/2);
 		screenY = (gp.screenHeight/2) - (gp.tileSize/2);
 		
-		this.keys = keys; 
+		this.keys = keys;  
 		this.gp = gp;
 		
 		//SOLID AREA FOR COLLISION DETECT
-		solidArea = new Rectangle(12, 18, 24, 30);
+		solidArea = new Rectangle(gp.tileSize/4, gp.tileSize/4, gp.tileSize/2, gp.tileSize-(gp.tileSize/4));
+//		solidArea = new Rectangle(8, 10, 16, 22);
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
@@ -81,7 +85,7 @@ public class Player extends Entity{
 		
 		 
 		//PLAYER STATS
-		defaultSpeed = 1;
+		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
@@ -89,7 +93,7 @@ public class Player extends Entity{
 		str = 6;
 		dex = 1;
 		exp = 0;  	
-		nextLvlExp = 5;
+		nextLvlExp = 20;
 		coin = 1000000900;
 		currentLightItem = null;
 		currentWeapon = new OBJ_Wooden_Sword(gp);
@@ -313,7 +317,11 @@ public class Player extends Entity{
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
 		inventory.add(new OBJ_Lantern(gp));
-//		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new ITM_SlimeGel(gp));
+		inventory.get(4).ammount = 5;
+		inventory.add(new ITM_TrenkMeat(gp)); 
+		inventory.get(5).ammount = 5;
+		inventory.add(new OBJ_Iron_Axe(gp));
 	}
 	
 	public void attackState() {
@@ -474,16 +482,17 @@ public class Player extends Entity{
 		
 		if(exp >= nextLvlExp) {
 			level++;
-			nextLvlExp+=20;
+			nextLvlExp = (int) (nextLvlExp * Math.pow(expMultiplier, level));
+//			nextLvlExp += 20;
 			maxMana+=30;
-			str++;
-			dex++;
-			def++;
+			
+			str += (int)(0.8 * level);
+			dex += (int)(0.8 * level);
+			
 			atk = getAtk();
 			def = getDef();
 			projectile.atk +=10;
-			maxLife+=2;
-		//	if(maxLife <=10) ;
+			if(level % 2 == 0) maxLife += 2;
 			startDialogue(this, 0);
 			gp.gui.addMessage("You are now level " + level + "!");	
 			checkLvlUp();
@@ -695,7 +704,7 @@ public class Player extends Entity{
 		gp.collCheck.checkItem(this, true); 
 		gp.collCheck.checkObj(this, true);
 		gp.collCheck.checkEntity(this, gp.IT_Manager); 
-		gp.collCheck.checkEntity(this, gp.buildings); 
+
 		
 		
 		if(attacking) {
@@ -785,19 +794,19 @@ public class Player extends Entity{
 				switch(direction) {
 				case "up":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldY-=(speed*5);} 
-					else { timer = 0; speed = 5; worldY -= speed; } 
+					else { timer = 0; speed = defaultSpeed; worldY -= speed; } 
 					break;
 				case "left":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldX-=(speed*5);} 
-					else { timer = 0; speed = 5; worldX -= speed; } 
+					else { timer = 0; speed = defaultSpeed; worldX -= speed; } 
 					break;
 				case "down":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldY+=(speed*5);} 
-					else { timer = 0; speed = 5; worldY += speed; } 
+					else { timer = 0; speed = defaultSpeed; worldY += speed; } 
 					break;
 				case "right":
 					if(keys.dashPressed && DashAbility) { timer++; if(timer == 5) {speed=0; timer = 0;} worldX+=(speed*5);} 
-					else { timer = 0; speed = 5; worldX += speed; } 
+					else { timer = 0; speed = defaultSpeed; worldX += speed; } 
 					break;
 				}
 			}

@@ -69,10 +69,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int corrupted1 = 4;
 	public final int silvioVillage = 5;
 	public final int silvioHouse = 6;
+	public final int forest = 7;
 
 	//Screen settings//
 	//---------------//
-	final int originalTileSize = 24;
+	final int originalTileSize = 16;
 	public final int scale = 2;
 	
 	public final int tileSize = originalTileSize * scale;
@@ -137,10 +138,8 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Objects Handler//
 	//--------------------------//
-	public Entity gameObjs[][] = new Entity[maxMap][200];
-	public Entity items[][] = new Entity[maxMap][50];
-	public InteractiveTiles IT_Manager[][] = new InteractiveTiles[maxMap][50];
-	public Entity buildings[][] = new Entity[maxMap][10];
+	public Entity gameObjs[][] = new Entity[maxMap][30];
+	public InteractiveTiles IT_Manager[][] = new InteractiveTiles[maxMap][20];
 	public ObjectGenerator objGen = new ObjectGenerator(this);
 	//==========================//
 	
@@ -162,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Manage Monsters//
 	//-------------------------------//
-	public Entity monsters[][] = new Entity[maxMap][50];
+	public Entity monsters[][] = new Entity[maxMap][30];
 	//===============================//
 	
 	//Assets Maker//
@@ -184,7 +183,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//MANAGE PROJECTILES
 	//------------------------//
-	public Entity projectiles[][] = new Entity[maxMap][50];
+	public Entity projectiles[][] = new Entity[maxMap][10];
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	//========================//
 	
@@ -247,7 +246,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel() {
 		
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.ORANGE);
+//		this.setBackground(Color.ORANGE);
 		this.setDoubleBuffered(true);
 		
 		this.addKeyListener(keys);
@@ -276,38 +275,37 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		
-this.requestFocus();
-		
+		this.requestFocus();
+
 		long lastTime = System.nanoTime();
-		double ammountOfTicks = 60.0;
-		double ns = 1000000000 / ammountOfTicks;
+		double amountOfTicks = 60.0;
+		double ns = 1_000_000_000.0 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		
+
 		int frames = 0;
-		
-		while(isRunning) {
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			
-			while (delta >= 1) { 
-				update();
-				delta--;
-			}
-			drawTempScreen();
-			drawFullScreen();
-			frames++;
-			
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				frames = 0;
-				//updates = 0;
-			}
+
+		while (isRunning) {
+		    long now = System.nanoTime();
+		    delta += (now - lastTime) / ns;
+		    lastTime = now;
+
+		    while (delta >= 1) {
+		        update();
+		        delta--;
+		    }
+
+		    drawTempScreen();
+		    drawFullScreen();
+		    frames++;
+
+		    if (System.currentTimeMillis() - timer > 1000) {
+		        timer += 1000;
+		        frames = 0;
+		        // updates = 0;
+		    }
 		}
 		stop();
-		
-		
 		
 	}
 	//====================================================//
@@ -351,11 +349,6 @@ this.requestFocus();
 					IT_Manager[currentMap][i].update();
 				}
 			}
-			for(int i = 0; i < buildings[1].length; i++) {
-				if(buildings[currentMap][i] != null) {
-					buildings[currentMap][i].update();
-				}
-			}
 			fxHandler.update();
 		}
 		if (gameState == pauseState) {
@@ -373,7 +366,7 @@ this.requestFocus();
 	public void drawTempScreen() {
 		//Menu Screen
 		if (gameState == gameMenu) {
-			gui.draw(g2);
+//			gui.draw(g2);
 		}
 		//Map Screen
 		 if(gameState == viewMapState) {
@@ -386,11 +379,6 @@ this.requestFocus();
 			tManager.draw(g2);
 			
 			//DRAW BUILDINGS
-			for(int i = 0; i < buildings[1].length; i++) {
-				if(buildings[currentMap][i] !=  null) {
-					buildings[currentMap][i].draw(g2);
-				}
-			}
 			
 			//draw interactive tiles
 			for(int i = 0; i < IT_Manager[1].length; i++) {
@@ -424,12 +412,6 @@ this.requestFocus();
 				}
 			}
 			
-//			//Add items
-			for(int i = 0; i < items[1].length; i++) {
-				if(items[currentMap][i] != null) {
-					entList.add(items[currentMap][i]);
-				}
-			}
 			
 			//Add Prjocetiles	
 			for(int i = 0; i < projectiles[1].length; i++) {

@@ -57,6 +57,14 @@ public class ObjectGenerator {
 		case OBJ_Iron_Sword.objName:
 			obj = new OBJ_Iron_Sword(gp);
 			break;
+		case ITM_SlimeGel.objName:
+			obj = new ITM_SlimeGel(gp);
+			break;
+		case ITM_TrenkMeat.objName:
+			obj = new ITM_TrenkMeat(gp);
+			break;
+			
+			
 		}
 		
 		return obj;

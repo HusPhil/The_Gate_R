@@ -2,6 +2,7 @@ package object;
 
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import entity.Entity;
 import main.GamePanel;
@@ -13,6 +14,8 @@ public class OBJ_Chest extends Entity{
 	public OBJ_Chest(GamePanel gp) {
 		super(gp);
 		
+		debugOn = true;
+		
 		image2 = createImage("objects", "items/OpenedChest");
 		this.gp = gp;
 		type = type_interactiveObjects;
@@ -23,7 +26,9 @@ public class OBJ_Chest extends Entity{
 		collision = true;
 		
 		description = "["+name+"]" + "\nIt feels heavy, maybe it \ncontains a lot of items!";
-		
+		solidArea = new Rectangle(0, gp.tileSize/3, gp.tileSize, gp.tileSize-(gp.tileSize/3));
+		defaultSolidAreaX = solidArea.x; 
+		defaultSolidAreaY = solidArea.y; 
 	}
 	public void setLoot(Entity loot) {
 		this.loot = loot;
@@ -47,6 +52,7 @@ public class OBJ_Chest extends Entity{
 	}
 	
 	public void reaction() {
+		
 		
 		
 		if(!opened) {

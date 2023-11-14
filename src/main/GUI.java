@@ -379,7 +379,7 @@ public class GUI {
 		g2.drawString(title, x1, y1);
 		
 		//Menu
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) gp.tileSize));
 		g2.setColor(Color.white);
 		
 		String menuItem = "NEW GAME";
@@ -404,7 +404,7 @@ public class GUI {
 		String text = "PAUSED";
 		int x = screenCenterX(text);
 		int y = screenCenterY();
-		
+		g2.setColor(new Color(255,255,255));
 		g2.drawString(text, x, y);
 		
 	}
@@ -425,7 +425,10 @@ public class GUI {
 		
 		x += gp.tileSize; y += gp.tileSize;
 		
+		if(gp.tileSize == 48)
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+		else
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20));
 		
 		
 		
@@ -467,7 +470,10 @@ public class GUI {
 		
 		for(String line: currentDialogue.split("\n")) {			
 			g2.drawString(line,x,y);
-			y+=40;
+			if(gp.tileSize == 48)
+			y+= gp.tileSize - 8;
+			else 
+			y+= gp.tileSize - 12;
 		}
 		
 	}
@@ -486,7 +492,7 @@ public class GUI {
 		
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
-		
+//		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16));
 		
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {

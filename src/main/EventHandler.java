@@ -2,7 +2,10 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import entity.NPC_Narrator;
 import entity.NPC_Witch;
+import object.ITM_SlimeGel;
+import object.ITM_TrenkMeat;
 import object.OBJ_Iron_Axe;
 
 public class EventHandler { 
@@ -80,7 +83,11 @@ public class EventHandler {
 			//F1_Dungeon to F2_Dungeon (ViceVersa)
 			else if(eventCollision(gp.dungeonMap_F1, 12, 9, "left")) transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
 			else if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
+			else if(eventCollision(gp.silvioHouse, 30, 6, "right")) transition(gp.forest, 12, 10, gp.outside);
+			else if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
 			
+			
+			 
 			//MERCHANT HOUSE DIALOGUE
 			else if(eventCollision(gp.merchantHouse, 18, 20, "up")) {
 				gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
@@ -91,11 +98,14 @@ public class EventHandler {
 			}
 			else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
 				transition(gp.silvioVillage, 28, 12, gp.outside);
+				if(GameProgress.witchQuest1Complete) CS_oldManQuest2();
 			}
 			else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
 				transition(gp.silvioHouse, 24, 40, gp.indoor);
+				
 			}
 			else if(eventCollision(gp.silvioHouse, 24, 41, "any")) {
+				
 				transition(gp.silvioVillage, 36, 38, gp.outside);
 			}
 			else if(eventCollision(gp.silvioHouse, 30, 34, "any")) {
@@ -112,7 +122,7 @@ public class EventHandler {
 				CS_oldManEncounter();
 				touchEventON = false;
 			}
-			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,48,48)) {
+			else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,gp.tileSize,gp.tileSize)) {
 				CS_oldManExplain();
 			}
 			else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
@@ -120,16 +130,21 @@ public class EventHandler {
 				touchEventON = false;
 			}
 			else if(eventCollision(gp.silvioHouse, 18, 37, "any")) {
-				CS_witchEncounter();
+				if(gp.player.itemIsInsideInventory(ITM_SlimeGel.objName) && gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName)) {
+						CS_witchQuest1Complete();
+				}
+				else CS_witchEncounter();
 				touchEventON = false;
 			}
-			
+			else if(eventCollision(gp.silvioHouse, 24, 23, "any")) {
+				if(GameProgress.witchQuest1Complete) CS_oldManQuest2();
+			}
 			
 			//////////////////////////////////////////////
 		}
 	}
 	public boolean eventCollision(int map, int eventCol, int eventRow, String reqDirection) {
-		setEventRectangle(23,23,5,5);
+		setEventRectangle((gp.tileSize/2)-5, (gp.tileSize/2)-5,5,5);
 		
 		boolean collide = false;
 		
@@ -231,14 +246,14 @@ public class EventHandler {
 		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
-			gp.player.worldX = 27*48; gp.player.worldY = 29*48;
+			gp.player.worldX = 27*gp.tileSize; gp.player.worldY = 29*gp.tileSize;
 		}
 	}
 	public void CS_oldManEncounter() {
 		if(!GameProgress.encounterOldMan) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.oldManEncounter;
-			gp.player.worldX = 27*48; gp.player.worldY = 25*48;
+			gp.player.worldX = 27*gp.tileSize; gp.player.worldY = 25*gp.tileSize;
 		}
 	}
 	public void CS_oldManExplain() {
@@ -264,10 +279,20 @@ public class EventHandler {
 	}
 	
 	public void CS_witchEncounter() {
-		if(!GameProgress.witchEncountered) {
+		if(!GameProgress.witchQuest1Complete) {
 		}
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchEncounter;
+	}
+	
+	public void CS_witchQuest1Complete() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.witchQuest1Complete;
+	}
+	
+	public void CS_oldManQuest2() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.oldManQuest2;
 	}
 
 }

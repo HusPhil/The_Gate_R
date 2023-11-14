@@ -14,6 +14,9 @@ import object.OBJ_Wooden_Sword;
 public class NPC_Witch extends Entity{
 	public final static int quest1a = 0;
 	public final static int quest1b = 1;
+	public final static int quest1c = 2;
+	public final static int quest1d = 3;
+	public final static int quest1e = 4;
 
 	public static final String NPC_Name = "Witch";
 	public NPC_Witch(GamePanel gp) {
@@ -131,8 +134,35 @@ public class NPC_Witch extends Entity{
 		dialogues[quest1b][i] = "So now you have to find the key first before you\n"
 				+ "can proceed."; i++;
 		dialogues[quest1b][i] = "Well, that's all.. good luck young man. "; i++;
-		dialogues[quest1b][i] = "Don't die now.. hihihi"; i++;
-
+		dialogues[quest1b][i] = "Don't die now.. hihihi"; i++; 
+		
+		i = 0;
+		dialogues[quest1c][i] = "Very good! It seems you have done as I instructed!\n"
+				+ "I shall take all that you have gathered!"; i++; 
+		dialogues[quest1c][i] = "Now young man, wait as I make an amulet that shall\n"
+				+ "break the curse of the villagers!"; i++; 
+		dialogues[quest1c][i] = "..."; i++;
+		dialogues[quest1c][i] = "...."; i++;
+		dialogues[quest1c][i] = "There! A successful enchantment!"; i++; 
+		dialogues[quest1c][i] = "Here! Take this, young man, and save the village!"; i++; 
+		
+		i = 0;
+		dialogues[quest1d][i] = "Nevertheless, this is only a temporary solution, you must\n"
+				+ "find and defeat the cursed tree that has become evil as\n"
+				+ "a consequence of people not fulfilling SDGs, otherwise\n"
+				+ "known in this world as the '17 Harmonial Principles'"; i++;
+		dialogues[quest1d][i] = "That is to say, the failed to Protect, restore and promote\n"
+				+ "sustainable use of terrestrial ecosystems, sustainably\n"
+				+ "manage forests, combat desertification, and halt and\n"
+				+ "reverse land degradation and halt biodiversity loss."; i++;
+		dialogues[quest1d][i] = "In other words, they failed to fulfill the 15th of the\n"
+				+ "Harmonial Principles: Life on Land."; i++;
+		dialogues[quest1d][i] = "Well, if they had, you wouldn't be here now would you?"; i++;
+		dialogues[quest1d][i] = "Anyways, good luck again, young man.."; i++;
+		dialogues[quest1d][i] = "Hi hi hi hi.."; i++;
+		
+		i = 0;
+		dialogues[quest1e][i] = "Don't die now, hi hi hi hi.."; i++;
 	}
 	public void speak() {
 		facePlayer();

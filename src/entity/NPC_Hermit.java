@@ -18,6 +18,9 @@ public class NPC_Hermit extends Entity{
 	public static final int intro_end = 8;
 	public static final int intro_end_2 = 9;
 	public static final int intro_end_3 = 10;
+	public static final int oldManQ2a = 11;
+	public static final int oldManQ2b = 12;
+	public static final int oldManQ2c = 13;
 
 	//SearchPaths
 	public static final int find_player = 1;
@@ -35,7 +38,8 @@ public class NPC_Hermit extends Entity{
 		if(i ==3) direction = "left";
 		if(i ==4) direction = "right";
 		//SOLID AREA FOR COLLISION DETECT
-		solidArea = new Rectangle(12, 18, 24, 26);
+		solidArea = new Rectangle(gp.tileSize/4, gp.tileSize/4, gp.tileSize/2, gp.tileSize-(gp.tileSize/4)); //for ts = 48
+//		solidArea = new Rectangle(8, 10, 16, 22); //for ts = 32
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		pathAI = true;
@@ -210,6 +214,27 @@ public class NPC_Hermit extends Entity{
 		
 		i = 0;
 		dialogues[intro_end_3][i] = "Good luck on your adventure young man!"; i++;
+		
+		
+		i = 0;
+		dialogues[oldManQ2a][i] = "You're back, young man!"; i++;
+		dialogues[oldManQ2a][i] = "I'm very glad to see you in one piece!"; i++;
+		dialogues[oldManQ2a][i] = "So.. How was you adventure to the witch?"; i++;
+		
+		i = 0;
+		dialogues[oldManQ2b][i] = "Th-this is.."; i++;
+		dialogues[oldManQ2b][i] = "This is a Trenk Amulet!, you say!? And it might break\n"
+				+ "break the curse of the villagers!?"; i++;
+		dialogues[oldManQ2b][i] = "I can't thank you enough young man! I truly owe a lot to you!"; i++;
+		
+		i = 0;
+		dialogues[oldManQ2c][i] = "I see, she told you about the 17 Harmonial Principles, huh?"; i++;
+		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also true.\n"
+				+ "That monster is the root of all of this. Hence,\n"
+				+ "you must hurry and defeat that monster as soon\n"
+				+ "as possible!"; i++;
+		
+		dialogues[oldManQ2c][i] = "Well, for now, let us try and break the curse first!"; i++;
 	}
 	public void speak() {
 		facePlayer();

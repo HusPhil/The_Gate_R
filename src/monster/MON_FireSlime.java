@@ -51,10 +51,10 @@ public class MON_FireSlime extends Entity{
 		
 	}
 	public void getMonImage() {
-		down1 = createImage("monsters", "fire_slime0",38,38);
-		down2 = createImage("monsters", "fire_slime1",38,38);
-		down3 = createImage("monsters", "fire_slime0",38,38);
-		down4 = createImage("monsters", "fire_slime1",38,38);
+		down1 = createImage("monsters", "fire_slime0");
+		down2 = createImage("monsters", "fire_slime1");
+		down3 = createImage("monsters", "fire_slime0");
+		down4 = createImage("monsters", "fire_slime1");
 		
 		up1 = down1;
 		up2 = down2;

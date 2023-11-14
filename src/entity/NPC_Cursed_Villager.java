@@ -23,7 +23,8 @@ public class NPC_Cursed_Villager extends Entity{
 		
 		name = NPC_Name;
 		//SOLID AREA FOR COLLISION DETECT
-		solidArea = new Rectangle(12, 18, 24, 26);
+		solidArea = new Rectangle(gp.tileSize/4, gp.tileSize/4, gp.tileSize/2, gp.tileSize-(gp.tileSize/4));
+//		solidArea = new Rectangle(8, 10, 16, 22);
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		pathAI = true;
