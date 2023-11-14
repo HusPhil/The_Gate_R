@@ -20,6 +20,9 @@ public class NPC_Narrator extends Entity{
 	public static final int witchEncounter = 10;
 	public static final int witchQuest1Complete = 11;
 	public static final int witchQuest1Incomplete = 12;
+	public static final int oldManQ2a = 13;
+	public static final int oldManQ2b = 14;
+	public static final int oldManQ2c = 15;
 
 	public final static String NPC_Name ="Narrator";
 	public NPC_Narrator(GamePanel gp) {
@@ -85,9 +88,20 @@ public class NPC_Narrator extends Entity{
 		
 		j = 0;
 		dialogues[witchQuest1Complete][j] = "You received a Trenk Amulet!"; j++;
+		dialogues[witchQuest1Complete][j] = "You received instructions on activating it."; j++;
 		
 		j = 0;
 		dialogues[witchQuest1Incomplete][j] = "You have yet to acquire all the materials!"; j++;
+		
+		j = 0;
+		dialogues[oldManQ2a][j] = "You gave the amulet to Silvio."; j++;
+		dialogues[oldManQ2a][j] = "You also told him how to activate it."; j++;
+		
+		j = 0;
+		dialogues[oldManQ2b][j] = "You told him about what the witch said."; j++;
+
+		j = 0;
+		dialogues[oldManQ2c][j] = "Silvio activated the amulet!"; j++;
 	}
 
 }

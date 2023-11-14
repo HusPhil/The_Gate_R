@@ -161,11 +161,11 @@ public class AssetsHandler {
 		gp.npc[mapNum][i] = new NPC_Hermit(gp);
 		gp.npc[mapNum][i].name = "Silvio";
 		gp.npc[mapNum][i].dialogueSet = NPC_Hermit.intro_end_3;
-		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
-		gp.npc[mapNum][i].worldY = 21*gp.tileSize; i++;
+		gp.npc[mapNum][i].worldX = 17*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 22*gp.tileSize; 
+		gp.npc[mapNum][i].speed = 0; i++;
 		
 		gp.npc[mapNum][i] = new NPC_Witch(gp);
-//		gp.npc[mapNum][i].dialogueSet = NPC_Witch.quest1a;
 		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 35*gp.tileSize; i++;

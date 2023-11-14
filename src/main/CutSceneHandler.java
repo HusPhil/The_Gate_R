@@ -126,7 +126,9 @@ public class CutSceneHandler {
 //			gp.gui.fadeIn();
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
+//			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
 //			GameProgress.oldManExplained = true;
+//			GameProgress.witchQuest1Complete = true;
 			scenePhase++;
 		}
 		
@@ -401,8 +403,10 @@ public class CutSceneHandler {
 			GameProgress.oldManExplained = true;
 		}
 		if(scenePhase == 17) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
 			
 			gp.keys.talkOn = false;
+			gp.gui.npc.talking = false;
 			
 			boolean monstersAlive = false;
 			gp.gameState = gp.playState;
@@ -660,33 +664,6 @@ public class CutSceneHandler {
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		////
-		
-	
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
 	}
 	
 	public void oldManQuest2(){
@@ -711,6 +688,65 @@ public class CutSceneHandler {
 			gp.gameState = gp.cutSceneState;
 			gp.gui.dialogueScreen(false);
 		}
+		if(scenePhase == 3) {
+			showInfoScreen(NPC_Narrator.oldManQ2a);
+		}
+		if(scenePhase == 4) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2b;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 5) {
+			showInfoScreen(NPC_Narrator.oldManQ2b);
+		}
+		if(scenePhase == 6) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2c;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 7) {
+			gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
+			gp.eventHandler.transition(gp.silvioVillage, 29, 16, gp.outside);
+			scenePhase++;
+			
+			
+		}
+		if(scenePhase == 8) {
+			if(gp.gameState == gp.playState)
+				scenePhase++;
+		}
+		if(scenePhase == 9) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] =  new NPC_Hermit(gp);
+					gp.npc[gp.currentMap][i].worldX =  31*gp.tileSize;
+					gp.npc[gp.currentMap][i].worldY =  16*gp.tileSize;
+					gp.gui.npc = gp.npc[gp.currentMap][i];
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 10) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2d;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 11) {
+			showInfoScreen(NPC_Narrator.oldManQ2c);
+		}
+		if(scenePhase == 12) {
+			gp.gameState = gp.fadeOUT;
+			scenePhase++;
+		}
+		if(scenePhase == 13) {
+			if(gp.gameState == gp.playState)
+				scenePhase++;
+		}
+		if(scenePhase == 14) {
+			endScene();
+		}
+		System.out.println("sinpeys: " + scenePhase);
 	}
 	
 	//UTILS

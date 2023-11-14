@@ -136,8 +136,9 @@ public class EventHandler {
 				else CS_witchEncounter();
 				touchEventON = false;
 			}
-			else if(eventCollision(gp.silvioHouse, 24, 23, "any")) {
+			else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
 				if(GameProgress.witchQuest1Complete) CS_oldManQuest2();
+				touchEventON = false;
 			}
 			
 			//////////////////////////////////////////////

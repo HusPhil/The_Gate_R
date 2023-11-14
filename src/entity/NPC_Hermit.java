@@ -21,6 +21,7 @@ public class NPC_Hermit extends Entity{
 	public static final int oldManQ2a = 11;
 	public static final int oldManQ2b = 12;
 	public static final int oldManQ2c = 13;
+	public static final int oldManQ2d = 14;
 
 	//SearchPaths
 	public static final int find_player = 1;
@@ -225,16 +226,20 @@ public class NPC_Hermit extends Entity{
 		dialogues[oldManQ2b][i] = "Th-this is.."; i++;
 		dialogues[oldManQ2b][i] = "This is a Trenk Amulet!, you say!? And it might break\n"
 				+ "break the curse of the villagers!?"; i++;
-		dialogues[oldManQ2b][i] = "I can't thank you enough young man! I truly owe a lot to you!"; i++;
+		dialogues[oldManQ2b][i] = "I can't thank you enough young man! I owe a lot to you!"; i++;
 		
 		i = 0;
-		dialogues[oldManQ2c][i] = "I see, she told you about the 17 Harmonial Principles, huh?"; i++;
-		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also true.\n"
-				+ "That monster is the root of all of this. Hence,\n"
-				+ "you must hurry and defeat that monster as soon\n"
-				+ "as possible!"; i++;
+		dialogues[oldManQ2c][i] = "I see, she told you about the 17 Harmonial Principles.."; i++;
+		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also\n"
+				+ "true. That monster is the root of all of this. Hence, you\n"
+				+ "must hurry and kill that monster as soon as possible!"; i++;
 		
 		dialogues[oldManQ2c][i] = "Well, for now, let us try and break the curse first!"; i++;
+		
+		i = 0;
+		dialogues[oldManQ2d][i] = "Okay let's try doing the instructions given to\n"
+				+ "by the witch then.."; i++;
+		
 	}
 	public void speak() {
 		facePlayer();

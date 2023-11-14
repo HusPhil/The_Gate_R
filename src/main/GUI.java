@@ -372,7 +372,7 @@ public class GUI {
 		
 		
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70F));
-		String title = "2D Adventure Game";
+		String title = "";
 		int x1 = screenCenterX(title);
 		float y1 = gp.tileSize*2.5F;
 		g2.setColor(new Color(255,255,255));
@@ -428,7 +428,7 @@ public class GUI {
 		if(gp.tileSize == 48)
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
 		else
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20));
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 19));
 		
 		
 		
@@ -491,9 +491,10 @@ public class GUI {
 		
 		
 		
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
-//		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16));
-		
+			if(gp.tileSize == 48)
+			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+			else
+			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 19));		
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 			
