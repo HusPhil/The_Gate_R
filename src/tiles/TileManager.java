@@ -43,6 +43,7 @@ public class TileManager {
 	    loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
 	    loadMap("/maps/silvioHouse.txt", gp.silvioHouse);
 	    loadMap("/maps/forest.txt", gp.forest);
+	    loadMap("/maps/sacredRiver.txt", gp.sacredRiver);
 	}
 
 	private void loadTileData(String filePath) {

@@ -17,11 +17,15 @@ public class NPC_Hermit extends Entity{
 	public static final int explaining_3 = 7;
 	public static final int intro_end = 8;
 	public static final int intro_end_2 = 9;
-	public static final int intro_end_3 = 10;
+	public static final int oldManGoodluck = 10;
 	public static final int oldManQ2a = 11;
 	public static final int oldManQ2b = 12;
 	public static final int oldManQ2c = 13;
 	public static final int oldManQ2d = 14;
+	public static final int oldManQ2e = 15;
+	public static final int oldManQ2f = 16;
+	public static final int oldManQ2g = 17;
+	public static final int oldManQ2h = 18;
 
 	//SearchPaths
 	public static final int find_player = 1;
@@ -48,6 +52,7 @@ public class NPC_Hermit extends Entity{
 		
 		projectile = new SKL_MudBall(gp);
 		speed = 1;
+		defaultSpeed = 1;
 		getNpcImage();
 		setDialouge();
 	}
@@ -214,7 +219,7 @@ public class NPC_Hermit extends Entity{
 		dialogues[intro_end_2][i] = "Hurry now! Good luck on your adventure, young man!"; i++;
 		
 		i = 0;
-		dialogues[intro_end_3][i] = "Good luck on your adventure young man!"; i++;
+		dialogues[oldManGoodluck][i] = "Good luck on your adventure young man!"; i++;
 		
 		
 		i = 0;
@@ -229,7 +234,7 @@ public class NPC_Hermit extends Entity{
 		dialogues[oldManQ2b][i] = "I can't thank you enough young man! I owe a lot to you!"; i++;
 		
 		i = 0;
-		dialogues[oldManQ2c][i] = "I see, she told you about the 17 Harmonial Principles.."; i++;
+		dialogues[oldManQ2c][i] = "I see, she told you about the Harmonial Principles.."; i++;
 		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also\n"
 				+ "true. That monster is the root of all of this. Hence, you\n"
 				+ "must hurry and kill that monster as soon as possible!"; i++;
@@ -239,7 +244,36 @@ public class NPC_Hermit extends Entity{
 		i = 0;
 		dialogues[oldManQ2d][i] = "Okay let's try doing the instructions given to\n"
 				+ "by the witch then.."; i++;
+				
+		i = 0;
+		dialogues[oldManQ2e][i] = "Wh-what happened.."; i++;
+		dialogues[oldManQ2e][i] = "The villagers! they're back! The cursed was broken!"; i++;
 		
+		i = 0;
+		dialogues[oldManQ2f][i] = "I can't thank you enough, young man!"; i++;
+		dialogues[oldManQ2f][i] = "You truly are the hero of this village!"; i++;
+		dialogues[oldManQ2f][i] = "With that said, there's still a long way to go\n"
+				+ "before you complete your adventure. As you\n"
+				+ "can see, the water, it's undrinkable."; i++;
+		dialogues[oldManQ2f][i] = "It is said that the water has also become corrupted\n"
+				+ "because monsters that were created by not\n"
+				+ "fulfilling the Harmonial Principles continue to\n"
+				+ "pollute the sacred river."; i++;
+		dialogues[oldManQ2f][i] = "If only someone would defeat this monsters and\n"
+				+ "fulfill the 6th Harmonial Principle, that"
+				+ "\nis Clean Water and Sanitation."; i++;
+		
+		i = 0;
+		dialogues[oldManQ2g][i] = "Really!? Thank you so much young man!"; i++;
+		dialogues[oldManQ2g][i] = "The sacred river is just west of the Great Forest.\n"
+				+ "It is a perilious adventure, but I have\n"
+				+ "no doubt that you will succeed!"; i++;
+		dialogues[oldManQ2g][i] = "If it helps, let me give you something.."; i++;
+		
+		i = 0;
+		dialogues[oldManQ2h][i] = "Hopefully this lantern of mine would be of help.."; i++;
+		dialogues[oldManQ2h][i] = "Well then, I shall rest for now.."; i++;
+		dialogues[oldManQ2h][i] = "Goodluck on your adventure young man!"; i++;
 	}
 	public void speak() {
 		facePlayer();

@@ -1,11 +1,3 @@
-/main/
-/axePA_down0.png
-/axePA_down1.png
-/axePA_left0.png
-/axePA_left1.png
-/axePA_right0.png
-/axePA_right1.png
-/axePA_up0.png
 /bin/
 /interactive_tiles/
 /maps/
@@ -23,5 +15,6 @@
 /buildings/
 /entity/
 /environment/
+/main/
 /monster/
 /object/

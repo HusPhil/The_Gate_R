@@ -26,7 +26,7 @@ public class OBJ_Door extends Entity{
 		defaultSolidAreaX = solidArea.x; 
 		defaultSolidAreaY = solidArea.y; 
 		setDialogue();
-		debugOn = true;
+//		debugOn = true;
 	}
 	public void setDialogue() {
 		dialogues[0][0] = "This door is locked! It seems that you have to use \na key to open it!"; 

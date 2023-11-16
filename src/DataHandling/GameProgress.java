@@ -7,4 +7,5 @@ public class GameProgress {
 	public static boolean oldManExplained = false;
 	public static boolean intro_done = false;
 	public static boolean witchQuest1Complete = false;
+	public static boolean oldManQuest2Explained = false;
 }

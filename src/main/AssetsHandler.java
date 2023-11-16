@@ -3,9 +3,11 @@ package main;
 
 
 import entity.NPC_BigRock;
+import entity.NPC_Cloaked;
 import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_Merchant;
+import entity.NPC_Princess;
 import entity.NPC_Witch;
 import interactive_tiles.IT_DryTree;
 import interactive_tiles.IT_DryTree_Corrupted;
@@ -14,6 +16,7 @@ import interactive_tiles.IT_MetalPlate;
 import monster.BOSS_SkeletonLord;
 import monster.MON_Bat;
 import monster.MON_FireSlime;
+import monster.MON_Mummy;
 import monster.MON_Slime;
 import monster.MON_Trenklin;
 import monster.MON_Zombie;
@@ -125,6 +128,14 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 29*gp.tileSize; i++;
 		
+		i = 0;
+		mapNum = gp.sacredRiver;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Heart(gp));
+		gp.gameObjs[mapNum][i].worldX = 14*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 24*gp.tileSize; i++;
+
+		
 		
 	
 		
@@ -137,16 +148,7 @@ public class AssetsHandler {
 	public void makeNpc() {
 		int i; int mapNum;
 		
-//		i = 0;
-//		mapNum = gp.worldMapA; // OVERWORLD
-//		setEntity(mapNum, i, "npcA", "", 15, 30); i++;
-		
 		setDungeonRocks();
-		
-//		i = 0;
-//		mapNum = gp.merchantHouse; //STORE/ MERCHANT
-//		setEntity(mapNum, i, "npcB", "", 18, 18); i++;
-//		gp.npc[2][0].speed = 0;
 		
 		i = 0;
 		mapNum = gp.corrupted1; // OVERWORLD
@@ -157,10 +159,10 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].worldY = 30*gp.tileSize; i++;
 		
 		i = 0;
-		mapNum = gp.silvioHouse; // OVERWORLD
+		mapNum = gp.silvioHouse; 
 		gp.npc[mapNum][i] = new NPC_Hermit(gp);
 		gp.npc[mapNum][i].name = "Silvio";
-		gp.npc[mapNum][i].dialogueSet = NPC_Hermit.intro_end_3;
+		gp.npc[mapNum][i].dialogueSet = NPC_Hermit.oldManGoodluck;
 		gp.npc[mapNum][i].worldX = 17*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 22*gp.tileSize; 
 		gp.npc[mapNum][i].speed = 0; i++;
@@ -169,6 +171,14 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 35*gp.tileSize; i++;
+		
+		i = 0;
+		mapNum = gp.sacredRiver;
+		gp.npc[mapNum][i] = new NPC_Princess(gp);
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 32*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 23*gp.tileSize; i++;
+		
 	}
 	public void makeMonster() {
 		int i = 0;
@@ -300,7 +310,39 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i] = new MON_Trenklin(gp);
 		gp.monsters[mapNum][i].worldX = 22*gp.tileSize;
 		gp.monsters[mapNum][i].worldY = 24*gp.tileSize;
-//		i++;
+		i++;
+		
+		i = 0;
+		mapNum = gp.sacredRiver;
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 24*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 12*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 27*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 15*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 34*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 11*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 13*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 16*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 20*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 12*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
+		i++;
 	}
 	public void makeInteractiveTiles() {
 		int i = 0; 

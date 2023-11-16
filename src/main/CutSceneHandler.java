@@ -9,6 +9,8 @@ import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_Narrator;
 import entity.NPC_PlayerDummy;
+import entity.NPC_VillagerBoy;
+import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
 import monster.MON_Trenklin;
@@ -17,6 +19,7 @@ import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
 import object.OBJ_IronDoor;
+import object.OBJ_Lantern;
 
 public class CutSceneHandler {
 	GamePanel gp;
@@ -35,6 +38,7 @@ public class CutSceneHandler {
 	public final int witchEncounter = 6;
 	public final int witchQuest1Complete = 7;
 	public final int oldManQuest2 = 8;
+	public final int cloakedEncounter = 9;
 	
 	
 	int gelAmmount = 0;
@@ -128,7 +132,7 @@ public class CutSceneHandler {
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
 //			GameProgress.oldManExplained = true;
-//			GameProgress.witchQuest1Complete = true;
+			GameProgress.witchQuest1Complete = true;
 			scenePhase++;
 		}
 		
@@ -366,8 +370,6 @@ public class CutSceneHandler {
 				gp.gui.npc.dialogueSet = NPC_Narrator.village_monster;
 				gp.gui.informationScreen();
 			}
-			
-			
 		}
 		if(scenePhase == 12) {
 			for(int  i = 0; i < gp.npc[1].length; i++) {
@@ -527,7 +529,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase ==  27) {
 			
-			gp.gui.npc.dialogueSet = NPC_Hermit.intro_end_3;
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 			gp.gameState = gp.playState;
 			scenePhase++;
 		}
@@ -709,18 +711,20 @@ public class CutSceneHandler {
 			gp.eventHandler.transition(gp.silvioVillage, 29, 16, gp.outside);
 			scenePhase++;
 			
-			
 		}
 		if(scenePhase == 8) {
 			if(gp.gameState == gp.playState)
 				scenePhase++;
 		}
 		if(scenePhase == 9) {
+			gp.player.direction = "right";
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] =  new NPC_Hermit(gp);
 					gp.npc[gp.currentMap][i].worldX =  31*gp.tileSize;
 					gp.npc[gp.currentMap][i].worldY =  16*gp.tileSize;
+					gp.npc[gp.currentMap][i].direction = "down";
+					gp.npc[gp.currentMap][i].speed = 0;
 					gp.gui.npc = gp.npc[gp.currentMap][i];
 					break;
 				}
@@ -733,6 +737,10 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 11) {
+			if(gp.player.itemIsInsideInventory(ITM_TrenkAmulet.objName)) {
+				int itemIndex = gp.player.searchItemInInventory(ITM_TrenkAmulet.objName);
+				gp.player.inventory.remove(itemIndex);
+			}
 			showInfoScreen(NPC_Narrator.oldManQ2c);
 		}
 		if(scenePhase == 12) {
@@ -743,14 +751,123 @@ public class CutSceneHandler {
 			if(gp.gameState == gp.playState)
 				scenePhase++;
 		}
-		if(scenePhase == 14) {
+
+		if (scenePhase >= 14 && scenePhase <= 19) {
+			int newWorldX, newWorldY; 
+		    Entity npcToCreate;
+		    if (scenePhase == 14 || scenePhase == 16 || scenePhase == 18) {
+		        npcToCreate = new NPC_VillagerGirl(gp);
+		    } else {
+		        npcToCreate = new NPC_VillagerBoy(gp);
+		    }
+
+		    for (int i = 0; i < gp.npc[1].length; i++) {
+		        if (gp.npc[gp.currentMap][i].name.equals(NPC_Cursed_Villager.NPC_Name)) {
+		            newWorldX = gp.npc[gp.currentMap][i].worldX;
+		            newWorldY = gp.npc[gp.currentMap][i].worldY;
+		            gp.npc[gp.currentMap][i] = npcToCreate;
+		            gp.npc[gp.currentMap][i].worldX = newWorldX;
+		            gp.npc[gp.currentMap][i].worldY = newWorldY;
+		            break;
+		        }
+		    }
+		    scenePhase++;
+		}
+		
+		if(scenePhase == 20) {
+			gp.gameState = gp.cutSceneState;
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2e;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 21) {
+			gp.gui.npc.facePlayer();
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2f;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 22) {
+			showInfoScreen(NPC_Narrator.oldManQ2d);
+		}
+		if(scenePhase == 23) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2g;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 24) {
+			
+			showInfoScreen(NPC_Narrator.oldManQ2e);
+		}
+		if(scenePhase == 25) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2h;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 26) {
+			gp.gameState = gp.playState;
+			gp.gui.npc.speed = 1;
+			gp.gui.npc.currentSearchPath = NPC_Hermit.oldManFindHome;
+			scenePhase++;
+		}
+		if(scenePhase == 27) {
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.currentMap][i] != null &&
+					gp.npc[gp.currentMap][i].name.equals("Silvio")) {
+						gp.npc[gp.currentMap][i] = null;
+						scenePhase++;
+						break;
+					}
+				}
+			}
+		}
+		if(scenePhase == 28) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
+			gp.player.inventory.add(new OBJ_Lantern(gp));
+			GameProgress.oldManQuest2Explained = true;
 			endScene();
 		}
+		
 		System.out.println("sinpeys: " + scenePhase);
 	}
+
+	
+	public void cloakedEncounter() {
+		if(scenePhase == 0) {
+			if(scenePhase == 10) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.currentMap][i] == null) {
+						gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+						gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+						gp.npc[gp.currentMap][i].worldY = 10*gp.tileSize;
+						gp.npc[gp.currentMap][i].direction = gp.player.direction;
+						break;
+					}
+				}
+				gp.player.drawing = false;
+				scenePhase++;
+				 
+			}
+		}
+		if(scenePhase == 1) {
+			if(gp.player.worldX <= 34*gp.tileSize && gp.player.worldY <= 15*gp.tileSize) {
+				gp.player.worldX += 4;
+				gp.player.worldY += 3;
+			}
+			else {
+				gp.gui.npc = gp.narrator;
+				gp.gui.npc.dialogueSet = NPC_Narrator.villager_comeout;
+				gp.gui.informationScreen();
+			} 
+		}
+		if(scenePhase == 2 ) {
+			endScene();
+		}
+	}
+	
+	
+	
 	
 	//UTILS
-	
 	public void showInfoScreen(int dialogueSet) {
 		gp.gui.npc = gp.narrator;
 		gp.gui.npc.dialogueSet = dialogueSet;
@@ -782,6 +899,7 @@ public class CutSceneHandler {
 		case witchEncounter: witchEncounter(); break;
 		case witchQuest1Complete: witchQuest1Complete(); break;
 		case oldManQuest2: oldManQuest2(); break;
+		case cloakedEncounter: cloakedEncounter(); break;
 		}
 	}
 }

@@ -14,7 +14,7 @@ public class OBJ_Chest extends Entity{
 	public OBJ_Chest(GamePanel gp) {
 		super(gp);
 		
-		debugOn = true;
+//		debugOn = true;
 		
 		image2 = createImage("objects", "items/OpenedChest");
 		this.gp = gp;

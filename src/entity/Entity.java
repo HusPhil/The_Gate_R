@@ -142,6 +142,7 @@ public class Entity {
 	public final int type_pickaxe = 10;
 	public final int type_mon_cs = 11;
 	public final int type_materials = 12;
+	public final int type_questItem = 13;
 	
 	public final int non_inventory = 888;
 	public int slowcounter = 0;

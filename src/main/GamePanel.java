@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int silvioVillage = 5;
 	public final int silvioHouse = 6;
 	public final int forest = 7;
+	public final int sacredRiver = 8;
 
 	//Screen settings//
 	//---------------//

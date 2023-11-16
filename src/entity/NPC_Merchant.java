@@ -133,6 +133,10 @@ public class NPC_Merchant extends Entity{
 		dialogues[i][j] = "Hmm.. "; j++;
 		dialogues[i][j] = "Hmm.. It seems you don't have enough\ncoins to buy this.."; j++;
 		
+		i++; j = 0;
+		dialogues[i][j] = "Hey! "; j++;
+		dialogues[i][j] = "You can't sell quest items!"; j++;
+		
 //		dialouges[19] = "Goodluck on your adventure boya..";
 	}
 	public void speak() {
@@ -267,11 +271,16 @@ public class NPC_Merchant extends Entity{
 			
 			if(gp.player.inventory.get(itemIndex) != gp.player.currentShield &&
 			   gp.player.inventory.get(itemIndex) != gp.player.currentWeapon) {
-				gp.player.coin += (gp.player.inventory.get(itemIndex).coin) - (gp.player.inventory.get(itemIndex).coin)/4;
 				
-				if(gp.player.inventory.get(itemIndex).ammount > 1 ) {
+				if(gp.player.inventory.get(itemIndex).type == gp.player.inventory.get(itemIndex).type_questItem) {
+					startDialogue(this, 5);
+				}
+				else if(gp.player.inventory.get(itemIndex).ammount > 1 ) {
 					gp.player.inventory.get(itemIndex).ammount--;
-				} else gp.player.inventory.remove(itemIndex);
+				} else {
+					gp.player.inventory.remove(itemIndex);
+					gp.player.coin += (gp.player.inventory.get(itemIndex).coin) - (gp.player.inventory.get(itemIndex).coin)/4;
+				}
 			} 
 			else {
 				startDialogue(this, 2);

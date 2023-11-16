@@ -12,6 +12,7 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.ITM_Key;
 import object.ITM_SlimeGel;
+import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
 import object.OBJ_Chest;
 import object.OBJ_Health_Potion;
@@ -322,6 +323,7 @@ public class Player extends Entity{
 		inventory.add(new ITM_TrenkMeat(gp)); 
 		inventory.get(5).ammount = 5;
 		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new ITM_TrenkAmulet(gp));
 	}
 	
 	public void attackState() {

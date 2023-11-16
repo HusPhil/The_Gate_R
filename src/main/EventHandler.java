@@ -85,7 +85,16 @@ public class EventHandler {
 			else if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
 			else if(eventCollision(gp.silvioHouse, 30, 6, "right")) transition(gp.forest, 12, 10, gp.outside);
 			else if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
-			
+			else if(
+					eventCollision(gp.forest, 38, 31, "right") ||
+					eventCollision(gp.forest, 38, 32, "right") ||
+					eventCollision(gp.forest, 38, 33, "right")
+				   ) {
+				transition(gp.sacredRiver, 11, 13, gp.outside);
+			}
+			else if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
+				transition(gp.forest, 37, 32, gp.outside);
+			}
 			
 			 
 			//MERCHANT HOUSE DIALOGUE
@@ -98,7 +107,6 @@ public class EventHandler {
 			}
 			else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
 				transition(gp.silvioVillage, 28, 12, gp.outside);
-				if(GameProgress.witchQuest1Complete) CS_oldManQuest2();
 			}
 			else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
 				transition(gp.silvioHouse, 24, 40, gp.indoor);
@@ -137,7 +145,7 @@ public class EventHandler {
 				touchEventON = false;
 			}
 			else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
-				if(GameProgress.witchQuest1Complete) CS_oldManQuest2();
+				if(GameProgress.witchQuest1Complete && !GameProgress.oldManQuest2Explained) CS_oldManQuest2();
 				touchEventON = false;
 			}
 			

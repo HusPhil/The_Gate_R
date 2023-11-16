@@ -150,7 +150,7 @@ public class NPC_Witch extends Entity{
 		dialogues[quest1d][i] = "Nevertheless, this is only a temporary solution, you must\n"
 				+ "find and defeat the cursed tree that has become evil as\n"
 				+ "a consequence of people not fulfilling SDGs, otherwise\n"
-				+ "known in this world as the '17 Harmonial Principles'"; i++;
+				+ "known in this world as the 'Harmonial Principles'"; i++;
 		dialogues[quest1d][i] = "That is to say, the failed to Protect, restore and promote\n"
 				+ "sustainable use of terrestrial ecosystems, sustainably\n"
 				+ "manage forests, combat desertification, and halt and\n"
