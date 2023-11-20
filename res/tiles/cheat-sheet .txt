@@ -1,0 +1,9 @@
+sprite_0.png => 121.png
+sprite_1.png => 122.png
+sprite_2.png => 123.png
+sprite_3.png => 124.png
+sprite_4.png => 125.png
+sprite_5.png => 126.png
+sprite_6.png => 127.png
+sprite_7.png => 128.png
+sprite_8.png => 129.png
