@@ -66,7 +66,7 @@ public class Player extends Entity{
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
-		debugOn = true;
+//		debugOn = true;
 		
 		setDialogue();
 		setDefaultValues();
@@ -88,7 +88,7 @@ public class Player extends Entity{
 		
 		 
 		//PLAYER STATS
-		defaultSpeed = 3;
+		defaultSpeed = 5;
 		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
@@ -319,13 +319,13 @@ public class Player extends Entity{
 		inventory.add(currentWeapon);
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
-//		inventory.add(new OBJ_Lantern(gp));
-//		inventory.add(new ITM_SlimeGel(gp));
-//		inventory.get(4).ammount = 5;
-//		inventory.add(new ITM_TrenkMeat(gp)); 
-//		inventory.get(5).ammount = 5;
-//		inventory.add(new OBJ_Iron_Axe(gp));
-//		inventory.add(new ITM_TrenkAmulet(gp));
+		inventory.add(new OBJ_Lantern(gp));
+		inventory.add(new ITM_SlimeGel(gp));
+		inventory.get(4).ammount = 5;
+		inventory.add(new ITM_TrenkMeat(gp)); 
+		inventory.get(5).ammount = 5;
+		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new ITM_TrenkAmulet(gp));
 	}
 	
 	public void attackState() {
@@ -364,6 +364,7 @@ public class Player extends Entity{
 				worldY-= attackArea.height;
 				break;
 			case "down": 
+				worldY += solidArea.height/2;
 //				worldY+=attackArea.height; 
 				break;
 			case "left": 
@@ -959,8 +960,7 @@ public class Player extends Entity{
 						y -= attackArea.height;
 						break;
 					case "down": 
-//						y = screenY;
-//						y += attackArea.height; 
+						y += solidArea.height/2;
 						break;
 					case "left": 
 						x -= attackArea.width; 

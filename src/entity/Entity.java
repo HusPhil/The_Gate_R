@@ -438,7 +438,7 @@ public class Entity {
 	}
 	public void dyingAnim() {
 		dyingCounter++;
-		int i = 2;
+		int i = 5;
 		
 		if(dyingCounter < i) changeOpacity(0f);
 		if(dyingCounter > i && dyingCounter <= i*2) changeOpacity(1f); 

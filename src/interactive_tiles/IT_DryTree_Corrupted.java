@@ -13,7 +13,7 @@ public class IT_DryTree_Corrupted extends InteractiveTiles{
 		super(gp,col,row);
 		this.gp = gp;
 		
-		debugOn = true;
+//		debugOn = true;
 		
 		this.worldX = gp.tileSize*col;
 		this.worldY = gp.tileSize*row;

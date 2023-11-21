@@ -15,16 +15,18 @@ public class BOSS_WaterGolem extends Entity{
 		//Stats
 		type = type_monster;
 		name = monName;
-		defaultSpeed = 2;
+		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxLife = 80;
 		attacking = !true;
-		debugOn = true;
-		type_boss = true;
+//		debugOn = true;
+//		type_boss = true;
 		life = maxLife;
 		atk = 10;
-		def = 50;
+		def = 10;
 		exp = 50;
+		
+		asleep = true;
 		
 		//SolidArea
 		int size = 3 * gp.tileSize;

@@ -194,7 +194,7 @@ public class NPC_Hermit extends Entity{
 		
 		i = 0;
 		dialogues[explaining_3][i] = "Thank you young man!"; i++;
-		dialogues[explaining_3][i] = "Here's an old sword and old shield of mine!"; i++;
+		dialogues[explaining_3][i] = "Here, take this old equipment of mine!"; i++;
 		dialogues[explaining_3][i] = "Go ahead and take care of these monsters!"; i++;
 		dialogues[explaining_3][i] = "(Press the enter key to attack!)"; i++;
 		

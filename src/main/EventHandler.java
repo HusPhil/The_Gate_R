@@ -169,6 +169,11 @@ public class EventHandler {
 				if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
 					transition(gp.forest, 37, 32, gp.outside);
 				}
+				else if(eventCollision(gp.sacredRiver, 13, 31, "left")) {
+					CS_waterGolem();
+					touchEventON = false;
+				}
+				
 			}
 						
 		}
@@ -324,5 +329,13 @@ public class EventHandler {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.oldManQuest2;
 	}
-
+	
+	public void CS_waterGolem() {
+		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.waterGolem;
+		}
+		
+	}
+ 
 }

@@ -13,6 +13,7 @@ import entity.NPC_VillagerBoy;
 import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
+import monster.BOSS_WaterGolem;
 import monster.MON_Trenklin;
 import object.ITM_Key;
 import object.ITM_SlimeGel;
@@ -38,7 +39,7 @@ public class CutSceneHandler {
 	public final int witchEncounter = 6;
 	public final int witchQuest1Complete = 7;
 	public final int oldManQuest2 = 8;
-	public final int cloakedEncounter = 9;
+	public final int waterGolem = 9;
 	
 	
 	int gelAmmount = 0;
@@ -123,15 +124,16 @@ public class CutSceneHandler {
 	}
 	
 	public void scene_Intro() {
-		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
+		gp.fxHandler.lighting.resetDay();
 		//PHASE 0
 		if(scenePhase == 0) {
 //			gp.gameState = gp.loadingState;
 //			gp.gui.fadeIn();
-			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+//			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
-//			GameProgress.oldManExplained = true;
+			GameProgress.oldManExplained = true;
 //			GameProgress.witchQuest1Complete = true;
 			scenePhase++;
 		}
@@ -172,7 +174,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManEncounter() {
-		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
+		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			GameProgress.encounterOldMan = true;
 			//place player dummy
@@ -231,8 +233,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManExplain() {
-		gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
-		
+		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] != null &&
@@ -669,6 +670,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManQuest2(){
+		
 		// talk to the old man 
 		// give the old man the amulet
 		// transition outside, people will go back to normal
@@ -706,9 +708,10 @@ public class CutSceneHandler {
 			gp.gui.npc.dialogueSet = NPC_Hermit.oldManQ2c;
 			gp.gui.dialogueScreen(false);
 		}
+		
 		if(scenePhase == 7) {
-			gp.fxHandler.lighting.timeState = gp.fxHandler.lighting.day;
 			gp.eventHandler.transition(gp.silvioVillage, 29, 16, gp.outside);
+			gp.fxHandler.lighting.resetDay();
 			scenePhase++;
 			
 		}
@@ -830,37 +833,55 @@ public class CutSceneHandler {
 		
 		System.out.println("sinpeys: " + scenePhase);
 	}
-
 	
-	public void cloakedEncounter() {
+	public void waterGolem() {
 		if(scenePhase == 0) {
-			if(scenePhase == 10) {
-				for(int i = 0; i < gp.npc[1].length; i++) {
-					if(gp.npc[gp.currentMap][i] == null) {
-						gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
-						gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
-						gp.npc[gp.currentMap][i].worldY = 10*gp.tileSize;
-						gp.npc[gp.currentMap][i].direction = gp.player.direction;
-						break;
-					}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
 				}
-				gp.player.drawing = false;
-				scenePhase++;
-				 
 			}
+			gp.player.drawing = false;
+			scenePhase++;
 		}
 		if(scenePhase == 1) {
-			if(gp.player.worldX <= 34*gp.tileSize && gp.player.worldY <= 15*gp.tileSize) {
+			if(gp.player.worldX <= 25*gp.tileSize && gp.player.worldY <= 37*gp.tileSize) {
 				gp.player.worldX += 4;
 				gp.player.worldY += 3;
 			}
 			else {
-				gp.gui.npc = gp.narrator;
-				gp.gui.npc.dialogueSet = NPC_Narrator.villager_comeout;
-				gp.gui.informationScreen();
+				showInfoScreen(NPC_Narrator.waterGolem);
 			} 
 		}
+		
 		if(scenePhase == 2 ) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 3) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_WaterGolem.monName)) {
+					gp.monsters[gp.currentMap][i].asleep = false;
+					gp.gui.npc = gp.monsters[gp.currentMap][i];
+					scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 4 ) {
 			endScene();
 		}
 	}
@@ -900,7 +921,7 @@ public class CutSceneHandler {
 		case witchEncounter: witchEncounter(); break;
 		case witchQuest1Complete: witchQuest1Complete(); break;
 		case oldManQuest2: oldManQuest2(); break;
-		case cloakedEncounter: cloakedEncounter(); break;
+		case waterGolem: waterGolem(); break;
 		}
 	}
 }

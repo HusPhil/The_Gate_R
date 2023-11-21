@@ -19,11 +19,11 @@ public class OBJ_Wooden_Sword extends Entity{
 //		atk = 20;
 		atkVal = 5;
 		
-		attackAreaX.width = 36;
+		attackAreaX.width = gp.tileSize;
 		attackAreaX.height = 25;
 		
-		attackAreaY.width = 18;
-		attackAreaY.height = 36;
+		attackAreaY.width = 30;
+		attackAreaY.height = gp.tileSize;
 		
 		motion_duration1 = 5;
 		motion_duration2 = 10;

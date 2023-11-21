@@ -349,7 +349,7 @@ public class AssetsHandler {
 		i = 0;
 		mapNum = gp.sacredRiver;
 		gp.monsters[mapNum][i] = new BOSS_WaterGolem(gp);
-		gp.monsters[mapNum][i].worldX = 24*gp.tileSize;
+		gp.monsters[mapNum][i].worldX = 21*gp.tileSize;
 		gp.monsters[mapNum][i].worldY = 36*gp.tileSize;
 		i++;
 	}

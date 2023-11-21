@@ -107,7 +107,7 @@ public class NPC_Witch extends Entity{
 				+ "\ningredients for me.."; i++;
 		dialogues[quest1b][i] = "Maybe then, I could help you with your problem.."; i++;
 		dialogues[quest1b][i] = "Get me the following: "
-				+ "\n \t*3 Gels from Slimes"
+				+ "\n \t*5 Gels from Slimes"
 				+ "\n \t*5 Trenkflesh from Trenklins"; i++;
 		dialogues[quest1b][i] = "You need to go downstairs to reach the other side\n"
 				+ "of the forest. However, I lost the key for the door."; i++;

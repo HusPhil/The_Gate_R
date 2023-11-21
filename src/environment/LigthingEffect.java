@@ -12,7 +12,7 @@ public class LigthingEffect {
 	GamePanel gp; 
 	BufferedImage darknessFilter;
 	
-	int timeCounter = 0;
+	public int timeCounter = 0;
 	float filterAlpha = 0f;
 	
 	public final int day = 0;

@@ -25,6 +25,7 @@ public class NPC_Narrator extends Entity{
 	public static final int oldManQ2c = 15;
 	public static final int oldManQ2d = 16;
 	public static final int oldManQ2e = 17;
+	public static final int waterGolem = 18;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -63,7 +64,6 @@ public class NPC_Narrator extends Entity{
 		dialogues[village_monster][j] = "The monsters are currently attacking!"; j++;
 		
 		j = 0;
-		dialogues[player_agree][j] = "..."; j++;
 		dialogues[player_agree][j] = "...."; j++;
 		dialogues[player_agree][j] = "You decided to help the old man."; j++;
 		
@@ -111,6 +111,10 @@ public class NPC_Narrator extends Entity{
 		
 		j = 0;
 		dialogues[oldManQ2e][j] = "You received a lantern!"; j++;
+		
+		j = 0;
+		dialogues[waterGolem][j] = "..."; j++;
+		dialogues[waterGolem][j] = "An eerie aura is approaching!"; j++;
 		
 		
 	}
