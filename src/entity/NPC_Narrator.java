@@ -114,7 +114,9 @@ public class NPC_Narrator extends Entity{
 		
 		j = 0;
 		dialogues[waterGolem][j] = "..."; j++;
-		dialogues[waterGolem][j] = "An eerie aura is approaching!"; j++;
+		dialogues[waterGolem][j] = "An chilly aura is approaching!"; j++;
+		dialogues[waterGolem][j] = "..."; j++;
+		dialogues[waterGolem][j] = "The Water Golem has awoken!"; j++;
 		
 		
 	}

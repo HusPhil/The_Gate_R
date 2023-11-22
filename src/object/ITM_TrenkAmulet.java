@@ -15,7 +15,6 @@ public class ITM_TrenkAmulet extends Entity{
 		dropChance = 90;
 		name = objName;
 		down1 = createImage("objects", "items/trenk_amulet");
-		collision = true;
 		description = "["+name+"]" + "\nGiven to you by the witch! \nIt might save the village!";
 	}
 	

@@ -15,7 +15,6 @@ public class ITM_SlimeGel extends Entity{
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "items/slime_gel");
-		collision = true;
 		description = "["+name+"]" + "\nYou got it from a slime! \nIts so squishy!"
 				+ "\n*Material*";
 	}

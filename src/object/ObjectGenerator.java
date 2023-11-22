@@ -63,6 +63,18 @@ public class ObjectGenerator {
 		case ITM_TrenkMeat.objName:
 			obj = new ITM_TrenkMeat(gp);
 			break;
+		case ITM_TrenkAmulet.objName:
+			obj = new ITM_TrenkAmulet(gp);
+			break;
+		case ITM_Bandage.objName:
+			obj = new ITM_Bandage(gp);
+			break;
+		case ITM_WaterEssence.objName:
+			obj = new ITM_WaterEssence(gp);
+			break;
+		case ITM_WaterCrystal.objName:
+			obj = new ITM_WaterCrystal(gp);
+			break;
 			
 			
 		}

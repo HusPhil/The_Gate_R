@@ -4,12 +4,7 @@ import java.awt.Rectangle;
 
 import entity.Entity;
 import main.GamePanel;
-import object.ITM_Coin;
-import object.ITM_TrenkMeat;
-import object.OBJ_Health_Potion;
-import object.OBJ_Iron_Shield;
-import object.OBJ_Iron_Axe;
-import object.SKL_MudBall;
+import object.ITM_Bandage;
 
 public class MON_Mummy extends Entity{
 	GamePanel gp;
@@ -131,10 +126,10 @@ public class MON_Mummy extends Entity{
 	public void checkDrop() {
 		
 		int i = 0;
-		gp.dcs.possibleDrops[i] = new ITM_TrenkMeat(gp);
+		gp.dcs.possibleDrops[i] = new ITM_Bandage(gp);
 		i++;
 		
-		gp.dcs.defaultItem = new ITM_Coin(gp);
+		gp.dcs.defaultItem = new ITM_Bandage(gp);
 		dropItem( gp.dcs.pickDrop());
 	}
 	

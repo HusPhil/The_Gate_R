@@ -3,6 +3,8 @@ package monster;
 import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import object.ITM_Coin;
+import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
 
 public class BOSS_WaterGolem extends Entity{
@@ -146,23 +148,14 @@ public class BOSS_WaterGolem extends Entity{
 	}
 	public void checkDrop() {
 		gp.bossBattleOn = false;
-		GameProgress.defeatedSkeletonLord = true;
+		GameProgress.waterGolemDefeated = true;
 		
 		//stopTheBossMusic
 		//playDungeonMusic
 		
 		//open iron doors
 		
-		for(int i = 0; i < gp.gameObjs[1].length; i++) {
-			if(gp.gameObjs[gp.currentMap][i] != null) {
-				
-				if(gp.gameObjs[gp.currentMap][i].name.equals(OBJ_IronDoor.objName)) {
-					gp.gameObjs[gp.currentMap][i] = null;
-					gp.playSE(7);
-				}
-				
-			}
-		}
+		dropItem(new ITM_WaterEssence(gp));
 	}
 	public void setDialogue() {
 		int dialogueSet, dialogueNum;
