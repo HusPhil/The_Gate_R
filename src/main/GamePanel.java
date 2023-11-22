@@ -1,5 +1,4 @@
 package main;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -227,7 +226,6 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeObjects();
 		createAssets.makeNpc();
 		createAssets.makeMonster();
-		createAssets.makeItems();
 		createAssets.makeInteractiveTiles();
 		
 		fxHandler.setUp();
@@ -526,7 +524,6 @@ public class GamePanel extends JPanel implements Runnable{
 			fxHandler.lighting.resetDay();
 			createAssets.makeInteractiveTiles();
 			createAssets.makeObjects();
-			createAssets.makeItems();
 		}
  		
  		

@@ -1,6 +1,7 @@
 package entity;
 
 
+import DataHandling.GameProgress;
 import main.GamePanel;
 import object.ITM_Key;
 import object.OBJ_Health_Potion;
@@ -17,6 +18,11 @@ public class NPC_Witch extends Entity{
 	public final static int quest1c = 2;
 	public final static int quest1d = 3;
 	public final static int quest1e = 4;
+	
+	public final static int defeatedGolemA = 5;
+	public final static int defeatedGolemB = 6;
+	public final static int defeatedGolemC = 7;
+	public final static int defeatedGolemD = 8;
 
 	public static final String NPC_Name = "Witch";
 	public NPC_Witch(GamePanel gp) {
@@ -143,6 +149,31 @@ public class NPC_Witch extends Entity{
 		
 		i = 0;
 		dialogues[quest1e][i] = "Don't die now, hi hi hi hi.."; i++;
+		
+		i = 0;
+		dialogues[defeatedGolemA][i] = "I couldn't believe it.. "; i++;
+		dialogues[defeatedGolemA][i] = "Were you really able to defeat that Golem by yourself,\n"
+				+ "young man!?"; i++;
+		dialogues[defeatedGolemA][i] = "Well, I have to thank you for that because it would really\n"
+				+ "be good for health of the water in this world!"; i++;
+		dialogues[defeatedGolemA][i] = "Perhaps, I could make something useful for you!"; i++;
+		dialogues[defeatedGolemA][i] = "Now, get these materials for me:\n"
+				+ "*10 Bandages\n"
+				+ "*Water Essence"; i++;
+					
+		i = 0;
+		dialogues[defeatedGolemB][i] = "Now, I can see you have gathered some, but not all the\n"
+				+ "materials I need."; i++; 
+		dialogues[defeatedGolemB][i] = "Go get them so I can craft something amazing!"; i++;
+				
+		i = 0;
+		dialogues[defeatedGolemC][i] = "Oh nice, it seems you all these materials already!"; i++;
+		dialogues[defeatedGolemC][i] = "Okay, now, let the magic begin!"; i++;
+		dialogues[defeatedGolemC][i] = "..."; i++;
+		dialogues[defeatedGolemC][i] = "There, another successful enchantment!"; i++;
+		
+		i = 0;
+		dialogues[defeatedGolemD][i] = "Good luck on your adventure!"; i++;
 	}
 	public void speak() {
 		facePlayer();
@@ -245,59 +276,8 @@ public class NPC_Witch extends Entity{
 		inventory.add(new OBJ_Lantern(gp));
 	}
 	
-	public void sellItem() {
-		
-		int itemIndex = gp.gui.getItemIndex();
-		
-		if(itemIndex < inventory.size()) {
-		
-			if(gp.player.coin >= inventory.get(itemIndex).coin) {
-				gp.player.coin -= inventory.get(itemIndex).coin;
-				
-				if(gp.player.itemObtainable(inventory.get(itemIndex))) {
-				}
-				else {
-					startDialogue(this, 1);
-					gp.gui.substate = 0;
-				}
-				}
-			else {
-				startDialogue(this, 4);
-				gp.gui.substate = 0;
-			}
-		} 
-	}
-	public void buyItem() {
-		
-		int itemIndex = gp.gui.getItemIndex();
-		int playerInventorySize = gp.player.inventory.size(); 
-		
-		if(itemIndex < playerInventorySize) {
-			
-			if(gp.player.inventory.get(itemIndex) != gp.player.currentShield &&
-			   gp.player.inventory.get(itemIndex) != gp.player.currentWeapon) {
-				gp.player.coin += (gp.player.inventory.get(itemIndex).coin) - (gp.player.inventory.get(itemIndex).coin)/4;
-				
-				if(gp.player.inventory.get(itemIndex).ammount > 1 ) {
-					gp.player.inventory.get(itemIndex).ammount--;
-				} else gp.player.inventory.remove(itemIndex);
-			} 
-			else {
-				startDialogue(this, 2);
-				
-				gp.gui.substate = 0;
-			}
-			
-		} else if(itemIndex == maxInventorySize-1){
-			gp.gui.substate = 0;
-			gp.gui.selectItem = -1;
-			gp.keys.enterPressed = false;
-		} else {
-//			
-			startDialogue(this, 3);
-			gp.gui.substate = 0;
-			gp.gui.selectItem = 0;
-		}
-		
+	public void update() {
+		super.update();
+		if(GameProgress.waterGolemDefeated) dialogueSet = defeatedGolemA;
 	}
 }

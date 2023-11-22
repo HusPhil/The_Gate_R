@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Rectangle;
 
+import DataHandling.GameProgress;
 import main.GamePanel;
 import object.SKL_MudBall;
 
@@ -26,6 +27,7 @@ public class NPC_Hermit extends Entity{
 	public static final int oldManQ2f = 16;
 	public static final int oldManQ2g = 17;
 	public static final int oldManQ2h = 18;
+	public static final int defeatedGolemA = 19;
 
 	//SearchPaths
 	public static final int find_player = 1;
@@ -273,11 +275,20 @@ public class NPC_Hermit extends Entity{
 		dialogues[oldManQ2h][i] = "Hopefully this lantern of mine would be of help.."; i++;
 		dialogues[oldManQ2h][i] = "Well then, I shall rest for now.."; i++;
 		dialogues[oldManQ2h][i] = "Goodluck on your adventure young man!"; i++;
+		
+		i = 0;
+		dialogues[defeatedGolemA][i] = "It's unbelievable!"; i++;
+		dialogues[defeatedGolemA][i] = "Congratulations on defeating the Golem, young man!"; i++;
+		dialogues[defeatedGolemA][i] = "However, the water issue still hasn't been solved!"; i++;
+		dialogues[defeatedGolemA][i] = "Maybe you should visit the witch, again..?"; i++;
 	}
 	public void speak() {
 		facePlayer();
 		startDialogue(this, dialogueSet);
 	}	
-
+	public void update() {
+		super.update();
+		if(GameProgress.waterGolemDefeated) dialogueSet = defeatedGolemA;
+	}
 
 }

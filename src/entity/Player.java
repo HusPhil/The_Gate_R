@@ -839,17 +839,7 @@ public class Player extends Entity{
 		int objIndex = gp.collCheck.checkObj(this, true);
 //		pickupItem(itemIndex);
 		interactObj(objIndex);
-//		if(!collisionOn) {
-//			for(int itemIndex = 0; itemIndex < gp.gameObjs[1].length; itemIndex++) {
-//				if(gp.gameObjs[gp.currentMap][itemIndex] != null) {
-//					if(gp.gameObjs[gp.currentMap][itemIndex].name == OBJ_Chest.objName)				
-//					gp.gameObjs[gp.currentMap][itemIndex].changePic();			
-//				}
-//			
-////				System.out.println(gp.gameObjs[gp.currentMap][itemIndex]);
-//			}
-//		}
-		//Check event collision
+
 		gp.eventHandler.checkEvent();
 		
 		projectileAction();

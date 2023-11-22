@@ -134,7 +134,7 @@ public class MON_Trenklin extends Entity{
 		gp.dcs.possibleDrops[i] = new ITM_TrenkMeat(gp);
 		i++;
 		
-		gp.dcs.defaultItem = new ITM_Coin(gp);
+		gp.dcs.defaultItem = new ITM_TrenkMeat(gp);
 		dropItem( gp.dcs.pickDrop());
 	}
 	

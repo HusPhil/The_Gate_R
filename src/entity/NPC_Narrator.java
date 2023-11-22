@@ -26,6 +26,7 @@ public class NPC_Narrator extends Entity{
 	public static final int oldManQ2d = 16;
 	public static final int oldManQ2e = 17;
 	public static final int waterGolem = 18;
+	public static final int receiveWaterCrystal = 19;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -114,11 +115,12 @@ public class NPC_Narrator extends Entity{
 		
 		j = 0;
 		dialogues[waterGolem][j] = "..."; j++;
-		dialogues[waterGolem][j] = "An chilly aura is approaching!"; j++;
+		dialogues[waterGolem][j] = "You feel an eerie, chilly, aura..!"; j++;
 		dialogues[waterGolem][j] = "..."; j++;
 		dialogues[waterGolem][j] = "The Water Golem has awoken!"; j++;
 		
-		
+		j = 0;
+		dialogues[receiveWaterCrystal][j] = "You received a Water Crystal!"; j++;		
 	}
 
 }

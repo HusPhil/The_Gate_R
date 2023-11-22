@@ -21,8 +21,8 @@ public class BOSS_WaterGolem extends Entity{
 		speed = defaultSpeed;
 		maxLife = 80;
 		attacking = !true;
-//		debugOn = true;
-//		type_boss = true;
+		debugOn = true;
+		type_boss = true;
 		life = maxLife;
 		atk = 10;
 		def = 10;
@@ -38,8 +38,8 @@ public class BOSS_WaterGolem extends Entity{
 		solidArea.width = size - (gp.tileSize);
 		solidArea.height = size - (gp.tileSize/2);
 		
-		attackArea.width = 170/2;
-		attackArea.height = 170/2;
+		attackArea.width = 170;
+		attackArea.height = 170;
 		
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
@@ -242,8 +242,5 @@ public class BOSS_WaterGolem extends Entity{
 	
 	public void update() {
 		super.update();
-		
-		
-		
 	}
 }

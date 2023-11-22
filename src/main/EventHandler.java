@@ -4,6 +4,7 @@ import DataHandling.GameProgress;
 import entity.Entity;
 import entity.NPC_Narrator;
 import entity.NPC_Witch;
+import object.ITM_Bandage;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkMeat;
 import object.OBJ_Iron_Axe;
@@ -113,6 +114,7 @@ public class EventHandler {
 			
 			else if(gp.currentMap == gp.silvioVillage) {
 				if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
+					if(gp.gameState != gp.cutSceneState)
 					transition(gp.silvioHouse, 24, 23, gp.indoor);
 				}
 				else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
@@ -141,11 +143,32 @@ public class EventHandler {
 					transition(gp.silvioHouse, 29, 34, gp.indoor);
 				}
 				else if(eventCollision(gp.silvioHouse, 18, 37, "any")) {
-					if(gp.player.itemIsInsideInventory(ITM_SlimeGel.objName) && gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName)) {
-						CS_witchQuest1Complete();
+					if(!GameProgress.witchQuest1Complete) {
+						if(gp.player.itemIsInsideInventory(ITM_SlimeGel.objName) && gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName)) {
+							CS_witchQuest1Complete();
+						}
+						else CS_witchEncounter();
+						touchEventON = false;
 					}
-					else CS_witchEncounter();
+					else {
+						if(GameProgress.waterGolemDefeated) {
+							if(gp.player.itemIsInsideInventory(ITM_Bandage.objName)) {
+								CS_witchGolemDefeated();
+							}
+							touchEventON = false;
+						}
+						else {
+							for(int i = 0; i < gp.npc[1].length; i++) {
+								if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(NPC_Witch.NPC_Name)) {
+									gp.npc[gp.currentMap][i].startDialogue(gp.npc[gp.currentMap][i], gp.npc[gp.currentMap][i].dialogueSet);
+									break;
+								}
+							}
+						}
+							
+					}
 					touchEventON = false;
+					
 				}
 				else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
 					if(GameProgress.witchQuest1Complete && !GameProgress.oldManQuest2Explained) CS_oldManQuest2();
@@ -277,21 +300,21 @@ public class EventHandler {
 	}
 
 	//CUTSCENES
-	public void CS_skeletonLord() {
+	private void CS_skeletonLord() {
 		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.bossSkeletonLord;
 			gp.player.worldX = 27*gp.tileSize; gp.player.worldY = 29*gp.tileSize;
 		}
 	}
-	public void CS_oldManEncounter() {
+	private void CS_oldManEncounter() {
 		if(!GameProgress.encounterOldMan) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.oldManEncounter;
 			gp.player.worldX = 27*gp.tileSize; gp.player.worldY = 25*gp.tileSize;
 		}
 	}
-	public void CS_oldManExplain() {
+	private void CS_oldManExplain() {
 		if(!GameProgress.oldManExplained) {
 			Entity obj = null;
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
@@ -306,36 +329,40 @@ public class EventHandler {
 			}
 		}
 	}
-	public void CS_axeHint() {
+	private void CS_axeHint() {
 		if(!gp.player.itemIsInsideInventory(OBJ_Iron_Axe.objName) && GameProgress.intro_done) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.axeHint;
 		}
 	}
 	
-	public void CS_witchEncounter() {
+	private void CS_witchEncounter() {
 		if(!GameProgress.witchQuest1Complete) {
 		}
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchEncounter;
 	}
 	
-	public void CS_witchQuest1Complete() {
+	private void CS_witchQuest1Complete() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchQuest1Complete;
 	}
 	
-	public void CS_oldManQuest2() {
+	private void CS_oldManQuest2() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.oldManQuest2;
 	}
 	
-	public void CS_waterGolem() {
-		if(!gp.bossBattleOn && !GameProgress.defeatedSkeletonLord) {
+	private void CS_waterGolem() {
+		if(!gp.bossBattleOn && !GameProgress.waterGolemDefeated) {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.waterGolem;
 		}
-		
+	}
+	
+	private void CS_witchGolemDefeated() {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.witchGolemDefeated;
 	}
  
 }

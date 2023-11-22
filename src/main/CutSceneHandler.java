@@ -15,10 +15,13 @@ import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_Trenklin;
+import object.ITM_Bandage;
 import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_WaterCrystal;
+import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
 import object.OBJ_Lantern;
 
@@ -40,10 +43,14 @@ public class CutSceneHandler {
 	public final int witchQuest1Complete = 7;
 	public final int oldManQuest2 = 8;
 	public final int waterGolem = 9;
+	public final int witchGolemDefeated = 10;
 	
 	
 	int gelAmmount = 0;
 	int meatAmmount = 0;
+	
+	int essenceAmmount = 0;
+	int bandageAmmount = 0;
 	
 	
 	public CutSceneHandler(GamePanel gp) {
@@ -129,11 +136,11 @@ public class CutSceneHandler {
 		if(scenePhase == 0) {
 //			gp.gameState = gp.loadingState;
 //			gp.gui.fadeIn();
-//			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
-			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
+			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+//			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
-			GameProgress.oldManExplained = true;
+//			GameProgress.oldManExplained = true;
 //			GameProgress.witchQuest1Complete = true;
 			scenePhase++;
 		}
@@ -610,7 +617,6 @@ public class CutSceneHandler {
 	}
 	
 	public void witchQuest1Complete() {
-		System.out.println(gelAmmount + "::" + meatAmmount);
 		
 		if(scenePhase == 0) {
 			int gelIndex = gp.player.searchItemInInventory(ITM_SlimeGel.objName);
@@ -662,6 +668,7 @@ public class CutSceneHandler {
 				gp.gui.dialogueScreen(false);
 			}
 			if(scenePhase == 7) {
+				gp.gui.npc.dialogueSet = NPC_Witch.quest1e;
 				GameProgress.witchQuest1Complete = true;
 				endScene();
 			}
@@ -813,6 +820,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 27) {
+			gp.gameState = gp.playState;
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				for(int i = 0; i < gp.npc[1].length; i++) {
 					if(gp.npc[gp.currentMap][i] != null &&
@@ -826,15 +834,19 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 28) {
 			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
-			
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect1")) {
+					gp.IT_Manager[gp.forest][i] = null;
+				}
+			}
 			GameProgress.oldManQuest2Explained = true;
 			endScene();
 		}
 		
-		System.out.println("sinpeys: " + scenePhase);
 	}
 	
 	public void waterGolem() {
+		gp.bossBattleOn = true;
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
@@ -886,7 +898,66 @@ public class CutSceneHandler {
 		}
 	}
 	
-	
+	public void witchGolemDefeated() {
+		
+		if(scenePhase == 0) {
+			int essenceIndex = gp.player.searchItemInInventory(ITM_WaterEssence.objName);
+			int bandageIndex = gp.player.searchItemInInventory(ITM_Bandage.objName);
+			
+			essenceAmmount = gp.player.inventory.get(essenceIndex).ammount;
+			bandageAmmount = gp.player.inventory.get(bandageIndex).ammount;
+			
+			scenePhase++;
+		}
+		
+		if(scenePhase == 1) {
+			setGuiNpc(NPC_Witch.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Witch.defeatedGolemA;
+			gp.gui.dialogueScreen(false);
+		}
+		
+		if(essenceAmmount < 1 || bandageAmmount < 10) {
+			if(scenePhase == 2) {
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedGolemB;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 3) {
+				endScene();
+			}
+		}
+		else {
+
+			if(scenePhase == 2) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedGolemC;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 3) {
+				gp.gui.npc = gp.narrator;
+				showInfoScreen(NPC_Narrator.receiveWaterCrystal);
+			}
+			if(scenePhase == 4) {
+				int essenceIndex = gp.player.searchItemInInventory(ITM_WaterEssence.objName);
+				gp.player.inventory.remove(essenceIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 5) {
+				int bandageIndex = gp.player.searchItemInInventory(ITM_Bandage.objName);
+				gp.player.inventory.remove(bandageIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 6) {
+				gp.player.inventory.add(new ITM_WaterCrystal(gp));
+				scenePhase++;
+			}
+			if(scenePhase == 7) {
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedGolemD;
+				GameProgress.witchQuest1Complete = true;
+				endScene();
+			}
+		}
+		
+	}
 	
 	
 	//UTILS
@@ -922,6 +993,7 @@ public class CutSceneHandler {
 		case witchQuest1Complete: witchQuest1Complete(); break;
 		case oldManQuest2: oldManQuest2(); break;
 		case waterGolem: waterGolem(); break;
+		case witchGolemDefeated: witchGolemDefeated(); break;
 		}
 	}
 }

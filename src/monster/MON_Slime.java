@@ -107,7 +107,7 @@ public class MON_Slime extends Entity{
 		gp.dcs.possibleDrops[i] = new ITM_SlimeGel(gp);
 		i++;
 		
-		gp.dcs.defaultItem = new ITM_Coin(gp);
+		gp.dcs.defaultItem = new ITM_SlimeGel(gp);
 		dropItem( gp.dcs.pickDrop());
 	}
 }
