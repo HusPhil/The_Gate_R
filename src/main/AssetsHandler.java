@@ -3,6 +3,7 @@ package main;
 
 
 import DataHandling.GameProgress;
+import entity.NPC_Knight;
 import entity.NPC_Hermit;
 import entity.NPC_Princess;
 import entity.NPC_Witch;
@@ -172,6 +173,14 @@ public class AssetsHandler {
 //		gp.npc[mapNum][i].speed = 0;
 //		gp.npc[mapNum][i].worldX = 32*gp.tileSize;
 //		gp.npc[mapNum][i].worldY = 23*gp.tileSize; i++;
+		
+		i = 0;
+		mapNum = gp.forest;
+		gp.npc[mapNum][i] = new NPC_Knight(gp);
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 33*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 15*gp.tileSize; i++;
+		
 		
 	}
 	public void makeMonster() {
@@ -391,12 +400,12 @@ public class AssetsHandler {
 //		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 26, 30);
 //		gp.IT_Manager[mapNum][i].name = "cs_sect1"; i++;
 		
-		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 33, 23); 
-		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
-		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 33, 24); 
-		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
-		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 34, 23); 
-		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
+//		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 33, 23); 
+//		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
+//		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 33, 24); 
+//		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
+//		gp.IT_Manager[mapNum][i] = new IT_TempTree(gp, 34, 23); 
+//		gp.IT_Manager[mapNum][i].name = "cs_sect2"; i++;
 	}
 	
 	

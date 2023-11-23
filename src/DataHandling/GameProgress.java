@@ -10,4 +10,5 @@ public class GameProgress {
 	public static boolean oldManQuest2Explained = false;
 	public static boolean waterGolemDefeated = false;
 	public static boolean waterCrystalActivated = false;
+	public static boolean knightEncountered = false;
 }

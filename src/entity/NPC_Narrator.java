@@ -29,6 +29,8 @@ public class NPC_Narrator extends Entity{
 	public static final int receiveWaterCrystal = 19;
 	public static final int oldManWaterCrystalA = 20;
 	public static final int oldManWaterCrystalB = 21;
+	public static final int knightEncounterA = 22;
+	public static final int knightEncounterB = 23;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -128,6 +130,14 @@ public class NPC_Narrator extends Entity{
 		dialogues[oldManWaterCrystalA][j] = "You gave him the Water Crystal!"; j++;	
 		j = 0;
 		dialogues[oldManWaterCrystalB][j] = "Silvio activated the Water Crystal!"; j++;
+		
+		j = 0;
+		dialogues[knightEncounterA][j] = "You told him about your story so far.."; j++;
+		
+		j = 0;
+		dialogues[knightEncounterB][j] = "You took on the challenge!"; j++;
+
+	
 	}
 
 }

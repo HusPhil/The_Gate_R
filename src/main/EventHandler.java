@@ -195,6 +195,9 @@ public class EventHandler {
 						) {
 					transition(gp.sacredRiver, 11, 13, gp.outside);
 				}
+				else if(eventCollision(gp.forest, 33, 23, "up")) {
+					CS_knightEncounter();
+				}
 			}
 			
 			else if(gp.currentMap == gp.sacredRiver) {
@@ -382,5 +385,12 @@ public class EventHandler {
 	private void CS_witchPrincessInfo() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchPrincessInfo;
+	}
+	
+	private void CS_knightEncounter() {
+		if(!GameProgress.knightEncountered) {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.knightEncounter;
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import entity.NPC_Knight;
 import entity.NPC_Cursed_Villager;
 import entity.NPC_Hermit;
 import entity.NPC_Narrator;
@@ -46,6 +47,7 @@ public class CutSceneHandler {
 	public final int witchGolemDefeated = 10;
 	public final int waterCrystal = 11;
 	public final int witchPrincessInfo = 12;
+	public final int knightEncounter = 13;
 	
 	
 	int gelAmmount = 0;
@@ -1057,6 +1059,14 @@ public class CutSceneHandler {
 			}
 		}
 		if(scenePhase == 15) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] == null) {
+					gp.npc[gp.forest][i] = new NPC_Knight(gp);
+					gp.npc[gp.forest][i].speed = 0;
+					gp.npc[gp.forest][i].worldX = 33*gp.tileSize;
+					gp.npc[gp.forest][i].worldY = 15*gp.tileSize; i++;
+				}
+			}
 			GameProgress.waterCrystalActivated = true;
 			endScene();
 		}
@@ -1074,6 +1084,74 @@ public class CutSceneHandler {
 					gp.IT_Manager[gp.forest][i] = null;
 				}
 			}
+			endScene();
+		}
+	}
+	
+	public void knightEncounter() {
+		if(scenePhase == 0) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			if(gp.player.worldY >= 15*gp.tileSize) {
+				gp.player.worldY -= 3;
+			}
+			else {
+				setGuiNpc(NPC_Knight.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Knight.princessInfoA;
+				gp.gui.dialogueScreen(false);
+			} 
+		}
+		
+		if(scenePhase == 2) {
+			gp.gameState = gp.fadeIN;
+			
+		}	
+		if(gp.gameState == gp.playState) scenePhase++;
+		
+		if(scenePhase == 3) {
+			gp.player.worldX = 33;
+			gp.player.worldY = 17;
+			gp.player.direction = "up";
+			gp.gameState = gp.cutSceneState;
+			scenePhase++;
+		}
+		if(scenePhase == 4) showInfoScreen(NPC_Narrator.full_inventory);
+		if(scenePhase == 5) {
+			gp.gui.npc.dialogueSet = NPC_Knight.princessInfoB;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 6) showInfoScreen(NPC_Narrator.knightEncounterB);
+		if(scenePhase == 7) {
+			gp.gui.npc.dialogueSet = NPC_Knight.princessInfoC;
+			gp.gui.dialogueScreen(false);
+		}
+		
+		if(scenePhase ==  8) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 9) {
+			GameProgress.knightEncountered = true;
 			endScene();
 		}
 	}
@@ -1114,6 +1192,7 @@ public class CutSceneHandler {
 		case witchGolemDefeated: witchGolemDefeated(); break;
 		case waterCrystal: waterCrystal(); break;
 		case witchPrincessInfo: witchPrincessInfo(); break;
+		case knightEncounter: knightEncounter(); break;
 		}
 	}
 }
