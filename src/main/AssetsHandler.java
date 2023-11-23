@@ -166,12 +166,12 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 35*gp.tileSize; i++;
 		
-		i = 0;
-		mapNum = gp.sacredRiver;
-		gp.npc[mapNum][i] = new NPC_Princess(gp);
-		gp.npc[mapNum][i].speed = 0;
-		gp.npc[mapNum][i].worldX = 32*gp.tileSize;
-		gp.npc[mapNum][i].worldY = 23*gp.tileSize; i++;
+//		i = 0;
+//		mapNum = gp.sacredRiver;
+//		gp.npc[mapNum][i] = new NPC_Princess(gp);
+//		gp.npc[mapNum][i].speed = 0;
+//		gp.npc[mapNum][i].worldX = 32*gp.tileSize;
+//		gp.npc[mapNum][i].worldY = 23*gp.tileSize; i++;
 		
 	}
 	public void makeMonster() {

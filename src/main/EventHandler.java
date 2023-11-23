@@ -7,6 +7,7 @@ import entity.NPC_Witch;
 import object.ITM_Bandage;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkMeat;
+import object.ITM_WaterCrystal;
 import object.OBJ_Iron_Axe;
 
 public class EventHandler { 
@@ -151,10 +152,14 @@ public class EventHandler {
 						touchEventON = false;
 					}
 					else {
-						if(GameProgress.waterGolemDefeated) {
+						if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
 							if(gp.player.itemIsInsideInventory(ITM_Bandage.objName)) {
 								CS_witchGolemDefeated();
 							}
+							touchEventON = false;
+						}
+						else if(GameProgress.waterCrystalActivated) {
+							CS_witchPrincessInfo();
 							touchEventON = false;
 						}
 						else {
@@ -172,6 +177,10 @@ public class EventHandler {
 				}
 				else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
 					if(GameProgress.witchQuest1Complete && !GameProgress.oldManQuest2Explained) CS_oldManQuest2();
+					else if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
+						if(gp.player.itemIsInsideInventory(ITM_WaterCrystal.objName))
+						CS_waterCrystal();
+					}
 					touchEventON = false;
 				}
 				
@@ -365,4 +374,13 @@ public class EventHandler {
 			gp.csHandler.sceneNum = gp.csHandler.witchGolemDefeated;
 	}
  
+	private void CS_waterCrystal() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.waterCrystal;
+	}
+	
+	private void CS_witchPrincessInfo() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.witchPrincessInfo;
+	}
 }

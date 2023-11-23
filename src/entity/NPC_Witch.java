@@ -23,6 +23,9 @@ public class NPC_Witch extends Entity{
 	public final static int defeatedGolemB = 6;
 	public final static int defeatedGolemC = 7;
 	public final static int defeatedGolemD = 8;
+	
+	public final static int princessInfo = 9;
+	
 
 	public static final String NPC_Name = "Witch";
 	public NPC_Witch(GamePanel gp) {
@@ -174,6 +177,24 @@ public class NPC_Witch extends Entity{
 		
 		i = 0;
 		dialogues[defeatedGolemD][i] = "Good luck on your adventure!"; i++;
+		
+		i = 0;
+		dialogues[defeatedGolemD][i] = "Good luck on your adventure!"; i++;
+		
+		i = 0;
+		dialogues[princessInfo][i] = "What's that!?"; i++;
+		dialogues[princessInfo][i] = "The old man was not able to activate the crystal!?"; i++;
+		dialogues[princessInfo][i] = "Well, I'm sure I did not make any mistake when I\n"
+				+ "made it, so how could it not work!?"; i++;
+		dialogues[princessInfo][i] = "Maybe, the water crystal cannot be activated because of\n"
+				+ "the old man's very low affinity to magic..?"; i++;
+		dialogues[princessInfo][i] = "..."; i++;
+		dialogues[princessInfo][i] = "..oh! I know!"; i++;
+		dialogues[princessInfo][i] = "I heard there was a Princess who has high affinity to\n"
+				+ "magic! Maybe she could be of help.."; i++;
+		dialogues[princessInfo][i] = "Go beyond the forest; search for the princess young man!"; i++;
+		dialogues[princessInfo][i] = "Find her and ask for help!"; i++;
+		dialogues[princessInfo][i] = "Goodluck on your adventure, hi hi hi.."; i++;
 	}
 	public void speak() {
 		facePlayer();

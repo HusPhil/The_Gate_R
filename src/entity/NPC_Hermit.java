@@ -28,6 +28,11 @@ public class NPC_Hermit extends Entity{
 	public static final int oldManQ2g = 17;
 	public static final int oldManQ2h = 18;
 	public static final int defeatedGolemA = 19;
+	public static final int waterCrystalA = 20;
+	public static final int waterCrystalB = 21;
+	public static final int waterCrystalC = 22;
+	public static final int waterCrystalD = 23;
+	
 
 	//SearchPaths
 	public static final int find_player = 1;
@@ -281,6 +286,33 @@ public class NPC_Hermit extends Entity{
 		dialogues[defeatedGolemA][i] = "Congratulations on defeating the Golem, young man!"; i++;
 		dialogues[defeatedGolemA][i] = "However, the water issue still hasn't been solved!"; i++;
 		dialogues[defeatedGolemA][i] = "Maybe you should visit the witch, again..?"; i++;
+		
+		i = 0;
+		dialogues[waterCrystalA][i] = "You're back, young man! Thank you for the hard work!"; i++;
+		dialogues[waterCrystalA][i] = "So, was the witch able to help you?"; i++;
+		
+		i = 0;
+		dialogues[waterCrystalB][i] = "Th-this is.."; i++;
+		dialogues[waterCrystalB][i] = "Young man, this is a water crystal!"; i++;
+		dialogues[waterCrystalB][i] = "Thank you so much! now, we can finally solved the\n"
+				+ "problem and drink clean water again!"; i++;
+		i = 0;
+		dialogues[waterCrystalC][i] = "Okay, now let's try activating it again!"; i++;
+		
+		i = 0;
+		dialogues[waterCrystalD][i] = "...!"; i++;
+		dialogues[waterCrystalD][i] = "What!? It seems like, I wasn't able to activate the water\n"
+				+ "crystal this time."; i++;
+		dialogues[waterCrystalD][i] = "I wonder if it's because of my old bones..."; i++;
+		dialogues[waterCrystalD][i] = "This is so sad.. Will this water problem be resolved\n"
+				+ "before it's to late..?"; i++;
+		dialogues[waterCrystalD][i] = "Anyway, let's try asking the witch one more time!"; i++;
+		dialogues[waterCrystalD][i] = "For now, I must rest. It seems I have tired myself from\n"
+				+ "using too much magic once again.."; i++;
+		dialogues[waterCrystalD][i] = "Goodluck on your quest!"; i++;
+		
+		i = 0;
+		
 	}
 	public void speak() {
 		facePlayer();

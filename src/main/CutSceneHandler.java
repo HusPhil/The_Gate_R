@@ -44,6 +44,8 @@ public class CutSceneHandler {
 	public final int oldManQuest2 = 8;
 	public final int waterGolem = 9;
 	public final int witchGolemDefeated = 10;
+	public final int waterCrystal = 11;
+	public final int witchPrincessInfo = 12;
 	
 	
 	int gelAmmount = 0;
@@ -717,6 +719,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 7) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 			gp.eventHandler.transition(gp.silvioVillage, 29, 16, gp.outside);
 			gp.fxHandler.lighting.resetDay();
 			scenePhase++;
@@ -813,6 +816,7 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 26) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 			gp.player.inventory.add(new OBJ_Lantern(gp));
 			gp.gameState = gp.playState;
 			gp.gui.npc.speed = 1;
@@ -820,6 +824,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 27) {
+			
 			gp.gameState = gp.playState;
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				for(int i = 0; i < gp.npc[1].length; i++) {
@@ -833,7 +838,6 @@ public class CutSceneHandler {
 			}
 		}
 		if(scenePhase == 28) {
-			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
 				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect1")) {
 					gp.IT_Manager[gp.forest][i] = null;
@@ -841,8 +845,9 @@ public class CutSceneHandler {
 			}
 			GameProgress.oldManQuest2Explained = true;
 			endScene();
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 		}
-		
+		System.out.print("CALLED");
 	}
 	
 	public void waterGolem() {
@@ -959,6 +964,119 @@ public class CutSceneHandler {
 		
 	}
 	
+	public void waterCrystal() {
+		if(scenePhase == 0) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.waterCrystalA;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			gp.gameState = gp.playState;
+			if(gp.gui.npc.talking) {
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 2) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 3) {
+			showInfoScreen(NPC_Narrator.oldManWaterCrystalA);
+		}
+		if(scenePhase == 4) {
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.waterCrystalB;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 5) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
+			gp.eventHandler.transition(gp.silvioVillage, 29, 16, gp.outside);
+			gp.fxHandler.lighting.resetDay();
+			scenePhase++;
+			
+		}
+		if(scenePhase == 6) {
+			if(gp.gameState == gp.playState)
+				scenePhase++;
+		}
+		if(scenePhase == 7) {
+			gp.player.direction = "right";
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] =  new NPC_Hermit(gp);
+					gp.npc[gp.currentMap][i].worldX =  31*gp.tileSize;
+					gp.npc[gp.currentMap][i].worldY =  16*gp.tileSize;
+					gp.npc[gp.currentMap][i].direction = "down";
+					gp.npc[gp.currentMap][i].speed = 0;
+					gp.gui.npc = gp.npc[gp.currentMap][i];
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 8) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc.dialogueSet = NPC_Hermit.waterCrystalC;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 9) {
+			showInfoScreen(NPC_Narrator.oldManWaterCrystalB);
+		}
+		if(scenePhase == 10) {
+			gp.gameState = gp.fadeOUT;
+			scenePhase++;
+		}
+		if(scenePhase == 11) {
+			if(gp.gameState == gp.playState)
+				scenePhase++;
+		}
+		if(scenePhase == 12) {
+			gp.gameState = gp.cutSceneState;
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Hermit.waterCrystalD;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 13) {
+			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
+			gp.gameState = gp.playState;
+			gp.gui.npc.speed = 1;
+			gp.gui.npc.currentSearchPath = NPC_Hermit.oldManFindHome;
+			scenePhase++;
+		}
+		if(scenePhase == 14) {
+			gp.gameState = gp.playState;
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.currentMap][i] != null &&
+					gp.npc[gp.currentMap][i].name.equals("Silvio")) {
+						gp.npc[gp.currentMap][i] = null;
+						scenePhase++;
+						break;
+					}
+				}
+			}
+		}
+		if(scenePhase == 15) {
+			GameProgress.waterCrystalActivated = true;
+			endScene();
+		}
+	}
+	
+	public void witchPrincessInfo() {
+		if(scenePhase == 0) {
+			setGuiNpc(NPC_Witch.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Witch.princessInfo;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 1) {
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
+					gp.IT_Manager[gp.forest][i] = null;
+				}
+			}
+			endScene();
+		}
+	}
 	
 	//UTILS
 	public void showInfoScreen(int dialogueSet) {
@@ -994,6 +1112,8 @@ public class CutSceneHandler {
 		case oldManQuest2: oldManQuest2(); break;
 		case waterGolem: waterGolem(); break;
 		case witchGolemDefeated: witchGolemDefeated(); break;
+		case waterCrystal: waterCrystal(); break;
+		case witchPrincessInfo: witchPrincessInfo(); break;
 		}
 	}
 }

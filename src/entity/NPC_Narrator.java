@@ -27,6 +27,8 @@ public class NPC_Narrator extends Entity{
 	public static final int oldManQ2e = 17;
 	public static final int waterGolem = 18;
 	public static final int receiveWaterCrystal = 19;
+	public static final int oldManWaterCrystalA = 20;
+	public static final int oldManWaterCrystalB = 21;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -121,6 +123,11 @@ public class NPC_Narrator extends Entity{
 		
 		j = 0;
 		dialogues[receiveWaterCrystal][j] = "You received a Water Crystal!"; j++;		
+		
+		j = 0;
+		dialogues[oldManWaterCrystalA][j] = "You gave him the Water Crystal!"; j++;	
+		j = 0;
+		dialogues[oldManWaterCrystalB][j] = "Silvio activated the Water Crystal!"; j++;
 	}
 
 }
