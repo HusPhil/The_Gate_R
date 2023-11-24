@@ -223,7 +223,7 @@ public class KeyHandler implements KeyListener {
 	}
 	
 	public void playStateKeys(int code) {
-		int x = gp.player.getPlayerWordlX();
+		int x = gp.player.worldX;
 		int y = gp.player.getPlayerWordlY();
 		
 		switch (code) {

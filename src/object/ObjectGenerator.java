@@ -75,6 +75,9 @@ public class ObjectGenerator {
 		case ITM_WaterCrystal.objName:
 			obj = new ITM_WaterCrystal(gp);
 			break;
+		case OBJ_HeartCrystal.objName:
+			obj = new OBJ_HeartCrystal(gp);
+			break;
 			
 			
 		}

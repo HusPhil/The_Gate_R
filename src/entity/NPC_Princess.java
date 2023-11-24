@@ -7,9 +7,16 @@ import object.SKL_MudBall;
 
 public class NPC_Princess extends Entity{
 	//DialogueSets
-	public static final int cursed_talk = 0;
+	public static final int thankPlayerA = 0;
+	public static final int thankPlayerB = 1;
+	public static final int thankPlayerC = 2;
+	public static final int thankPlayerD = 3;	
+	
+	//SearchPath
+	public static final int find_player = 1;
+	public static final int find_home = 2;
 
-	public static final String NPC_Name = "Princess";
+	public static final String NPC_Name = "Princess Riri";
 	public NPC_Princess(GamePanel gp) {
 		super(gp);
 		type = type_npc;
@@ -22,7 +29,6 @@ public class NPC_Princess extends Entity{
 		defaultSolidAreaY = solidArea.y;
 		currentSearchPath = pathOFF;
 		speed = 1;
-		dialogueSet = cursed_talk;
 		getNpcImage();
 		setDialouge();
 	}
@@ -53,7 +59,6 @@ public class NPC_Princess extends Entity{
 	public void setAction() {
 		switch (currentSearchPath) {
 		case pathOFF: 
-			
 			actionDelay++;
 			if(actionDelay == 120 ) {
 				int n = rN.nextInt(100)+1;
@@ -65,13 +70,34 @@ public class NPC_Princess extends Entity{
 				actionDelay = 0;
 			}
 			break;
+		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
+		case find_home: searchPath(21,41); break;
 		}
 		
 	}
 	public void setDialouge() {
 		int i = 0;
-		dialogues[cursed_talk][i] = "Hello there, pal!"; i++;
-		dialogues[cursed_talk][i] = "Thanks for saving the village!"; i++;
+		dialogues[thankPlayerA][i] = "Thank you, brave hero! You have saved me from an\n"
+				+ "eternity of darkness. I am forever in your debt."; i++;
+		dialogues[thankPlayerA][i] = "I, Princess Riri, owe you my life!"; i++;
+				
+		i = 0;
+		dialogues[thankPlayerB][i] = "H-hero.."; i++;
+		dialogues[thankPlayerB][i] = "Please, don't stare at me too much.."; i++;
+		dialogues[thankPlayerB][i] = "It's quite embarassing..."; i++;
+		
+		i = 0;
+		dialogues[thankPlayerC][i] = "H-hero.."; i++;
+		dialogues[thankPlayerC][i] = "May I ask one more favor?"; i++;
+		dialogues[thankPlayerC][i] = "I fear I'm lost in these halls. Would you guide me back\nto safety?"; i++;
+		
+		i = 0;
+		dialogues[thankPlayerD][i] = "Yes, well, it's all thanks to this man!"; i++;
+		dialogues[thankPlayerD][i] = "I owe him my life!"; i++;
+		dialogues[thankPlayerD][i] = "May the winds guide you safely on your path, my hero."; i++;
+		dialogues[thankPlayerD][i] = "Until we meet again!"; i++;
+		
+		
 	}
 	public void speak() {
 		facePlayer();

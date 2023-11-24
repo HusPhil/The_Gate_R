@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	
 	//MAP SETTINGS
-	public final int maxMap = 10;
+	public final int maxMap = 15;
 	public int currentMap = 0;
 	
 	public int nextArea;
@@ -70,6 +70,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int silvioHouse = 6;
 	public final int forest = 7;
 	public final int sacredRiver = 8;
+	public final int maze = 9;
+	public final int princessCage = 10;
 
 	//Screen settings//
 	//---------------//

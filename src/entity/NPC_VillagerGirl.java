@@ -9,7 +9,7 @@ public class NPC_VillagerGirl extends Entity{
 	//DialogueSets
 	public static final int cursed_talk = 0;
 
-	public static final String NPC_Name = "Villager Girl";
+	public static final String NPC_Name = "Villager";
 	public NPC_VillagerGirl(GamePanel gp) {
 		super(gp);
 		type = type_npc;

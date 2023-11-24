@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import DataHandling.GameProgress;
 import entity.Entity;
 import entity.NPC_Narrator;
+import entity.Player;
 import object.OBJ_Chest;
 import object.OBJ_Heart;
 
@@ -476,6 +477,29 @@ public class GUI {
 			y+= gp.tileSize - 12;
 		}
 		
+		
+		
+		String npcName = gp.gui.npc.name;
+		g2.setColor(new Color(0,0,0));
+		
+		if(npc.type == npc.type_npc && !npcName.equals(gp.player.name)) {
+			int _width = gp.tileSize;
+			height = gp.tileSize+10 ;
+			
+			x = gp.tileSize*4;
+			y = (6*gp.tileSize) - gp.tileSize/2;
+			
+			_width += (int) g2.getFontMetrics().getStringBounds(npcName, g2).getWidth();
+			subWindow(x, y, _width, height);
+			
+			
+			x +=  windowCenterX(npcName, _width);
+			y += (int)g2.getFontMetrics().getStringBounds(npcName, g2).getHeight() + 5;
+			
+			g2.drawString(npcName,x,y);
+		}
+		
+		
 	}
 	public void informationScreen() {
 
@@ -647,7 +671,7 @@ public class GUI {
 			//teleport the player
 			gp.currentMap = gp.eventHandler.tempMap;
 			gp.player.worldX = gp.eventHandler.tempCol*gp.tileSize;
-			gp.player.worldY = gp.eventHandler.tempRow*gp.tileSize;
+			gp.player.worldY = (gp.eventHandler.tempRow*gp.tileSize)-3;
 			
 			//save the prev event to make sure the player does not activate the transition effect immeiately after transitioning
 			gp.eventHandler.prevEventX = gp.player.worldX;
@@ -658,9 +682,6 @@ public class GUI {
 		}
 	}
 	public void fadeIn() {
-//		
-//		g2.setColor(new Color(255,255,255));
-//		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 	
 		counter++;
 		//draw the a rectangle that covers the entire screen

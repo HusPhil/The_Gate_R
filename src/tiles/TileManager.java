@@ -44,6 +44,8 @@ public class TileManager {
 	    loadMap("/maps/silvioHouse.txt", gp.silvioHouse);
 	    loadMap("/maps/forest.txt", gp.forest);
 	    loadMap("/maps/sacredRiver.txt", gp.sacredRiver);
+	    loadMap("/maps/maze.txt", gp.maze);
+	    loadMap("/maps/princessCage.txt", gp.princessCage);
 	}
 
 	private void loadTileData(String filePath) {

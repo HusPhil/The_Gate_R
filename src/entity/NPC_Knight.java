@@ -10,7 +10,10 @@ public class NPC_Knight extends Entity{
 	public static final int princessInfoA = 0;
 	public static final int princessInfoB = 1;
 	public static final int princessInfoC = 2;
+	public static final int princessBackA = 3;
 
+	
+	public static final int find_home = 2;
 	public static final String NPC_Name = "Knight";
 	public NPC_Knight(GamePanel gp) {
 		super(gp);
@@ -66,6 +69,7 @@ public class NPC_Knight extends Entity{
 				actionDelay = 0;
 			}
 			break;
+		case find_home: searchPath(21,41); break;
 		}
 		
 	}
@@ -79,16 +83,22 @@ public class NPC_Knight extends Entity{
 		dialogues[princessInfoB][i] = "I see, so you are seeking the Princess' help.."; i++;
 		dialogues[princessInfoB][i] = "Forgive my rudeness earlier, actually we are also\n"
 				+ "searching for the princess.."; i++;
-		dialogues[princessInfoB][i] = "The truth is, she is held captive by the evil\n"
-				+ "skeleton lord!"; i++;
+		dialogues[princessInfoB][i] = "The truth is, she is held captive by the Evil Skeleton\nLord!"; i++;
 		dialogues[princessInfoB][i] = "Many have tried to save her but no one came back\n"
 				+ "alive."; i++;
 		dialogues[princessInfoB][i] = "Would you dare risk your life, young adventurer?"; i++;
 		
 		i = 0;
 		dialogues[princessInfoC][i] = "I see, so you are a one brave man yourself!"; i++;
-		dialogues[princessInfoC][i] = "If you truly wish to save her, go down the stairs!"
-				+ "Dare to defeat the Evil Skeleton Lord and save the princess!"; i++;
+		dialogues[princessInfoC][i] = "If you truly wish to save her, go down the stairs! "
+				+ "Dare to\ndefeat the Evil Skeleton Lord and save the princess!"; i++;
+		
+				
+		i = 0;
+		dialogues[princessBackA][i] = "...!"; i++;
+		dialogues[princessBackA][i] = "Princess! You're back!"; i++;
+		dialogues[princessBackA][i] = "I can't belive it..!"; i++;
+
 	}
 	public void speak() {
 		facePlayer();

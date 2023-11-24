@@ -599,7 +599,7 @@ public class Entity {
 			int nextCol =  gp.pathFinder.pathList.get(0).col;
 			int nextRow = gp.pathFinder.pathList.get(0).row;
 			
-			if(nextCol+gp.tileSize == goalCol+gp.tileSize && nextRow+gp.tileSize == goalRow+gp.tileSize) {
+			if(nextCol == goalCol && nextRow == goalRow) {
 				currentSearchPath = pathOFF;
 				System.out.println(worldX/gp.tileSize+ "::"+ worldY/gp.tileSize);
 			}

@@ -4,14 +4,14 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.NPC_Knight;
-import entity.NPC_Hermit;
 import entity.NPC_Princess;
+import entity.NPC_BigRock;
+import entity.NPC_Hermit;
 import entity.NPC_Witch;
 import interactive_tiles.IT_DryTree;
 import interactive_tiles.IT_DryTree_Corrupted;
 import interactive_tiles.IT_FeebleWall;
 import interactive_tiles.IT_MetalPlate;
-import interactive_tiles.IT_TempTree;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_Bat;
@@ -25,12 +25,13 @@ import object.ITM_Key;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Health_Potion;
-import object.OBJ_Heart;
+import object.OBJ_HeartCrystal;
 import object.OBJ_IronDoor;
 import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
 import object.OBJ_Iron_Shield;
+import object.OBJ_Iron_Sword;
 import object.OBJ_Iron_Axe;
 
 public class AssetsHandler {
@@ -54,18 +55,8 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 25*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 33*gp.tileSize; i++;
 		
-		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
-		gp.gameObjs[mapNum][i].worldX = 27*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
-		
 		i = 0;
 		mapNum = gp.dungeonMap_F1;
-		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
-		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 36*gp.tileSize; i++;
-		
 		gp.gameObjs[mapNum][i] = new OBJ_IronDoor(gp);
 		gp.gameObjs[mapNum][i].worldX = 24*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 14*gp.tileSize; i++;
@@ -75,6 +66,10 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new OBJ_IronDoor(gp);
 		gp.gameObjs[mapNum][i].worldX = 16*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 41*gp.tileSize; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].worldX = 15*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 9*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
 		gp.gameObjs[mapNum][i].setLoot(new OBJ_Iron_Shield(gp));
@@ -131,14 +126,46 @@ public class AssetsHandler {
 		i = 0;
 		mapNum = gp.sacredRiver;
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Heart(gp));
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_HeartCrystal(gp));
 		gp.gameObjs[mapNum][i].worldX = 14*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 24*gp.tileSize; i++;
 
 		
+		i = 0;
+		mapNum = gp.maze;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
+		gp.gameObjs[mapNum][i].worldX = 36*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 21*gp.tileSize; i++;
 		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_HeartCrystal(gp));
+		gp.gameObjs[mapNum][i].worldX = 13*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 15*gp.tileSize; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Health_Potion(gp));
+		gp.gameObjs[mapNum][i].worldX = 14*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 15*gp.tileSize; i++;
 	
+		i = 0;
+		mapNum = gp.princessCage;
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Iron_Sword(gp));
+		gp.gameObjs[mapNum][i].worldX = 22*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
+
+		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
+		gp.gameObjs[mapNum][i].setLoot(new ITM_Key(gp));
+		gp.gameObjs[mapNum][i].worldX = 24*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
+		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+		gp.gameObjs[mapNum][i].cs_id = "002";
+		gp.gameObjs[mapNum][i].worldX = 30*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 22*gp.tileSize; i++;
+		
+
 	}
 	public void makeNpc() {
 		int i; int mapNum;
@@ -181,6 +208,11 @@ public class AssetsHandler {
 		gp.npc[mapNum][i].worldX = 33*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 15*gp.tileSize; i++;
 		
+		i = 0;
+		mapNum = gp.princessCage;
+		gp.npc[mapNum][i] = new NPC_Princess(gp);
+		gp.npc[mapNum][i].worldX = 30*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
 	}
 	public void makeMonster() {
@@ -410,11 +442,20 @@ public class AssetsHandler {
 	
 	
 	public void setDungeonRocks() {
-//		int i = 0;
-//		int mapNum = gp.dungeonMap_F1; // DUNGEON
-//		setEntity(mapNum, i, "npcC", "", 16, 33); i++;
-//		setEntity(mapNum, i, "npcC", "", 34, 32); i++;
-//		setEntity(mapNum, i, "npcC", "", 34, 15); i++;
+		int i = 0;
+		int mapNum = gp.dungeonMap_F1; // DUNGEON
+		
+		gp.npc[mapNum][i] = new NPC_BigRock(gp);
+		gp.npc[mapNum][i].worldX = 16*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 33*gp.tileSize; i++;
+		
+		gp.npc[mapNum][i] = new NPC_BigRock(gp);
+		gp.npc[mapNum][i].worldX = 34*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 32*gp.tileSize; i++;
+		
+		gp.npc[mapNum][i] = new NPC_BigRock(gp);
+		gp.npc[mapNum][i].worldX = 34*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 15*gp.tileSize; i++;
 	}
 	
 }

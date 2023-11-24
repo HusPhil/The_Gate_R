@@ -319,6 +319,7 @@ public class Player extends Entity{
 		inventory.add(currentWeapon);
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
+		inventory.get(2).ammount = 5;
 		inventory.add(new OBJ_Lantern(gp));
 		inventory.add(new ITM_SlimeGel(gp));
 		inventory.get(4).ammount = 5;
@@ -498,7 +499,6 @@ public class Player extends Entity{
 			atk = getAtk();
 			def = getDef();
 			projectile.atk +=10;
-			if(level % 2 == 0) maxLife += 2;
 			startDialogue(this, 0);
 			gp.gui.addMessage("You are now level " + level + "!");	
 			checkLvlUp();

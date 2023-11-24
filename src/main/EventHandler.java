@@ -93,7 +93,7 @@ public class EventHandler {
 			}
 			//Dungeon F1
 			else if(gp.currentMap == gp.dungeonMap_F1) {
-				if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.worldMapA, 34, 37, gp.outside);
+				if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.maze, 37, 9, gp.dungeon);
 				else if(eventCollision(gp.dungeonMap_F1, 12, 9, "left")) transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
 				
 			}
@@ -101,6 +101,7 @@ public class EventHandler {
 			else if(gp.currentMap == gp.dungeonMap_F2) {
 				if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
 				else if(eventCollision(gp.dungeonMap_F2, 27, 29, "any")) CS_skeletonLord();
+				else if(eventCollision(gp.dungeonMap_F2, 12, 12, "left")) transition(gp.princessCage, 29, 16, gp.dungeon);
 			}
 			
 			else if(gp.currentMap == gp.corrupted1) {
@@ -188,15 +189,20 @@ public class EventHandler {
 			
 			else if(gp.currentMap == gp.forest) {
 				if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
-				else if(
-						eventCollision(gp.forest, 38, 31, "right") ||
-						eventCollision(gp.forest, 38, 32, "right") ||
-						eventCollision(gp.forest, 38, 33, "right")
-						) {
+				else if(eventCollision(gp.forest, 36, 32, "right", 0, 0, gp.tileSize, gp.tileSize)) {
 					transition(gp.sacredRiver, 11, 13, gp.outside);
 				}
 				else if(eventCollision(gp.forest, 33, 23, "up")) {
 					CS_knightEncounter();
+				}
+				else if(eventCollision(gp.forest, 38, 11, "right")) {
+					transition(gp.maze, 12, 9, gp.dungeon);
+				}
+				else if(eventCollision(gp.forest, 20, 35, "left")) {
+					transition(gp.princessCage, 19, 18, gp.dungeon);
+				}
+				else if(eventCollision(gp.forest, 21, 40, "down", 0, 0, gp.tileSize, gp.tileSize)) {
+					transition(gp.sacredRiver, 11, 13, gp.outside);
 				}
 			}
 			
@@ -209,6 +215,29 @@ public class EventHandler {
 					touchEventON = false;
 				}
 				
+			}
+			
+			else if(gp.currentMap == gp.maze) {
+				if(eventCollision(gp.maze, 38, 9, "right")) {
+					transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
+				}
+				else if(eventCollision(gp.maze, 11, 9, "left")) {
+					transition(gp.forest, 37, 11, gp.outside);
+				}
+				
+			}
+			
+			else if(gp.currentMap == gp.princessCage) {
+				if(eventCollision(gp.princessCage, 30, 22, "up", 0, 0, gp.tileSize, gp.tileSize)) {
+					CS_princessEncounter();
+//					touchEventON = false;
+				}
+				else if(eventCollision(gp.princessCage, 20, 18, "right")) {
+					transition(gp.forest, 23, 38, gp.outside);
+				}
+				else if(eventCollision(gp.princessCage, 30, 16, "right")) {
+					transition(gp.dungeonMap_F2, 13, 12, gp.dungeon);
+				}
 			}
 						
 		}
@@ -392,5 +421,24 @@ public class EventHandler {
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.knightEncounter;
 		}
+	}
+	
+	private void CS_princessEncounter() {
+
+		if(!GameProgress.princessEncountered) {
+			Entity obj = null;
+			for(int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("002")) {
+					obj = gp.gameObjs[gp.currentMap][i];
+				}
+			}
+			
+			if(obj == null) {
+				gp.gameState = gp.cutSceneState;
+				gp.csHandler.sceneNum = gp.csHandler.princessEncounter;
+				System.out.print("called");
+			}
+		}
+	
 	}
 }

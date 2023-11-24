@@ -31,6 +31,11 @@ public class NPC_Narrator extends Entity{
 	public static final int oldManWaterCrystalB = 21;
 	public static final int knightEncounterA = 22;
 	public static final int knightEncounterB = 23;
+	public static final int princessEncounterA = 24;
+	public static final int princessEncounterB = 25;
+	public static final int princessEncounterC = 26;
+	public static final int princessEncounterD = 27;
+	
 
 	public final static String NPC_Name ="Narrator";
 
@@ -135,8 +140,21 @@ public class NPC_Narrator extends Entity{
 		dialogues[knightEncounterA][j] = "You told him about your story so far.."; j++;
 		
 		j = 0;
+		dialogues[knightEncounterB][j] = "..."; j++;
 		dialogues[knightEncounterB][j] = "You took on the challenge!"; j++;
-
+		
+		j = 0;
+		dialogues[princessEncounterA][j] = "You were mesmerized by her beauty!"; j++;
+		
+		j = 0;
+		dialogues[princessEncounterB][j] = "You felt embarassed.."; j++;
+		
+		j = 0;
+		dialogues[princessEncounterC][j] = "You felt honored to escort her."; j++;
+		
+		j = 0;
+		dialogues[princessEncounterD][j] = "Being too mesmerized by the Princess.."; j++;
+		dialogues[princessEncounterD][j] = "..You forgot to tell her something!"; j++;
 	
 	}
 
