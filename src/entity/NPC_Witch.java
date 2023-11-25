@@ -26,6 +26,10 @@ public class NPC_Witch extends Entity{
 	
 	public final static int princessInfo = 9;
 	
+	public final static int defeatedSkeletonA = 10;
+	public final static int defeatedSkeletonB = 11;
+	public final static int defeatedSkeletonC = 12;
+	public final static int defeatedSkeletonD = 13;
 
 	public static final String NPC_Name = "Witch";
 	public NPC_Witch(GamePanel gp) {
@@ -117,7 +121,7 @@ public class NPC_Witch extends Entity{
 		dialogues[quest1b][i] = "Maybe then, I could help you with your problem.."; i++;
 		dialogues[quest1b][i] = "Get me the following: "
 				+ "\n \t*5 Gels from Slimes"
-				+ "\n \t*5 Trenkflesh from Trenklins"; i++;
+				+ "\n \t*5 Trenkmeat from Trenklins"; i++;
 		dialogues[quest1b][i] = "You need to go downstairs to reach the other side\n"
 				+ "of the forest. However, I lost the key for the door."; i++;
 		dialogues[quest1b][i] = "So now you have to find the key first before you\n"
@@ -161,7 +165,7 @@ public class NPC_Witch extends Entity{
 				+ "be good for health of the water in this world!"; i++;
 		dialogues[defeatedGolemA][i] = "Perhaps, I could make something useful for you!"; i++;
 		dialogues[defeatedGolemA][i] = "Now, get these materials for me:\n"
-				+ "*10 Bandages\n"
+				+ "*10 Bandages from Corrupted Mummy\n"
 				+ "*Water Essence"; i++;
 					
 		i = 0;
@@ -174,9 +178,6 @@ public class NPC_Witch extends Entity{
 		dialogues[defeatedGolemC][i] = "Okay, now, let the magic begin!"; i++;
 		dialogues[defeatedGolemC][i] = "..."; i++;
 		dialogues[defeatedGolemC][i] = "There, another successful enchantment!"; i++;
-		
-		i = 0;
-		dialogues[defeatedGolemD][i] = "Good luck on your adventure!"; i++;
 		
 		i = 0;
 		dialogues[defeatedGolemD][i] = "Good luck on your adventure!"; i++;
@@ -195,6 +196,30 @@ public class NPC_Witch extends Entity{
 		dialogues[princessInfo][i] = "Go beyond the forest; search for the princess young man!"; i++;
 		dialogues[princessInfo][i] = "Find her and ask for help!"; i++;
 		dialogues[princessInfo][i] = "Goodluck on your adventure, hi hi hi.."; i++;
+		
+		i = 0;
+		dialogues[defeatedSkeletonA][i] = "Not only did you manage to defeat the golem,\n"
+				+ "but now you have slain the Evil Skeleton Lord?!"; i++;
+		dialogues[defeatedSkeletonA][i] = "You really are a strong young man..."; i++;
+		dialogues[defeatedSkeletonA][i] = "Well, let me see what you got from that monster.."; i++;
+		dialogues[defeatedSkeletonA][i] = "Perhaps, I could make something useful for you!"; i++;
+		dialogues[defeatedSkeletonA][i] = "Now, get these materials for me:\n"
+				+ "*10 Fire Gel from Fire Slime\n"
+				+ "*Evil Skull"; i++;
+					
+		i = 0;
+		dialogues[defeatedSkeletonB][i] = "Now, I can see you have gathered some, but not all the\n"
+				+ "materials I need."; i++; 
+		dialogues[defeatedSkeletonB][i] = "Go get them so I can craft something amazing!"; i++;
+				
+		i = 0;
+		dialogues[defeatedSkeletonC][i] = "Oh nice, it seems you all these materials already!"; i++;
+		dialogues[defeatedSkeletonC][i] = "Okay, now, let the magic begin!"; i++;
+		dialogues[defeatedSkeletonC][i] = "..."; i++;
+		dialogues[defeatedSkeletonC][i] = "There, another successful enchantment!"; i++;
+		
+		i = 0;
+		dialogues[defeatedSkeletonD][i] = "Good luck on your adventure!"; i++;
 	}
 	public void speak() {
 		facePlayer();

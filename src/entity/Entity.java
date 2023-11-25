@@ -104,6 +104,7 @@ public class Entity {
 	public Entity currentWeapon;
 	public Entity currentShield;
 	public Entity currentLightItem;
+	public Entity currentAmulet;
 	public Entity linkedEntity;
 	public String description = "";
 	public ArrayList<Entity> inventory = new ArrayList<>();
@@ -143,6 +144,7 @@ public class Entity {
 	public final int type_mon_cs = 11;
 	public final int type_materials = 12;
 	public final int type_questItem = 13;
+	public final int type_amulet = 14;
 	
 	public final int non_inventory = 888;
 	public int slowcounter = 0;
@@ -728,9 +730,9 @@ public class Entity {
  		
  		//DEBUG
 		if(gp.keys.debugPressed) {
- 			System.out.println(debugOn);
- 			if(debugOn) debugOn = false;
- 			else if(!debugOn) debugOn = true;
+ 			System.out.println(gp.keys.debugPressed);
+ 			if(gp.keys.debugPressed) gp.keys.debugPressed = false;
+ 			else if(!gp.keys.debugPressed) gp.keys.debugPressed = true;
  		}
 	}
 	public void draw(Graphics2D g2) {
@@ -863,7 +865,7 @@ public class Entity {
 		
 
 
-		if(debugOn) {
+		if(gp.keys.debugPressed) {
 			g2.setColor(Color.red);
 			
 			

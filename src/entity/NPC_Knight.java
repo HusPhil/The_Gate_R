@@ -56,6 +56,7 @@ public class NPC_Knight extends Entity{
 	
 	public void setAction() {
 		switch (currentSearchPath) {
+		case find_home: searchPath(21,40); break;
 		case pathOFF: 
 			
 			actionDelay++;
@@ -69,7 +70,6 @@ public class NPC_Knight extends Entity{
 				actionDelay = 0;
 			}
 			break;
-		case find_home: searchPath(21,41); break;
 		}
 		
 	}
@@ -104,6 +104,13 @@ public class NPC_Knight extends Entity{
 		facePlayer();
 		startDialogue(this, dialogueSet);
 	}	
-
+	public void update() {
+		super.update();
+		if(gp.currentMap == gp.princessKingdom) {
+			direction = "down";
+			spriteNum = 1;
+			speed = 0;
+		}
+	}
 
 }

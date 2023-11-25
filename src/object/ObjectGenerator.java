@@ -78,6 +78,21 @@ public class ObjectGenerator {
 		case OBJ_HeartCrystal.objName:
 			obj = new OBJ_HeartCrystal(gp);
 			break;
+		case OBJ_Castle.objName:
+			obj = new OBJ_Castle(gp);
+			break;
+		case OBJ_Throne.objName:
+			obj = new OBJ_Throne(gp);
+			break;
+		case OBJ_FireAmulet.objName:
+			obj = new OBJ_FireAmulet(gp);
+			break;
+		case ITM_EvilSkull.objName:
+			obj = new ITM_EvilSkull(gp);
+			break;
+		case ITM_FireGel.objName:
+			obj = new ITM_FireGel(gp);
+			break;
 			
 			
 		}

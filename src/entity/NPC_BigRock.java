@@ -15,7 +15,7 @@ public class NPC_BigRock extends Entity{
 	public NPC_BigRock(GamePanel gp) {
 		super(gp);
 		
-		debugOn= true;
+//		debugOn= true;
 		
 		type = type_npc;
 		name = NPC_Name;

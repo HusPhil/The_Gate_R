@@ -3,6 +3,7 @@ package monster;
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
+import object.ITM_FireGel;
 import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Shield;
 import object.SKL_MudBall;
@@ -109,6 +110,6 @@ public class MON_FireSlime extends Entity{
 		i++;
 		
 		gp.dcs.defaultItem = new ITM_Coin(gp);
-		dropItem(new ITM_Coin(gp));
+		dropItem(new ITM_FireGel(gp));
 	}
 }

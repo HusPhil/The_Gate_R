@@ -26,7 +26,7 @@ GamePanel gp;
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
-		life = 5;
+		life = 2;
 		reqItem = type_axe;
 		down1 = createImage("interactive_tiles", "feeble_wall");
 		destroyOn = true;

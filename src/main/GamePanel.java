@@ -72,6 +72,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int sacredRiver = 8;
 	public final int maze = 9;
 	public final int princessCage = 10;
+	public final int corrupted2 = 11;
+	public final int princessKingdom = 12;
 
 	//Screen settings//
 	//---------------//

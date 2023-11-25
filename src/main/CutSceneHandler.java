@@ -18,12 +18,15 @@ import monster.BOSS_SkeletonLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_Trenklin;
 import object.ITM_Bandage;
+import object.ITM_EvilSkull;
+import object.ITM_FireGel;
 import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
 import object.ITM_WaterCrystal;
 import object.ITM_WaterEssence;
+import object.OBJ_FireAmulet;
 import object.OBJ_IronDoor;
 import object.OBJ_Lantern;
 
@@ -50,13 +53,17 @@ public class CutSceneHandler {
 	public final int witchPrincessInfo = 12;
 	public final int knightEncounter = 13;
 	public final int princessEncounter = 14;
-	
+	public final int reportWarning = 15;
+	public final int witchReport = 16;
 	
 	int gelAmmount = 0;
 	int meatAmmount = 0;
 	
 	int essenceAmmount = 0;
 	int bandageAmmount = 0;
+	
+	int fireGelAmmount = 0;
+	int skullAmmount = 0;
 	
 	
 	public CutSceneHandler(GamePanel gp) {
@@ -140,16 +147,19 @@ public class CutSceneHandler {
 		gp.fxHandler.lighting.resetDay();
 		//PHASE 0
 		if(scenePhase == 0) {
-//			gp.gameState = gp.loadingState;
-//			gp.gui.fadeIn();
-//			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
+//			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
 			gp.eventHandler.loadingScreen(gp.princessCage, 29, 16, gp.dungeon);
+//			gp.eventHandler.loadingScreen(gp.dungeonMap_F1, 19, 28, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.forest, 28, 12, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
+			GameProgress.waterCrystalActivated = true;
 			GameProgress.oldManExplained = true;
-//			GameProgress.witchQuest1Complete = true;
+			GameProgress.witchQuest1Complete = true;
+			GameProgress.waterGolemDefeated = true;
+			GameProgress.defeatedSkeletonLord = true;
 			scenePhase++;
 		}
 		
@@ -294,7 +304,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 5) {
-			gp.eventHandler.transition(gp.silvioVillage, 18, 10, gp.outside);
+			gp.eventHandler.transition(gp.silvioVillage, 17, 11, gp.outside);
 //			gp.gui.npc.direction = "right";
 			scenePhase++;
 		}
@@ -366,7 +376,7 @@ public class CutSceneHandler {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
 					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
-					gp.npc[gp.currentMap][i].worldY = 10*gp.tileSize;
+					gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
 					gp.npc[gp.currentMap][i].direction = gp.player.direction;
 					break;
 				}
@@ -716,6 +726,50 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 5) {
+			
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && gp.npc[gp.silvioVillage][i].name.equals(NPC_Cursed_Villager.NPC_Name)) {
+					int x = 30;
+					int y = 18;
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					y++; x=30;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					break;
+				}
+			}
+			
 			showInfoScreen(NPC_Narrator.oldManQ2b);
 		}
 		if(scenePhase == 6) {
@@ -745,6 +799,23 @@ public class CutSceneHandler {
 					gp.npc[gp.currentMap][i].direction = "down";
 					gp.npc[gp.currentMap][i].speed = 0;
 					gp.gui.npc = gp.npc[gp.currentMap][i];
+					break;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && gp.npc[gp.silvioVillage][i].name.equals(NPC_Cursed_Villager.NPC_Name)) {
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
 					break;
 				}
 			}
@@ -830,7 +901,23 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 27) {
-			
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && gp.npc[gp.silvioVillage][i].name.equals(NPC_Cursed_Villager.NPC_Name)) {
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					break;
+				}
+			}
 			gp.gameState = gp.playState;
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				for(int i = 0; i < gp.npc[1].length; i++) {
@@ -990,6 +1077,51 @@ public class CutSceneHandler {
 			showInfoScreen(NPC_Narrator.oldManWaterCrystalA);
 		}
 		if(scenePhase == 4) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && 
+					(gp.npc[gp.silvioVillage][i].name.equals(NPC_VillagerBoy.NPC_Name) || 
+					gp.npc[gp.silvioVillage][i].name.equals(NPC_VillagerBoy.NPC_Name))) {
+					int x = 30;
+					int y = 18;
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					y++; x=30;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					
+					gp.npc[gp.silvioVillage][i].speed = 0;
+					gp.npc[gp.silvioVillage][i].direction = "up";
+					gp.npc[gp.silvioVillage][i].worldX = x*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY = y*gp.tileSize; i++;
+					x++;
+					break;
+				}
+			}
+			
 			setGuiNpc(NPC_Hermit.NPC_Name);
 			gp.gui.npc.dialogueSet = NPC_Hermit.waterCrystalB;
 			gp.gui.dialogueScreen(false);
@@ -1050,6 +1182,25 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if(scenePhase == 14) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && 
+						(gp.npc[gp.silvioVillage][i].name.equals(NPC_VillagerBoy.NPC_Name) || 
+						gp.npc[gp.silvioVillage][i].name.equals(NPC_VillagerBoy.NPC_Name))) {
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					 i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					i++;
+					break;
+				}
+			}
 			gp.gameState = gp.playState;
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				for(int i = 0; i < gp.npc[1].length; i++) {
@@ -1219,7 +1370,7 @@ public class CutSceneHandler {
 					gp.npc[gp.forest][i].worldX = 22*gp.tileSize;
 					gp.npc[gp.forest][i].worldY = 37*gp.tileSize;
 					break;
-				}
+				} 
 			}
 			scenePhase++;
 		}
@@ -1234,9 +1385,10 @@ public class CutSceneHandler {
 			}
 			scenePhase++;
 		}
-		if (scenePhase == 11) {//endScene();		
+		if (scenePhase == 11) {//endScene();	
+			gp.fxHandler.lighting.resetDay();
 			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
-			
+			gp.player.worldY -= 5;
 			scenePhase++;
 		}
 		if(scenePhase  == 12) {
@@ -1244,48 +1396,87 @@ public class CutSceneHandler {
 			if(gp.gameState == gp.playState) scenePhase++;
 		}
 		if(scenePhase == 13) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Princess.NPC_Name)) {
+					gp.npc[gp.forest][i].direction = "left";
+					break;
+				}
+			}
 			gp.gameState = gp.cutSceneState;
 			gp.player.direction = "down";
 			gp.player.defaultSpeed = 0;
-			setGuiNpc(NPC_Princess.NPC_Name);
-			gp.gui.npc.direction = "left";
 			gp.player.worldX = 1030;
-			setGuiNpc(NPC_Knight.NPC_Name);
-			gp.gui.npc.direction = "right";
+			scenePhase++;
+		}
+		
+		if(scenePhase == 14) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+					gp.npc[gp.forest][i].direction = "right";
+					gp.gui.npc = gp.npc[gp.forest][i];
+					gp.npc[gp.forest][i].worldX = 21*gp.tileSize;
+					gp.npc[gp.forest][i].worldY = 37*gp.tileSize;
+					break;
+				}
+			}
 			gp.gui.npc.dialogueSet = NPC_Knight.princessBackA;
 			gp.gui.dialogueScreen(false);
+			
 		}
-		if(scenePhase == 14) {
-			setGuiNpc(NPC_Knight.NPC_Name);
-			gp.gui.npc.direction = "up";
+		
+		if(scenePhase == 15) {
+//			for(int i = 0; i < gp.npc[1].length; i++) {
+//				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+//					gp.npc[gp.forest][i].direction = "left";
+//					gp.gui.npc = gp.npc[gp.forest][i];
+//					gp.npc[gp.forest][i].worldX = 21*gp.tileSize;
+//					gp.npc[gp.forest][i].worldY = 37*gp.tileSize;
+//					break;
+//				}
+//			}
+//			setGuiNpc(NPC_Knight.NPC_Name);
+//			gp.gui.npc.direction = "right";
+//			gp.gui.npc.dialogueSet = NPC_Knight.princessBackA;
+//			gp.gui.dialogueScreen(false);
+			scenePhase++;
+		}
+		if(scenePhase == 16) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+					gp.npc[gp.forest][i].direction = "up";
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 17) {
 			setGuiNpc(NPC_Princess.NPC_Name);
 			gp.gui.npc.direction = "up";
 			gp.gui.npc.dialogueSet = NPC_Princess.thankPlayerD;
 			gp.gui.dialogueScreen(false);
 		}
-		if(scenePhase == 15) {
-			setGuiNpc(NPC_Princess.NPC_Name);
+		if(scenePhase == 18) {
 			gp.gui.npc.speed = 1;
 			gp.gui.npc.currentSearchPath = NPC_Princess.find_home;
-			setGuiNpc(NPC_Knight.NPC_Name);
-			gp.gui.npc.speed = 1;
-			gp.gui.npc.currentSearchPath = NPC_Knight.find_home;
 			scenePhase++;
 		};
-		if(scenePhase == 16) {
-			gp.gameState = gp.playState;
-			setGuiNpc(NPC_Knight.NPC_Name);
-			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
-				for(int i = 0; i < gp.npc[1].length; i++) {
-					if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
-						gp.npc[gp.forest][i] = null;
-						break;
-					}
+		if(scenePhase == 19) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+					gp.npc[gp.forest][i].direction = "up";
+					gp.npc[gp.forest][i].speed = 1;
+					gp.npc[gp.forest][i].currentSearchPath = NPC_Knight.find_home;
+					break;
 				}
-				scenePhase++;
 			}
+			scenePhase+=2;
+		};
+		if(scenePhase == 20) {
+			
+				scenePhase++;
+			
 		}
-		if(scenePhase == 17) {
+		if(scenePhase == 21) {
 			gp.gameState = gp.playState;
 			setGuiNpc(NPC_Princess.NPC_Name);
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
@@ -1298,22 +1489,114 @@ public class CutSceneHandler {
 				scenePhase++;
 			}
 		}
-		if(scenePhase == 18) {
+		if(scenePhase == 22) {
+			setGuiNpc(NPC_Knight.NPC_Name);
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+						gp.npc[gp.forest][i] = null;
+					}
+				}
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 23) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.princessCage][i] != null && gp.npc[gp.princessCage][i].name.equals(NPC_Princess.NPC_Name)) {
 					gp.npc[gp.princessCage][i] = null;
 					break;
 				}
 			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Hermit.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Hermit.defeatedSkeletonA;
+					break;
+				}
+			}
 			gp.gameState = gp.cutSceneState;
 			showInfoScreen(NPC_Narrator.princessEncounterD);
 		}
-		if(scenePhase == 19) {
+		if(scenePhase == 24) {
 			gp.player.defaultSpeed = 5;
 			GameProgress.princessEncountered = true;
 			endScene();
 		}
 		System.out.println("sinpeys: " + scenePhase);
+	}
+	
+	public void reportWarning() {
+		if(scenePhase == 0) {
+			showInfoScreen(NPC_Narrator.witchReportedA);
+		}
+		if(scenePhase == 1) {
+			gp.eventHandler.transition(gp.forest, 37, 11, gp.outside);
+			scenePhase++;
+		}
+		if(gp.gameState == gp.playState) scenePhase++;
+		if(scenePhase == 3) endScene();
+	}
+	
+	public void witchReport() {
+
+		
+		if(scenePhase == 0) {
+			int fireGelIndex = gp.player.searchItemInInventory(ITM_FireGel.objName);
+			int skullIndex = gp.player.searchItemInInventory(ITM_EvilSkull.objName);
+			
+			fireGelAmmount = gp.player.inventory.get(fireGelIndex).ammount;
+			skullAmmount = gp.player.inventory.get(skullIndex).ammount;
+			
+			scenePhase++;
+		}
+		
+		if(scenePhase == 1) {
+			setGuiNpc(NPC_Witch.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Witch.defeatedSkeletonA;
+			gp.gui.dialogueScreen(false);
+		}
+		
+		if(fireGelAmmount < 10 || skullAmmount < 1) {
+			if(scenePhase == 2) {
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedSkeletonB;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 3) {
+				endScene();
+			}
+		}
+		else {
+
+			if(scenePhase == 2) {
+				setGuiNpc(NPC_Witch.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedSkeletonC;
+				gp.gui.dialogueScreen(false);
+			}
+			if(scenePhase == 3) {
+				gp.gui.npc = gp.narrator;
+				showInfoScreen(NPC_Narrator.receiveFireAmulet);
+			}
+			if(scenePhase == 4) {
+				int fireGelIndex = gp.player.searchItemInInventory(ITM_FireGel.objName);
+				gp.player.inventory.remove(fireGelIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 5) {
+				int skullIndex = gp.player.searchItemInInventory(ITM_EvilSkull.objName);
+				gp.player.inventory.remove(skullIndex);
+				scenePhase++;
+			}
+			if(scenePhase == 6) {
+				gp.player.inventory.add(new OBJ_FireAmulet(gp));
+				scenePhase++;
+			}
+			if(scenePhase == 7) {
+				gp.gui.npc.dialogueSet = NPC_Witch.defeatedSkeletonD;
+				GameProgress.witchReported = true;
+				endScene();
+			}
+		}
+		
+	
 	}
 	
 	//UTILS
@@ -1354,6 +1637,8 @@ public class CutSceneHandler {
 		case witchPrincessInfo: witchPrincessInfo(); break;
 		case knightEncounter: knightEncounter(); break;
 		case princessEncounter: princessEncounter(); break;
+		case reportWarning: reportWarning(); break;
+		case witchReport: witchReport(); break;
 		}
 	}
 }

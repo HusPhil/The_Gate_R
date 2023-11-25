@@ -103,6 +103,13 @@ public class NPC_Princess extends Entity{
 		facePlayer();
 		startDialogue(this, dialogueSet);
 	}	
-
+	public void update() {
+		super.update();
+		if(gp.currentMap == gp.princessKingdom) {
+			direction = "down";
+			spriteNum = 1;
+			speed = 0;
+		}
+	}
 
 }

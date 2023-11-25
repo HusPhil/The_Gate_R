@@ -5,6 +5,7 @@ import entity.Entity;
 import entity.NPC_Narrator;
 import entity.NPC_Witch;
 import object.ITM_Bandage;
+import object.ITM_EvilSkull;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkMeat;
 import object.ITM_WaterCrystal;
@@ -159,10 +160,16 @@ public class EventHandler {
 							}
 							touchEventON = false;
 						}
-						else if(GameProgress.waterCrystalActivated) {
+						else if(GameProgress.waterCrystalActivated && !GameProgress.princessEncountered) {
 							CS_witchPrincessInfo();
 							touchEventON = false;
 						}
+						else if(GameProgress.defeatedSkeletonLord && GameProgress.princessEncountered) {
+							if(gp.player.itemIsInsideInventory(ITM_EvilSkull.objName))
+								CS_witchReport();
+							touchEventON = false;
+						}
+						
 						else {
 							for(int i = 0; i < gp.npc[1].length; i++) {
 								if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(NPC_Witch.NPC_Name)) {
@@ -182,8 +189,10 @@ public class EventHandler {
 						if(gp.player.itemIsInsideInventory(ITM_WaterCrystal.objName))
 						CS_waterCrystal();
 					}
+					
 					touchEventON = false;
 				}
+				
 				
 			}
 			
@@ -201,8 +210,28 @@ public class EventHandler {
 				else if(eventCollision(gp.forest, 20, 35, "left")) {
 					transition(gp.princessCage, 19, 18, gp.dungeon);
 				}
-				else if(eventCollision(gp.forest, 21, 40, "down", 0, 0, gp.tileSize, gp.tileSize)) {
-					transition(gp.sacredRiver, 11, 13, gp.outside);
+				else if(eventCollision(gp.forest, 21, 41, "down")) {
+					if(GameProgress.witchReported)
+						transition(gp.corrupted2, 11, 13, gp.outside);
+					else CS_reportWarning();
+				}
+			}
+			
+			else if(gp.currentMap == gp.corrupted2) {
+				if(eventCollision(gp.corrupted2, 11, 12, "up")) transition(gp.forest, 21, 38, gp.outside);
+				else if(eventCollision(gp.corrupted2, 23, 29, "up", 0, 0, gp.tileSize, gp.tileSize + 5)) {
+					
+						transition(gp.princessKingdom, 24, 40, gp.indoor);
+					
+					
+
+				}
+			}
+			
+			else if(gp.currentMap == gp.princessKingdom) {
+				if(eventCollision(gp.princessKingdom, 24, 41, "down")) transition(gp.corrupted2, 23, 30, gp.outside);
+				else if(eventCollision(gp.princessKingdom, 21, 20, "up", 0, 0, gp.tileSize*7, gp.tileSize )) {
+					System.out.print("call on the event");
 				}
 			}
 			
@@ -230,7 +259,6 @@ public class EventHandler {
 			else if(gp.currentMap == gp.princessCage) {
 				if(eventCollision(gp.princessCage, 30, 22, "up", 0, 0, gp.tileSize, gp.tileSize)) {
 					CS_princessEncounter();
-//					touchEventON = false;
 				}
 				else if(eventCollision(gp.princessCage, 20, 18, "right")) {
 					transition(gp.forest, 23, 38, gp.outside);
@@ -440,5 +468,13 @@ public class EventHandler {
 			}
 		}
 	
+	}
+	private void CS_reportWarning() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.reportWarning;
+	}
+	private void CS_witchReport() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.witchReport;
 	}
 }

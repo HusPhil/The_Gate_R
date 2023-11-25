@@ -235,7 +235,8 @@ public class GUI {
 					//EQUIP CURSOR
 					if(gp.player.inventory.get(i) == gp.player.currentWeapon || 
 					   gp.player.inventory.get(i) == gp.player.currentShield ||
-					   gp.player.inventory.get(i) == gp.player.currentLightItem) {
+					   gp.player.inventory.get(i) == gp.player.currentLightItem ||
+					   gp.player.inventory.get(i) == gp.player.currentAmulet) {
 						g2.setColor(new Color(169, 239, 10));
 						g2.setStroke(new BasicStroke(3));
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
@@ -329,42 +330,43 @@ public class GUI {
 		}
 	}
 	public void showPlayerMana() {
-		double oneScale = (double)gp.tileSize/gp.player.maxMana;
-		double manaVal = oneScale*gp.player.mana;
-		int maxRedHP = 6;
-		
-		int x  = gp.tileSize-24; int y = gp.tileSize*2;
-		int manaBarW;
-		
-		//limit the expansion of mana bar width
-		if((gp.player.maxLife/2)*gp.tileSize <= maxRedHP*gp.tileSize)
-			manaBarW = (gp.player.maxLife/2)*gp.tileSize;
-		else manaBarW = maxRedHP*gp.tileSize;
-		
-		g2.setColor(new Color(35, 35, 35));
-		g2.fillRect(x-1, y-16, manaBarW, 20);
-		
-		
-		int manaBarscale;
-		manaBarscale = manaBarW/gp.tileSize;
-		if(gp.player.mana > 0) {
+		if(gp.player.magicOn) {
+			double oneScale = (double)gp.tileSize/gp.player.maxMana;
+			double manaVal = oneScale*gp.player.mana;
+			int maxRedHP = 6;
 			
-		g2.setColor(Color.BLUE);
-		g2.fillRect(x, y-15,(int)manaVal*manaBarscale-3, 18);
-		
+			int x  = gp.tileSize-24; int y = gp.tileSize*2;
+			int manaBarW;
+			
+			//limit the expansion of mana bar width
+			if((gp.player.maxLife/2)*gp.tileSize <= maxRedHP*gp.tileSize)
+				manaBarW = (gp.player.maxLife/2)*gp.tileSize;
+			else manaBarW = maxRedHP*gp.tileSize;
+			
+			g2.setColor(new Color(35, 35, 35));
+			g2.fillRect(x-1, y-16, manaBarW, 20);
+			
+			
+			int manaBarscale;
+			manaBarscale = manaBarW/gp.tileSize;
+			if(gp.player.mana > 0) {
+				
+			g2.setColor(Color.BLUE);
+			g2.fillRect(x, y-15,(int)manaVal*manaBarscale-3, 18);
+			
+			}
+			
+			//Display players mana val
+			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 15F));
+			g2.setColor(Color.white);
+			String text = String.valueOf(gp.player.mana) + "/" + String.valueOf(gp.player.maxMana);
+			int length;
+			length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+			x = (manaBarW/2 - length/2) + 22; y-=1;
+			
+			
+			g2.drawString(text, x, y);
 		}
-		
-		//Display players mana val
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 15F));
-		g2.setColor(Color.white);
-		String text = String.valueOf(gp.player.mana) + "/" + String.valueOf(gp.player.maxMana);
-		int length;
-		length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-		x = (manaBarW/2 - length/2) + 22; y-=1;
-		
-		
-		g2.drawString(text, x, y);
-		
 	}
 	public void gameMenuScreen() {
 		g2.setColor(Color.DARK_GRAY);
@@ -483,8 +485,9 @@ public class GUI {
 		g2.setColor(new Color(0,0,0));
 		
 		if(npc.type == npc.type_npc && !npcName.equals(gp.player.name)) {
+			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 24));
 			int _width = gp.tileSize;
-			height = gp.tileSize+10 ;
+			height = gp.tileSize ;
 			
 			x = gp.tileSize*4;
 			y = (6*gp.tileSize) - gp.tileSize/2;
@@ -871,7 +874,8 @@ public class GUI {
 			//EQUIP CURSOR
 			if(ent.inventory.get(i) == ent.currentWeapon || 
 			   ent.inventory.get(i) == ent.currentShield ||
-			   ent.inventory.get(i) == ent.currentLightItem) {
+			   ent.inventory.get(i) == ent.currentLightItem ||
+			   ent.inventory.get(i) == ent.currentAmulet) {
 				g2.setColor(new Color(169, 239, 10));
 				g2.setStroke(new BasicStroke(3));
 				g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
@@ -1025,7 +1029,8 @@ public class GUI {
 					//EQUIP CURSOR
 					if(ent.inventory.get(i) == ent.currentWeapon || 
 					   ent.inventory.get(i) == ent.currentShield ||
-					   ent.inventory.get(i) == ent.currentLightItem) {
+					   ent.inventory.get(i) == ent.currentLightItem ||
+					   ent.inventory.get(i) == ent.currentAmulet) {
 						g2.setColor(new Color(169, 239, 10));
 						g2.setStroke(new BasicStroke(3));
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
@@ -1397,7 +1402,7 @@ public class GUI {
 		if(gp.gameState == gp.playState) {
 			showPlayerLife();
 			showBossLife();
-			if(gp.player.magicOn) showPlayerMana();
+			showPlayerMana();
 			drawMessage();
 		} 
 		

@@ -3,6 +3,8 @@ package monster;
 import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import object.ITM_EvilSkull;
+import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
 
 public class BOSS_SkeletonLord extends Entity{
@@ -193,7 +195,7 @@ public class BOSS_SkeletonLord extends Entity{
 		
 		//stopTheBossMusic
 		//playDungeonMusic
-		
+		dropItem(new ITM_EvilSkull(gp));
 		//open iron doors
 		
 		for(int i = 0; i < gp.gameObjs[1].length; i++) {
@@ -212,10 +214,20 @@ public class BOSS_SkeletonLord extends Entity{
 		
 		dialogueSet = dialogueNum = 0;
 		
-		dialogues[dialogueSet][dialogueNum] = "No one shall steal my treasure!"; dialogueNum++;
-		dialogues[dialogueSet][dialogueNum] = "You mere humans' ignorance know no bound!"; dialogueNum++;
-		dialogues[dialogueSet][dialogueNum] = "I shall end you here!"; dialogueNum++;
-		
+		dialogues[dialogueSet][dialogueNum] = 
+				"Ah, another brave soul, foolishly attempting\n"
+				+ "to thwart my plans! You dare stand before me,\n"
+				+ "seeking to challenge my might?!"; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = 
+				"Know this, puny mortal, your efforts are in vain!\n"
+				+ "The princess is under my command, and no\n"
+				+ "one can break my power."; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = 
+				"But, since you've come this far, witness the\n"
+				+ "futile attempts of valor against my reign."; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = 
+				"I shall crush your hope just as easily as I've\n"
+				+ "conquered this land";
 		dialogueSet++; dialogueNum = 0;
 		
 	}

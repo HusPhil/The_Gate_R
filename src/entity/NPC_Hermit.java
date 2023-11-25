@@ -32,6 +32,7 @@ public class NPC_Hermit extends Entity{
 	public static final int waterCrystalB = 21;
 	public static final int waterCrystalC = 22;
 	public static final int waterCrystalD = 23;
+	public static final int defeatedSkeletonA = 24;
 	
 
 	//SearchPaths
@@ -312,7 +313,10 @@ public class NPC_Hermit extends Entity{
 		dialogues[waterCrystalD][i] = "Goodluck on your quest!"; i++;
 		
 		i = 0;
-		
+		dialogues[defeatedSkeletonA][i] = "Wow.. You continue to amaze me, young man!"; i++;
+		dialogues[defeatedSkeletonA][i] = "The Skeleton Lord is much stronger than\n"
+				+ "the Golem, but you still managed to slay it?!"; i++;
+		dialogues[defeatedSkeletonA][i] = "But what about the water issue?"; i++;
 	}
 	public void speak() {
 		facePlayer();

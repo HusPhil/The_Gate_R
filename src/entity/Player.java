@@ -10,14 +10,21 @@ import java.awt.image.BufferedImage;
 import DataHandling.GameProgress;
 import main.GamePanel;
 import main.KeyHandler;
+import object.ITM_Bandage;
+import object.ITM_EvilSkull;
+import object.ITM_FireGel;
 import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_WaterCrystal;
+import object.ITM_WaterEssence;
 import object.OBJ_Chest;
+import object.OBJ_FireAmulet;
 import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
+import object.OBJ_Pickaxe;
 import object.OBJ_Iron_Axe;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
@@ -36,7 +43,7 @@ public class Player extends Entity{
 	public final int screenY;
 	public boolean attackCanceled = false;
 	
-	public boolean magicOn = true;
+	public boolean magicOn = false;
 	public boolean lightUpdated = false;
 	
 	public int offsetRand = 0;
@@ -71,6 +78,7 @@ public class Player extends Entity{
 		setDialogue();
 		setDefaultValues();
 		getPlayerImage();
+		getEquippedAmulet();
 		getPlayerAttackImage();
 		addInventoryItems();
 		
@@ -99,6 +107,7 @@ public class Player extends Entity{
 		nextLvlExp = 20;
 		coin = 1000000900;
 		currentLightItem = null;
+		currentAmulet = null;
 		currentWeapon = new OBJ_Wooden_Sword(gp);
 		currentShield = new OBJ_Wooden_Shield(gp);
 		projectile = new SKL_Fireball(gp);
@@ -159,6 +168,19 @@ public class Player extends Entity{
  		return shieldSlot;
  	}
  	
+	public void getEquippedAmulet() {
+			if(currentAmulet == null) {
+				magicOn = false;
+		//		gp.gui.showPlayerMana();
+			}
+			else if(currentAmulet.name.contentEquals(OBJ_FireAmulet.objName)) {
+					magicOn = true;
+	//				gp.gui.showPlayerMana();
+				}
+			
+		
+		
+	}
 	public int getAtk() {
 		motion_duration1 = currentWeapon.motion_duration1;
 		motion_duration2 = currentWeapon.motion_duration2;
@@ -298,11 +320,12 @@ public class Player extends Entity{
      
 	}
 	
-	
-	
+
 	public void projectileAction() {
-		if(gp.keys.fireAway && !projectile.alive && 
-				   shotCounter == 30 && projectile.sufficientResource(this)) {
+				if(
+				gp.keys.fireAway && !projectile.alive && magicOn &&
+				shotCounter == 30 && projectile.sufficientResource(this)
+				) {
 					projectile.set(worldX, worldY, true, direction, this);
 					gp.playSE(2);
 					for(int i = 0; i < gp.projectiles[1].length; i++) {
@@ -325,8 +348,15 @@ public class Player extends Entity{
 		inventory.get(4).ammount = 5;
 		inventory.add(new ITM_TrenkMeat(gp)); 
 		inventory.get(5).ammount = 5;
+		inventory.add(new ITM_Bandage(gp));
+		inventory.get(6).ammount = 10;
+		inventory.add(new ITM_FireGel(gp));
+		inventory.get(7).ammount = 10;
 		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new OBJ_Pickaxe(gp));
+		inventory.add(new ITM_WaterEssence(gp));
 		inventory.add(new ITM_TrenkAmulet(gp));
+		inventory.add(new ITM_EvilSkull(gp));
 	}
 	
 	public void attackState() {
@@ -675,6 +705,14 @@ public class Player extends Entity{
 				
 				lightUpdated = true;
 			}
+			if(selectedItem.type == type_amulet) {
+				if(currentAmulet == selectedItem) {
+					currentAmulet = null;
+				}
+				else currentAmulet = selectedItem; 
+				
+				getEquippedAmulet();
+			}
 			if(selectedItem.type == type_consumables) {
 				inventory.get(itemIndex).use(this);
 				
@@ -957,7 +995,6 @@ public class Player extends Entity{
 						break;
 					case "right": 
 						x += solidArea.width;
-//						x += attackArea.width; 
 						break;
 					}
 					

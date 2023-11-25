@@ -35,7 +35,8 @@ public class NPC_Narrator extends Entity{
 	public static final int princessEncounterB = 25;
 	public static final int princessEncounterC = 26;
 	public static final int princessEncounterD = 27;
-	
+	public static final int witchReportedA = 28;
+	public static final int receiveFireAmulet = 29;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -156,6 +157,14 @@ public class NPC_Narrator extends Entity{
 		dialogues[princessEncounterD][j] = "Being too mesmerized by the Princess.."; j++;
 		dialogues[princessEncounterD][j] = "..You forgot to tell her something!"; j++;
 	
+		j = 0;
+		dialogues[witchReportedA][j] = "..."; j++;
+		dialogues[witchReportedA][j] = "Maybe you should report back first.."; j++;
+		
+		j = 0;
+		dialogues[receiveFireAmulet][j] = "You received a Fire Amulet!"; j++;
+		dialogues[receiveFireAmulet][j] = "Equip it and now you can use magic!"; j++;
+		dialogues[receiveFireAmulet][j] = "(Press F to use magic)"; j++;
 	}
 
 }

@@ -223,7 +223,7 @@ public class KeyHandler implements KeyListener {
 	}
 	
 	public void playStateKeys(int code) {
-		int x = gp.player.worldX;
+		int x = gp.player.getPlayerWordlX();
 		int y = gp.player.getPlayerWordlY();
 		
 		switch (code) {
@@ -240,7 +240,7 @@ public class KeyHandler implements KeyListener {
 		case KeyEvent.VK_M: 
 //			gp.DBMS.storeFileContentToDatabase("save.dat");
 			System.out.println("X:" + x + " Y: " + y); 
-			
+			gp.tManager.reloadMaps();
 //			gp.DBMS.createPlayerData();
 //			gp.DBMS.loadPlayerData();
 
@@ -274,7 +274,10 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_F: fireAway = true; break;
 		case KeyEvent.VK_ESCAPE: gp.gameState = gp.optionsState; break;
-		case KeyEvent.VK_L: debugPressed = true; break;
+		case KeyEvent.VK_L: 
+			if(debugPressed) debugPressed = false;
+			else if(!debugPressed) debugPressed = true; 
+			break;
 		case KeyEvent.VK_X: 
 //			gp.gameState = gp.tradingState;
 //			gp.currentMap = 0;
