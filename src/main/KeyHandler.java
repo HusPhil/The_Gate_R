@@ -239,6 +239,8 @@ public class KeyHandler implements KeyListener {
 				if (DatabaseManagement.checkUserExist("player_id", input)) {
 					gp.player.ID = input;
 					gp.saverLoader.loadData(); 
+					gp.DBMS.loadGameProgress();
+					
 					gp.gameState = gp.fadeIN;
 				} 
 				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);

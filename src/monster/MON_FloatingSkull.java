@@ -21,12 +21,12 @@ public class MON_FloatingSkull extends Entity{
 		type = type_monster;
 		defaultSpeed = 4;
 		speed = defaultSpeed;
-		maxLife = 16;
+		maxLife = 160;
 		name = monName;
 		life = maxLife;
-		atk = 2;
-		def = 1;
-		exp = 2;
+		atk = 20;
+		def = 10;
+		exp = 20;
 		debugOn = true;
 		
 		//SolidArea
@@ -118,6 +118,6 @@ public class MON_FloatingSkull extends Entity{
 		i++;
 		
 		gp.dcs.defaultItem = new ITM_Coin(gp);
-		dropItem(new ITM_FireGel(gp));
+//		dropItem(new ITM_FireGel(gp));
 	}
 }

@@ -19,7 +19,7 @@ public class BOSS_WaterGolem extends Entity{
 		name = monName;
 		defaultSpeed = 3;
 		speed = defaultSpeed;
-		maxLife = 80;
+		maxLife = 800;
 		attacking = !true;
 		debugOn = true;
 		type_boss = true;
@@ -29,7 +29,7 @@ public class BOSS_WaterGolem extends Entity{
 		exp = 50;
 		
 		prevDirection = "left";
-		asleep = !true;
+		asleep = true;
 		
 		//SolidArea
 		int size = 3 * gp.tileSize;

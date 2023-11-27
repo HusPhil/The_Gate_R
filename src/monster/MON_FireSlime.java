@@ -22,7 +22,7 @@ public class MON_FireSlime extends Entity{
 		maxLife = 16;
 		name = monName;
 		life = maxLife;
-		atk = 2;
+		atk = 12;
 		def = 1;
 		exp = 2;
 		
@@ -52,10 +52,10 @@ public class MON_FireSlime extends Entity{
 		
 	}
 	public void getMonImage() {
-		down1 = createImage("monsters", "fire_slime0");
-		down2 = createImage("monsters", "fire_slime1");
-		down3 = createImage("monsters", "fire_slime0");
-		down4 = createImage("monsters", "fire_slime1");
+		down1 = createImage("monsters", "fire_slime0", 32,32);
+		down2 = createImage("monsters", "fire_slime1",32,32);
+		down3 = createImage("monsters", "fire_slime0",32,32);
+		down4 = createImage("monsters", "fire_slime1",32,32);
 		
 		up1 = down1;
 		up2 = down2;

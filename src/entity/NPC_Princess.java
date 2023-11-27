@@ -184,6 +184,10 @@ public class NPC_Princess extends Entity{
 				+ "be teleported to the Trenk Lord's palace.."; i++;
 		dialogues[playerCraftD][i] = "There's no going back then.."; i++;
 		dialogues[playerCraftD][i] = "The only way to return is to kill that monster.."; i++;
+		dialogues[playerCraftD][i] = "You have to withstand all of his summons!"; i++;
+		dialogues[playerCraftD][i] = "You can't kill him as he's hiding his real physical heart"; i++;
+		dialogues[playerCraftD][i] = "You have to tire him out..! Until he has no energy\n"
+				+ "left to conceal his physical heart!"; i++;
 		dialogues[playerCraftD][i] = "Prepare wisely before going to the battle field!"; i++;
 		dialogues[playerCraftD][i] = "I wish you all the luck, my hero!"; i++;
 	}

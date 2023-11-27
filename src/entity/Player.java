@@ -103,7 +103,7 @@ public class Player extends Entity{
 		//PLAYER STATS
 		defaultSpeed = 5;
 		speed = defaultSpeed;
-		maxLife = 6;
+		maxLife = 12;
 		life = maxLife;
 		level = 1;
 		str = 6;
@@ -366,25 +366,25 @@ public class Player extends Entity{
 	}
 	public void addInventoryItems() {
 		
-		inventory.add(currentWeapon);
-		inventory.add(currentShield);
-		inventory.add(new ITM_Key(gp));
-		inventory.get(2).ammount = 5;
-		inventory.add(new OBJ_Lantern(gp));
-		inventory.add(new ITM_SlimeGel(gp));
-		inventory.get(4).ammount = 5;
-		inventory.add(new ITM_TrenkMeat(gp)); 
-		inventory.get(5).ammount = 25;
-		inventory.add(new ITM_Bandage(gp));
-		inventory.get(6).ammount = 10;
-		inventory.add(new ITM_FireGel(gp));
-		inventory.get(7).ammount = 10;
-		inventory.add(new OBJ_Iron_Axe(gp));
-		inventory.add(new OBJ_Pickaxe(gp));
-		inventory.add(new OBJ_Iron_Sword(gp));
-		inventory.add(new ITM_VorpalStone(gp));
-		inventory.add(new OBJ_TerraBlade(gp));
-		inventory.add(new ITM_VorpalGem(gp));
+//		inventory.add(currentWeapon);
+//		inventory.add(currentShield);
+//		inventory.add(new ITM_Key(gp));
+//		inventory.get(0).ammount = 5;
+//		inventory.add(new OBJ_Lantern(gp));
+//		inventory.add(new ITM_SlimeGel(gp));
+//		inventory.get(4).ammount = 5;
+//		inventory.add(new ITM_TrenkMeat(gp)); 
+//		inventory.get(5).ammount = 25;
+//		inventory.add(new ITM_Bandage(gp));
+//		inventory.get(6).ammount = 10;
+//		inventory.add(new ITM_FireGel(gp));
+//		inventory.get(7).ammount = 10;
+//		inventory.add(new OBJ_Iron_Axe(gp));
+//		inventory.add(new OBJ_Pickaxe(gp));
+//		inventory.add(new OBJ_Iron_Sword(gp));
+//		inventory.add(new ITM_VorpalStone(gp));
+//		inventory.add(new OBJ_TerraBlade(gp));
+//		inventory.add(new ITM_VorpalGem(gp));
 	}
 	
 	public void attackState() {
@@ -516,14 +516,15 @@ public class Player extends Entity{
 				gp.IT_Manager[gp.currentMap][i].life--;	
 				gp.IT_Manager[gp.currentMap][i].invincible = true;
 				gp.IT_Manager[gp.currentMap][i].playSE();;
+				generateParticle(gp.IT_Manager[gp.currentMap][i], gp.IT_Manager[gp.currentMap][i]);
+				
 				if(gp.IT_Manager[gp.currentMap][i].life <= 0) {
 					gp.IT_Manager[gp.currentMap][i] = gp.IT_Manager[gp.currentMap][i].destroyedForm();
-					}
-						
-				generateParticle(gp.IT_Manager[gp.currentMap][i], gp.IT_Manager[gp.currentMap][i]);
+				}
+							
 			}
 			
-				
+			
 			
 			
 		
@@ -774,7 +775,7 @@ public class Player extends Entity{
 		
 		//IDEA to not attack while the sword is not given: make booelean in GameProgress
 		
-		
+		System.out.println(GameProgress.oldManExplained);
 		
 		setDialogue();
 		if(gp.keys.debugPressed) {

@@ -14,4 +14,6 @@ public class GameProgress {
 	public static boolean defeatedSkeletonLord = false;
 	public static boolean witchReported = false;
 	public static boolean princessReunited = false;
+	public static boolean princessCrafted = false;
+	public static boolean ending = false;
 }

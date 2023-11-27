@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import AI.PathFinder;
 import DataHandling.DatabaseManagement;
+import DataHandling.GameProgress;
 import DataHandling.SaveLoad;
 import entity.Entity;
 import entity.NPC_Narrator;
@@ -54,7 +55,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//MAP SETTINGS
 	public final int maxMap = 15;
-	public int currentMap = 0;
 	
 	public int nextArea;
 	public int currentArea;
@@ -76,7 +76,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int corrupted2 = 11;
 	public final int princessKingdom = 12;
 	public final int finalStage = 13;
-
+	
+	
+	public int currentMap = silvioVillage;
+	public void print(String str) {
+		System.out.println(str);
+	}
 	//Screen settings//
 	//---------------//
 	final int originalTileSize = 24;
@@ -502,10 +507,15 @@ public class GamePanel extends JPanel implements Runnable{
 		soundM.stop();
 	}
 	public void resetStatus(boolean reset) {
+		
+		
+		
+		
+		
  		//set default pos
 		removeTempEnt();
 		currentArea = outside;
-		currentMap = worldMapA;
+		currentMap = silvioVillage;
 		bossBattleOn = false;
 		csHandler.scenePhase = csHandler.sceneNum = 0; //might bug the scene
 		
@@ -526,12 +536,48 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeMonster();
 		
 		if(reset) {
+			//reset game progres
+			GameProgress.encounterOldMan = false;
+			GameProgress.oldManExplained = false;
+			GameProgress.intro_done = false;
+			GameProgress.witchQuest1Complete = false;
+			GameProgress.oldManQuest2Explained = false;
+			GameProgress.waterGolemDefeated = false;
+			GameProgress.waterCrystalActivated = false;
+			GameProgress.knightEncountered = false;
+			GameProgress.princessEncountered = false;
+			GameProgress.defeatedSkeletonLord = false;
+			GameProgress.witchReported = false;
+			GameProgress.princessReunited = false;
+			GameProgress.princessCrafted = false;
+			GameProgress.ending = false;
+			
+			for (int i = 0; i < monsters.length; i++) {
+	            for (int j = 0; j < monsters[i].length; j++) {
+	                monsters[i][j] = null; 
+	            }
+	        }
+			
+			for (int i = 0; i < npc.length; i++) {
+	            for (int j = 0; j < npc[i].length; j++) {
+	                npc[i][j] = null; 
+	            }
+	        }
+			
+			for (int i = 0; i < gameObjs.length; i++) {
+	            for (int j = 0; j < gameObjs[i].length; j++) {
+	            	gameObjs[i][j] = null; 
+	            }
+	        }
+			
 			player.inventory.clear();
 			player.setDefaultValues();
 			player.addInventoryItems();
 			fxHandler.lighting.resetDay();
 			createAssets.makeInteractiveTiles();
 			createAssets.makeObjects();
+			createAssets.makeNpc();
+			createAssets.makeMonster();
 		}
  		
  		

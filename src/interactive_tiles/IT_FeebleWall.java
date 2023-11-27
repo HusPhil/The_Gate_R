@@ -43,7 +43,6 @@ GamePanel gp;
 	}
 	public InteractiveTiles destroyedForm() {
 		InteractiveTiles tile = null;
-		dropItem(new ITM_Coin(gp));
 		return tile;
 	}
 	public Color getParticleColor() {

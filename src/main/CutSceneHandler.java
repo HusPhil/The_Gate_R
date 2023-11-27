@@ -19,6 +19,7 @@ import monster.BOSS_SkeletonLord;
 import monster.BOSS_TrenkLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_FloatingSkull;
+import monster.MON_Mummy;
 import monster.MON_Trenklin;
 import object.ITM_Bandage;
 import object.ITM_EvilSkull;
@@ -37,6 +38,7 @@ import object.OBJ_IronDoor;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
 import object.OBJ_TerraBlade;
+import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
 
 public class CutSceneHandler {
@@ -214,7 +216,6 @@ public class CutSceneHandler {
 	public void oldManEncounter() {
 		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
-			GameProgress.encounterOldMan = true;
 			//place player dummy
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
@@ -261,6 +262,7 @@ public class CutSceneHandler {
 					break;
 				}
 			}
+			GameProgress.encounterOldMan = true;
 			gp.player.drawing = true;
 			scenePhase = NONE;
 			sceneNum = NONE;
@@ -464,6 +466,8 @@ public class CutSceneHandler {
 			}
 
 			if (!monstersAlive) {
+				gp.player.inventory.add(new OBJ_Wooden_Sword(gp));
+				gp.player.inventory.add(new OBJ_Wooden_Shield(gp)); 
 			    scenePhase++;
 			}
 		}
@@ -474,6 +478,8 @@ public class CutSceneHandler {
 			showInfoScreen(NPC_Narrator.defeated_all_enemy);
 		}
 		if(scenePhase == 19) {
+			gp.player.currentWeapon = gp.player.inventory.get(gp.player.searchItemInInventory(OBJ_Wooden_Sword.objName));
+			gp.player.currentShield = gp.player.inventory.get(gp.player.searchItemInInventory(OBJ_Wooden_Shield.objName));
 			gp.gameState = gp.playState;
 			scenePhase++;
 		}
@@ -600,6 +606,7 @@ public class CutSceneHandler {
 				}
 			}
 			GameProgress.intro_done = true;
+			gp.saverLoader.saveData();
 			endScene();
 		}
 	}
@@ -701,6 +708,7 @@ public class CutSceneHandler {
 			if(scenePhase == 7) {
 				gp.gui.npc.dialogueSet = NPC_Witch.quest1e;
 				GameProgress.witchQuest1Complete = true;
+				gp.saverLoader.saveData();
 				endScene();
 			}
 		}
@@ -950,6 +958,7 @@ public class CutSceneHandler {
 				}
 			}
 			GameProgress.oldManQuest2Explained = true;
+			gp.saverLoader.saveData();
 			endScene();
 			gp.gui.npc.dialogueSet = NPC_Hermit.oldManGoodluck;
 		}
@@ -1240,6 +1249,11 @@ public class CutSceneHandler {
 					break;
 				}
 			}
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
+					gp.IT_Manager[gp.forest][i] = null;
+				}
+			}
 			GameProgress.waterCrystalActivated = true;
 			endScene();
 		}
@@ -1252,11 +1266,7 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 1) {
-			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
-				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
-					gp.IT_Manager[gp.forest][i] = null;
-				}
-			}
+			
 			endScene();
 		}
 	}
@@ -1608,6 +1618,7 @@ public class CutSceneHandler {
 			}
 			if(scenePhase == 6) {
 				gp.player.inventory.add(new OBJ_FireAmulet(gp));
+				gp.player.mana = gp.player.maxMana;
 				scenePhase++;
 			}
 			if(scenePhase == 7) {
@@ -1928,6 +1939,7 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 11) {
+			GameProgress.princessCrafted = true;
 			endScene();
 		}
 		
@@ -2078,7 +2090,7 @@ public class CutSceneHandler {
 		
 		
 		if(scenePhase ==  14) {
-			scenePhase=95;
+			scenePhase++;
 		}
 		
 
@@ -2116,30 +2128,40 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					break;
@@ -2228,37 +2250,46 @@ public class CutSceneHandler {
 		if(scenePhase == 28) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
-					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
-					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
-					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
-					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
-					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
-					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
-					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
-					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
-					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
-					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
-					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
-					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
-					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
-					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
-					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
-					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
-					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
-					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
-					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
-					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
-					break;
+				gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+				gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+				gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+				gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+				gp.monsters[gp.currentMap][i].atk = 15;
+				gp.monsters[gp.currentMap][i].def = 10;
+				gp.monsters[gp.currentMap][i].direction = "down"; i++;
+				
+				gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+				gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+				gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+				gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+				gp.monsters[gp.currentMap][i].atk = 15;
+				gp.monsters[gp.currentMap][i].def = 10;
+				gp.monsters[gp.currentMap][i].direction = "down"; i++;
+				
+				gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+				gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+				gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+				gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+				gp.monsters[gp.currentMap][i].atk = 15;
+				gp.monsters[gp.currentMap][i].def = 10;
+				gp.monsters[gp.currentMap][i].direction = "down"; i++;
+				
+				gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+				gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+				gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+				gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+				gp.monsters[gp.currentMap][i].atk = 15;
+				gp.monsters[gp.currentMap][i].def = 10;
+				gp.monsters[gp.currentMap][i].direction = "down"; i++;
+				
+				gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+				gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+				gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+				gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+				gp.monsters[gp.currentMap][i].atk = 15;
+				gp.monsters[gp.currentMap][i].def = 10;
+				gp.monsters[gp.currentMap][i].direction = "down"; i++;
+				break;
 				}
 			}
 			scenePhase++;
@@ -2344,38 +2375,47 @@ public class CutSceneHandler {
 		if(scenePhase == 38) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
-				}
+					}
 			}
 			scenePhase++;
 		}
@@ -2392,7 +2432,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 41) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleC);
 		}
 		
 		if(scenePhase ==  42) {
@@ -2460,36 +2500,46 @@ public class CutSceneHandler {
 		if(scenePhase == 48) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
 				}
 			}
@@ -2499,7 +2549,7 @@ public class CutSceneHandler {
 		if(scenePhase == 49) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 			
 		}
 		if(scenePhase == 50) {
@@ -2508,7 +2558,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 51) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 		}
 		
 		if(scenePhase ==  52) {
@@ -2576,38 +2626,48 @@ public class CutSceneHandler {
 		if(scenePhase == 58) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
-				}
+					}
 			}
 			scenePhase++;
 		}
@@ -2615,7 +2675,7 @@ public class CutSceneHandler {
 		if(scenePhase == 59) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 			
 		}
 		if(scenePhase == 60) {
@@ -2624,7 +2684,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 61) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 		}
 		
 		if(scenePhase ==  62) {
@@ -2696,32 +2756,41 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
 				}
 			}
@@ -2731,7 +2800,7 @@ public class CutSceneHandler {
 		if(scenePhase == 69) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleB);
 			
 		}
 		if(scenePhase == 70) {
@@ -2740,7 +2809,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 71) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleB);
 		}
 		
 		if(scenePhase ==  72) {
@@ -2808,37 +2877,47 @@ public class CutSceneHandler {
 		if(scenePhase == 78) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
+				
 				}
 			}
 			scenePhase++;
@@ -2847,7 +2926,7 @@ public class CutSceneHandler {
 		if(scenePhase == 79) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 			
 		}
 		if(scenePhase == 80) {
@@ -2856,7 +2935,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 81) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 		}
 		
 		if(scenePhase ==  82) {
@@ -2928,32 +3007,41 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
 					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
 				}
 			}
@@ -2963,7 +3051,7 @@ public class CutSceneHandler {
 		if(scenePhase == 89) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleB);
 			
 		}
 		if(scenePhase == 90) {
@@ -2972,7 +3060,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 91) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleB);
 		}
 		
 		if(scenePhase ==  92) {
@@ -3040,36 +3128,45 @@ public class CutSceneHandler {
 		if(scenePhase == 98) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
 					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].atk = 15;
+					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
-					
 					break;
 				}
 			}
@@ -3079,7 +3176,7 @@ public class CutSceneHandler {
 		if(scenePhase == 99) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 			
 		}
 		if(scenePhase == 100) {
@@ -3088,7 +3185,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 101) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleD);
 		}
 		
 		if(scenePhase ==  102) {
@@ -3510,8 +3607,10 @@ public class CutSceneHandler {
 		if(scenePhase == 5) {
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			GameProgress.ending = true;
 			gp.gameState = gp.ending;
 		}
+		
 		
 	}
 	

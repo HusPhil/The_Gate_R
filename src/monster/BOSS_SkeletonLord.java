@@ -19,13 +19,13 @@ public class BOSS_SkeletonLord extends Entity{
 		name = monName;
 		defaultSpeed = 1;
 		speed = defaultSpeed;
-		maxLife = 80;
+		maxLife = 1200;
 		attacking = !true;
 		
 		type_boss = true;
 		life = maxLife;
 		atk = 10;
-		def = 5;
+		def = 6;
 		exp = 50;
 		
 		//SolidArea

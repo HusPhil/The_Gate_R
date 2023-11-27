@@ -204,11 +204,11 @@ public class GUI {
 		
 		textY+=gp.tileSize +12;
 		value = String.valueOf(gp.player.getAtk());
-		textX = gp.screenWidth-gp.tileSize*6;
+		textX = gp.screenWidth-gp.tileSize*8;
 		g2.drawString(value, textX, textY);
 		
 		value = String.valueOf(gp.player.getDef());
-		textX += gp.tileSize*3 +24;//gp.screenWidth - (gp.tileSize*6)+24;
+		textX += gp.tileSize*6 +12;//gp.screenWidth - (gp.tileSize*6)+24;
 		g2.drawString(value, textX, textY);
 		
 	}

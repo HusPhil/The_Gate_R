@@ -217,6 +217,14 @@ public class NPC_Narrator extends Entity{
 		dialogues[finalBattleC][j] = "A wave of Mummies is coming!"; j++;
 		
 		j = 0;
+		dialogues[finalBattleD][j] = "The Trenk Lord is enchanting!"; j++;
+		dialogues[finalBattleD][j] = "Another wave of Mummies is coming!"; j++;
+		
+		j = 0;
+		dialogues[finalBattleE][j] = "The Trenk Lord is weary.."; j++;
+		dialogues[finalBattleE][j] = "Find his heart and attack it!"; j++;
+		
+		j = 0;
 		dialogues[endingA][j] = 
 				"Congratulations, valiant adventurer! With the Trenk"
 				+ "\nLord vanquished and the world's balance restored, "

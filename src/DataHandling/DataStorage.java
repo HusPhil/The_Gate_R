@@ -13,6 +13,21 @@ public class DataStorage implements Serializable{
 	int exp, nextLevelExp;
 	int coin;
 	
+	boolean encounterOldMan;
+	boolean oldManExplained;
+	boolean intro_done;
+	boolean witchQuest1Complete;
+	boolean oldManQuest2Explained;
+	boolean waterGolemDefeated;
+	boolean waterCrystalActivated;
+	boolean knightEncountered;
+	boolean princessEncountered;
+	boolean defeatedSkeletonLord;
+	boolean witchReported;
+	boolean princessReunited;
+	boolean princessCrafted;
+	boolean ending;
+	
 	//INVENTORY
 	ArrayList<String> itemNames = new ArrayList<>();
 	ArrayList<Integer> itemAmmount = new ArrayList<>();

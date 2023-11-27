@@ -222,9 +222,8 @@ public class NPC_Hermit extends Entity{
 		dialogues[intro_end_2][i] = "The people, what happened to them!?"; i++;
 		dialogues[intro_end_2][i] = "...!"; i++;
 		dialogues[intro_end_2][i] = "Don't tell me, are they cursed!?"; i++;
-		dialogues[intro_end_2][i] = "Young man! I shall now give you your first quest!"; i++;
-		dialogues[intro_end_2][i] = "Fulfill SDG #3 and provide the people with"
-				+ "\n'Good Health and Well-being'!"; i++;
+		dialogues[intro_end_2][i] = "Young man! Please, I beg you!"; i++;
+		dialogues[intro_end_2][i] = "Help me again, break the curse..!"; i++;
 		dialogues[intro_end_2][i] = "There seems to be a witch living down south!"
 				+ "\nask her for further instruction!"; i++;
 		dialogues[intro_end_2][i] = "I have to rest in my home for the day.."; i++;

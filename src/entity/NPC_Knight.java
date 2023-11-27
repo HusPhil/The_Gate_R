@@ -102,7 +102,7 @@ public class NPC_Knight extends Entity{
 		i = 0;
 		dialogues[princessBackA][i] = "...!"; i++;
 		dialogues[princessBackA][i] = "Princess! You're back!"; i++;
-		dialogues[princessBackA][i] = "I can't belive it..!"; i++;
+		dialogues[princessBackA][i] = "I can't believe it..!"; i++;
 		
 		i = 0;
 		dialogues[princessReunitedA][i] = 

@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
+import entity.NPC_Cursed_Villager;
+import entity.NPC_VillagerBoy;
+import entity.NPC_VillagerGirl;
+import entity.NPC_Witch;
 import main.GamePanel;
 
 public class DatabaseManagement {
@@ -160,6 +164,91 @@ public class DatabaseManagement {
 		    connection.close();
 		} catch (Exception e) {
 		    e.printStackTrace();
+		}
+	}
+
+	public void loadGameProgress() {
+		if(GameProgress.intro_done) {
+			int mapNum = gp.silvioVillage;
+			
+			if(GameProgress.oldManQuest2Explained) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[mapNum][i] == null) {
+						
+						gp.npc[mapNum][i] = new NPC_VillagerBoy(gp);
+						gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 11*gp.tileSize; i++;
+
+						gp.npc[mapNum][i] = new NPC_VillagerGirl(gp);
+						gp.npc[mapNum][i].worldX = 16*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 16*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_VillagerBoy(gp);
+						gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_VillagerGirl(gp);
+						gp.npc[mapNum][i].worldX = 28*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 19*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_VillagerBoy(gp);
+						gp.npc[mapNum][i].worldX = 34*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_VillagerGirl(gp);
+						gp.npc[mapNum][i].worldX = 30*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 21*gp.tileSize; i++;
+						break;
+					}
+				}
+				for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+					if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect1")) {
+						gp.IT_Manager[gp.forest][i] = null;
+					}
+				}
+				
+			}
+			else {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[mapNum][i] == null) {
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 11*gp.tileSize; i++;
+
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 16*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 16*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 23*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 28*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 19*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 34*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 20*gp.tileSize; i++;
+						
+						gp.npc[mapNum][i] = new NPC_Cursed_Villager(gp);
+						gp.npc[mapNum][i].worldX = 30*gp.tileSize;
+						gp.npc[mapNum][i].worldY = 21*gp.tileSize; i++;
+						
+						break;
+					}
+					
+				}
+			}
+			}
+			
+			
+		if(GameProgress.witchQuest1Complete) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Witch.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Witch.quest1e;
+				}
+			}
 		}
 	}
 }

@@ -33,6 +33,23 @@ public class SaveLoad {
 			ds.exp =  gp.player.exp;
 			ds.nextLevelExp = gp.player.nextLvlExp;
 			ds.coin = gp.player.coin;
+			ds.coin = gp.player.coin;
+			
+			
+			ds.encounterOldMan = GameProgress.encounterOldMan;
+			ds.oldManExplained = GameProgress.oldManExplained;
+			ds.intro_done = GameProgress.intro_done;
+			ds.witchQuest1Complete = GameProgress.witchQuest1Complete;
+			ds.oldManQuest2Explained = GameProgress.oldManQuest2Explained;
+			ds.waterGolemDefeated = GameProgress.waterGolemDefeated;
+			ds.waterCrystalActivated = GameProgress.waterCrystalActivated;
+			ds.knightEncountered = GameProgress.knightEncountered;
+			ds.princessEncountered = GameProgress.princessEncountered;
+			ds.defeatedSkeletonLord = GameProgress.defeatedSkeletonLord;
+			ds.witchReported = GameProgress.witchReported;
+			ds.princessReunited = GameProgress.princessReunited;
+			ds.princessCrafted = GameProgress.princessCrafted;
+			ds.ending = GameProgress.ending;
 			
 			
 			//PLAYER INVENTORY
@@ -90,7 +107,7 @@ public class SaveLoad {
 					);
 			
 			try {
-				DataStorage ds = (DataStorage)ois.readObject();
+				DataStorage ds = (DataStorage) ois.readObject();
 				//PLAYER STATUS
 				gp.player.level = ds.level;
 				gp.player.life = ds.life;
@@ -101,6 +118,22 @@ public class SaveLoad {
 				gp.player.exp = ds.exp;
 				gp.player.nextLvlExp = ds.nextLevelExp;
 				gp.player.coin = ds.coin;
+				
+				GameProgress.encounterOldMan = ds.encounterOldMan;
+				GameProgress.oldManExplained = ds.oldManExplained;
+				GameProgress.intro_done = ds.intro_done;
+				GameProgress.witchQuest1Complete = ds.witchQuest1Complete;
+				GameProgress.oldManQuest2Explained = ds.oldManQuest2Explained;
+				GameProgress.waterGolemDefeated = ds.waterGolemDefeated;
+				GameProgress.waterCrystalActivated = ds.waterCrystalActivated;
+				GameProgress.knightEncountered = ds.knightEncountered;
+				GameProgress.princessEncountered = ds.princessEncountered;
+				GameProgress.defeatedSkeletonLord = ds.defeatedSkeletonLord;
+				GameProgress.witchReported = ds.witchReported;
+				GameProgress.princessReunited = ds.princessReunited;
+				GameProgress.princessCrafted = ds.princessCrafted;
+				GameProgress.ending = ds.ending;
+				
 				
 				//PLAYER INVENTORY
 				gp.player.inventory.clear();

@@ -155,7 +155,7 @@ public class EventHandler {
 	private void sacredRiverEvents() {
 
 		if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
-			transition(gp.forest, 37, 32, gp.outside);
+			transition(gp.forest, 35, 32, gp.outside);
 		}
 		else if(eventCollision(gp.sacredRiver, 13, 31, "left")) {
 			CS_waterGolem();
