@@ -3,11 +3,11 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class ITM_VorpalStone extends Entity{
+public class ITM_VorpalGem extends Entity{
 
 	GamePanel gp;
-	public static final String objName = "Vorpal Stone";
-	public ITM_VorpalStone(GamePanel gp) {
+	public static final String objName = "Vorpal Gem";
+	public ITM_VorpalGem(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		coin = 25;
@@ -16,7 +16,7 @@ public class ITM_VorpalStone extends Entity{
 		type = type_consumables;
 		stackable = true;
 		name = objName;
-		down1 = createImage("objects", "vorpal_stone");
+		down1 = createImage("objects", "vorpal_gem");
 		description = "["+name+"]" + "\nA magical crystal.\n It looks cursed..!" + "\n-CONSUMABLE-";
 		setDialogue();
 	}
@@ -24,12 +24,12 @@ public class ITM_VorpalStone extends Entity{
 		dialogues[0][0] = "You used the " + name + ". It shimmered with an otherworldy glow!";
 	}
 	public void use(Entity ent) {
-		int itemIndex = gp.player.searchItemInInventory(OBJ_Lantern.objName);
-		
-		gp.player.inventory.get(itemIndex).lightRadius = 275;
-		
-		gp.eventHandler.transition(gp.finalStage, 34, 37, gp.dungeon);
+		CS_ending();
 		ammount--;
 		if(ammount <= 0) gp.player.inventory.remove(this);
+	}
+	private void CS_ending() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.ending;
 	}
 }

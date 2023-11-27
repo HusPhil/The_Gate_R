@@ -19,7 +19,7 @@ public class MON_FloatingSkull extends Entity{
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		defaultSpeed = 3;
+		defaultSpeed = 4;
 		speed = defaultSpeed;
 		maxLife = 16;
 		name = monName;
@@ -84,8 +84,8 @@ public class MON_FloatingSkull extends Entity{
 	public void setAction() {
 		int actionChangeInterval = 120;
 		if(pathAI) {
-			int pWorldX = (gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
-			int pWorldY = (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize;
+			int pWorldX = gp.player.getPlayerWordlX();
+			int pWorldY = gp.player.getPlayerWordlY();
 			
 			searchPath(pWorldX, pWorldY, true);
 		}

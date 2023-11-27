@@ -102,6 +102,9 @@ public class ObjectGenerator {
 		case ITM_VorpalStone.objName:
 			obj = new ITM_VorpalStone(gp);
 			break;
+		case ITM_VorpalGem.objName:
+			obj = new ITM_VorpalGem(gp);
+			break;
 			
 			
 		}

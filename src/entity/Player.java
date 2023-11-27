@@ -8,8 +8,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import DataHandling.GameProgress;
+import interactive_tiles.IT_TrenkHeart;
 import main.GamePanel;
 import main.KeyHandler;
+import monster.BOSS_TrenkLord;
 import object.ITM_Bandage;
 import object.ITM_EvilSkull;
 import object.ITM_FireGel;
@@ -17,6 +19,7 @@ import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_VorpalGem;
 import object.ITM_VorpalStone;
 import object.ITM_WaterCrystal;
 import object.ITM_WaterEssence;
@@ -362,6 +365,7 @@ public class Player extends Entity{
 				} 
 	}
 	public void addInventoryItems() {
+		
 		inventory.add(currentWeapon);
 		inventory.add(currentShield);
 		inventory.add(new ITM_Key(gp));
@@ -379,6 +383,8 @@ public class Player extends Entity{
 		inventory.add(new OBJ_Pickaxe(gp));
 		inventory.add(new OBJ_Iron_Sword(gp));
 		inventory.add(new ITM_VorpalStone(gp));
+		inventory.add(new OBJ_TerraBlade(gp));
+		inventory.add(new ITM_VorpalGem(gp));
 	}
 	
 	public void attackState() {
@@ -486,21 +492,40 @@ public class Player extends Entity{
 		ent.knockBackState = true;
 	}
 	public void manageTileDmg(int i) {
+		
 
 		if(i !=  777 && gp.IT_Manager[gp.currentMap][i].destroyOn && gp.IT_Manager[gp.currentMap][i].checkReqItem
 			(currentWeapon) && !gp.IT_Manager[gp.currentMap][i].invincible) {
 			
-			
-			gp.IT_Manager[gp.currentMap][i].life--;	
-			gp.IT_Manager[gp.currentMap][i].invincible = true;
+			if(gp.IT_Manager[gp.currentMap][i].name.equals(IT_TrenkHeart.IT_Name)) {
 				
-			gp.IT_Manager[gp.currentMap][i].playSE();;
-			generateParticle(gp.IT_Manager[gp.currentMap][i], gp.IT_Manager[gp.currentMap][i]);
-			
-			if(gp.IT_Manager[gp.currentMap][i].life == 0) {
-			gp.IT_Manager[gp.currentMap][i] = gp.IT_Manager[gp.currentMap][i].destroyedForm();
+				for(int j = 0; j < gp.monsters[1].length; j++) {
+					if(gp.monsters[gp.currentMap][j] != null && gp.monsters[gp.currentMap][j].name.equals(BOSS_TrenkLord.monName)) {
+						int monIndex = j;
+						manageMonDmg(monIndex, atk, 0, "down");
+						if(gp.monsters[gp.currentMap][j].life <= 0) {
+							gp.IT_Manager[gp.currentMap][i] = null; i++;
+							gp.IT_Manager[gp.currentMap][i] = null;
+						}
+						System.out.println(gp.monsters[gp.currentMap][j].life);
+						break;
+					}
+				}
 			}
+			else {
+				gp.IT_Manager[gp.currentMap][i].life--;	
+				gp.IT_Manager[gp.currentMap][i].invincible = true;
+				gp.IT_Manager[gp.currentMap][i].playSE();;
+				if(gp.IT_Manager[gp.currentMap][i].life <= 0) {
+					gp.IT_Manager[gp.currentMap][i] = gp.IT_Manager[gp.currentMap][i].destroyedForm();
+					}
+						
+				generateParticle(gp.IT_Manager[gp.currentMap][i], gp.IT_Manager[gp.currentMap][i]);
+			}
+			
 				
+			
+			
 		
 		}
 		

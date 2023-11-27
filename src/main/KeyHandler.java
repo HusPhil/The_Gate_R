@@ -26,9 +26,9 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed, dashPressed, enterPressed, talkOn, yesOn, fireAway;
 	public boolean debugPressed;
 	public int pressTime = 0;
-	public int delayCounter = 0;
 	public boolean keyFreeze = false;
-	
+	public int testInt = 0;
+	public int delayTimer = 0;
 	GamePanel gp;
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
@@ -36,6 +36,8 @@ public class KeyHandler implements KeyListener {
 	}
 	
 	@Override
+	
+	
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		
@@ -85,8 +87,32 @@ public class KeyHandler implements KeyListener {
 		else if(gp.gameState == gp.gameOverState) {
 			gameOverStateKeys(code);
 		}
+
+		//KEYS DURING GAME OVER STATE
+		else if(gp.gameState == gp.ending) {
+			endingKeys(code);
+		}
+		
+
 	}
 	
+	private void endingKeys(int code) {
+		gp.player.attacking = false;
+		
+		System.out.println(delayTimer);
+		gp.player.attacking = false;
+		if(delayTimer > 60*3) {
+			gp.gui.selectItem = 0;
+			switch(code) {
+			case KeyEvent.VK_ENTER:
+					System.exit(0);
+				
+				break;
+			}
+		}
+	
+	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
@@ -131,8 +157,8 @@ public class KeyHandler implements KeyListener {
 	public void gameOverStateKeys(int code) {
 		
 		
-		gp.player.attacking = false;
-		if(delayCounter > 60*3) {
+		
+		if(delayTimer > 60*3) {
 			switch(code) {
 			case KeyEvent.VK_W:
 				gp.gui.selectItem--;
@@ -145,7 +171,7 @@ public class KeyHandler implements KeyListener {
 				gp.playSE(5);
 				break;
 			case KeyEvent.VK_ENTER:
-				delayCounter++;
+				delayTimer++;
 					if(gp.gui.selectItem == 0) {
 						gp.playSE(0);
 						gp.gameState = gp.playState;
@@ -156,7 +182,7 @@ public class KeyHandler implements KeyListener {
 						gp.gameState = gp.gameMenu;
 						gp.resetStatus(true);
 					}
-					delayCounter = 0;
+					delayTimer = 0;
 				
 				break;
 			}
@@ -451,4 +477,5 @@ public class KeyHandler implements KeyListener {
 		}
 	}
 
+	
 }

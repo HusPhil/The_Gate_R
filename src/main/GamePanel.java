@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int loadingState = 13;
 	public final int fadeIN = 14;
 	public final int fadeOUT = 15;
+	public final int ending = 16;
 	
 	//CUTSCENE Booelans
 	public boolean bossBattleOn = false;
@@ -315,8 +316,10 @@ public class GamePanel extends JPanel implements Runnable{
 	//====================================================//
 	public void update() {
 		
-		if(gameState == gameOverState) keys.delayCounter++;
-		else keys.delayCounter= 0;
+		
+		
+		if(gameState == gameOverState || gameState == ending) keys.delayTimer++;
+		else keys.delayTimer= 0;
 		
 		if (gameState == gameMenu) {
 			

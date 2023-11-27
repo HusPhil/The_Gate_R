@@ -210,12 +210,12 @@ public class AssetsHandler {
 		i = 0;
 		mapNum = gp.finalStage;
 		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
-		gp.gameObjs[mapNum][i].worldX = 19*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
+		gp.gameObjs[mapNum][i].worldX = 12*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
-		gp.gameObjs[mapNum][i].worldX = 27*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
+		gp.gameObjs[mapNum][i].worldX = 35*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 
 	}
 	public void makeNpc() {
@@ -514,7 +514,10 @@ public class AssetsHandler {
 			gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
 			i++;
 		}
-		i = 2;
+		
+		
+		i = 0;
+		mapNum = gp.corrupted1;
 		gp.monsters[mapNum][i] = new MON_FloatingSkull(gp);
 		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
 		gp.monsters[mapNum][i].worldY = 16*gp.tileSize;

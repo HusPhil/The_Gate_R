@@ -466,7 +466,7 @@ public class GUI {
 			if(gp.gameState == gp.dialogueState || gp.gameState == gp.loadingDialogueState) {
 				gp.gameState = gp.playState;
 			}
-			if(gp.gameState == gp.cutSceneState) {
+			if(gp.gameState == gp.cutSceneState || gp.gameState == gp.ending) {
 				gp.csHandler.scenePhase++;
 			}
 		}
@@ -1360,7 +1360,7 @@ public class GUI {
 		g2.setColor(Color.white);
 		g2.drawString(text, x-2, y-2);
 		
-		int timer =  3 - (gp.keys.delayCounter/60);
+		int timer =  3 - (gp.keys.delayTimer/60);
 		//RETRY OPTION
 		text = "RETRY";
 		g2.setFont(g2.getFont().deriveFont(50f));
@@ -1461,6 +1461,49 @@ public class GUI {
 		if(gp.gameState == gp.gameOverState) {
 			showGameOverScreen();
 		}
+		if(gp.gameState == gp.ending) {
+			endingScreen();
+		}
+	}
+	private void endingScreen() {
+		g2.setColor(Color.black);
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		
+		int x, y;
+		String text;
+		
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 150f));
+		
+		text = "GAME";
+		x = screenCenterX(text);
+		y = gp.tileSize*4;
+		g2.setColor(Color.white);
+		g2.drawString(text, x, y);
+		
+		text = "FINISHED";
+		x = screenCenterX(text);
+		y += gp.tileSize*4;
+		g2.setColor(Color.white);
+		g2.drawString(text, x, y);
+		
+		int timer =  3 - (gp.keys.delayTimer/60);
+		//RETRY OPTION
+		text = "EXIT";
+		g2.setFont(g2.getFont().deriveFont(50f));
+		x = screenCenterX(text);
+		y += gp.tileSize*2;
+		g2.drawString(text, x, y);
+		if(selectItem == 0 && timer <= 0) g2.drawString(">", x-40, y);
+		
+		text = String.valueOf(timer);
+		g2.setFont(g2.getFont().deriveFont(35f));
+		if (timer <= 0) {
+			timer = 0;
+			text = "Thank you for playing the game!";
+		}
+		x = screenCenterX(text);
+		y += 55;
+		g2.drawString(text, x, y);
 	}
 	
 }

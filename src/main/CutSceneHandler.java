@@ -14,9 +14,11 @@ import entity.NPC_Princess;
 import entity.NPC_VillagerBoy;
 import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
+import interactive_tiles.IT_TrenkHeart;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_TrenkLord;
 import monster.BOSS_WaterGolem;
+import monster.MON_FloatingSkull;
 import monster.MON_Trenklin;
 import object.ITM_Bandage;
 import object.ITM_EvilSkull;
@@ -25,9 +27,11 @@ import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_VorpalGem;
 import object.ITM_VorpalStone;
 import object.ITM_WaterCrystal;
 import object.ITM_WaterEssence;
+import object.OBJ_Chest;
 import object.OBJ_FireAmulet;
 import object.OBJ_IronDoor;
 import object.OBJ_Iron_Sword;
@@ -63,6 +67,7 @@ public class CutSceneHandler {
 	public final int princessReunited = 17;
 	public final int princessCraft = 18;
 	public final int trenkLordBattle = 19;
+	public final int ending = 20;
 	
 	private int gelAmmount = 0;
 	private int meatAmmount = 0;
@@ -73,7 +78,6 @@ public class CutSceneHandler {
 	private int fireGelAmmount = 0;
 	private int skullAmmount = 0;
 	
-	private int scenePhaseNum = 0;
  	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
 		
@@ -163,12 +167,12 @@ public class CutSceneHandler {
 //			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
-			GameProgress.waterCrystalActivated = true;
-			GameProgress.witchReported = true;
-			GameProgress.oldManExplained = true;
-			GameProgress.witchQuest1Complete = true;
-			GameProgress.waterGolemDefeated = true;
-			GameProgress.defeatedSkeletonLord = true;
+//			GameProgress.waterCrystalActivated = true;
+//			GameProgress.witchReported = true;
+//			GameProgress.oldManExplained = true;
+//			GameProgress.witchQuest1Complete = true;
+//			GameProgress.waterGolemDefeated = true;
+//			GameProgress.defeatedSkeletonLord = true;
 			scenePhase++;
 		}
 		
@@ -1931,7 +1935,6 @@ public class CutSceneHandler {
 	}
 	
 	public void trenkLordBattle() {
-		System.out.println("sinpeys: " + scenePhase);
 		
 		if(scenePhase == 0) {
 			gp.gameState = gp.fadeIN;
@@ -2075,11 +2078,12 @@ public class CutSceneHandler {
 		
 		
 		if(scenePhase ==  14) {
-			scenePhase++;
+			scenePhase=95;
 		}
 		
 
 		if(scenePhase == 15) {
+			gp.gameState = gp.cutSceneState;
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
@@ -2094,6 +2098,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 16) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2209,6 +2214,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 26) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2324,6 +2330,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 36) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2439,6 +2446,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 46) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2554,6 +2562,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 56) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2669,6 +2678,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 66) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2784,6 +2794,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 76) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -2899,6 +2910,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 86) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -3014,6 +3026,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 96) {
+			gp.gameState = gp.cutSceneState;
 			gp.player.worldX = 1140;
 			gp.player.worldY = gp.tileSize*13;
 			scenePhase++;
@@ -3095,18 +3108,412 @@ public class CutSceneHandler {
 			gp.gameState = gp.playState;
 			scenePhase++;
 		}
-		if(scenePhase ==  103) {
+		
+		if(scenePhase == 104) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		
+		if(scenePhase ==  105) {
+			
+			gp.eventHandler.transition(gp.finalStage, 24, 20, gp.dungeon);
+			
+			scenePhase++;
+			
+		}
+		if(scenePhase == 106) {
+			if(gp.gameState == gp.playState) {
+				scenePhase++;
+			}
+		}
+		if(scenePhase ==  107) {
+			gp.gameState = gp.cutSceneState;
+			//show the boss is wearing down
+			
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}		
+		if(scenePhase ==  108) {
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.currentMap][i] == null) {
+					gp.IT_Manager[gp.currentMap][i] =  new IT_TrenkHeart(gp, 12, 15); i++;
+					gp.IT_Manager[gp.currentMap][i] =  new IT_TrenkHeart(gp, 35, 15); 
+					gp.bossBattleOn = true;
+					break;
+				}
+			}
+			scenePhase++;
+			
+		}		
+		if(scenePhase ==  109) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		if(scenePhase ==  110) {
+			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
+					if(gp.monsters[gp.currentMap][i].life <= gp.monsters[gp.currentMap][i].maxLife * 0.75) scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 111) {
+			gp.player.worldX = gp.tileSize*24;
+			gp.player.worldY = gp.tileSize*20;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 112) {
+			gp.gameState = gp.cutSceneState;
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 113) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 114) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 20*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 115) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 116) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 117) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  118) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  119) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  120) {
+			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
+					if(gp.monsters[gp.currentMap][i].life <= gp.monsters[gp.currentMap][i].maxLife * 0.5) scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 121) {
+			gp.player.worldX = gp.tileSize*24;
+			gp.player.worldY = gp.tileSize*20;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 122) {
+			gp.gameState = gp.cutSceneState;
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 123) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 124) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 20*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 125) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 126) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 127) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  128) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  129) {
 			gp.gameState = gp.playState;
 			scenePhase++;
 		}
 		
 		
+		if(scenePhase ==  130) {
+			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
+					if(gp.monsters[gp.currentMap][i].life <= gp.monsters[gp.currentMap][i].maxLife * 0.25) scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 131) {
+			gp.player.worldX = gp.tileSize*24;
+			gp.player.worldY = gp.tileSize*20;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
 		
+		if(scenePhase == 132) {
+			gp.gameState = gp.cutSceneState;
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 133) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 134) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 20*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_FloatingSkull(gp);
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 135) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 136) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 137) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  138) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  139) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		if(scenePhase ==  140) {
+			
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
+					if(gp.monsters[gp.currentMap][i].life <= gp.monsters[gp.currentMap][i].maxLife * 0) scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 141) {
+			for(int i = 0; i < gp.gameObjs[1].length; i++) {
+				if(gp.gameObjs[gp.currentMap][i] == null) {
+					gp.gameObjs[gp.currentMap][i] = new OBJ_Chest(gp);
+					gp.gameObjs[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.gameObjs[gp.currentMap][i].worldY = 17*gp.tileSize;
+					gp.gameObjs[gp.currentMap][i].setLoot(new ITM_VorpalGem(gp));
+					gp.playSE(7);
+					scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 142) {
+			gp.gameState = gp.cutSceneState;
+			gp.playSE(0);
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		if(scenePhase == 143) endScene();
 		System.out.println("sinpeys: " + scenePhase);
-		System.out.println("sinpeys: " + gp.gui.npc.name);
+//		System.out.println("sinpeys: " + gp.gui.npc.name);
 	}
 	
-	
+	public void ending() {
+		System.out.println("sinpeys: " + scenePhase);
+		if(scenePhase == 0) {
+			gp.gameState = gp.fadeIN;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			if(gp.gameState == gp.playState) scenePhase++;
+		}
+		if(scenePhase == 2) {
+			g2.setColor(Color.white);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc = gp.narrator;
+			gp.gui.npc.dialogueSet = NPC_Narrator.endingA;
+			gp.gui.dialogueScreen(true);
+		}
+		
+		if(scenePhase == 3) {
+			g2.setColor(Color.white);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			
+			gp.gameState = gp.fadeOUT;
+			scenePhase++;
+		}
+		if(scenePhase == 4) {
+			g2.setColor(Color.white);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			if(gp.gameState == gp.playState) scenePhase++;
+		}
+		if(scenePhase == 5) {
+			g2.setColor(Color.white);
+			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+			gp.gameState = gp.ending;
+		}
+		
+	}
 	
 	
 	
@@ -3157,10 +3564,7 @@ public class CutSceneHandler {
 		case princessReunited: princessReunited(); break;
 		case princessCraft: princessCraft(); break;
 		case trenkLordBattle: trenkLordBattle(); break;		
-		
-		
-		
-		
+		case ending: ending(); break;
 		
 		}
 	}

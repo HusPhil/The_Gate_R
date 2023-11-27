@@ -19,7 +19,7 @@ public class BOSS_TrenkLord extends Entity{
 		name = monName;
 		defaultSpeed = 0;
 		speed = defaultSpeed;
-		maxLife = 80;
+		maxLife = 8000;
 		attacking = !true;
 		debugOn = true;
 		type_boss = true;
@@ -154,14 +154,13 @@ public class BOSS_TrenkLord extends Entity{
 	}
 	public void checkDrop() {
 		gp.bossBattleOn = false;
-		GameProgress.waterGolemDefeated = true;
+//		GameProgress.water = true;
 		
 		//stopTheBossMusic
 		//playDungeonMusic
 		
 		//open iron doors
 		
-		dropItem(new ITM_WaterEssence(gp));
 	}
 	public void setDialogue() {
 		int dialogueSet, dialogueNum;

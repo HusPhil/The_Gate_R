@@ -51,6 +51,17 @@ public class NPC_Narrator extends Entity{
 	public static final int finalBattleD = 37;
 	public static final int finalBattleE = 38;
 	public static final int finalBattleF = 39;
+	public static final int finalBattleG = 40;
+	public static final int finalBattleH = 41;
+	public static final int finalBattleI = 42;
+	public static final int finalBattleL = 43;
+	public static final int finalBattleM = 44;
+	public static final int finalBattleN = 45;
+	public static final int finalBattleO = 46;
+	public static final int finalBattleP = 47;
+	
+	public static final int endingA = 48;
+	
 
 	public final static String NPC_Name ="Narrator";
 
@@ -204,6 +215,62 @@ public class NPC_Narrator extends Entity{
 		j = 0;
 		dialogues[finalBattleC][j] = "The Trenk Lord is enchanting!"; j++;
 		dialogues[finalBattleC][j] = "A wave of Mummies is coming!"; j++;
+		
+		j = 0;
+		dialogues[endingA][j] = 
+				"Congratulations, valiant adventurer! With the Trenk"
+				+ "\nLord vanquished and the world's balance restored, "
+				+ "\nharmony prevails once more. Yet, our victory today"
+				+ "\nis merely a testament to the power of unity and"
+				+ "\nresilience."; j++;
+				
+				
+		dialogues[endingA][j] = 
+				"As you stand here in this moment, it's crucial to "
+				+ "\nunderstand the journey that brought us here. "
+				+ "\nYour brave trek through time itself, confronting "
+				+ "\nthe Trenk Lord in the future, has reshaped our reality.";j++;
+				
+				
+		dialogues[endingA][j] = 
+				"But this victory is not just a singular conquest; "
+				+ "\nit's a lesson, a guiding beacon towards a "
+				+ "\nsustainable future."; j++;
+				
+				
+		dialogues[endingA][j] = 
+				"Remember, the battle against corruption and chaos is "
+				+ "\nongoing. It's not just about this triumph; it's "
+				+ "\nabout safeguarding the future. The key lies in honoring "
+				+ "\nthe Sustainable Development Goals (SDGs)."; j++; 
+				
+				
+		dialogues[endingA][j] = 
+				"Each fulfilled goal fortifies the world's defenses, "
+				+ "\nshielding it from the looming threat of the Trenk "
+				+ "\nLord's resurgence."; j++;
+				
+				
+		dialogues[endingA][j] = 
+				"Your actions today have altered fate's course. "
+				+ "\nBut, the significance of sustaining these efforts "
+				+ "\nextends beyond this moment."; j++;
+				
+				
+		dialogues[endingA][j] = 
+				"Only by embracing these goals can we fortify our "
+				+ "\nworld against the darkness lurking in the shadows."; j++;
+				
+				
+		dialogues[endingA][j] = 
+				"Let this victory inspire a continuous journey "
+				+ "\ntowards a future where the legacy of the Trenk Lord remains "
+				+ "\nin the past, forever sealed by the collective dedication to the SDGs."; j++; 
+				
+				
+		dialogues[endingA][j] = 
+				"Then, until we met again! Hero..!"; j++;
+		
 		
 	}
 	
