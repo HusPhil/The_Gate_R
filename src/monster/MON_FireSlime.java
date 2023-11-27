@@ -79,7 +79,7 @@ public class MON_FireSlime extends Entity{
 			int pWorldX = (gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
 			int pWorldY = (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize;
 			
-			searchPath(pWorldX, pWorldY);
+			searchPath(pWorldX, pWorldY, true);
 		}
 		else {
 			actionDelay++;

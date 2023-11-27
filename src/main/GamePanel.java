@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int princessCage = 10;
 	public final int corrupted2 = 11;
 	public final int princessKingdom = 12;
+	public final int finalStage = 13;
 
 	//Screen settings//
 	//---------------//
@@ -227,10 +228,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public void setupGame() {
 		
 		
-		createAssets.makeObjects();
-		createAssets.makeNpc();
-		createAssets.makeMonster();
-		createAssets.makeInteractiveTiles();
 		
 		fxHandler.setUp();
 		gameState = gameMenu;
@@ -241,6 +238,10 @@ public class GamePanel extends JPanel implements Runnable{
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		
 		if(fullScreen) setFullScreen();
+		createAssets.makeObjects();
+		createAssets.makeNpc();
+		createAssets.makeMonster();
+		createAssets.makeInteractiveTiles();
 	}
 	//============================//
 	

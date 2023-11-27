@@ -24,11 +24,15 @@ import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_VorpalStone;
 import object.ITM_WaterCrystal;
 import object.ITM_WaterEssence;
 import object.OBJ_FireAmulet;
 import object.OBJ_IronDoor;
+import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
+import object.OBJ_TerraBlade;
+import object.OBJ_Wooden_Sword;
 
 public class CutSceneHandler {
 	GamePanel gp;
@@ -55,6 +59,8 @@ public class CutSceneHandler {
 	public final int princessEncounter = 14;
 	public final int reportWarning = 15;
 	public final int witchReport = 16;
+	public final int princessReunited = 17;
+	public final int princessCraft = 18;
 	
 	int gelAmmount = 0;
 	int meatAmmount = 0;
@@ -149,13 +155,14 @@ public class CutSceneHandler {
 		if(scenePhase == 0) {
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 //			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
-			gp.eventHandler.loadingScreen(gp.princessCage, 29, 16, gp.dungeon);
+			gp.eventHandler.loadingScreen(gp.princessKingdom, 24, 23, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.dungeonMap_F1, 19, 28, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.forest, 28, 12, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 18, 38, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.silvioHouse, 20, 20, gp.indoor);
 			GameProgress.waterCrystalActivated = true;
+			GameProgress.witchReported = true;
 			GameProgress.oldManExplained = true;
 			GameProgress.witchQuest1Complete = true;
 			GameProgress.waterGolemDefeated = true;
@@ -1074,6 +1081,10 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 3) {
+			if(gp.player.itemIsInsideInventory(ITM_WaterCrystal.objName)) {
+				int itemIndex = gp.player.searchItemInInventory(ITM_WaterCrystal.objName);
+				gp.player.inventory.remove(itemIndex);
+			}
 			showInfoScreen(NPC_Narrator.oldManWaterCrystalA);
 		}
 		if(scenePhase == 4) {
@@ -1362,6 +1373,7 @@ public class CutSceneHandler {
 			showInfoScreen(NPC_Narrator.princessEncounterC);
 		}
 		if (scenePhase == 9) {
+			gp.keys.keyFreeze = true;
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.forest][i] == null) {
 					gp.npc[gp.forest][i] = new NPC_Princess(gp);
@@ -1386,6 +1398,7 @@ public class CutSceneHandler {
 			scenePhase++;
 		}
 		if (scenePhase == 11) {//endScene();	
+			
 			gp.fxHandler.lighting.resetDay();
 			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
 			gp.player.worldY -= 5;
@@ -1478,6 +1491,17 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 21) {
 			gp.gameState = gp.playState;
+			setGuiNpc(NPC_Knight.NPC_Name);
+			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
+				for(int i = 0; i < gp.npc[1].length; i++) {
+					if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+						gp.npc[gp.forest][i] = null;
+					}
+				}
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 22) {
 			setGuiNpc(NPC_Princess.NPC_Name);
 			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
 				for(int i = 0; i < gp.npc[1].length; i++) {
@@ -1488,17 +1512,7 @@ public class CutSceneHandler {
 				}
 				scenePhase++;
 			}
-		}
-		if(scenePhase == 22) {
-			setGuiNpc(NPC_Knight.NPC_Name);
-			if(gp.gui.npc.currentSearchPath == Entity.pathOFF) {
-				for(int i = 0; i < gp.npc[1].length; i++) {
-					if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
-						gp.npc[gp.forest][i] = null;
-					}
-				}
-				scenePhase++;
-			}
+		
 		}
 		if(scenePhase == 23) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
@@ -1517,6 +1531,7 @@ public class CutSceneHandler {
 			showInfoScreen(NPC_Narrator.princessEncounterD);
 		}
 		if(scenePhase == 24) {
+			gp.keys.keyFreeze = false;
 			gp.player.defaultSpeed = 5;
 			GameProgress.princessEncountered = true;
 			endScene();
@@ -1599,12 +1614,336 @@ public class CutSceneHandler {
 	
 	}
 	
+	public void princessReunited() {
+		if(scenePhase == 0) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			if(gp.player.worldY >= 12*gp.tileSize) {
+				gp.player.worldY -= 2;
+			}
+			else {
+				setGuiNpc(NPC_Knight.NPC_Name);
+				gp.gui.npc.dialogueSet = NPC_Knight.princessReunitedA;
+				gp.gui.npc.direction = "right";
+				gp.gui.dialogueScreen(false);
+			} 
+		}
+		
+		if(scenePhase == 2) {
+			gp.gui.npc.dialogueSet = NPC_Knight.princessReunitedB;
+			gp.gui.npc.direction = "down";
+			gp.gui.dialogueScreen(false);
+			
+		}	
+		
+		if(scenePhase ==  3) {
+			scenePhase++;
+		}
+		if(scenePhase == 4) {
+			gp.gameState = gp.fadeIN;
+			scenePhase++;
+			
+		}
+		if(scenePhase == 5) {
+			if(gp.gameState == gp.playState) scenePhase++;
+		}
+		
+		if(scenePhase ==  6) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		if(scenePhase == 7) {
+			setGuiNpc(NPC_Knight.NPC_Name);
+			gp.gui.npc.direction = "down";
+			gp.player.worldX = 24*gp.tileSize;
+			gp.player.worldY = 13*gp.tileSize;
+			gp.player.direction = "up";
+			gp.gameState = gp.cutSceneState;
+			scenePhase++;
+		}
+		if(scenePhase == 8) {
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc.dialogueSet = NPC_Knight.princessReunitedC;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 9) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestA;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 10) {
+			showInfoScreen(NPC_Narrator.playerRequestA);
+		}
+		if(scenePhase == 11) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestB;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 12) {
+			setGuiNpc(NPC_Knight.NPC_Name);
+			gp.gui.npc.direction = "right";
+			gp.gui.npc.dialogueSet = NPC_Knight.princessReunitedD;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 13) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestC;
+			gp.gui.npc.direction = "left";
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 14) {
+			
+			gp.gui.npc.direction = "down";
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestD;
+			gp.gui.dialogueScreen(false);
+			
+		}
+		if(scenePhase == 15) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] == null) {
+					gp.npc[gp.forest][i] = new NPC_Princess(gp);
+					gp.npc[gp.forest][i].speed = 1;
+					gp.npc[gp.forest][i].dialogueSet = NPC_Princess.playerRequestD;
+					gp.npc[gp.forest][i].worldX =22*gp.tileSize;
+					gp.npc[gp.forest][i].worldY =  37*gp.tileSize;
+					gp.npc[gp.forest][i].direction = "up";
+					break;
+				}
+			}
+			gp.eventHandler.transition(gp.forest, 21, 37, gp.outside);
+			scenePhase++;
+		}
+		if(scenePhase == 16) {
+			if(gp.gameState == gp.playState) scenePhase++;
+		}
+		
+		if(scenePhase == 17) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.speed = 1;
+			gp.gui.npc.currentSearchPath = NPC_Princess.chase_player;
+			if(gp.currentMap == gp.princessCage) scenePhase++;
+		}
+		if(scenePhase == 18) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Princess.NPC_Name)) {
+					gp.npc[gp.forest][i].worldX =37*gp.tileSize;
+					gp.npc[gp.forest][i].worldY =  11*gp.tileSize;
+					gp.npc[gp.forest][i].direction = "left";
+					gp.npc[gp.forest][i].speed = 1;
+					break;
+				}
+			}
+			gp.eventHandler.transition(gp.forest, 36, 11, gp.outside);
+			scenePhase++;
+		}
+		if(scenePhase == 19) {
+			
+			if(gp.currentMap == gp.silvioHouse) scenePhase++;
+		}
+		if(scenePhase == 20) {
+			
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] == null) {
+					gp.npc[gp.silvioVillage][i] = new NPC_Princess(gp);
+					gp.npc[gp.silvioVillage][i].dialogueSet = NPC_Princess.playerRequestD;
+					gp.npc[gp.silvioVillage][i].worldX = 37*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].worldY =  38*gp.tileSize;
+					gp.npc[gp.silvioVillage][i].speed = 1;
+					gp.npc[gp.silvioVillage][i].currentSearchPath = NPC_Princess.chase_player;
+					gp.npc[gp.silvioVillage][i].direction = "left";
+					break;
+				}
+			}
+			gp.eventHandler.transition(gp.silvioVillage, 36, 38, gp.outside);
+			scenePhase++;
+		}
+		if(scenePhase == 21) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && gp.npc[gp.forest][i].name.equals(NPC_Princess.NPC_Name)) {
+					gp.npc[gp.forest][i]= null;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 22) {
+//			gp.gameState = gp.cutSceneState;
+			gp.player.direction = "down";
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] == null) {
+					gp.npc[gp.silvioHouse][i] = new NPC_Princess(gp);
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Princess.playerRequestD;
+					gp.npc[gp.silvioHouse][i].worldX = 19*gp.tileSize;
+					gp.npc[gp.silvioHouse][i].worldY =  22*gp.tileSize;
+					gp.npc[gp.silvioHouse][i].speed = 0;
+					gp.npc[gp.silvioHouse][i].currentSearchPath = NPC_Princess.pathOFF;
+					gp.npc[gp.silvioHouse][i].direction = "down";
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 23) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioVillage][i] != null && gp.npc[gp.silvioVillage][i].name.equals(NPC_Princess.NPC_Name)) {
+					gp.npc[gp.silvioVillage][i]= null;
+					break;
+				}
+			}
+			if(gp.gameState == gp.playState) scenePhase++;
+		}
+		if(scenePhase == 24) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.direction = "left";
+			gp.gui.npc.lockDirection = true;
+			setGuiNpc(NPC_Hermit.NPC_Name);
+			gp.gui.npc.direction = "right";
+			gp.gui.npc.lockDirection = true;
+			gp.gameState = gp.cutSceneState;
+			gp.gui.npc.dialogueSet = NPC_Hermit.princessReunitedA;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 25) {
+			gp.gameState = gp.cutSceneState;
+			showInfoScreen(NPC_Narrator.playerRequestB);
+		}
+		if(scenePhase == 26) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestE;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 27) {
+			gp.gameState = gp.fadeIN;
+			scenePhase++;
+			
+		}
+		if(scenePhase == 28) {
+			if(gp.gameState == gp.playState) 
+				scenePhase++;
+		}
+		if(scenePhase == 29) {
+			gp.gameState = gp.cutSceneState;
+			showInfoScreen(NPC_Narrator.playerRequestC);
+		}
+		if(scenePhase == 30) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerRequestF;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 31) {
+			GameProgress.princessReunited = true;
+			endScene();
+		}
+		
+		
+		
+		
+//		setGuiNpc(NPC_Knight.NPC_Name);
+//		gp.gui.npc.dialogueSet = NPC_Knight.princessReunitedA;
+//		gp.gui.dialogueScreen(false);
+	}
+	
+	public void princessCraft() {
+		System.out.println("Sinpeys: " + scenePhase);
+		System.out.println("from cutscene class");
+		if(scenePhase == 0) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerCraftA;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 1) {
+			int meatAmmount = 0;
+			if(gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName))
+				meatAmmount = gp.player.inventory.get(gp.player.searchItemInInventory(ITM_TrenkMeat.objName)).ammount;
+			boolean hasWoodSword = gp.player.itemIsInsideInventory(OBJ_Wooden_Sword.objName);
+			boolean hasIronSword = gp.player.itemIsInsideInventory(OBJ_Iron_Sword.objName);
+			
+			if(hasWoodSword && hasIronSword && meatAmmount >= 25) {
+				scenePhase+=3;
+			} else scenePhase++;
+		}
+		if(scenePhase == 2) {
+			//don't create
+			gp.gui.npc.dialogueSet = NPC_Princess.playerCraftB;
+			gp.gui.dialogueScreen(false);
+			
+		}
+		if(scenePhase == 3) {
+			gp.gui.npc.direction = "left";
+			endScene();
+		}
+		if(scenePhase == 4) {
+			//create
+			gp.gui.npc.dialogueSet = NPC_Princess.playerCraftC;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 5) {
+			gp.player.inventory.add(new OBJ_TerraBlade(gp));
+			gp.player.inventory.add(new ITM_VorpalStone(gp)); 
+			scenePhase++;
+		}
+		if(scenePhase == 6) showInfoScreen(NPC_Narrator.receiveTerra);
+		if(scenePhase == 7) {
+			int itemIndex = gp.player.searchItemInInventory(ITM_TrenkMeat.objName);
+			gp.player.inventory.remove(itemIndex);
+			scenePhase++;
+		}
+		if(scenePhase == 8) {
+			int itemIndex = gp.player.searchItemInInventory(OBJ_Iron_Sword.objName);
+			gp.player.inventory.remove(itemIndex);
+			scenePhase++;
+		}
+		if(scenePhase == 9) {
+			int itemIndex = gp.player.searchItemInInventory(OBJ_Wooden_Sword.objName);
+			gp.player.inventory.remove(itemIndex);
+			scenePhase++;
+		}
+		if(scenePhase == 10) {
+			setGuiNpc(NPC_Princess.NPC_Name);
+			gp.gui.npc.dialogueSet = NPC_Princess.playerCraftD;
+			gp.gui.dialogueScreen(false);
+		}
+		if(scenePhase == 11) {
+			endScene();
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//UTILS
 	public void showInfoScreen(int dialogueSet) {
 		gp.gui.npc = gp.narrator;
 		gp.gui.npc.dialogueSet = dialogueSet;
 		gp.gui.informationScreen();
 	}
+
+
 	public void endScene() {
 		gp.gameState = gp.playState;
 		sceneNum = NONE;
@@ -1639,6 +1978,7 @@ public class CutSceneHandler {
 		case princessEncounter: princessEncounter(); break;
 		case reportWarning: reportWarning(); break;
 		case witchReport: witchReport(); break;
-		}
+		case princessReunited: princessReunited(); break;
+		case princessCraft: princessCraft(); break;		}
 	}
 }

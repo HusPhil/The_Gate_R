@@ -51,8 +51,6 @@ public class EventHandler {
 				if(row == gp.maxWorldRow) {
 					row = 0; map++;
 					}
-				
-				
 			}
 		}
 
@@ -69,207 +67,297 @@ public class EventHandler {
 			
 			//WorldMapA
 			if(gp.currentMap == gp.worldMapA) {
-//				SAVING EVENT
-				if(eventCollision(gp.worldMapA, 33, 29, "any")) {
-					gp.player.startDialogue(gp.player, 2);
-					
-					if(gp.gameState == gp.dialogueState && !gp.keys.yesOn) {
-						dialogue_type = dt_save;
-							
-						touchEventON = false;
-					}
-				}
-				else if(eventCollision(gp.worldMapA, 14, 39, "up")) transition(gp.merchantHouse, 24, 23, gp.indoor);
-				else if(eventCollision(gp.worldMapA, 35, 37, "right")) transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
+				worldMapAEvents();
 			}
 			
 			//Merchant House
 			else if(gp.currentMap == gp.merchantHouse) {
-				if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.silvioVillage, 35, 15, gp.outside);
-				else if(eventCollision(gp.merchantHouse, 18, 20, "up")) {
-					gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
-					touchEventON = false;
-				}
-				
+				merchantHouseEvents();
 			}
 			//Dungeon F1
 			else if(gp.currentMap == gp.dungeonMap_F1) {
-				if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.maze, 37, 9, gp.dungeon);
-				else if(eventCollision(gp.dungeonMap_F1, 12, 9, "left")) transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
-				
+				dungeonF1events();
 			}
 			//DUngeon F2
 			else if(gp.currentMap == gp.dungeonMap_F2) {
-				if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
-				else if(eventCollision(gp.dungeonMap_F2, 27, 29, "any")) CS_skeletonLord();
-				else if(eventCollision(gp.dungeonMap_F2, 12, 12, "left")) transition(gp.princessCage, 29, 16, gp.dungeon);
+				dungeonF2Events();
 			}
 			
 			else if(gp.currentMap == gp.corrupted1) {
-				if(eventCollision(gp.corrupted1, 27, 25, "down")) {
-					CS_oldManEncounter();
-					touchEventON = false;
-				}
-				else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,gp.tileSize,gp.tileSize)) {
-					CS_oldManExplain();
-				}
+				corrupterArea1Events();
+				
 			}
 			
 			else if(gp.currentMap == gp.silvioVillage) {
-				if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
-					if(gp.gameState != gp.cutSceneState)
-					transition(gp.silvioHouse, 24, 23, gp.indoor);
-				}
-				else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
-					transition(gp.silvioHouse, 24, 40, gp.indoor);
-					
-				}
-				else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
-					CS_axeHint();
-					touchEventON = false;
-				}
+				silvioVillageEvents();
 			}
 			
 			else if(gp.currentMap == gp.silvioHouse) {
-				if(eventCollision(gp.silvioHouse, 30, 6, "right")) transition(gp.forest, 12, 10, gp.outside);
-				else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
-					transition(gp.silvioVillage, 28, 12, gp.outside);
-				}
-				else if(eventCollision(gp.silvioHouse, 24, 41, "any")) {
-					
-					transition(gp.silvioVillage, 36, 38, gp.outside);
-				}
-				else if(eventCollision(gp.silvioHouse, 30, 34, "any")) {
-					transition(gp.silvioHouse, 17, 6, gp.dungeon);
-				}
-				else if(eventCollision(gp.silvioHouse, 16, 6, "any")) {
-					transition(gp.silvioHouse, 29, 34, gp.indoor);
-				}
-				else if(eventCollision(gp.silvioHouse, 18, 37, "any")) {
-					if(!GameProgress.witchQuest1Complete) {
-						if(gp.player.itemIsInsideInventory(ITM_SlimeGel.objName) && gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName)) {
-							CS_witchQuest1Complete();
-						}
-						else CS_witchEncounter();
-						touchEventON = false;
-					}
-					else {
-						if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
-							if(gp.player.itemIsInsideInventory(ITM_Bandage.objName)) {
-								CS_witchGolemDefeated();
-							}
-							touchEventON = false;
-						}
-						else if(GameProgress.waterCrystalActivated && !GameProgress.princessEncountered) {
-							CS_witchPrincessInfo();
-							touchEventON = false;
-						}
-						else if(GameProgress.defeatedSkeletonLord && GameProgress.princessEncountered) {
-							if(gp.player.itemIsInsideInventory(ITM_EvilSkull.objName))
-								CS_witchReport();
-							touchEventON = false;
-						}
-						
-						else {
-							for(int i = 0; i < gp.npc[1].length; i++) {
-								if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(NPC_Witch.NPC_Name)) {
-									gp.npc[gp.currentMap][i].startDialogue(gp.npc[gp.currentMap][i], gp.npc[gp.currentMap][i].dialogueSet);
-									break;
-								}
-							}
-						}
-							
-					}
-					touchEventON = false;
-					
-				}
-				else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
-					if(GameProgress.witchQuest1Complete && !GameProgress.oldManQuest2Explained) CS_oldManQuest2();
-					else if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
-						if(gp.player.itemIsInsideInventory(ITM_WaterCrystal.objName))
-						CS_waterCrystal();
-					}
-					
-					touchEventON = false;
-				}
-				
-				
+				silvioHouseEvents();
 			}
 			
 			else if(gp.currentMap == gp.forest) {
-				if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
-				else if(eventCollision(gp.forest, 36, 32, "right", 0, 0, gp.tileSize, gp.tileSize)) {
-					transition(gp.sacredRiver, 11, 13, gp.outside);
-				}
-				else if(eventCollision(gp.forest, 33, 23, "up")) {
-					CS_knightEncounter();
-				}
-				else if(eventCollision(gp.forest, 38, 11, "right")) {
-					transition(gp.maze, 12, 9, gp.dungeon);
-				}
-				else if(eventCollision(gp.forest, 20, 35, "left")) {
-					transition(gp.princessCage, 19, 18, gp.dungeon);
-				}
-				else if(eventCollision(gp.forest, 21, 41, "down")) {
-					if(GameProgress.witchReported)
-						transition(gp.corrupted2, 11, 13, gp.outside);
-					else CS_reportWarning();
-				}
+				forestEvents();
 			}
 			
 			else if(gp.currentMap == gp.corrupted2) {
-				if(eventCollision(gp.corrupted2, 11, 12, "up")) transition(gp.forest, 21, 38, gp.outside);
-				else if(eventCollision(gp.corrupted2, 23, 29, "up", 0, 0, gp.tileSize, gp.tileSize + 5)) {
-					
-						transition(gp.princessKingdom, 24, 40, gp.indoor);
-					
-					
-
-				}
+				corruptedArea2Events();
 			}
 			
 			else if(gp.currentMap == gp.princessKingdom) {
-				if(eventCollision(gp.princessKingdom, 24, 41, "down")) transition(gp.corrupted2, 23, 30, gp.outside);
-				else if(eventCollision(gp.princessKingdom, 21, 20, "up", 0, 0, gp.tileSize*7, gp.tileSize )) {
-					System.out.print("call on the event");
-				}
+				princessKingdomEvents();
 			}
 			
 			else if(gp.currentMap == gp.sacredRiver) {
-				if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
-					transition(gp.forest, 37, 32, gp.outside);
-				}
-				else if(eventCollision(gp.sacredRiver, 13, 31, "left")) {
-					CS_waterGolem();
-					touchEventON = false;
-				}
-				
+				sacredRiverEvents();
 			}
 			
 			else if(gp.currentMap == gp.maze) {
-				if(eventCollision(gp.maze, 38, 9, "right")) {
-					transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
-				}
-				else if(eventCollision(gp.maze, 11, 9, "left")) {
-					transition(gp.forest, 37, 11, gp.outside);
-				}
-				
+				mazeEvents();
 			}
 			
 			else if(gp.currentMap == gp.princessCage) {
-				if(eventCollision(gp.princessCage, 30, 22, "up", 0, 0, gp.tileSize, gp.tileSize)) {
-					CS_princessEncounter();
-				}
-				else if(eventCollision(gp.princessCage, 20, 18, "right")) {
-					transition(gp.forest, 23, 38, gp.outside);
-				}
-				else if(eventCollision(gp.princessCage, 30, 16, "right")) {
-					transition(gp.dungeonMap_F2, 13, 12, gp.dungeon);
-				}
+				princessCageEvents();
 			}
 						
+			else if(gp.currentMap == gp.finalStage) {
+				finalStageEvent();
+			}
 		}
 	}
+	
+	private void princessCageEvents() {
+
+		if(eventCollision(gp.princessCage, 30, 22, "up", 0, 0, gp.tileSize, gp.tileSize)) {
+			CS_princessEncounter();
+		}
+		else if(eventCollision(gp.princessCage, 20, 18, "right")) {
+			transition(gp.forest, 21, 35, gp.outside);
+		}
+		else if(eventCollision(gp.princessCage, 30, 16, "right")) {
+			transition(gp.dungeonMap_F2, 13, 12, gp.dungeon);
+		}
+			
+	}
+
+	private void mazeEvents() {
+
+		if(eventCollision(gp.maze, 38, 9, "right")) {
+			transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
+		}
+		else if(eventCollision(gp.maze, 11, 9, "left")) {
+			transition(gp.forest, 37, 11, gp.outside);
+		}
+		
+	
+	}
+
+	private void sacredRiverEvents() {
+
+		if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
+			transition(gp.forest, 37, 32, gp.outside);
+		}
+		else if(eventCollision(gp.sacredRiver, 13, 31, "left")) {
+			CS_waterGolem();
+			touchEventON = false;
+		}
+		
+			
+	}
+
+	private void princessKingdomEvents() {
+
+		if(eventCollision(gp.princessKingdom, 24, 41, "down")) transition(gp.corrupted2, 23, 30, gp.outside);
+		else if(eventCollision(gp.princessKingdom, 21, 20, "up", 0, 0, gp.tileSize*7, gp.tileSize )) {
+			CS_princessReunited();
+		}
+			
+	}
+
+	private void corruptedArea2Events() {
+
+		if(eventCollision(gp.corrupted2, 11, 12, "up")) transition(gp.forest, 21, 38, gp.outside);
+		else if(eventCollision(gp.corrupted2, 23, 29, "up", 0, 0, gp.tileSize, gp.tileSize + 5)) {
+				transition(gp.princessKingdom, 24, 40, gp.indoor);
+		}
+			
+	}
+
+	private void forestEvents() {
+
+		if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
+		else if(eventCollision(gp.forest, 36, 32, "right", 0, 0, gp.tileSize, gp.tileSize)) {
+			transition(gp.sacredRiver, 11, 13, gp.outside);
+		}
+		else if(eventCollision(gp.forest, 33, 23, "up")) {
+			CS_knightEncounter();
+		}
+		else if(eventCollision(gp.forest, 38, 11, "right")) {
+			transition(gp.maze, 12, 9, gp.dungeon);
+		}
+		else if(eventCollision(gp.forest, 20, 35, "left")) {
+			transition(gp.princessCage, 19, 18, gp.dungeon);
+		}
+		else if(eventCollision(gp.forest, 21, 41, "down")) {
+			if(GameProgress.witchReported)
+				transition(gp.corrupted2, 11, 13, gp.outside);
+			else CS_reportWarning();
+		}
+			
+	}
+
+	private void silvioHouseEvents() {
+
+		if(eventCollision(gp.silvioHouse, 30, 6, "right")) transition(gp.forest, 12, 10, gp.outside);
+		else if(eventCollision(gp.silvioHouse, 24, 24, "any")) {
+			transition(gp.silvioVillage, 28, 12, gp.outside);
+		}
+		else if(eventCollision(gp.silvioHouse, 24, 41, "any")) {
+			
+			transition(gp.silvioVillage, 36, 38, gp.outside);
+		}
+		else if(eventCollision(gp.silvioHouse, 30, 34, "any")) {
+			transition(gp.silvioHouse, 17, 6, gp.dungeon);
+		}
+		else if(eventCollision(gp.silvioHouse, 16, 6, "any")) {
+			transition(gp.silvioHouse, 29, 34, gp.indoor);
+		}
+		else if(eventCollision(gp.silvioHouse, 18, 37, "any")) {
+			if(!GameProgress.witchQuest1Complete) {
+				if(gp.player.itemIsInsideInventory(ITM_SlimeGel.objName) && gp.player.itemIsInsideInventory(ITM_TrenkMeat.objName)) {
+					CS_witchQuest1Complete();
+				}
+				else CS_witchEncounter();
+				touchEventON = false;
+			}
+			else {
+				if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
+					if(gp.player.itemIsInsideInventory(ITM_Bandage.objName)) {
+						CS_witchGolemDefeated();
+					}
+					touchEventON = false;
+				}
+				else if(GameProgress.waterCrystalActivated && !GameProgress.princessEncountered) {
+					CS_witchPrincessInfo();
+					touchEventON = false;
+				}
+				else if(GameProgress.defeatedSkeletonLord && GameProgress.princessEncountered) {
+					if(gp.player.itemIsInsideInventory(ITM_EvilSkull.objName))
+						CS_witchReport();
+					touchEventON = false;
+				}
+				
+				else {
+					for(int i = 0; i < gp.npc[1].length; i++) {
+						if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(NPC_Witch.NPC_Name)) {
+							gp.npc[gp.currentMap][i].startDialogue(gp.npc[gp.currentMap][i], gp.npc[gp.currentMap][i].dialogueSet);
+							break;
+						}
+					}
+				}
+					
+			}
+			touchEventON = false;
+			
+		}
+		else if(eventCollision(gp.silvioHouse, 22, 19, "any")) {
+			if(!GameProgress.witchReported) {
+				if(GameProgress.witchQuest1Complete && !GameProgress.oldManQuest2Explained) CS_oldManQuest2();
+				else if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
+					if(gp.player.itemIsInsideInventory(ITM_WaterCrystal.objName))
+					CS_waterCrystal();
+				}
+			}
+			touchEventON = false;
+		}
+		
+		
+			
+	}
+
+	private void silvioVillageEvents() {
+
+		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
+			if(gp.gameState != gp.cutSceneState)
+			transition(gp.silvioHouse, 24, 23, gp.indoor);
+		}
+		else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
+			transition(gp.silvioHouse, 24, 40, gp.indoor);
+			
+		}
+		else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
+			if(gp.csHandler.sceneNum == gp.csHandler.princessReunited) {
+				transition(gp.silvioHouse, 18, 21, gp.indoor);
+				gp.csHandler.scenePhase++;
+			}
+			else CS_axeHint();
+			touchEventON = false;
+		}
+			
+	}
+
+	private void corrupterArea1Events() {
+
+		if(eventCollision(gp.corrupted1, 27, 25, "down")) {
+			CS_oldManEncounter();
+			touchEventON = false;
+		}
+		else if(eventCollision(gp.corrupted1, 14, 29, "down", 0,0,gp.tileSize,gp.tileSize)) {
+			CS_oldManExplain();
+		}
+			
+	}
+
+	private void dungeonF2Events() {
+
+		if(eventCollision(gp.dungeonMap_F2, 12, 21, "left")) transition(gp.dungeonMap_F1, 13, 9, gp.dungeon);
+		else if(eventCollision(gp.dungeonMap_F2, 27, 29, "any")) CS_skeletonLord();
+		else if(eventCollision(gp.dungeonMap_F2, 12, 12, "left")) transition(gp.princessCage, 29, 16, gp.dungeon);
+			
+	}
+
+	private void dungeonF1events() {
+
+		if(eventCollision(gp.dungeonMap_F1, 12, 40, "left")) transition(gp.maze, 37, 9, gp.dungeon);
+		else if(eventCollision(gp.dungeonMap_F1, 12, 9, "left")) transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
+		
+			
+	}
+
+	private void merchantHouseEvents() {
+
+		if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.silvioVillage, 35, 15, gp.outside);
+		else if(eventCollision(gp.merchantHouse, 18, 20, "up")) {
+			gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
+			touchEventON = false;
+		}
+		
+			
+	}
+
+	private void worldMapAEvents() {
+
+//		SAVING EVENT
+		if(eventCollision(gp.worldMapA, 33, 29, "any")) {
+			gp.player.startDialogue(gp.player, 2);
+			
+			if(gp.gameState == gp.dialogueState && !gp.keys.yesOn) {
+				dialogue_type = dt_save;
+					
+				touchEventON = false;
+			}
+		}
+		else if(eventCollision(gp.worldMapA, 14, 39, "up")) transition(gp.merchantHouse, 24, 23, gp.indoor);
+		else if(eventCollision(gp.worldMapA, 35, 37, "right")) transition(gp.dungeonMap_F1, 13, 40, gp.dungeon);
+			
+	}
+
+	private void finalStageEvent() {
+		if(eventCollision(gp.finalStage, 36, 26, "any", 0, 0, gp.tileSize, gp.tileSize/2)) {
+			transition(gp.finalStage, 25, 20, gp.outside);
+		}
+	}
+	
 	public boolean eventCollision(int map, int eventCol, int eventRow, String reqDirection) {
 		setEventRectangle((gp.tileSize/2)-5, (gp.tileSize/2)-5,5,5);
 		
@@ -476,5 +564,10 @@ public class EventHandler {
 	private void CS_witchReport() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchReport;
+	}
+	
+	private void CS_princessReunited() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.princessReunited;
 	}
 }

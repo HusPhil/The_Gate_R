@@ -34,6 +34,8 @@ import object.OBJ_IronDoor;
 import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
+import object.OBJ_Statue;
+import object.OBJ_TerraBlade;
 import object.OBJ_Throne;
 import object.OBJ_Iron_Shield;
 import object.OBJ_Iron_Sword;
@@ -170,6 +172,10 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 30*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 22*gp.tileSize; i++;
 		
+		gp.gameObjs[mapNum][i] = new OBJ_TerraBlade(gp);
+		gp.gameObjs[mapNum][i].worldX = 28*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
+		
 		i = 0;
 		mapNum = gp.corrupted2;
 		gp.gameObjs[mapNum][i] = new OBJ_Castle(gp);
@@ -195,6 +201,16 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new OBJ_FireAmulet(gp);
 		gp.gameObjs[mapNum][i].worldX = 23*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 34*gp.tileSize; i++;
+		
+		i = 0;
+		mapNum = gp.finalStage;
+		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
+		gp.gameObjs[mapNum][i].worldX = 19*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
+		
+		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
+		gp.gameObjs[mapNum][i].worldX = 27*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
 
 	}
 	public void makeNpc() {

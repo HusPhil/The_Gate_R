@@ -27,6 +27,7 @@ public class KeyHandler implements KeyListener {
 	public boolean debugPressed;
 	public int pressTime = 0;
 	public int delayCounter = 0;
+	public boolean keyFreeze = false;
 	
 	GamePanel gp;
 	public KeyHandler(GamePanel gp) {
@@ -62,7 +63,7 @@ public class KeyHandler implements KeyListener {
 		
 		//KEYS DURING PLAYSTATE
 		else if(gp.gameState == gp.playState) {
-			playStateKeys(code);
+			if(!keyFreeze) playStateKeys(code);
 		}
 		
 		//KEYS DURING OPTIONS
@@ -264,8 +265,11 @@ public class KeyHandler implements KeyListener {
 			
 			break;
 		case KeyEvent.VK_T: talkOn = true; break;
-		case KeyEvent.VK_ENTER: enterPressed = true; 
-			if(gp.player.attacking == false) gp.player.spriteNum = 1; 
+		case KeyEvent.VK_ENTER: 
+			if(!keyFreeze) {
+				enterPressed = true; 
+				if(gp.player.attacking == false) gp.player.spriteNum = 1; 
+			}
 			break;
 		case KeyEvent.VK_Y: yesOn = true; break;
 		case KeyEvent.VK_C: 

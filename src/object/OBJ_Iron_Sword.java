@@ -25,8 +25,8 @@ public class OBJ_Iron_Sword extends Entity{
 		attackAreaY.width = 18;
 		attackAreaY.height = 36;
 		
-		motion_duration1 = 4;
-		motion_duration2 = 8;
+		motion_duration1 = 8;
+		motion_duration2 = 10;
 	}
 
 }

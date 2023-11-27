@@ -37,6 +37,12 @@ public class NPC_Narrator extends Entity{
 	public static final int princessEncounterD = 27;
 	public static final int witchReportedA = 28;
 	public static final int receiveFireAmulet = 29;
+	
+	public static final int playerRequestA = 30;
+	public static final int playerRequestB = 31;
+	public static final int playerRequestC = 32;
+	
+	public static final int receiveTerra = 33;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -165,6 +171,17 @@ public class NPC_Narrator extends Entity{
 		dialogues[receiveFireAmulet][j] = "You received a Fire Amulet!"; j++;
 		dialogues[receiveFireAmulet][j] = "Equip it and now you can use magic!"; j++;
 		dialogues[receiveFireAmulet][j] = "(Press F to use magic)"; j++;
+		
+		j = 0;
+		dialogues[playerRequestA][j] = "You told them about the Water Crystal"; j++;
+		j = 0;
+		dialogues[playerRequestB][j] = "Silvio gave the Water Crystal to her"; j++;
+		j = 0;
+		dialogues[playerRequestC][j] = "She examined the Water Crystal"; j++;
+		
+		j = 0;
+		dialogues[receiveTerra][j] = "You received a Terra Blade!"; j++;
+		dialogues[receiveTerra][j] = "You received a Vorpal Stone!"; j++;
 	}
 
 }

@@ -17,6 +17,7 @@ import object.ITM_Key;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkAmulet;
 import object.ITM_TrenkMeat;
+import object.ITM_VorpalStone;
 import object.ITM_WaterCrystal;
 import object.ITM_WaterEssence;
 import object.OBJ_Chest;
@@ -25,6 +26,7 @@ import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
+import object.OBJ_TerraBlade;
 import object.OBJ_Iron_Axe;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
@@ -254,6 +256,27 @@ public class Player extends Entity{
 			attackRight3 = createImage("player", "attacking/PA_right2", gp.tileSize*2, gp.tileSize);
 			attackRight4 = createImage("player", "attacking/PA_right3", gp.tileSize*2, gp.tileSize);
 		}
+		if(currentWeapon.name == OBJ_TerraBlade.objName) {
+			attackUp1 = createImage("player", "attacking/terra_blade/up0", gp.tileSize, gp.tileSize*2);
+			attackUp2 = createImage("player", "attacking/terra_blade/up1", gp.tileSize, gp.tileSize*2);
+			attackUp3 = createImage("player", "attacking/terra_blade/up2", gp.tileSize, gp.tileSize*2);
+			attackUp4 = createImage("player", "attacking/terra_blade/up3", gp.tileSize, gp.tileSize*2);
+			
+			attackDown1 = createImage("player", "attacking/terra_blade/down0", gp.tileSize, gp.tileSize*2);
+			attackDown2 = createImage("player", "attacking/terra_blade/down1", gp.tileSize, gp.tileSize*2);
+			attackDown3 = createImage("player", "attacking/terra_blade/down2", gp.tileSize, gp.tileSize*2);
+			attackDown4 = createImage("player", "attacking/terra_blade/down3", gp.tileSize, gp.tileSize*2);
+			
+			attackLeft1 = createImage("player", "attacking/terra_blade/left0", gp.tileSize*2, gp.tileSize);
+			attackLeft2 = createImage("player", "attacking/terra_blade/left1", gp.tileSize*2, gp.tileSize);
+			attackLeft3 = createImage("player", "attacking/terra_blade/left2", gp.tileSize*2, gp.tileSize);
+			attackLeft4 = createImage("player", "attacking/terra_blade/left3", gp.tileSize*2, gp.tileSize);
+			
+			attackRight1 = createImage("player", "attacking/terra_blade/right0", gp.tileSize*2, gp.tileSize);
+			attackRight2 = createImage("player", "attacking/terra_blade/right1", gp.tileSize*2, gp.tileSize);
+			attackRight3 = createImage("player", "attacking/terra_blade/right2", gp.tileSize*2, gp.tileSize);
+			attackRight4 = createImage("player", "attacking/terra_blade/right3", gp.tileSize*2, gp.tileSize);
+		}
 		if(currentWeapon.name == OBJ_Iron_Sword.objName) {
 			attackUp1 = createImage("player", "attacking/ironPA_up0", gp.tileSize, gp.tileSize*2);
 			attackUp2 = createImage("player", "attacking/ironPA_up1", gp.tileSize, gp.tileSize*2);
@@ -347,16 +370,15 @@ public class Player extends Entity{
 		inventory.add(new ITM_SlimeGel(gp));
 		inventory.get(4).ammount = 5;
 		inventory.add(new ITM_TrenkMeat(gp)); 
-		inventory.get(5).ammount = 5;
+		inventory.get(5).ammount = 25;
 		inventory.add(new ITM_Bandage(gp));
 		inventory.get(6).ammount = 10;
 		inventory.add(new ITM_FireGel(gp));
 		inventory.get(7).ammount = 10;
 		inventory.add(new OBJ_Iron_Axe(gp));
 		inventory.add(new OBJ_Pickaxe(gp));
-		inventory.add(new ITM_WaterEssence(gp));
-		inventory.add(new ITM_TrenkAmulet(gp));
-		inventory.add(new ITM_EvilSkull(gp));
+		inventory.add(new OBJ_Iron_Sword(gp));
+		inventory.add(new ITM_VorpalStone(gp));
 	}
 	
 	public void attackState() {

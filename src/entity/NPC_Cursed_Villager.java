@@ -74,8 +74,6 @@ public class NPC_Cursed_Villager extends Entity{
 				actionDelay = 0;
 			}
 			break;
-		case oldManFreed: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
-		case oldManExplain: searchPath(27,27); break;
 		}
 		
 	}

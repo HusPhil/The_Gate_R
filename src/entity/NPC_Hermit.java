@@ -33,6 +33,7 @@ public class NPC_Hermit extends Entity{
 	public static final int waterCrystalC = 22;
 	public static final int waterCrystalD = 23;
 	public static final int defeatedSkeletonA = 24;
+	public static final int princessReunitedA = 25;
 	
 
 	//SearchPaths
@@ -97,16 +98,18 @@ public class NPC_Hermit extends Entity{
 			if(actionDelay == 120 ) {
 				int n = rN.nextInt(100)+1;
 				
-				if(n<=25) direction = "up";
-				if(n>=25 && n<=50) direction = "down";
-				if(n>=50 && n<=75) direction = "left";
-				if(n>=75 && n<=100) direction = "right";
-				actionDelay = 0;
+				if(!lockDirection) {
+					if(n<=25) direction = "up";
+					if(n>=25 && n<=50) direction = "down";
+					if(n>=50 && n<=75) direction = "left";
+					if(n>=75 && n<=100) direction = "right";
+					actionDelay = 0;
+				}
 			}
 			break;
-		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
-		case oldManExplain: searchPath(27,27); break;
-		case oldManFindHome: searchPath(28,12); break;
+		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY(), false); break;
+		case oldManExplain: searchPath(27,27, false); break;
+		case oldManFindHome: searchPath(28,12, false); break;
 		}
 		
 //		else {
@@ -177,6 +180,8 @@ public class NPC_Hermit extends Entity{
 		dialogues[thanking][i] = "You see, this is stil Earth.. 150 years from your age."; i++;
 		dialogues[thanking][i] = "However, this area of the world has now became "
 				+ "\ncorrupted because people failed to fulfill the SDGs."; i++;
+		dialogues[thanking][i] = "Giving rise to a realm where sorcery offered\n"
+				+ "both sanctuary and danger."; i++;
 		dialogues[thanking][i] = "Maybe it was destined that a young man, such as "
 				+ "\nyourself, will save this now corrupted world and "
 				+ "\ntell the tales of your adventure to your people"
@@ -243,7 +248,7 @@ public class NPC_Hermit extends Entity{
 		i = 0;
 		dialogues[oldManQ2c][i] = "I see, she told you about the Harmonial Principles.."; i++;
 		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also\n"
-				+ "true. That monster is the root of all of this. Hence, you\n"
+				+ "true. That Trenk God is the root of all of this. Hence, you\n"
 				+ "must hurry and kill that monster as soon as possible!"; i++;
 		
 		dialogues[oldManQ2c][i] = "Well, for now, let us try and break the curse first!"; i++;
@@ -317,12 +322,25 @@ public class NPC_Hermit extends Entity{
 		dialogues[defeatedSkeletonA][i] = "The Skeleton Lord is much stronger than\n"
 				+ "the Golem, but you still managed to slay it?!"; i++;
 		dialogues[defeatedSkeletonA][i] = "But what about the water issue?"; i++;
+		
+		i = 0;
+		dialogues[princessReunitedA][i] = "...!"; i++;
+		dialogues[princessReunitedA][i] = "You're back again..!"; i++;
+		dialogues[princessReunitedA][i] = "Is this the person who will help us, young man?"; i++;
+		dialogues[princessReunitedA][i] = "Isn't this Princess Riri..!"; i++;
+		dialogues[princessReunitedA][i] = "The girl blessed by the Gods, the one with the highest\n"
+				+ "affinity to magic in the whole land?!"; i++;
+		dialogues[princessReunitedA][i] = "..."; i++;
+		dialogues[princessReunitedA][i] = "Princess, please help us! This water crystal, I can't\n"
+				+ "seem to activate it having low affinity to magic!"; i++;
 	}
 	public void speak() {
 		facePlayer();
 		startDialogue(this, dialogueSet);
 	}	
 	public void update() {
+		
+		
 		super.update();
 		if(GameProgress.waterGolemDefeated) dialogueSet = defeatedGolemA;
 	}

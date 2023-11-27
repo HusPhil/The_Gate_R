@@ -11,6 +11,11 @@ public class NPC_Knight extends Entity{
 	public static final int princessInfoB = 1;
 	public static final int princessInfoC = 2;
 	public static final int princessBackA = 3;
+	
+	public static final int princessReunitedA = 4;
+	public static final int princessReunitedB = 5;
+	public static final int princessReunitedC = 6;
+	public static final int princessReunitedD = 7;
 
 	
 	public static final int find_home = 2;
@@ -56,7 +61,7 @@ public class NPC_Knight extends Entity{
 	
 	public void setAction() {
 		switch (currentSearchPath) {
-		case find_home: searchPath(21,40); break;
+		case find_home: searchPath(21,42, false); break;
 		case pathOFF: 
 			
 			actionDelay++;
@@ -98,7 +103,47 @@ public class NPC_Knight extends Entity{
 		dialogues[princessBackA][i] = "...!"; i++;
 		dialogues[princessBackA][i] = "Princess! You're back!"; i++;
 		dialogues[princessBackA][i] = "I can't belive it..!"; i++;
-
+		
+		i = 0;
+		dialogues[princessReunitedA][i] = 
+				"There's no need to be sad, Princess.."; i++;
+		dialogues[princessReunitedA][i] = 
+				"The King and the Queen surely is in a much\n"
+				+ "better place now.."; i++;
+		dialogues[princessReunitedA][i] = 
+				"And I'm sure you can be a great ruler as they were.."; i++;
+		dialogues[princessReunitedA][i] = 
+				"..."; i++;
+		dialogues[princessReunitedA][i] = 
+				"Right, you said something about stealing a magic item\n"
+				+ "in the cage of that Skeleton Monster.."; i++;
+		dialogues[princessReunitedA][i] = 
+				"Can it really be used to beat the Trenk God and\n"
+				+ "stop this madness?"; i++;
+				
+		i = 0;
+		dialogues[princessReunitedB][i] = 
+				"...!"; i++;
+		dialogues[princessReunitedB][i] = 
+				"Y-you're here!"; i++;
+		
+		i = 0;
+		dialogues[princessReunitedC][i] = 
+				"..."; i++;
+		dialogues[princessReunitedC][i] = 
+				"I see, you said you have something to ask\n"
+				+ "from the princess when we met.."; i++;
+		dialogues[princessReunitedC][i] = 
+				"I'm sorry for forgetting about that.."; i++;
+				
+		i = 0;
+		dialogues[princessReunitedD][i] = 
+				"...!"; i++;
+		dialogues[princessReunitedD][i] = 
+					"Princess..! You cannot go!"; i++;
+		dialogues[princessReunitedD][i] = 
+				"Please, atleast let me be by your side!"; i++;
+				
 	}
 	public void speak() {
 		facePlayer();
@@ -106,6 +151,7 @@ public class NPC_Knight extends Entity{
 	}	
 	public void update() {
 		super.update();
+		setAction();
 		if(gp.currentMap == gp.princessKingdom) {
 			direction = "down";
 			spriteNum = 1;

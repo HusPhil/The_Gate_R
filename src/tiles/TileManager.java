@@ -53,6 +53,7 @@ public class TileManager {
 	    loadMap("/maps/princessCage.txt", gp.princessCage);
 	    loadMap("/maps/corrupted2.txt", gp.corrupted2);
 	    loadMap("/maps/princessKingdom.txt", gp.princessKingdom);
+	    loadMap("/maps/finalStage.txt", gp.finalStage);
 	}
 
 	private void loadTileData(String filePath) {

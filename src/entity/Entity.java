@@ -65,6 +65,7 @@ public class Entity {
 		
 	//Entity State
 	public boolean contactOn = false;
+	public boolean lockDirection = false;
 	public boolean temp = false;
 	public boolean drawing = true;
 	public boolean collisionOn = false;
@@ -528,7 +529,7 @@ public class Entity {
 			gp.particleList.add(particleC);		
 			gp.particleList.add(particleD);		
 	}
-	public void searchPath(int goalCol, int goalRow) {
+	public void searchPath(int goalCol, int goalRow, boolean chase) {
 		int startCol = (worldX + solidArea.x)/gp.tileSize;
 		int startRow = (worldY + solidArea.y)/gp.tileSize;
 		
@@ -598,10 +599,16 @@ public class Entity {
 					direction = "right";
 				}
 			}
+//			int currentX =  (worldX + solidArea.x) / gp.tileSize;
+//			int currentY = (worldY + solidArea.y) / gp.tileSize;;
+//			int newRow = 0;
+//			int newCol = 0;
+			
 			int nextCol =  gp.pathFinder.pathList.get(0).col;
 			int nextRow = gp.pathFinder.pathList.get(0).row;
 			
-			if(nextCol == goalCol && nextRow == goalRow) {
+			if(nextCol+gp.tileSize == goalCol+gp.tileSize && nextRow+gp.tileSize == goalRow+gp.tileSize) {
+				if(!chase)
 				currentSearchPath = pathOFF;
 				System.out.println(worldX/gp.tileSize+ "::"+ worldY/gp.tileSize);
 			}

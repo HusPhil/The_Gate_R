@@ -93,6 +93,15 @@ public class ObjectGenerator {
 		case ITM_FireGel.objName:
 			obj = new ITM_FireGel(gp);
 			break;
+		case OBJ_TerraBlade.objName:
+			obj = new OBJ_TerraBlade(gp);
+			break;
+		case ITM_Wood.objName:
+			obj = new ITM_Wood(gp);
+			break;
+		case ITM_VorpalStone.objName:
+			obj = new ITM_VorpalStone(gp);
+			break;
 			
 			
 		}

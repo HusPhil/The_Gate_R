@@ -2,7 +2,9 @@ package entity;
 
 import java.awt.Rectangle;
 
+import DataHandling.GameProgress;
 import main.GamePanel;
+import object.OBJ_TerraBlade;
 import object.SKL_MudBall;
 
 public class NPC_Princess extends Entity{
@@ -10,11 +12,24 @@ public class NPC_Princess extends Entity{
 	public static final int thankPlayerA = 0;
 	public static final int thankPlayerB = 1;
 	public static final int thankPlayerC = 2;
-	public static final int thankPlayerD = 3;	
+	public static final int thankPlayerD = 3;
+	
+	public static final int playerRequestA = 4;
+	public static final int playerRequestB = 5;
+	public static final int playerRequestC = 6;
+	public static final int playerRequestD = 7;
+	public static final int playerRequestE = 8;
+	public static final int playerRequestF = 9;
+	
+	public static final int playerCraftA = 10;
+	public static final int playerCraftB = 11;
+	public static final int playerCraftC = 12;
+	public static final int playerCraftD = 13;
 	
 	//SearchPath
 	public static final int find_player = 1;
 	public static final int find_home = 2;
+	public static final int chase_player = 3;
 
 	public static final String NPC_Name = "Princess Riri";
 	public NPC_Princess(GamePanel gp) {
@@ -61,17 +76,23 @@ public class NPC_Princess extends Entity{
 		case pathOFF: 
 			actionDelay++;
 			if(actionDelay == 120 ) {
-				int n = rN.nextInt(100)+1;
 				
-				if(n<=25) direction = "up";
-				if(n>=25 && n<=50) direction = "down";
-				if(n>=50 && n<=75) direction = "left";
-				if(n>=75 && n<=100) direction = "right";
-				actionDelay = 0;
+				if(!lockDirection) {
+					int n = rN.nextInt(100)+1;
+					
+					if(n<=25) direction = "up";
+					if(n>=25 && n<=50) direction = "down";
+					if(n>=50 && n<=75) direction = "left";
+					if(n>=75 && n<=100) direction = "right";
+					actionDelay = 0;
+				}
+				
+				
 			}
 			break;
-		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY()); break;
-		case find_home: searchPath(21,41); break;
+		case find_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY(), false); break;
+		case chase_player: searchPath(gp.player.getPlayerWordlX(), gp.player.getPlayerWordlY(), true); break;
+		case find_home: searchPath(21,41,false); break;
 		}
 		
 	}
@@ -98,11 +119,92 @@ public class NPC_Princess extends Entity{
 		dialogues[thankPlayerD][i] = "Until we meet again!"; i++;
 		
 		
+		i = 0;
+		dialogues[playerRequestA][i] = "..."; i++;
+		dialogues[playerRequestA][i] = "I'd be happy to help you, hero!"; i++;
+		dialogues[playerRequestA][i] = "Please, tell me how I could be of help"; i++;
+		
+		i = 0;
+		dialogues[playerRequestB][i] = "...!"; i++;
+		dialogues[playerRequestB][i] = "Wh-what did you just said?!"; i++;
+		dialogues[playerRequestB][i] = "You have a water crystal?!"; i++;
+		dialogues[playerRequestB][i] = "That's the final item that I need to open the\n"
+				+ "portal where the Trenk God resides!"; i++;
+		dialogues[playerRequestB][i] = "Please, take me with you! I need to use that crystal!"; i++;
+		
+		i = 0;
+		dialogues[playerRequestC][i] = "No, you have to take care of the castle\n"
+				+ "while I'm not here.."; i++;
+		
+		i = 0;
+		dialogues[playerRequestD][i] = "I'm sure nobody here is as strong as you, hero\n"
+				+ "I wouldn't worry going alone with you!"; i++;
+		dialogues[playerRequestD][i] = "Please take care of me, guide the way!"; i++;
+		
+		i = 0;
+		dialogues[playerRequestE][i] = "..."; i++;
+		dialogues[playerRequestE][i] = "Leave it to me, I shall do my best!"; i++;
+		
+		i = 0;
+		dialogues[playerRequestF][i] = "...!"; i++;
+		dialogues[playerRequestF][i] = "T-this water crystal..! I-it's"; i++;
+		dialogues[playerRequestF][i] = "It has no magic in it at all..!"; i++;
+		dialogues[playerRequestF][i] = "It may because you have successfully activated it, but\n"
+				+ "the evil power of the Trenk God is much stronger.."; i++;
+		dialogues[playerRequestF][i] = "..."; i++;
+		dialogues[playerRequestF][i] = "Fortunately, I could still make use of this to craft an item!"; i++;
+		dialogues[playerRequestF][i] = "Hero, go get me 25 Trenk Meats!"; i++;
+		dialogues[playerRequestF][i] = "I also need a Wooden Sword and an Iron Sword!"; i++;
+		dialogues[playerRequestF][i] = "I shall craft you a weapon that will kill that monster!"; i++;
+				
+				
+		i = 0;
+		dialogues[playerCraftA][i] = "You're back already?!"; i++;
+		dialogues[playerCraftA][i] = "Let's see if you have all the materials needed.."; i++;
+		
+		i = 0;
+		dialogues[playerCraftB][i] = "...!"; i++;
+		dialogues[playerCraftB][i] = "It seems you still have not gathered all of them"; i++;
+		dialogues[playerCraftB][i] = "Please come back when you are finished gathering\n"
+				+ "all the materials as I instructed."; i++;
+		dialogues[playerCraftB][i] = "Goodluck, Hero!"; i++;
+		
+		i = 0;
+		dialogues[playerCraftC][i] = "...!"; i++;
+		dialogues[playerCraftC][i] = "Wonderful! You have all that is needed!"; i++;
+		dialogues[playerCraftC][i] = "Please wait as I craft you the items!"; i++;
+		dialogues[playerCraftC][i] = "...!"; i++;
+		dialogues[playerCraftC][i] = "There..! A successful enchantment!"; i++;
+		dialogues[playerCraftC][i] = "Now, I shall also create tha magic item that will take you\n"
+				+ "where that monster resides.."; i++;
+		dialogues[playerCraftC][i] = "There..! Another successful enchantment!"; i++;
+				
+		i = 0;
+		dialogues[playerCraftD][i] = "Hero, once you have used this Vorpal Stone, you will\n"
+				+ "be teleported to the Trenk God's place.."; i++;
+		dialogues[playerCraftD][i] = "There's no going back then.."; i++;
+		dialogues[playerCraftD][i] = "The only way to return is to kill that monster.."; i++;
+		dialogues[playerCraftD][i] = "Prepare wisely before going to the battle field!"; i++;
+		dialogues[playerCraftD][i] = "I wish you all the luck, my hero!"; i++;
 	}
 	public void speak() {
+		
+		if(GameProgress.princessReunited && gp.currentMap == gp.silvioHouse) {
+			if(!gp.player.itemIsInsideInventory(OBJ_TerraBlade.objName))
+				CS_princessCraft();
+		}
+		else {
+			startDialogue(this, dialogueSet);
+		}
 		facePlayer();
-		startDialogue(this, dialogueSet);
 	}	
+	private void CS_princessCraft() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.princessCraft;
+	}
+	
+	
+	
 	public void update() {
 		super.update();
 		if(gp.currentMap == gp.princessKingdom) {
