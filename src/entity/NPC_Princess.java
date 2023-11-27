@@ -129,7 +129,7 @@ public class NPC_Princess extends Entity{
 		dialogues[playerRequestB][i] = "Wh-what did you just said?!"; i++;
 		dialogues[playerRequestB][i] = "You have a water crystal?!"; i++;
 		dialogues[playerRequestB][i] = "That's the final item that I need to open the\n"
-				+ "portal where the Trenk God resides!"; i++;
+				+ "portal where the Trenk Lord resides!"; i++;
 		dialogues[playerRequestB][i] = "Please, take me with you! I need to use that crystal!"; i++;
 		
 		i = 0;
@@ -150,7 +150,7 @@ public class NPC_Princess extends Entity{
 		dialogues[playerRequestF][i] = "T-this water crystal..! I-it's"; i++;
 		dialogues[playerRequestF][i] = "It has no magic in it at all..!"; i++;
 		dialogues[playerRequestF][i] = "It may because you have successfully activated it, but\n"
-				+ "the evil power of the Trenk God is much stronger.."; i++;
+				+ "the evil power of the Trenk Lord is much stronger.."; i++;
 		dialogues[playerRequestF][i] = "..."; i++;
 		dialogues[playerRequestF][i] = "Fortunately, I could still make use of this to craft an item!"; i++;
 		dialogues[playerRequestF][i] = "Hero, go get me 25 Trenk Meats!"; i++;
@@ -181,7 +181,7 @@ public class NPC_Princess extends Entity{
 				
 		i = 0;
 		dialogues[playerCraftD][i] = "Hero, once you have used this Vorpal Stone, you will\n"
-				+ "be teleported to the Trenk God's place.."; i++;
+				+ "be teleported to the Trenk Lord's palace.."; i++;
 		dialogues[playerCraftD][i] = "There's no going back then.."; i++;
 		dialogues[playerCraftD][i] = "The only way to return is to kill that monster.."; i++;
 		dialogues[playerCraftD][i] = "Prepare wisely before going to the battle field!"; i++;

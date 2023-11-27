@@ -14,12 +14,13 @@ import object.SKL_MudBall;
 public class MON_Trenklin extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
+	public static String monName = "Trenklin";
 	public MON_Trenklin(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Trenklin";
+		name = monName;
 		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxLife = 25;

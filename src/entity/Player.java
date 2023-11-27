@@ -551,7 +551,6 @@ public class Player extends Entity{
 			atk = getAtk();
 			def = getDef();
 			projectile.atk +=10;
-			startDialogue(this, 0);
 			gp.gui.addMessage("You are now level " + level + "!");	
 			checkLvlUp();
 		}

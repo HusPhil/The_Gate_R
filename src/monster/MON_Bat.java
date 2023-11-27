@@ -9,16 +9,16 @@ import object.OBJ_Heart;
 public class MON_Bat extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
+	public static String monName = "bat";
 	public MON_Bat(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Bat";
 		defaultSpeed = 5;
 		speed = defaultSpeed;
 		maxLife = 15;
-		
+		name = monName;
 		life = maxLife;
 		atk = 5;
 		def = 1;

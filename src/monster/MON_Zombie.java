@@ -13,12 +13,13 @@ import object.SKL_MudBall;
 public class MON_Zombie extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
+	public static String monName = "Zombie";
 	public MON_Zombie(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Zombie";
+		name = monName;
 		defaultSpeed = 1;
 		speed = defaultSpeed;
 		maxLife = 25;

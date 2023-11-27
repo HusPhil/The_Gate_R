@@ -240,6 +240,8 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_M: 
 //			gp.DBMS.storeFileContentToDatabase("save.dat");
+			x = gp.player.worldX;	
+			
 			System.out.println("X:" + x + " Y: " + y); 
 			gp.tManager.reloadMaps();
 //			gp.DBMS.createPlayerData();

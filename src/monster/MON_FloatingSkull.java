@@ -1,5 +1,7 @@
 package monster;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
@@ -8,16 +10,16 @@ import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Shield;
 import object.SKL_MudBall;
 
-public class MON_FireSlime extends Entity{
+public class MON_FloatingSkull extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
-	public static String monName = "Fire Slime";
-	public MON_FireSlime(GamePanel gp) {
+	public static String monName = "Floating Skull";
+	public MON_FloatingSkull(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		defaultSpeed = 2;
+		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxLife = 16;
 		name = monName;
@@ -25,12 +27,16 @@ public class MON_FireSlime extends Entity{
 		atk = 2;
 		def = 1;
 		exp = 2;
+		debugOn = true;
 		
 		//SolidArea
-		solidArea.x = 0;
-		solidArea.y = 0;
-		solidArea.width = 38;
-		solidArea.height = 38;
+//		solidArea.x = 0;
+//		solidArea.y = 0;
+//		solidArea.width = 38;
+//		solidArea.height = 38;
+		
+		solidArea = new Rectangle((gp.tileSize/2)-4, gp.tileSize/2, ( gp.tileSize/2)+18, (gp.tileSize-(gp.tileSize/4))+8);
+		
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		projectile = new SKL_MudBall(gp);
@@ -52,25 +58,27 @@ public class MON_FireSlime extends Entity{
 		
 	}
 	public void getMonImage() {
-		down1 = createImage("monsters", "fire_slime0");
-		down2 = createImage("monsters", "fire_slime1");
-		down3 = createImage("monsters", "fire_slime0");
-		down4 = createImage("monsters", "fire_slime1");
+		down1 = createImage("monsters", "floating_skull/left0", 2*gp.tileSize, 2*gp.tileSize);
+		down2 = createImage("monsters", "floating_skull/left1", 2*gp.tileSize, 2*gp.tileSize);
+		down3 = createImage("monsters", "floating_skull/left2", 2*gp.tileSize, 2*gp.tileSize);
+		down4 = createImage("monsters", "floating_skull/left3", 2*gp.tileSize, 2*gp.tileSize);
+
+		left1 = createImage("monsters", "floating_skull/left0", 2*gp.tileSize, 2*gp.tileSize);
+		left2 = createImage("monsters", "floating_skull/left1", 2*gp.tileSize, 2*gp.tileSize);
+		left3 = createImage("monsters", "floating_skull/left2", 2*gp.tileSize, 2*gp.tileSize);
+		left4 = createImage("monsters", "floating_skull/left3", 2*gp.tileSize, 2*gp.tileSize);
 		
-		up1 = down1;
-		up2 = down2;
-		up3 = down3;
-		up4 = down4;
+		right1 = createImage("monsters", "floating_skull/right0", 2*gp.tileSize, 2*gp.tileSize);
+		right2 = createImage("monsters", "floating_skull/right1", 2*gp.tileSize, 2*gp.tileSize);
+		right3 = createImage("monsters", "floating_skull/right2", 2*gp.tileSize, 2*gp.tileSize);
+		right4 = createImage("monsters", "floating_skull/right3", 2*gp.tileSize, 2*gp.tileSize);
+
+		up1 = createImage("monsters", "floating_skull/right0", 2*gp.tileSize, 2*gp.tileSize);;
+		up2 = createImage("monsters", "floating_skull/right1", 2*gp.tileSize, 2*gp.tileSize);;
+		up3 = createImage("monsters", "floating_skull/right2", 2*gp.tileSize, 2*gp.tileSize);;
+		up4 = createImage("monsters", "floating_skull/right3", 2*gp.tileSize, 2*gp.tileSize);;
 		
-		left1 = down1;
-		left2 = down2;
-		left3 = down3;
-		left4 = down4;
 		
-		right1 = down1;
-		right2 = down2;
-		right3 = down3;
-		right4 = down4;
 		
 	}
 	public void setAction() {

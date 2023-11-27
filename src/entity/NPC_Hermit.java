@@ -248,7 +248,7 @@ public class NPC_Hermit extends Entity{
 		i = 0;
 		dialogues[oldManQ2c][i] = "I see, she told you about the Harmonial Principles.."; i++;
 		dialogues[oldManQ2c][i] = "And, about the tree monster, what she said was also\n"
-				+ "true. That Trenk God is the root of all of this. Hence, you\n"
+				+ "true. That Trenk Lord is the root of all of this. Hence, you\n"
 				+ "must hurry and kill that monster as soon as possible!"; i++;
 		
 		dialogues[oldManQ2c][i] = "Well, for now, let us try and break the curse first!"; i++;

@@ -7,17 +7,17 @@ import object.ITM_Coin;
 import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
 
-public class BOSS_WaterGolem extends Entity{
+public class BOSS_TrenkLord extends Entity{
 	GamePanel gp;
 	
-	public static String monName = "Water Golem";
-	public BOSS_WaterGolem(GamePanel gp) {
+	public static String monName = "Trenk Lord";
+	public BOSS_TrenkLord(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
 		name = monName;
-		defaultSpeed = 3;
+		defaultSpeed = 0;
 		speed = defaultSpeed;
 		maxLife = 80;
 		attacking = !true;
@@ -27,9 +27,7 @@ public class BOSS_WaterGolem extends Entity{
 		atk = 10;
 		def = 10;
 		exp = 50;
-		
-		prevDirection = "left";
-		asleep = !true;
+//		asleep = true;
 		
 		//SolidArea
 		int size = 3 * gp.tileSize;
@@ -57,12 +55,10 @@ public class BOSS_WaterGolem extends Entity{
 
 	public void getWalkingImage() {
 		int scale = 3;
-		 
-		 
-		left1 = createImage("monsters", "boss_watergolem/walking/left0", gp.tileSize*scale, gp.tileSize*scale);
-		left2 = createImage("monsters", "boss_watergolem/walking/left1", gp.tileSize*scale, gp.tileSize*scale);
-		left3 = createImage("monsters", "boss_watergolem/walking/left2", gp.tileSize*scale, gp.tileSize*scale);
-		left4 = createImage("monsters", "boss_watergolem/walking/left3", gp.tileSize*scale, gp.tileSize*scale);
+		left1 = createImage("monsters", "boss_trenklord/left0", gp.tileSize*scale, gp.tileSize*scale);
+		left2 = createImage("monsters", "boss_trenklord/left1", gp.tileSize*scale, gp.tileSize*scale);
+		left3 = createImage("monsters", "boss_trenklord/left2", gp.tileSize*scale, gp.tileSize*scale);
+		left4 = createImage("monsters", "boss_trenklord/left3", gp.tileSize*scale, gp.tileSize*scale);
 		
 		up1 = left1;
 		up2 = left2;
@@ -70,43 +66,39 @@ public class BOSS_WaterGolem extends Entity{
 		up4 = left4;
 		
 		
-		
-		
-		right1 = createImage("monsters", "boss_watergolem/walking/right0", gp.tileSize*scale, gp.tileSize*scale);
-		right2 = createImage("monsters", "boss_watergolem/walking/right1", gp.tileSize*scale, gp.tileSize*scale);
-		right3 = createImage("monsters", "boss_watergolem/walking/right2", gp.tileSize*scale, gp.tileSize*scale);
-		right4 = createImage("monsters", "boss_watergolem/walking/right3", gp.tileSize*scale, gp.tileSize*scale);
+		right1 = createImage("monsters", "boss_trenklord/right0", gp.tileSize*scale, gp.tileSize*scale);
+		right2 = createImage("monsters", "boss_trenklord/right1", gp.tileSize*scale, gp.tileSize*scale);
+		right3 = createImage("monsters", "boss_trenklord/right2", gp.tileSize*scale, gp.tileSize*scale);
+		right4 = createImage("monsters", "boss_trenklord/right3", gp.tileSize*scale, gp.tileSize*scale);
 		
 		down1 = right1;
 		down2 = right2;
 		down3 = right3;
 		down4 = right4;
-	
 		
 		
 	}
 	public void getAttackingImage() {
 		int scale = 3;
-
-		attackUp1 = createImage("monsters", "boss_watergolem/attacking/up0", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackUp2 = createImage("monsters", "boss_watergolem/attacking/up1", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackUp3 = createImage("monsters", "boss_watergolem/attacking/up0", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackUp4 = createImage("monsters", "boss_watergolem/attacking/up1", gp.tileSize*scale, gp.tileSize*scale*2);
+		attackUp1 = createImage("monsters", "boss_trenklord/right0", gp.tileSize*scale, gp.tileSize*scale);
+		attackUp2 = createImage("monsters", "boss_trenklord/right1", gp.tileSize*scale, gp.tileSize*scale);
+		attackUp3 = createImage("monsters", "boss_trenklord/right0", gp.tileSize*scale, gp.tileSize*scale);
+		attackUp4 = createImage("monsters", "boss_trenklord/right1", gp.tileSize*scale, gp.tileSize*scale);
 		
-		attackDown1 = createImage("monsters", "boss_watergolem/attacking/down0", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackDown2 = createImage("monsters", "boss_watergolem/attacking/down1", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackDown3 = createImage("monsters", "boss_watergolem/attacking/down0", gp.tileSize*scale, gp.tileSize*scale*2);
-		attackDown4 = createImage("monsters", "boss_watergolem/attacking/down1", gp.tileSize*scale, gp.tileSize*scale*2);
+		attackDown1 = createImage("monsters", "boss_trenklord/left0", gp.tileSize*scale, gp.tileSize*scale);
+		attackDown2 = createImage("monsters", "boss_trenklord/left1", gp.tileSize*scale, gp.tileSize*scale);
+		attackDown3 = createImage("monsters", "boss_trenklord/left0", gp.tileSize*scale, gp.tileSize*scale);
+		attackDown4 = createImage("monsters", "boss_trenklord/left1", gp.tileSize*scale, gp.tileSize*scale);
 		
-		attackLeft1 = createImage("monsters", "boss_watergolem/attacking/left0", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackLeft2 = createImage("monsters", "boss_watergolem/attacking/left1", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackLeft3 = createImage("monsters", "boss_watergolem/attacking/left0", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackLeft4 = createImage("monsters", "boss_watergolem/attacking/left1", gp.tileSize*scale*2, gp.tileSize*scale);
+		attackLeft1 = createImage("monsters", "boss_trenklord/left0", gp.tileSize*scale, gp.tileSize*scale);
+		attackLeft2 = createImage("monsters", "boss_trenklord/left1", gp.tileSize*scale, gp.tileSize*scale);
+		attackLeft3 = createImage("monsters", "boss_trenklord/left0", gp.tileSize*scale, gp.tileSize*scale);
+		attackLeft4 = createImage("monsters", "boss_trenklord/left1", gp.tileSize*scale, gp.tileSize*scale);
 		
-		attackRight1 = createImage("monsters", "boss_watergolem/attacking/right0", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackRight2 = createImage("monsters", "boss_watergolem/attacking/right1", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackRight3 = createImage("monsters", "boss_watergolem/attacking/right0", gp.tileSize*scale*2, gp.tileSize*scale);
-		attackRight4 = createImage("monsters", "boss_watergolem/attacking/right1", gp.tileSize*scale*2, gp.tileSize*scale);
+		attackRight1 = createImage("monsters", "boss_trenklord/right0", gp.tileSize*scale, gp.tileSize*scale);
+		attackRight2 = createImage("monsters", "boss_trenklord/right1", gp.tileSize*scale, gp.tileSize*scale);
+		attackRight3 = createImage("monsters", "boss_trenklord/right0", gp.tileSize*scale, gp.tileSize*scale);
+		attackRight4 = createImage("monsters", "boss_trenklord/right1", gp.tileSize*scale, gp.tileSize*scale);
 		
 	}
 	public void setAction() {
@@ -124,24 +116,26 @@ public class BOSS_WaterGolem extends Entity{
 			getWalkingImage();
 		}
 		
-		if(getTileDistance(gp.player) < 10) huntPlayer(30);
-		else {
-			actionDelay++;
-			if(actionDelay == 120 ) {
-				prevDirection = direction;
-				
-				int n = rN.nextInt(100)+1;
-				
-				if(!lockDirection) {
-					if(n<=25) direction = "up";
-					if(n>=25 && n<=50) direction = "down";
-					if(n>=50 && n<=75) direction = "left";
-					if(n>=75 && n<=100) direction = "right";
-				}
-				
-				actionDelay = 0;
+//		if(getTileDistance(gp.player) < 10) huntPlayer(30);
+//		else {
+//			
+//			
+//		}
+		
+		actionDelay++;
+		if(actionDelay == 120 ) {
+			prevDirection = direction;
+			
+			int n = rN.nextInt(100)+1;
+			
+			if(!lockDirection) {
+				if(n<=25) direction = "up";
+				if(n>=25 && n<=50) direction = "down";
+				if(n>=50 && n<=75) direction = "left";
+				if(n>=75 && n<=100) direction = "right";
 			}
 			
+			actionDelay = 0;
 		}
 		
 		if (!attacking) {
@@ -174,12 +168,14 @@ public class BOSS_WaterGolem extends Entity{
 		
 		dialogueSet = dialogueNum = 0;
 		
-		dialogues[dialogueSet][dialogueNum] = "No one shall steal my treasure!"; dialogueNum++;
-		dialogues[dialogueSet][dialogueNum] = "You mere humans' ignorance know no bound!"; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = "Ha! ha! ha! You've finally come!"; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = "I've been waiting for this moment.."; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = "You've come far; facing trials, overcoming challenges."; dialogueNum++;
+		dialogues[dialogueSet][dialogueNum] = "But remember, this is where your journey ends."; dialogueNum++;
 		dialogues[dialogueSet][dialogueNum] = "I shall end you here!"; dialogueNum++;
 		
-		dialogueSet++; dialogueNum = 0;
 		
+		dialogueSet++; dialogueNum = 0;
 	}
 	
 	
@@ -253,6 +249,12 @@ public class BOSS_WaterGolem extends Entity{
 	}
 	
 	public void update() {
+		
 		super.update();
+
+		//ovveride
+		
+		attacking = false;
+//		invincible = true;
 	}
 }

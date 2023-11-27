@@ -166,7 +166,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Manage Monsters//
 	//-------------------------------//
-	public Entity monsters[][] = new Entity[maxMap][30];
+	public Entity monsters[][] = new Entity[maxMap][60];
 	//===============================//
 	
 	//Assets Maker//

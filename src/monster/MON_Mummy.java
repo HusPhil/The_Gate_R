@@ -9,17 +9,17 @@ import object.ITM_Bandage;
 public class MON_Mummy extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
+	public static String monName = "Corrupted Mummy";
 	public MON_Mummy(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Mummy";
 		defaultSpeed = 1;
 		speed = defaultSpeed;
 		maxLife = 45;
 		attacking = !true;
-		
+		name = monName;
 		life = maxLife;
 		atk = 4;
 		def = 2;

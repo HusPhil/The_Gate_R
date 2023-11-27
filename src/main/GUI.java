@@ -674,6 +674,7 @@ public class GUI {
 			//teleport the player
 			gp.currentMap = gp.eventHandler.tempMap;
 			gp.player.worldX = gp.eventHandler.tempCol*gp.tileSize;
+			
 			gp.player.worldY = (gp.eventHandler.tempRow*gp.tileSize)-3;
 			
 			//save the prev event to make sure the player does not activate the transition effect immeiately after transitioning
@@ -694,7 +695,7 @@ public class GUI {
 		//when the counter hits a certain amoun, it stops and imlements the transition
 		if(counter == 50) {
 			gp.gameState = gp.playState;
-
+			System.out.println("haldoh");
 			//ALWAYS RESET THE COUNTER
 			counter = 0;
 		}

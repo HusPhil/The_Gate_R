@@ -42,7 +42,15 @@ public class NPC_Narrator extends Entity{
 	public static final int playerRequestB = 31;
 	public static final int playerRequestC = 32;
 	
+	
 	public static final int receiveTerra = 33;
+	
+	public static final int finalBattleA = 34;
+	public static final int finalBattleB = 35;
+	public static final int finalBattleC = 36;
+	public static final int finalBattleD = 37;
+	public static final int finalBattleE = 38;
+	public static final int finalBattleF = 39;
 
 	public final static String NPC_Name ="Narrator";
 
@@ -182,6 +190,22 @@ public class NPC_Narrator extends Entity{
 		j = 0;
 		dialogues[receiveTerra][j] = "You received a Terra Blade!"; j++;
 		dialogues[receiveTerra][j] = "You received a Vorpal Stone!"; j++;
+		
+		
+		j = 0;
+		dialogues[finalBattleA][j] = "The Trenk Lord is enchanting!"; j++;
+		dialogues[finalBattleA][j] = "He summoned some monsters...!"; j++;
+		dialogues[finalBattleA][j] = "A wave of Trenklins is coming!"; j++;
+		
+		j = 0;
+		dialogues[finalBattleB][j] = "The Trenk Lord is enchanting!"; j++;
+		dialogues[finalBattleB][j] = "Another wave of Trenklins coming!"; j++;
+		
+		j = 0;
+		dialogues[finalBattleC][j] = "The Trenk Lord is enchanting!"; j++;
+		dialogues[finalBattleC][j] = "A wave of Mummies is coming!"; j++;
+		
 	}
+	
 
 }

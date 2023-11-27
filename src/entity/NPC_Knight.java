@@ -118,7 +118,7 @@ public class NPC_Knight extends Entity{
 				"Right, you said something about stealing a magic item\n"
 				+ "in the cage of that Skeleton Monster.."; i++;
 		dialogues[princessReunitedA][i] = 
-				"Can it really be used to beat the Trenk God and\n"
+				"Can it really be used to beat the Trenk Lord and\n"
 				+ "stop this madness?"; i++;
 				
 		i = 0;

@@ -108,6 +108,7 @@ public class Entity {
 	public Entity currentAmulet;
 	public Entity linkedEntity;
 	public String description = "";
+	public String prevDirection = "";
 	public ArrayList<Entity> inventory = new ArrayList<>();
 	public final int maxInventorySize = 28;
 	public String cs_id = "000";

@@ -15,9 +15,12 @@ import interactive_tiles.IT_FeebleWall;
 import interactive_tiles.IT_MetalPlate;
 import interactive_tiles.IT_TempTree;
 import monster.BOSS_SkeletonLord;
+import monster.BOSS_TrenkLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_Bat;
 import monster.MON_FireSlime;
+import monster.MON_FloatingSkull;
+import monster.MON_FloatingSkull;
 import monster.MON_Mummy;
 import monster.MON_Slime;
 import monster.MON_Trenklin;
@@ -182,6 +185,8 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 22*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 27*gp.tileSize; i++;
 		
+		
+		
 		i = 0;
 		mapNum = gp.princessKingdom;
 		gp.gameObjs[mapNum][i] = new OBJ_Throne(gp);
@@ -322,46 +327,7 @@ public class AssetsHandler {
 		int i = 0;
 		int mapNum = gp.worldMapA;
 		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp); 
-		gp.monsters[mapNum][i].worldY = 26*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 14*gp.tileSize; 
-		gp.monsters[mapNum][i].name = "slime"; i++;
 		
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 26*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 15*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 26*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 16*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 14*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 15*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 16*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_FireSlime(gp);
-		gp.monsters[mapNum][i].worldY = 28*gp.tileSize;
-		gp.monsters[mapNum][i].worldX = 14*gp.tileSize;
-		gp.monsters[mapNum][i].name = "slime";i++;
-		
-		gp.monsters[mapNum][i] = new MON_Zombie(gp);
-		gp.monsters[mapNum][i].worldX = 18*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 21*gp.tileSize;
-		i++;
 		
 		i = 0;
 		mapNum = gp.dungeonMap_F1;
@@ -378,19 +344,6 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i] = new MON_Bat(gp);
 		gp.monsters[mapNum][i].worldX = 28*gp.tileSize;
 		gp.monsters[mapNum][i].worldY = 39*gp.tileSize;
-		i++;
-		
-		
-		i = 0;
-		mapNum = gp.silvioHouse;
-		gp.monsters[mapNum][i] = new MON_Bat(gp);
-		gp.monsters[mapNum][i].worldX = 26*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 5*gp.tileSize;
-		i++;
-		
-		gp.monsters[mapNum][i] = new MON_Bat(gp);
-		gp.monsters[mapNum][i].worldX = 20*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 7*gp.tileSize;
 		i++;
 		
 		
@@ -532,6 +485,9 @@ public class AssetsHandler {
 		
 		//bossss
 		
+		
+		
+		
 		i = 0;
 		mapNum = gp.sacredRiver;
 		if(!GameProgress.waterGolemDefeated) {
@@ -549,6 +505,20 @@ public class AssetsHandler {
 			gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
 			i++;
 		}
+		
+		i = 0;
+		mapNum = gp.finalStage;
+		if(!GameProgress.defeatedSkeletonLord) {
+			gp.monsters[mapNum][i] = new BOSS_TrenkLord(gp);
+			gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+			gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
+			i++;
+		}
+		i = 2;
+		gp.monsters[mapNum][i] = new MON_FloatingSkull(gp);
+		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 16*gp.tileSize;
+		i++;
 		
 		
 	}

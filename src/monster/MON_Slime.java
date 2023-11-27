@@ -11,16 +11,16 @@ import object.SKL_MudBall;
 public class MON_Slime extends Entity{
 	GamePanel gp;
 	//DropChanceSystem dcs = new DropChanceSystem();
+	public static String monName = "Slime";
 	public MON_Slime(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		//Stats
 		type = type_monster;
-		name = "Slime";
 		defaultSpeed = 2;
 		speed = defaultSpeed;
 		maxLife = 16;
-		
+		name = monName;
 		life = maxLife;
 		atk = 2;
 		def = 1;

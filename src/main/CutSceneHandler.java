@@ -15,6 +15,7 @@ import entity.NPC_VillagerBoy;
 import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
 import monster.BOSS_SkeletonLord;
+import monster.BOSS_TrenkLord;
 import monster.BOSS_WaterGolem;
 import monster.MON_Trenklin;
 import object.ITM_Bandage;
@@ -61,18 +62,19 @@ public class CutSceneHandler {
 	public final int witchReport = 16;
 	public final int princessReunited = 17;
 	public final int princessCraft = 18;
+	public final int trenkLordBattle = 19;
 	
-	int gelAmmount = 0;
-	int meatAmmount = 0;
+	private int gelAmmount = 0;
+	private int meatAmmount = 0;
 	
-	int essenceAmmount = 0;
-	int bandageAmmount = 0;
+	private int essenceAmmount = 0;
+	private int bandageAmmount = 0;
 	
-	int fireGelAmmount = 0;
-	int skullAmmount = 0;
+	private int fireGelAmmount = 0;
+	private int skullAmmount = 0;
 	
-	
-	public CutSceneHandler(GamePanel gp) {
+	private int scenePhaseNum = 0;
+ 	public CutSceneHandler(GamePanel gp) {
 		this.gp = gp;
 		
 		
@@ -155,7 +157,7 @@ public class CutSceneHandler {
 		if(scenePhase == 0) {
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 //			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
-			gp.eventHandler.loadingScreen(gp.princessKingdom, 24, 23, gp.indoor);
+//			gp.eventHandler.loadingScreen(gp.princessKingdom, 24, 23, gp.indoor);
 //			gp.eventHandler.loadingScreen(gp.dungeonMap_F1, 19, 28, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.forest, 28, 12, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.sacredRiver, 15, 36, gp.outside);
@@ -443,8 +445,8 @@ public class CutSceneHandler {
 			gp.keys.talkOn = false;
 			gp.gui.npc.talking = false;
 			
-			boolean monstersAlive = false;
 			gp.gameState = gp.playState;
+			boolean monstersAlive = false;
 
 			for (int i = 0; i < gp.monsters[1].length; i++) {
 			    Entity currentMonster = gp.monsters[gp.currentMap][i];
@@ -1928,7 +1930,1181 @@ public class CutSceneHandler {
 		
 	}
 	
-	
+	public void trenkLordBattle() {
+		System.out.println("sinpeys: " + scenePhase);
+		
+		if(scenePhase == 0) {
+			gp.gameState = gp.fadeIN;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			System.out.println("sinpeys: " + gp.gameState);
+			if (gp.gameState == gp.playState) {
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 2) {
+			gp.gameState = gp.cutSceneState;
+			gp.player.worldX = 1140;
+			gp.player.worldY = 20*gp.tileSize;
+			scenePhase++;
+		}
+		if(scenePhase == 3) {
+			
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 4) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		if(scenePhase == 5) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
+					gp.monsters[gp.currentMap][i].asleep = false;
+					gp.gui.npc = gp.monsters[gp.currentMap][i];
+					scenePhase++;
+					break;
+				}
+			}
+		}
+		if(scenePhase == 6) {
+			gp.gui.dialogueScreen(false);
+		}
+		
+		//first wave
+		
+		if(scenePhase == 7) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		if(scenePhase == 8) {
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase == 9) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 10) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		
+		if(scenePhase ==  11) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		if(scenePhase == 12) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 13) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		
+		
+		if(scenePhase ==  14) {
+			scenePhase++;
+		}
+		
+
+		if(scenePhase == 15) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 16) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 17) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 18) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 19) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 20) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 21) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  22) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  23) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 24) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 25) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 26) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 27) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 28) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 29) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 30) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 31) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  32) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  33) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 34) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 35) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 36) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 37) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 38) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 39) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 40) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 41) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  42) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  43) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 44) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 45) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 46) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 47) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 48) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 49) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 50) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 51) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  52) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  53) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 54) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 55) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 56) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 57) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 58) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 59) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 60) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 61) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  62) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  63) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 64) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 65) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 66) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 67) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 68) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 69) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 70) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 71) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  72) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  73) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 74) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 75) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 76) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 77) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 78) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 79) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 80) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 81) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  82) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  83) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 84) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 85) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 86) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 87) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 88) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 89) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 90) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 91) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  92) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  93) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 94) {
+			boolean monstersAlive = false;
+
+			for (int i = 0; i < gp.monsters[1].length; i++) {
+			    Entity currentMonster = gp.monsters[gp.currentMap][i];
+			    if (currentMonster != null) {
+			        String csId = currentMonster.cs_id;
+			        if (csId.equals("smonA001") || csId.equals("smonA002") || csId.equals("smonA003") || csId.equals("smonA004") || csId.equals("smonA005")) {
+			            monstersAlive = true;
+			            break;
+			        }
+			    }
+			}
+
+			if (!monstersAlive) {
+			    scenePhase++;
+			}
+		}
+		if(scenePhase == 95) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] == null) {
+					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
+					gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+					gp.npc[gp.currentMap][i].worldY =  gp.player.worldY;
+					gp.npc[gp.currentMap][i].direction = gp.player.direction;
+					break;
+				}
+			}
+			gp.player.drawing = false;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 96) {
+			gp.player.worldX = 1140;
+			gp.player.worldY = gp.tileSize*13;
+			scenePhase++;
+		}
+		
+		if(scenePhase == 97) {
+			if(gp.player.worldY <= 11*gp.tileSize) scenePhase++;
+			gp.player.worldY -= 2;
+		}
+		
+		if(scenePhase == 98) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.currentMap][i] == null) {
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
+					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
+					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA003";
+					gp.monsters[gp.currentMap][i].worldX = 24*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
+					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
+					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
+					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
+					gp.monsters[gp.currentMap][i].direction = "down"; i++;
+					
+					break;
+				}
+			}
+			scenePhase++;
+		}
+		
+		if(scenePhase == 99) {
+			gp.gameState = gp.cutSceneState;
+			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
+			showInfoScreen(NPC_Narrator.finalBattleC);
+			
+		}
+		if(scenePhase == 100) {
+			if(gp.player.worldY >= 15*gp.tileSize) scenePhase++;
+			gp.player.worldY += 2;
+		}
+		
+		if(scenePhase == 101) {
+			showInfoScreen(NPC_Narrator.finalBattleA);
+		}
+		
+		if(scenePhase ==  102) {
+			for(int  i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
+					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+					gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+					gp.npc[gp.currentMap][i] = null;
+					break;
+				}
+			}
+			gp.player.drawing = true;
+			scenePhase++;
+		}
+		
+		if(scenePhase ==  103) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		if(scenePhase ==  103) {
+			gp.gameState = gp.playState;
+			scenePhase++;
+		}
+		
+		
+		
+		System.out.println("sinpeys: " + scenePhase);
+		System.out.println("sinpeys: " + gp.gui.npc.name);
+	}
 	
 	
 	
@@ -1979,6 +3155,13 @@ public class CutSceneHandler {
 		case reportWarning: reportWarning(); break;
 		case witchReport: witchReport(); break;
 		case princessReunited: princessReunited(); break;
-		case princessCraft: princessCraft(); break;		}
+		case princessCraft: princessCraft(); break;
+		case trenkLordBattle: trenkLordBattle(); break;		
+		
+		
+		
+		
+		
+		}
 	}
 }

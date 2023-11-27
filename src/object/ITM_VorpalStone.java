@@ -24,8 +24,7 @@ public class ITM_VorpalStone extends Entity{
 		dialogues[0][0] = "You used the " + name + ". It shimmered with an otherworldy glow!";
 	}
 	public void use(Entity ent) {
-		startDialogue(this, 0);
-		gp.eventHandler.transition(gp.finalStage, 34, 37, gp.outside);
+		gp.eventHandler.transition(gp.finalStage, 34, 37, gp.dungeon);
 		ammount--;
 		if(ammount <= 0) gp.player.inventory.remove(this);
 	}

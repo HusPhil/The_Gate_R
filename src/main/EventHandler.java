@@ -354,7 +354,8 @@ public class EventHandler {
 
 	private void finalStageEvent() {
 		if(eventCollision(gp.finalStage, 36, 26, "any", 0, 0, gp.tileSize, gp.tileSize/2)) {
-			transition(gp.finalStage, 25, 20, gp.outside);
+			CS_trenkLordBattle();
+			touchEventON = false;
 		}
 	}
 	
@@ -569,5 +570,10 @@ public class EventHandler {
 	private void CS_princessReunited() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.princessReunited;
+	}
+
+	private void CS_trenkLordBattle() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.trenkLordBattle;
 	}
 }
