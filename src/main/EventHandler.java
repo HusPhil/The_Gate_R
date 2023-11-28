@@ -9,6 +9,7 @@ import object.ITM_EvilSkull;
 import object.ITM_SlimeGel;
 import object.ITM_TrenkMeat;
 import object.ITM_WaterCrystal;
+import object.ITM_WaterEssence;
 import object.OBJ_Iron_Axe;
 
 public class EventHandler { 
@@ -157,7 +158,7 @@ public class EventHandler {
 		if(eventCollision(gp.sacredRiver, 10, 13, "left")) {
 			transition(gp.forest, 35, 32, gp.outside);
 		}
-		else if(eventCollision(gp.sacredRiver, 13, 31, "left")) {
+		else if(eventCollision(gp.sacredRiver, 11, 34, "down")) {
 			CS_waterGolem();
 			touchEventON = false;
 		}
@@ -199,8 +200,11 @@ public class EventHandler {
 			transition(gp.princessCage, 19, 18, gp.dungeon);
 		}
 		else if(eventCollision(gp.forest, 21, 41, "down")) {
-			if(GameProgress.witchReported)
+			if(GameProgress.witchReported && !GameProgress.princessReunited)
 				transition(gp.corrupted2, 11, 13, gp.outside);
+			else if(GameProgress.princessReunited && !GameProgress.princessCrafted) {
+				CS_craftWarning();
+			}
 			else CS_reportWarning();
 		}
 			
@@ -232,7 +236,9 @@ public class EventHandler {
 			}
 			else {
 				if(GameProgress.waterGolemDefeated && !GameProgress.waterCrystalActivated) {
-					if(gp.player.itemIsInsideInventory(ITM_Bandage.objName)) {
+					if(gp.player.itemIsInsideInventory(ITM_Bandage.objName) ) {
+						if(!gp.player.itemIsInsideInventory(ITM_WaterEssence.objName))
+							gp.csHandler.scenePhase = 1;
 						CS_witchGolemDefeated();
 					}
 					touchEventON = false;
@@ -545,7 +551,7 @@ public class EventHandler {
 		if(!GameProgress.princessEncountered) {
 			Entity obj = null;
 			for(int i = 0; i < gp.gameObjs[1].length; i++) {
-				if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("002")) {
+				if(gp.gameObjs[gp.currentMap][i] != null && gp.gameObjs[gp.currentMap][i].cs_id.equals("002A")) {
 					obj = gp.gameObjs[gp.currentMap][i];
 				}
 			}
@@ -558,10 +564,17 @@ public class EventHandler {
 		}
 	
 	}
+	
 	private void CS_reportWarning() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.reportWarning;
 	}
+	
+	private void CS_craftWarning() {
+		gp.gameState = gp.cutSceneState;
+		gp.csHandler.sceneNum = gp.csHandler.craftWarning;
+	}
+	
 	private void CS_witchReport() {
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.witchReport;

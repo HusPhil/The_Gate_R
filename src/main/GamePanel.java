@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public int currentMap = silvioVillage;
-	public void print(String str) {
+	public void prints(String str) {
 		System.out.println(str);
 	}
 	//Screen settings//
@@ -118,8 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	//==============//
 	
-	//Game Saving and Loading Handler
-	public SaveLoad saverLoader = new SaveLoad(this);
+	
 	
 	//Game Controls//
 	//--------------------------------//
@@ -229,7 +228,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public NPC_Narrator narrator = new NPC_Narrator(this);
 	//======
 
-	
+	//Game Saving and Loading Handler
+	public SaveLoad saverLoader = new SaveLoad(this);
 	
 	public void setupGame() {
 		

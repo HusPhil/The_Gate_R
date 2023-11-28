@@ -82,11 +82,12 @@ public class MON_Bat extends Entity{
 			if(n>=50 && n<=75) direction = "left";
 			if(n>=75 && n<=100) direction = "right";
 			actionDelay = 0;
-//		if(pathAI) {
-//			int pWorldX = (gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
-//			int pWorldY = (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize;
-//			
-//		}
+		if(pathAI) {
+			int pWorldX = gp.player.getPlayerWordlX();
+			int pWorldY = gp.player.getPlayerWordlY();
+			searchPath(pWorldX, pWorldY, true);
+			
+		}
 //		else {
 //			
 //			}

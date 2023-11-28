@@ -334,8 +334,18 @@ public class NPC_Hermit extends Entity{
 				+ "seem to activate it having low affinity to magic!"; i++;
 	}
 	public void speak() {
-		facePlayer();
-		startDialogue(this, dialogueSet);
+		boolean princessExist = false;
+		for(int i = 0; i < gp.npc[1].length; i++) {
+			if(gp.npc[gp.silvioHouse][i] != null && 
+			gp.npc[gp.silvioHouse][i].name.equals(NPC_Princess.NPC_Name)) {
+				princessExist = true;
+			}
+		}
+		
+		if(!princessExist) {
+			facePlayer();
+			startDialogue(this, dialogueSet);
+		}
 	}	
 	public void update() {
 		

@@ -14,10 +14,12 @@ import entity.NPC_Princess;
 import entity.NPC_VillagerBoy;
 import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
+import interactive_tiles.IT_TempTree;
 import interactive_tiles.IT_TrenkHeart;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_TrenkLord;
 import monster.BOSS_WaterGolem;
+import monster.MON_Bat;
 import monster.MON_FloatingSkull;
 import monster.MON_Mummy;
 import monster.MON_Trenklin;
@@ -65,6 +67,7 @@ public class CutSceneHandler {
 	public final int knightEncounter = 13;
 	public final int princessEncounter = 14;
 	public final int reportWarning = 15;
+	public final int craftWarning = 21;
 	public final int witchReport = 16;
 	public final int princessReunited = 17;
 	public final int princessCraft = 18;
@@ -968,6 +971,15 @@ public class CutSceneHandler {
 	public void waterGolem() {
 		gp.bossBattleOn = true;
 		if(scenePhase == 0) {
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.currentMap][i] == null) {
+					gp.IT_Manager[gp.currentMap][i] = new IT_TempTree(gp, 11, 32);
+					gp.IT_Manager[gp.currentMap][i].temp = true; i++;
+					gp.IT_Manager[gp.currentMap][i] = new IT_TempTree(gp, 11, 31);
+					gp.IT_Manager[gp.currentMap][i].temp = true; i++;
+					break;
+				}
+			}
 			for(int i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i] == null) {
 					gp.npc[gp.currentMap][i] = new NPC_PlayerDummy(gp);
@@ -1071,8 +1083,10 @@ public class CutSceneHandler {
 				scenePhase++;
 			}
 			if(scenePhase == 7) {
+				
 				gp.gui.npc.dialogueSet = NPC_Witch.defeatedGolemD;
 				GameProgress.witchQuest1Complete = true;
+				gp.saverLoader.saveData();
 				endScene();
 			}
 		}
@@ -1249,11 +1263,7 @@ public class CutSceneHandler {
 					break;
 				}
 			}
-			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
-				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
-					gp.IT_Manager[gp.forest][i] = null;
-				}
-			}
+			
 			GameProgress.waterCrystalActivated = true;
 			endScene();
 		}
@@ -1266,7 +1276,11 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(false);
 		}
 		if(scenePhase == 1) {
-			
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
+					gp.IT_Manager[gp.forest][i] = null;
+				}
+			}
 			endScene();
 		}
 	}
@@ -1343,6 +1357,7 @@ public class CutSceneHandler {
 		
 		if(scenePhase == 10) {
 			GameProgress.knightEncountered = true;
+			gp.saverLoader.saveData();
 			endScene();
 		}
 	}
@@ -1550,6 +1565,7 @@ public class CutSceneHandler {
 			gp.keys.keyFreeze = false;
 			gp.player.defaultSpeed = 5;
 			GameProgress.princessEncountered = true;
+			gp.saverLoader.saveData();
 			endScene();
 		}
 		System.out.println("sinpeys: " + scenePhase);
@@ -1558,6 +1574,18 @@ public class CutSceneHandler {
 	public void reportWarning() {
 		if(scenePhase == 0) {
 			showInfoScreen(NPC_Narrator.witchReportedA);
+		}
+		if(scenePhase == 1) {
+			gp.eventHandler.transition(gp.forest, 37, 11, gp.outside);
+			scenePhase++;
+		}
+		if(gp.gameState == gp.playState) scenePhase++;
+		if(scenePhase == 3) endScene();
+	}
+	
+	public void craftWarning() {
+		if(scenePhase == 0) {
+			showInfoScreen(NPC_Narrator.craftWarning);
 		}
 		if(scenePhase == 1) {
 			gp.eventHandler.transition(gp.forest, 37, 11, gp.outside);
@@ -1625,6 +1653,7 @@ public class CutSceneHandler {
 				gp.gui.npc.dialogueSet = NPC_Witch.defeatedSkeletonD;
 				GameProgress.witchReported = true;
 				endScene();
+				gp.saverLoader.saveData();
 			}
 		}
 		
@@ -1868,6 +1897,7 @@ public class CutSceneHandler {
 		if(scenePhase == 31) {
 			GameProgress.princessReunited = true;
 			endScene();
+			gp.saverLoader.saveData();
 		}
 		
 		
@@ -1941,6 +1971,7 @@ public class CutSceneHandler {
 		if(scenePhase == 11) {
 			GameProgress.princessCrafted = true;
 			endScene();
+			gp.saverLoader.saveData();
 		}
 		
 		
@@ -2752,7 +2783,7 @@ public class CutSceneHandler {
 		if(scenePhase == 68) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2760,7 +2791,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2776,7 +2807,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2784,7 +2815,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2885,7 +2916,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2901,7 +2932,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3011,7 +3042,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA002";
 					gp.monsters[gp.currentMap][i].worldX = 23*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3027,7 +3058,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA004";
 					gp.monsters[gp.currentMap][i].worldX = 25*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3128,7 +3159,7 @@ public class CutSceneHandler {
 		if(scenePhase == 98) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3160,7 +3191,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Mummy(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3241,7 +3272,7 @@ public class CutSceneHandler {
 			gp.gameState = gp.cutSceneState;
 			//show the boss is wearing down
 			
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleE);
 			
 		}		
 		if(scenePhase ==  108) {
@@ -3608,7 +3639,9 @@ public class CutSceneHandler {
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			GameProgress.ending = true;
+			gp.saverLoader.saveData();
 			gp.gameState = gp.ending;
+			
 		}
 		
 		
@@ -3659,6 +3692,7 @@ public class CutSceneHandler {
 		case knightEncounter: knightEncounter(); break;
 		case princessEncounter: princessEncounter(); break;
 		case reportWarning: reportWarning(); break;
+		case craftWarning: craftWarning(); break;
 		case witchReport: witchReport(); break;
 		case princessReunited: princessReunited(); break;
 		case princessCraft: princessCraft(); break;

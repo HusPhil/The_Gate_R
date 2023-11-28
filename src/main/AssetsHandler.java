@@ -25,7 +25,6 @@ import monster.MON_Mummy;
 import monster.MON_Slime;
 import monster.MON_Trenklin;
 import monster.MON_Zombie;
-import object.ITM_Coin;
 import object.ITM_Key;
 import object.OBJ_Castle;
 import object.OBJ_Chest;
@@ -92,7 +91,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 43*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new ITM_Coin(gp));
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Health_Potion(gp));
 		gp.gameObjs[mapNum][i].worldX = 17*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 43*gp.tileSize; i++;
 		
@@ -116,7 +115,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new ITM_Coin(gp));
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_Health_Potion(gp));
 		gp.gameObjs[mapNum][i].worldX = 18*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 16*gp.tileSize; i++;
 		
@@ -148,11 +147,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 14*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 24*gp.tileSize; i++;
 		
-		mapNum = gp.sacredRiver;
-		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Iron_Sword(gp));
-		gp.gameObjs[mapNum][i].worldX = 32*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 23*gp.tileSize; i++;
+		
 
 		
 		i = 0;
@@ -185,7 +180,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
-		gp.gameObjs[mapNum][i].cs_id = "002";
+		gp.gameObjs[mapNum][i].cs_id = "002A";
 		gp.gameObjs[mapNum][i].worldX = 30*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 22*gp.tileSize; i++;
 		
@@ -212,8 +207,6 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 25*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 11*gp.tileSize; i++;
 		
-		i = 0;
-		mapNum = gp.forest;
 		
 		i = 0;
 		mapNum = gp.finalStage;
@@ -264,6 +257,7 @@ public class AssetsHandler {
 		i = 0;
 		mapNum = gp.princessCage;
 		gp.npc[mapNum][i] = new NPC_Princess(gp);
+		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 30*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
@@ -353,6 +347,11 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i].worldX = 28*gp.tileSize;
 		gp.monsters[mapNum][i].worldY = 39*gp.tileSize;
 		i++;
+		
+		//BOSS
+		makeBosses();
+		
+		
 		
 		
 		i = 0;
@@ -491,42 +490,32 @@ public class AssetsHandler {
 		gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
 		i++;
 		
-		//bossss
-		
-		
-		
-		
-		i = 0;
-		mapNum = gp.sacredRiver;
-		if(!GameProgress.waterGolemDefeated) {
-			gp.monsters[mapNum][i] = new BOSS_WaterGolem(gp);
-			gp.monsters[mapNum][i].worldX = 20*gp.tileSize;
-			gp.monsters[mapNum][i].worldY = 36*gp.tileSize;
-			i++;
-		}
-
-		i = 0;
-		mapNum = gp.dungeonMap_F2;
-		if(!GameProgress.defeatedSkeletonLord) {
-			gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
-			gp.monsters[mapNum][i].worldX = 25*gp.tileSize;
-			gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
-			i++;
-		}
-		
-		i = 0;
-		mapNum = gp.finalStage;
-		if(!GameProgress.defeatedSkeletonLord) {
-			gp.monsters[mapNum][i] = new BOSS_TrenkLord(gp);
-			gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
-			gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
-			i++;
-		}
-		
-		
-		
 		
 	}
+	public void makeBosses() {
+		
+		int i = 0;
+		int mapNum = 0;
+		gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
+		gp.monsters[mapNum][i].worldX = 25*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
+		i++;
+						
+		i = 0;
+		mapNum = gp.sacredRiver;
+		gp.monsters[mapNum][i] = new BOSS_WaterGolem(gp);
+		gp.monsters[mapNum][i].worldX = 20*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 36*gp.tileSize;
+		i++;
+
+		i = 0;
+		mapNum = gp.finalStage;
+		gp.monsters[mapNum][i] = new BOSS_TrenkLord(gp);
+		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
+		i++;
+	}
+
 	public void makeInteractiveTiles() {
 		int i = 0; 
 		int mapNum = gp.worldMapA;

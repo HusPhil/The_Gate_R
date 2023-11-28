@@ -13,10 +13,15 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import entity.NPC_Cursed_Villager;
+import entity.NPC_Hermit;
+import entity.NPC_Knight;
+import entity.NPC_Princess;
 import entity.NPC_VillagerBoy;
 import entity.NPC_VillagerGirl;
 import entity.NPC_Witch;
 import main.GamePanel;
+import monster.BOSS_SkeletonLord;
+import monster.BOSS_WaterGolem;
 
 public class DatabaseManagement {
 	GamePanel gp;
@@ -168,6 +173,8 @@ public class DatabaseManagement {
 	}
 
 	public void loadGameProgress() {
+		System.out.println(GameProgress.defeatedSkeletonLord);
+		
 		if(GameProgress.intro_done) {
 			int mapNum = gp.silvioVillage;
 			
@@ -241,6 +248,10 @@ public class DatabaseManagement {
 				}
 			}
 			}
+		else {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.introduction;
+		}
 			
 			
 		if(GameProgress.witchQuest1Complete) {
@@ -250,5 +261,120 @@ public class DatabaseManagement {
 				}
 			}
 		}
+		
+		if(GameProgress.waterGolemDefeated) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.sacredRiver][i] != null && gp.monsters[gp.sacredRiver][i].name.equals(BOSS_WaterGolem.monName)) {
+					gp.monsters[gp.sacredRiver][i] = null;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Hermit.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Hermit.defeatedGolemA;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Witch.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Witch.quest1e;
+				}
+			}
+		}
+		if(GameProgress.knightEncountered) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Witch.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Witch.princessInfo;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] == null) {
+					gp.npc[gp.forest][i] = new NPC_Knight(gp);
+					gp.npc[gp.forest][i].dialogueSet = NPC_Knight.princessInfoC;
+					gp.npc[gp.forest][i].speed = 0;
+					gp.npc[gp.forest][i].worldX = 33*gp.tileSize;
+					gp.npc[gp.forest][i].worldY = 15*gp.tileSize; i++;
+					break;
+				}
+			}
+			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+				if(gp.IT_Manager[gp.forest][i] != null && gp.IT_Manager[gp.forest][i].name.equals("cs_sect2")) {
+					gp.IT_Manager[gp.forest][i] = null;
+				}
+			}
+		}
+		if(GameProgress.defeatedSkeletonLord) {
+			for(int i = 0; i < gp.monsters[1].length; i++) {
+				if(gp.monsters[gp.dungeonMap_F2][i] != null && gp.monsters[gp.dungeonMap_F2][i].name.equals(BOSS_SkeletonLord.monName)) {
+					gp.monsters[gp.dungeonMap_F2][i] = null;
+				}
+			}
+		}
+		if(GameProgress.princessEncountered) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.forest][i] != null && 
+				gp.npc[gp.forest][i].name.equals(NPC_Knight.NPC_Name)) {
+					gp.npc[gp.forest][i] = null;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.princessCage][i] != null && 
+				gp.npc[gp.princessCage][i].name.equals(NPC_Princess.NPC_Name)) {
+					gp.npc[gp.princessCage][i] = null;
+				}
+			}
+		}
+		if(GameProgress.princessReunited) {
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] == null) {
+					gp.npc[gp.silvioHouse][i] = new NPC_Princess(gp);
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Princess.playerRequestD;
+					gp.npc[gp.silvioHouse][i].worldX = 19*gp.tileSize;
+					gp.npc[gp.silvioHouse][i].worldY =  22*gp.tileSize;
+					gp.npc[gp.silvioHouse][i].speed = 0;
+					gp.npc[gp.silvioHouse][i].currentSearchPath = NPC_Princess.pathOFF;
+					gp.npc[gp.silvioHouse][i].direction = "left";
+					gp.npc[gp.silvioHouse][i].lockDirection = true;
+					break;
+				}
+			}
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.silvioHouse][i] != null && gp.npc[gp.silvioHouse][i].name.equals(NPC_Hermit.NPC_Name)) {
+					gp.npc[gp.silvioHouse][i].dialogueSet = NPC_Hermit.princessReunitedA;
+					gp.npc[gp.silvioHouse][i].direction = "right";
+					gp.npc[gp.silvioHouse][i].lockDirection = true;
+				}
+			}
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

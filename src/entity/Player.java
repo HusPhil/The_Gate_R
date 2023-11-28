@@ -11,6 +11,7 @@ import DataHandling.GameProgress;
 import interactive_tiles.IT_TrenkHeart;
 import main.GamePanel;
 import main.KeyHandler;
+import monster.BOSS_SkeletonLord;
 import monster.BOSS_TrenkLord;
 import object.ITM_Bandage;
 import object.ITM_EvilSkull;
@@ -121,6 +122,7 @@ public class Player extends Entity{
 		
 		atk = getAtk();  
 		def = getDef();
+		
 	}
  	public void setDialogue() {
 		int i = 0;
@@ -535,6 +537,7 @@ public class Player extends Entity{
 		if (i != 777) {
 			
 			if(!gp.monsters[gp.currentMap][i].invincible) {
+				System.out.println("mon" + i);
 				knockBackAction(gp.monsters[gp.currentMap][i], currentWeapon.knockBackPower, direction);
 				gp.playSE(1);
 				int dmg = atk - gp.monsters[gp.currentMap][i].def;
@@ -577,7 +580,7 @@ public class Player extends Entity{
 			atk = getAtk();
 			def = getDef();
 			projectile.atk +=10;
-			gp.gui.addMessage("You are now level " + level + "!");	
+			gp.gui.addMessage("You are now level " + level + "!:YELLOW");	
 			checkLvlUp();
 		}
 		
@@ -774,8 +777,6 @@ public class Player extends Entity{
 	public void update() {
 		
 		//IDEA to not attack while the sword is not given: make booelean in GameProgress
-		
-		System.out.println(GameProgress.oldManExplained);
 		
 		setDialogue();
 		if(gp.keys.debugPressed) {

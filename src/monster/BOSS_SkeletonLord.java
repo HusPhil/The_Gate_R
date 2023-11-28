@@ -208,6 +208,10 @@ public class BOSS_SkeletonLord extends Entity{
 				
 			}
 		}
+		
+		
+		
+		gp.saverLoader.saveData();
 	}
 	public void setDialogue() {
 		int dialogueSet, dialogueNum;
@@ -235,7 +239,6 @@ public class BOSS_SkeletonLord extends Entity{
 	
 	public void update() {
 		super.update();
-		
 		
 		
 	}

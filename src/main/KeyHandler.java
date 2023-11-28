@@ -223,7 +223,7 @@ public class KeyHandler implements KeyListener {
 				gp.narrator.setDialogue();
 				gp.player.name = input;
 //				gp.gameState = gp.playState; 
-				gp.gui.addMessage("The player's name is: " + input);
+				gp.gui.addMessage("The player's name is: " + input+":BLUE");
 				gp.player.ID = DatabaseManagement.generatePlayerID();
 				gp.DBMS.createPlayerData();
 				
@@ -240,7 +240,10 @@ public class KeyHandler implements KeyListener {
 					gp.player.ID = input;
 					gp.saverLoader.loadData(); 
 					gp.DBMS.loadGameProgress();
+					gp.createAssets.makeBosses();
 					
+					gp.gui.g2.setColor(Color.WHITE);
+					gp.g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 					gp.gameState = gp.fadeIN;
 				} 
 				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);

@@ -5,7 +5,9 @@ import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
 import object.ITM_WaterEssence;
+import object.OBJ_Chest;
 import object.OBJ_IronDoor;
+import object.OBJ_Iron_Sword;
 
 public class BOSS_WaterGolem extends Entity{
 	GamePanel gp;
@@ -162,12 +164,38 @@ public class BOSS_WaterGolem extends Entity{
 		gp.bossBattleOn = false;
 		GameProgress.waterGolemDefeated = true;
 		
+		
 		//stopTheBossMusic
 		//playDungeonMusic
 		
 		//open iron doors
+		for(int i = 0; i < gp.IT_Manager[1].length; i++) {
+			if(gp.IT_Manager[gp.currentMap][i] != null && gp.IT_Manager[gp.currentMap][i].temp) {
+				gp.IT_Manager[gp.currentMap][i] = null; i++;
+				gp.IT_Manager[gp.currentMap][i] = null; i++;
+				break;
+			}
+		}
+		
+		for(int i = 0; i < gp.gameObjs[1].length; i++) {
+			if(gp.gameObjs[gp.currentMap][i] == null) {
+				gp.gameObjs[gp.currentMap][i] = new OBJ_Chest(gp);
+				gp.gameObjs[gp.currentMap][i].setLoot(new OBJ_Iron_Sword(gp));
+				gp.gameObjs[gp.currentMap][i].worldX = 32*gp.tileSize;
+				gp.gameObjs[gp.currentMap][i].worldY = 23*gp.tileSize;
+				gp.playSE(7);
+				break;
+			}
+		}
+		
+		
+		
 		
 		dropItem(new ITM_WaterEssence(gp));
+		
+		
+		
+		gp.saverLoader.saveData();
 	}
 	public void setDialogue() {
 		int dialogueSet, dialogueNum;

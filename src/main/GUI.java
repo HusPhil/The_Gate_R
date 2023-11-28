@@ -16,7 +16,7 @@ import object.OBJ_Heart;
 
 public class GUI {
 	GamePanel gp;
-	Graphics2D g2;
+	public Graphics2D g2;
 	Font arial_80B;
 	public Entity npc;
 
@@ -27,6 +27,7 @@ public class GUI {
 	int counter = 0;
 	int fadeCounter = 50;
 	
+	public Color messageColor = Color.WHITE;
 	public String currentDialogue = "";
 	public int npcX, npcY;
 	public int selectItem = 0;
@@ -585,6 +586,8 @@ public class GUI {
 	        return newString;
 	    }
 	public void addMessage(String text) {
+		
+		
 		if(messages.size() < 10) {
 		messages.add(text);
 		messageCounter.add(0);
@@ -598,8 +601,32 @@ public class GUI {
 		
 		for(int i = 0; i < messages.size(); i++) {
 				if(messages.get(i) != null) {
-					g2.setColor(Color.yellow);
-					g2.drawString(messages.get(i), messageX, messageY);
+					Color c;
+					String originalString = messages.get(i);
+					String message; 
+					String color = ""; 
+			        // Split the string based on the colon
+			        String[] splitStrings = originalString.split(":");
+
+			        // Check if the split operation resulted in two parts
+			        if (splitStrings.length == 2) {
+			            message = splitStrings[0];  
+			            color = splitStrings[1].toLowerCase(); 
+
+			        } else {
+			        	message = originalString;
+			            System.out.println("The string does not contain a colon or does not split into two parts.");
+			        }
+					
+					switch(color) {
+						case "green": c = Color.green; break;
+						case "blue": c = Color.BLUE; break;
+						case "yellow": c = Color.yellow; break;
+						default: c = Color.WHITE;
+					}
+					
+					g2.setColor(c);
+					g2.drawString(message, messageX, messageY);
 					
 					int counter = messageCounter.get(i)+1;
 					messageCounter.set(i, counter);

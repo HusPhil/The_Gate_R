@@ -10,7 +10,7 @@ import main.GamePanel;
 public class OBJ_Statue extends Entity{
 	
 	GamePanel gp;
-	public static final String objName = "Castle";
+	public static final String objName = "Statue";
 	public OBJ_Statue(GamePanel gp) {
 		super(gp);
 		this.gp = gp;

@@ -58,7 +58,8 @@ public class NPC_Narrator extends Entity{
 	public static final int finalBattleM = 44;
 	public static final int finalBattleN = 45;
 	public static final int finalBattleO = 46;
-	public static final int finalBattleP = 47;
+	
+	public static final int craftWarning = 47;
 	
 	public static final int endingA = 48;
 	
@@ -197,6 +198,11 @@ public class NPC_Narrator extends Entity{
 		dialogues[playerRequestB][j] = "Silvio gave the Water Crystal to her"; j++;
 		j = 0;
 		dialogues[playerRequestC][j] = "She examined the Water Crystal"; j++;
+		
+		j = 0;
+		dialogues[craftWarning][j] = "..."; j++;
+		dialogues[craftWarning][j] = "The time is of the essence!"; j++;
+		dialogues[craftWarning][j] = "Quickly do as the princess says!"; j++;
 		
 		j = 0;
 		dialogues[receiveTerra][j] = "You received a Terra Blade!"; j++;
