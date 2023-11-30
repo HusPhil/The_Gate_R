@@ -111,7 +111,7 @@ public class Entity {
 	public String prevDirection = "";
 	public ArrayList<Entity> inventory = new ArrayList<>();
 	public final int maxInventorySize = 28;
-	public String cs_id = "000";
+	public String cs_id = "";
 	
 	//Item Stats
 	public int atkVal;
@@ -453,6 +453,7 @@ public class Entity {
 		if(dyingCounter > i*6 && dyingCounter <= i*7) changeOpacity(0f);
 		if(dyingCounter > i*7 && dyingCounter <= i*8) changeOpacity(1f);
 		if(dyingCounter > i*8) {
+			gp.player.killCount++;
 			alive = false;
 		}
 		

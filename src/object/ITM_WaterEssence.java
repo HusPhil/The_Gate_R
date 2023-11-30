@@ -10,7 +10,7 @@ public class ITM_WaterEssence extends Entity{
 	public ITM_WaterEssence(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		type = type_materials;
+		type = type_questItem;
 		stackable = true;
 		dropChance = 90;
 		name = objName;

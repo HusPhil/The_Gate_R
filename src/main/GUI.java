@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 import DataHandling.GameProgress;
 import entity.Entity;
+import entity.NPC_Merchant;
 import entity.NPC_Narrator;
+import entity.NPC_Princess;
 import entity.Player;
 import object.OBJ_Chest;
 import object.OBJ_Heart;
@@ -212,6 +214,8 @@ public class GUI {
 		textX += gp.tileSize*6 +12;//gp.screenWidth - (gp.tileSize*6)+24;
 		g2.drawString(value, textX, textY);
 		
+		showInventory();
+		
 	}
 	public void showInventory() {
 		//SET WINDOW FRAME
@@ -304,6 +308,17 @@ public class GUI {
 	}
 	public int getItemIndex() {
 		return slotCol + (slotRow*7);
+	}
+	public void showPlayerPlayTime() {
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 15f));
+		
+		int textX = gp.tileSize * 3;
+		int textY = gp.tileSize * 3;;
+		int lineHeight = 35;
+		
+		//LABEL
+		g2.drawString("Play time: " + gp.player.getPlayerScore(), textX, textY);
 	}
 	public void showPlayerLife() {
 		int x = gp.tileSize/2;
@@ -786,7 +801,16 @@ public class GUI {
 		switch(substate) {
 		case 0: tradeOptions(); break;
 		case 1: 
-			trade_buy(gp.npc[2][0], gp.tileSize, gp.tileSize);
+			Entity ent = null;
+			for(int i = 0; i < gp.npc[1].length; i++) {
+				if(gp.npc[gp.currentMap][i] != null && 
+				gp.npc[gp.currentMap][i].name.equals(NPC_Merchant.NPC_Name)) {
+					ent = gp.npc[gp.currentMap][i];
+				}
+			}
+			
+			
+			trade_buy(ent, gp.tileSize, gp.tileSize);
 			showTradeInventoryWindow(gp.player, gp.screenWidth - (gp.tileSize*9), gp.tileSize, false);
 			break;
 		case 2: 
@@ -1432,6 +1456,7 @@ public class GUI {
 			showBossLife();
 			showPlayerMana();
 			drawMessage();
+			showPlayerPlayTime();
 		} 
 		
 		//DRAW PAUSE SCREEN
@@ -1451,7 +1476,7 @@ public class GUI {
 		//DRAW VIEW CHAR SCREEN
 		if(gp.gameState == gp.viewCharState) {
 			characterScreen();
-			showInventory();
+			
 		}
 		
 		//DRAW OPTIONS SCREEN
@@ -1525,6 +1550,7 @@ public class GUI {
 		text = String.valueOf(timer);
 		g2.setFont(g2.getFont().deriveFont(35f));
 		if (timer <= 0) {
+			selectItem = 0;
 			timer = 0;
 			text = "Thank you for playing the game!";
 		}

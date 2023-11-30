@@ -12,8 +12,7 @@ public class ITM_VorpalStone extends Entity{
 		this.gp = gp;
 		coin = 25;
 		dropChance = 50;
-		plus = 2;
-		type = type_consumables;
+		type = type_questItem;
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "vorpal_stone");
@@ -24,11 +23,13 @@ public class ITM_VorpalStone extends Entity{
 		dialogues[0][0] = "You used the " + name + ". It shimmered with an otherworldy glow!";
 	}
 	public void use(Entity ent) {
+		System.out.println("test");
+		
 		int itemIndex = gp.player.searchItemInInventory(OBJ_Lantern.objName);
 		
 		gp.player.inventory.get(itemIndex).lightRadius = 275;
-		
 		gp.eventHandler.transition(gp.finalStage, 34, 37, gp.dungeon);
+		
 		ammount--;
 		if(ammount <= 0) gp.player.inventory.remove(this);
 	}

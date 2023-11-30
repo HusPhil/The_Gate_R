@@ -231,12 +231,19 @@ public class NPC_Narrator extends Entity{
 		dialogues[finalBattleE][j] = "Find his heart and attack it!"; j++;
 		
 		j = 0;
+		dialogues[finalBattleF][j] = "The Trenk Lord is enchanting.."; j++;
+		dialogues[finalBattleF][j] = "Vorpal skulls were summoned!"; j++;
+		
+		j = 0;
+		dialogues[finalBattleF][j] = "You emerged victorious!"; j++;
+		dialogues[finalBattleF][j] = "The Trenk Lord is defeated!"; j++;
+		
+		j = 0;
 		dialogues[endingA][j] = 
 				"Congratulations, valiant adventurer! With the Trenk"
 				+ "\nLord vanquished and the world's balance restored, "
 				+ "\nharmony prevails once more. Yet, our victory today"
-				+ "\nis merely a testament to the power of unity and"
-				+ "\nresilience."; j++;
+				+ "\nis merely a testament to the power of unity."; j++;
 				
 				
 		dialogues[endingA][j] = 
@@ -278,8 +285,9 @@ public class NPC_Narrator extends Entity{
 				
 		dialogues[endingA][j] = 
 				"Let this victory inspire a continuous journey "
-				+ "\ntowards a future where the legacy of the Trenk Lord remains "
-				+ "\nin the past, forever sealed by the collective dedication to the SDGs."; j++; 
+				+ "\ntowards a future where the legacy of the Trenk Lord"
+				+ "\nremains in the past, forever sealed by the collective"
+				+ "\ndedication to the SDGs."; j++; 
 				
 				
 		dialogues[endingA][j] = 

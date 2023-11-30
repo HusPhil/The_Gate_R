@@ -127,12 +127,13 @@ public class DatabaseManagement {
 				e.printStackTrace();
 			}
 	        
-	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ? WHERE player_id = ?";
+	        String query = "UPDATE player SET player_playTime = ?, player_score = ?, player_progress = ?, player_savedata = ? WHERE player_id = ?";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
-	        preparedStatement.setInt(1, gp.player.score);
-	        preparedStatement.setInt(2, gp.player.progress);
-	        preparedStatement.setBytes(3, playerSavedData);	        
-	        preparedStatement.setString(4, gp.player.ID);
+	        preparedStatement.setInt(1, gp.player.getPlayTime());
+	        preparedStatement.setInt(2, gp.player.score);
+	        preparedStatement.setInt(3, gp.player.progress);
+	        preparedStatement.setBytes(4, playerSavedData);	        
+	        preparedStatement.setString(5, gp.player.ID);
 
 	        preparedStatement.executeUpdate();
 
@@ -155,6 +156,7 @@ public class DatabaseManagement {
 		    if (resultSet.next()) {
 		        gp.player.ID = resultSet.getString("player_id");
 		        gp.player.name = resultSet.getString("player_name");
+		        gp.player.playTime = resultSet.getInt("player_playTime");
 		        gp.player.score = resultSet.getInt("player_score");
 		        gp.player.progress = resultSet.getInt("player_progress");
 		        
@@ -249,6 +251,7 @@ public class DatabaseManagement {
 			}
 			}
 		else {
+			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 			gp.gameState = gp.cutSceneState;
 			gp.csHandler.sceneNum = gp.csHandler.introduction;
 		}
@@ -343,6 +346,10 @@ public class DatabaseManagement {
 					gp.npc[gp.silvioHouse][i].lockDirection = true;
 				}
 			}
+		}
+		if(GameProgress.ending) {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.ending;
 		}
 	}
 }

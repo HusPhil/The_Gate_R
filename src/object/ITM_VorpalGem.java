@@ -13,7 +13,7 @@ public class ITM_VorpalGem extends Entity{
 		coin = 25;
 		dropChance = 50;
 		plus = 2;
-		type = type_consumables;
+		type = type_questItem;
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "vorpal_gem");

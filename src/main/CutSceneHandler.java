@@ -2783,7 +2783,7 @@ public class CutSceneHandler {
 		if(scenePhase == 68) {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] == null) {
-					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA001";
 					gp.monsters[gp.currentMap][i].worldX = 22*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -2815,7 +2815,7 @@ public class CutSceneHandler {
 					gp.monsters[gp.currentMap][i].def = 10;
 					gp.monsters[gp.currentMap][i].direction = "down"; i++;
 					
-					gp.monsters[gp.currentMap][i] = new MON_Bat(gp);
+					gp.monsters[gp.currentMap][i] = new MON_Trenklin(gp);
 					gp.monsters[gp.currentMap][i].cs_id = "smonA005";
 					gp.monsters[gp.currentMap][i].worldX = 26*gp.tileSize;
 					gp.monsters[gp.currentMap][i].worldY = 16*gp.tileSize;
@@ -3355,7 +3355,7 @@ public class CutSceneHandler {
 		if(scenePhase == 115) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 			
 		}
 		if(scenePhase == 116) {
@@ -3364,7 +3364,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 117) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 		}
 		
 		if(scenePhase ==  118) {
@@ -3449,7 +3449,7 @@ public class CutSceneHandler {
 		if(scenePhase == 125) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 			
 		}
 		if(scenePhase == 126) {
@@ -3458,7 +3458,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 127) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 		}
 		
 		if(scenePhase ==  128) {
@@ -3544,7 +3544,7 @@ public class CutSceneHandler {
 		if(scenePhase == 135) {
 			gp.gameState = gp.cutSceneState;
 			if(gp.gui.npc.dialogueIndex == 1) scenePhase++;
-			showInfoScreen(NPC_Narrator.finalBattleC);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 			
 		}
 		if(scenePhase == 136) {
@@ -3553,7 +3553,7 @@ public class CutSceneHandler {
 		}
 		
 		if(scenePhase == 137) {
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleF);
 		}
 		
 		if(scenePhase ==  138) {
@@ -3578,6 +3578,7 @@ public class CutSceneHandler {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.currentMap][i] != null && gp.monsters[gp.currentMap][i].name.equals(BOSS_TrenkLord.monName)) {
 					if(gp.monsters[gp.currentMap][i].life <= gp.monsters[gp.currentMap][i].maxLife * 0) scenePhase++;
+					gp.playSE(0);
 					break;
 				}
 			}
@@ -3597,8 +3598,7 @@ public class CutSceneHandler {
 		}
 		if(scenePhase == 142) {
 			gp.gameState = gp.cutSceneState;
-			gp.playSE(0);
-			showInfoScreen(NPC_Narrator.finalBattleA);
+			showInfoScreen(NPC_Narrator.finalBattleG);
 		}
 		if(scenePhase == 143) endScene();
 		System.out.println("sinpeys: " + scenePhase);

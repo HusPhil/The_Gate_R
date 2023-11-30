@@ -223,7 +223,7 @@ public class KeyHandler implements KeyListener {
 				gp.narrator.setDialogue();
 				gp.player.name = input;
 //				gp.gameState = gp.playState; 
-				gp.gui.addMessage("The player's name is: " + input+":BLUE");
+				gp.gui.addMessage("The player's name is= " + input+":BLUE");
 				gp.player.ID = DatabaseManagement.generatePlayerID();
 				gp.DBMS.createPlayerData();
 				
@@ -241,6 +241,7 @@ public class KeyHandler implements KeyListener {
 					gp.saverLoader.loadData(); 
 					gp.DBMS.loadGameProgress();
 					gp.createAssets.makeBosses();
+					System.out.println("playtime: "+gp.player.playTime);
 					
 					gp.gui.g2.setColor(Color.WHITE);
 					gp.g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);

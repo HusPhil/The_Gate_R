@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	//Game Settings//
+	
 	final short FPS = 60;
 	public int gameState;
 	public final int gameMenu = 0;
@@ -321,6 +322,8 @@ public class GamePanel extends JPanel implements Runnable{
 	//====================================================//
 	public void update() {
 		
+		if(gameState != gameMenu) player.playTime++;
+		
 		
 		
 		if(gameState == gameOverState || gameState == ending) keys.delayTimer++;
@@ -536,6 +539,7 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeMonster();
 		
 		if(reset) {
+			player.playTime = 0;
 			//reset game progres
 			GameProgress.encounterOldMan = false;
 			GameProgress.oldManExplained = false;

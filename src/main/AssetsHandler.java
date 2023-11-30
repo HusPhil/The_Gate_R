@@ -4,6 +4,7 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.NPC_Knight;
+import entity.NPC_Merchant;
 import entity.NPC_Princess;
 import entity.NPC_Soldier;
 import entity.NPC_BigRock;
@@ -223,6 +224,14 @@ public class AssetsHandler {
 		int i; int mapNum;
 		
 		setDungeonRocks();
+		
+		i = 0;
+		mapNum = gp.merchantHouse; // OVERWORLD
+		gp.npc[mapNum][i] = new NPC_Merchant(gp);
+		gp.npc[mapNum][i].name = "Merchant";
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
 		i = 0;
 		mapNum = gp.corrupted1; // OVERWORLD

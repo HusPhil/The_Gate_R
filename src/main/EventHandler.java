@@ -199,6 +199,9 @@ public class EventHandler {
 		else if(eventCollision(gp.forest, 20, 35, "left")) {
 			transition(gp.princessCage, 19, 18, gp.dungeon);
 		}
+		else if(eventCollision(gp.forest, 32, 40, "right")) {
+			transition(gp.merchantHouse, 24, 23, gp.indoor);
+		}
 		else if(eventCollision(gp.forest, 21, 41, "down")) {
 			if(GameProgress.witchReported && !GameProgress.princessReunited)
 				transition(gp.corrupted2, 11, 13, gp.outside);
@@ -286,6 +289,7 @@ public class EventHandler {
 		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
 			if(gp.gameState != gp.cutSceneState)
 			transition(gp.silvioHouse, 24, 23, gp.indoor);
+//				transition(gp.forest, 21, 35, gp.outside);
 		}
 		else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
 			transition(gp.silvioHouse, 24, 40, gp.indoor);

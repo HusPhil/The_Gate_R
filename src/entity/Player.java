@@ -42,6 +42,7 @@ public class Player extends Entity{
 	public String ID = "";
 	public int score = 0;
 	public int progress = 0;
+	public int killCount = 0;
 
 	String temp;
 	int keynum = 0;
@@ -52,6 +53,7 @@ public class Player extends Entity{
 	public boolean magicOn = false;
 	public boolean lightUpdated = false;
 	
+	public int playTime = 0;
 	public int offsetRand = 0;
 	
 	//Abilities
@@ -111,7 +113,7 @@ public class Player extends Entity{
 		dex = 1;
 		exp = 0;  	
 		nextLvlExp = 20;
-		coin = 1000000900;
+		coin = 150;
 		currentLightItem = null;
 		currentAmulet = null;
 		currentWeapon = new OBJ_Wooden_Sword(gp);
@@ -207,7 +209,13 @@ public class Player extends Entity{
 	public int getPlayerWordlY() {
 		return (worldY + solidArea.y) / gp.tileSize;
 	}
-	
+	public int getPlayerScore() {
+		score = 150 + (level * 10) + coin/100 + killCount*100;
+		if (score >= 150) {
+			score += 10000 / (Math.log(getPlayTime() + 1) * 1/20 + 1);
+		}
+		return score;
+	}
 	public void getPlayerImage() {
 		up1 = createImage("player", "walking/up0");
 		up2 = createImage("player", "walking/up1");
@@ -348,7 +356,9 @@ public class Player extends Entity{
      
 	}
 	
-
+	public int getPlayTime() {
+		return playTime/60;
+	}
 	public void projectileAction() {
 				if(
 				gp.keys.fireAway && !projectile.alive && magicOn &&
@@ -391,7 +401,7 @@ public class Player extends Entity{
 	
 	public void attackState() {
 		
-		
+		System.out.println(progress);
 		spriteCounter++;
 		
 		if(spriteCounter > motion_duration1 && spriteCounter <= motion_duration2 && (spriteNum == 3)) {
@@ -763,7 +773,7 @@ public class Player extends Entity{
 				
 				getEquippedAmulet();
 			}
-			if(selectedItem.type == type_consumables) {
+			if(selectedItem.type == type_consumables || selectedItem.type == type_questItem) {
 				inventory.get(itemIndex).use(this);
 				
 			}
