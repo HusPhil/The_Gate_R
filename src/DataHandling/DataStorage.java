@@ -38,10 +38,10 @@ public class DataStorage implements Serializable{
 	
 	//OBJECTS on MAP
 	String objectNames[][];
-	String objectCsId[][];
 	String objectLootNames[][];
 	int objectWorldX[][];
 	int objectWorldY[][];
 	boolean objectOpened[][];
+	String objectCsId[][];
 	
 }

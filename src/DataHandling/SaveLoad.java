@@ -1,6 +1,5 @@
 package DataHandling;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -66,7 +65,6 @@ public class SaveLoad {
 			//OBJECTS ON THE MAP
 			ds.objectNames = new String[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectLootNames = new String[gp.maxMap][gp.gameObjs[1].length];
-			ds.objectCsId = new String[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectWorldX = new int[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectWorldY = new int[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectOpened = new boolean[gp.maxMap][gp.gameObjs[1].length];
@@ -76,7 +74,6 @@ public class SaveLoad {
 					if(gp.gameObjs[mapNum][i] == null) ds.objectNames[mapNum][i] = "NULL";
 					else {
 						ds.objectNames[mapNum][i] = gp.gameObjs[mapNum][i].name;
-						ds.objectCsId[mapNum][i] = gp.gameObjs[mapNum][i].cs_id;
 						ds.objectWorldX[mapNum][i] = gp.gameObjs[mapNum][i].worldX;
 						ds.objectWorldY[mapNum][i] = gp.gameObjs[mapNum][i].worldY;
 						if(gp.gameObjs[mapNum][i].loot != null) ds.objectLootNames[mapNum][i] = gp.gameObjs[mapNum][i].loot.name;
@@ -95,7 +92,7 @@ public class SaveLoad {
 		
 		
 		//ditoo
-		gp.gui.addMessage("Successfully saved your data!:GREEN");
+		System.out.println(gp.player.ID);
 		gp.DBMS.updatePlayerData("temp0.dat");
 		
 		
@@ -159,7 +156,6 @@ public class SaveLoad {
 						
 						else {
 							gp.gameObjs[mapNum][i] = gp.objGen.getObjectFromName(ds.objectNames[mapNum][i]);
-							gp.gameObjs[mapNum][i].cs_id =  ds.objectCsId[mapNum][i];
 							gp.gameObjs[mapNum][i].worldX = ds.objectWorldX[mapNum][i];
 							gp.gameObjs[mapNum][i].worldY = ds.objectWorldY[mapNum][i];
 							if(ds.objectLootNames[mapNum][i] != null) gp.gameObjs[mapNum][i].setLoot(gp.objGen.getObjectFromName(ds.objectLootNames[mapNum][i]));
