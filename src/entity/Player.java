@@ -27,11 +27,14 @@ import object.ITM_WaterEssence;
 import object.OBJ_Chest;
 import object.OBJ_FireAmulet;
 import object.OBJ_Health_Potion;
+import object.OBJ_HeartCrystal;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
+import object.OBJ_Mana_Potion;
 import object.OBJ_Pickaxe;
 import object.OBJ_TerraBlade;
 import object.OBJ_Iron_Axe;
+import object.OBJ_Iron_Shield;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
 import object.SKL_Fireball;
@@ -350,6 +353,7 @@ public class Player extends Entity{
 	
 
 	public void projectileAction() {
+				
 				if(
 				gp.keys.fireAway && !projectile.alive && magicOn &&
 				shotCounter == 30 && projectile.sufficientResource(this)
@@ -364,29 +368,33 @@ public class Player extends Entity{
 					}
 					projectile.useResource(this);
 					shotCounter = 0;
-				} 
+				}  
 	}
 	public void addInventoryItems() {
+		inventory.add(new ITM_Bandage(gp));
+		inventory.add(new ITM_EvilSkull(gp));
+		inventory.add(new ITM_FireGel(gp));
+		inventory.add(new ITM_Key(gp));
+		inventory.add(new ITM_SlimeGel(gp));
+		inventory.add(new ITM_TrenkAmulet(gp));
+		inventory.add(new ITM_TrenkMeat(gp));
+		inventory.add(new ITM_VorpalGem(gp));
+		inventory.add(new ITM_VorpalStone(gp));
+		inventory.add(new ITM_WaterCrystal(gp));
+		inventory.add(new ITM_WaterEssence(gp));
+		inventory.add(new OBJ_FireAmulet(gp));
+		inventory.add(new OBJ_Health_Potion(gp));
+		inventory.add(new OBJ_HeartCrystal(gp));
+		inventory.add(new OBJ_Iron_Axe(gp));
+		inventory.add(new OBJ_Iron_Shield(gp));
+		inventory.add(new OBJ_Iron_Sword(gp));
+		inventory.add(new OBJ_Lantern(gp));
+		inventory.add(new OBJ_Mana_Potion(gp));
+		inventory.add(new OBJ_Pickaxe(gp));
+		inventory.add(new OBJ_TerraBlade(gp));
+		inventory.add(new OBJ_Wooden_Shield(gp));
+		inventory.add(new OBJ_Wooden_Sword(gp));
 		
-//		inventory.add(currentWeapon);
-//		inventory.add(currentShield);
-//		inventory.add(new ITM_Key(gp));
-//		inventory.get(0).ammount = 5;
-//		inventory.add(new OBJ_Lantern(gp));
-//		inventory.add(new ITM_SlimeGel(gp));
-//		inventory.get(4).ammount = 5;
-//		inventory.add(new ITM_TrenkMeat(gp)); 
-//		inventory.get(5).ammount = 25;
-//		inventory.add(new ITM_Bandage(gp));
-//		inventory.get(6).ammount = 10;
-//		inventory.add(new ITM_FireGel(gp));
-//		inventory.get(7).ammount = 10;
-//		inventory.add(new OBJ_Iron_Axe(gp));
-//		inventory.add(new OBJ_Pickaxe(gp));
-//		inventory.add(new OBJ_Iron_Sword(gp));
-//		inventory.add(new ITM_VorpalStone(gp));
-//		inventory.add(new OBJ_TerraBlade(gp));
-//		inventory.add(new ITM_VorpalGem(gp));
 	}
 	
 	public void attackState() {
@@ -929,7 +937,7 @@ public class Player extends Entity{
 		gp.eventHandler.checkEvent();
 		
 		projectileAction();
-		if(mana <= 0) mana = maxMana;
+//		if(mana <= 0) mana = maxMana;
 		if(life <= 0) life = maxLife;
 		
 		//delay players damage receive

@@ -13,7 +13,7 @@ public class OBJ_TerraBlade extends Entity{
 		name = objName;
 		knockBackPower = 3;
 		down1 = createImage("objects", "equips/terra");
-		description = "["+name+"]" + "\nCrafted by the princess\n ad imbued with magic. \nIt's very powerful\n-SWORD-";
+		description = "["+name+"]" + "\nCrafted by the princess\nand imbued with magic. \nIt's very powerful\n-SWORD-";
 		
 		//attributes
 //		atk = 20;

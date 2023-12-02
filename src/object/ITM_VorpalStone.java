@@ -13,11 +13,11 @@ public class ITM_VorpalStone extends Entity{
 		coin = 25;
 		dropChance = 50;
 		plus = 2;
-		type = type_consumables;
+		type = type_questItem;
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "vorpal_stone");
-		description = "["+name+"]" + "\nA magical crystal.\n It looks cursed..!" + "\n-CONSUMABLE-";
+		description = "["+name+"]" + "\nA magical crystal.\nIt will take you to\nthe Trenk Lord's Castle!\nIt looks cursed..!" + "\n-CONSUMABLE-";
 		setDialogue();
 	}
 	public void setDialogue() {

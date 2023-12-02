@@ -10,7 +10,7 @@ public class OBJ_Health_Potion extends Entity{
 	public OBJ_Health_Potion(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		coin = 25;
+		coin = 80;
 		dropChance = 50;
 		plus = 2;
 		type = type_consumables;

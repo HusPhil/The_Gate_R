@@ -59,13 +59,13 @@ public class GUI {
 		subWindow(frameX, frameY, frameW, frameH);
 		
 		//TEXT
-		float fSize = 30;
+		float fSize = 25;
 		
 		g2.setColor(Color.white);
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		
 		int textX = frameX + 30 ;
-		int textY = frameY + (gp.tileSize)-10;
+		int textY = frameY + (gp.tileSize);
 		int lineHeight = 35;
 		
 		//LABEL
@@ -98,7 +98,7 @@ public class GUI {
 		
 		//VALUES	
 		int tailX = (frameX + frameW) - 30;
-		textY = frameY + (gp.tileSize)-12;
+		textY = frameY + (gp.tileSize);
 		lineHeight = 35;
 		String value;
 		
@@ -160,7 +160,7 @@ public class GUI {
 		textY = frameY + (gp.tileSize)-12;
 		lineHeight = 35;
 		
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		//DISPLAY EQUIPMENT IMAGES
 		g2.drawString("CURRENT WEAPON", textX, textY);
 		g2.drawImage(gp.player.currentWeapon.down1, textX, textY+12, null);
@@ -170,46 +170,49 @@ public class GUI {
 		g2.drawImage(gp.player.currentShield.down1, textX, textY+12, null);
 		
 		textY += gp.tileSize*2 +24 ;
-		
 		g2.drawString("Attack:", textX, textY);
-		g2.drawString("Defense:", textX+gp.tileSize*3, textY);
+		
+		textY += gp.tileSize;
+		g2.drawString("Defense:", textX, textY);
 		
 		//DISPLAY EQUIPMENT Property
 		tailX = (frameX + frameW) - 30;
 		textY = frameY + (gp.tileSize);
 
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		
 		
 		
 		textY += gp.tileSize;
-		g2.drawString("ATK+", (textX+gp.tileSize*2), textY);
+		g2.drawString("ATK+", (textX+gp.tileSize)+24, textY);
 		
 		textY += gp.tileSize*2;
-		g2.drawString("DEF+", (textX+gp.tileSize)+gp.tileSize, textY);
+		g2.drawString("DEF+", (textX+gp.tileSize)+24, textY);
 		
 		textX = frameX + 30 ;
 		textY = frameY + (gp.tileSize)*2;
 		lineHeight = 35;
 		
 		value = String.valueOf(gp.player.currentWeapon.atkVal);
-		textX = textAlignRight(value, tailX)-100;
+		textX = gp.screenWidth - gp.tileSize*8;
 		g2.drawString(value, textX, textY);
 		
 		textY+=gp.tileSize*2;
 		value = String.valueOf(gp.player.currentShield.defVal);
-		textX = textAlignRight(value, tailX)-100;
+		textX = gp.screenWidth - gp.tileSize*8;
 		g2.drawString(value, textX, textY);
 		
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		
 		textY+=gp.tileSize +12;
 		value = String.valueOf(gp.player.getAtk());
-		textX = gp.screenWidth-gp.tileSize*8;
+		textX = (gp.screenWidth - gp.tileSize*9) - 10;
 		g2.drawString(value, textX, textY);
 		
+		
+		textY+=gp.tileSize;
 		value = String.valueOf(gp.player.getDef());
-		textX += gp.tileSize*6 +12;//gp.screenWidth - (gp.tileSize*6)+24;
+		textX = (gp.screenWidth - gp.tileSize*9) + 14;
 		g2.drawString(value, textX, textY);
 		
 	}
@@ -623,6 +626,7 @@ public class GUI {
 						case "green": c = Color.green; break;
 						case "blue": c = Color.BLUE; break;
 						case "yellow": c = Color.yellow; break;
+						case "red": c = Color.red; break;
 						default: c = Color.WHITE;
 					}
 					

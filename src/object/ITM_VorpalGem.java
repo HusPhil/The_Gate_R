@@ -13,11 +13,11 @@ public class ITM_VorpalGem extends Entity{
 		coin = 25;
 		dropChance = 50;
 		plus = 2;
-		type = type_consumables;
+		type = type_questItem;
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "vorpal_gem");
-		description = "["+name+"]" + "\nA magical crystal.\n It looks cursed..!" + "\n-CONSUMABLE-";
+		description = "["+name+"]" + "\nA magical crystal.\nIt ends all this madness!" + "\n-CONSUMABLE-";
 		setDialogue();
 	}
 	public void setDialogue() {

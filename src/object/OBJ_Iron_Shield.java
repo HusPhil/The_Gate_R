@@ -9,10 +9,11 @@ public class OBJ_Iron_Shield extends Entity{
 		super(gp);
 		type = type_shield;
 		dropChance = 11;
+		coin = 2200;
 		name = objName;
 		down1 = createImage("objects", "equips/shield_slime");
 		defVal = 3;
-		description = "["+name+"]" + "\nA slimy-looking shield. \nIt's so sticky, but \nseems like it absorb \ndamage well." + "\n-SHIELD-";
+		description = "["+name+"]" + "\nA shield made of iron!\nIt's shiny and sturdy!" + "\n-SHIELD-";
 	}
 
 }

@@ -10,12 +10,12 @@ public class OBJ_Iron_Axe extends Entity{
 		super(gp);
 		// TODO Auto-generated constructor stub
 		knockBackPower = 6;
-		coin = 100;
+		coin = 1500;
 		type = type_axe;
 		dropChance = 5;
 		name = objName;
 		down1 = createImage("objects", "equips/axe_iron");
-		description = "["+name+"]" + "\nAn old-looking axe, made \nby wood. It might still \nbe able to cut some trees." + "\n-AXE-";
+		description = "["+name+"]" + "\nAn old-looking axe.\nIt might still be\nable to cut some trees." + "\n-AXE-";
 		
 		//attributes
 		atkVal = 3;

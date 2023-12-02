@@ -15,7 +15,7 @@ public class ITM_FireGel extends Entity{
 		stackable = true;
 		name = objName;
 		down1 = createImage("objects", "items/fire_gel");
-		description = "["+name+"]" + "\nYou got it from a fire slime! \nIts so squishy but so hot!"
+		description = "["+name+"]" + "\nDropped by a fire slime! \nIt's squishy but so hot!"
 				+ "\n*Material*";
 	}
 	

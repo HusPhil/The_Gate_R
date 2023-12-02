@@ -14,7 +14,7 @@ public class SKL_Fireball extends Projectile{
 		this.gp = gp;
 		
 		name = objName;
-		speed = 5;
+		speed = 8;
 		maxLife = 80;
 		life = maxLife;
 		atk = 3; 

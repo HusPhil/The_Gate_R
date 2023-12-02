@@ -13,7 +13,7 @@ public class OBJ_FireAmulet extends Entity{
 		type = type_amulet;
 		name = objName;
 		down1 = createImage("objects", "equips/fire_amulet");
-		description = "[" + name + "]" + "\nIt gives off light; very \nuseful in the darkness.";
+		description = "[" + name + "]" + "\nA powerful magic item!\nAllows you to cast\nfireballs with your hands!";
 		coin = 150;
 	}
 }

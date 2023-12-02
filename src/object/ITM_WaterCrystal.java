@@ -16,7 +16,7 @@ public class ITM_WaterCrystal extends Entity{
 		name = objName;
 		down1 = createImage("objects", "items/water_crystal");
 		collision = false;
-		description = "["+name+"]" + "\nCrafted for you by the witch!\nIt feels very cold.";
+		description = "["+name+"]" + "\nCrafted by the witch!\nIt feels very cold.";
 	}
 	
 }

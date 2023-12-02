@@ -16,7 +16,7 @@ public class ITM_EvilSkull extends Entity{
 		name = objName;
 		down1 = createImage("objects", "items/skull");
 		collision = false;
-		description = "["+name+"]" + "\nYou got it by slaying the evil skeleton lord!\nIt's a very eerie looking item";
+		description = "["+name+"]" + "\nYou got it by slaying the\nEvil Skeleton Lord!\nIt's a very eerie item..";
 	}
 	
 }

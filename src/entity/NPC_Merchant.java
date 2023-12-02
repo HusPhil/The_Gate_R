@@ -7,6 +7,7 @@ import object.OBJ_Health_Potion;
 import object.OBJ_Iron_Shield;
 import object.OBJ_Iron_Sword;
 import object.OBJ_Lantern;
+import object.OBJ_Mana_Potion;
 import object.OBJ_Iron_Axe;
 import object.OBJ_Wooden_Shield;
 import object.OBJ_Wooden_Sword;
@@ -230,14 +231,13 @@ public class NPC_Merchant extends Entity{
 		
 	}
 	public void addInventoryItems() {
-		inventory.add(new OBJ_Iron_Axe(gp));
 		inventory.add(new OBJ_Wooden_Shield(gp)); 
-		inventory.add(new OBJ_Health_Potion(gp));
 		inventory.add(new OBJ_Wooden_Sword(gp));
-		inventory.add(new ITM_Key(gp));
-		inventory.add(new OBJ_Iron_Shield(gp));
+		inventory.add(new OBJ_Iron_Axe(gp));
 		inventory.add(new OBJ_Iron_Sword(gp));
-		inventory.add(new OBJ_Lantern(gp));
+		inventory.add(new OBJ_Iron_Shield(gp));
+		inventory.add(new OBJ_Health_Potion(gp));
+		inventory.add(new OBJ_Mana_Potion(gp));
 	}
 	
 	public void sellItem() {

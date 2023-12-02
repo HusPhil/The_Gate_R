@@ -33,6 +33,9 @@ public class ObjectGenerator {
 		case OBJ_Health_Potion.objName:
 			obj = new OBJ_Health_Potion(gp);
 			break;
+		case OBJ_Mana_Potion.objName:
+			obj = new OBJ_Mana_Potion(gp);
+			break;
 		case OBJ_Wooden_Shield.objName:
 			obj = new OBJ_Wooden_Shield(gp);
 			break;

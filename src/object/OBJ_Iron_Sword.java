@@ -7,7 +7,7 @@ public class OBJ_Iron_Sword extends Entity{
 	public static final String objName = "Iron Sword";
 	public OBJ_Iron_Sword(GamePanel gp) {
 		super(gp);
-		coin = 1000;
+		coin = 3000;
 		type = type_sword;
 		dropChance = 12;
 		name = objName;

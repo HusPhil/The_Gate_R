@@ -7,13 +7,13 @@ public class OBJ_Wooden_Sword extends Entity{
 	public static final String objName = "Wooden Sword";
 	public OBJ_Wooden_Sword(GamePanel gp) {
 		super(gp);
-		coin = 888888880;
+		coin = 800;
 		type = type_sword;
 		dropChance = 12;
 		name = objName;
 		knockBackPower = 2;
 		down1 = createImage("objects", "equips/sword_wood");
-		description = "["+name+"]" + "\nA sword you picked \nup on the way. Made of \nwood, does not seem so \nstrong" + "\n-SWORD-";
+		description = "["+name+"]" + "\nA sword made of wood, it\ndoes not seem so strong" + "\n-SWORD-";
 		
 		//attributes
 //		atk = 20;

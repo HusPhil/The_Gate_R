@@ -10,14 +10,14 @@ public class ITM_WaterEssence extends Entity{
 	public ITM_WaterEssence(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		type = type_materials;
+		type = type_questItem;
 		stackable = true;
 		dropChance = 90;
 		name = objName;
 		down1 = createImage("objects", "items/water_essence");
 		collision = false;
-		description = "["+name+"]" + "\nThe remnants of the water Golem!\nMaybe it can be combined!\n with something.."
-				+ "*Material*";
+		description = "["+name+"]" + "\nRemnants of the Water\nGolem! Maybe it can be\ncombined with something.."
+				+ "\n*Material*";
 	}
 	
 }

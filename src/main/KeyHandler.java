@@ -223,7 +223,7 @@ public class KeyHandler implements KeyListener {
 				gp.narrator.setDialogue();
 				gp.player.name = input;
 //				gp.gameState = gp.playState; 
-				gp.gui.addMessage("The player's name is: " + input+":BLUE");
+				gp.gui.addMessage("Welcome! " + input+"!:BLUE");
 				gp.player.ID = DatabaseManagement.generatePlayerID();
 				gp.DBMS.createPlayerData();
 				
@@ -309,7 +309,11 @@ public class KeyHandler implements KeyListener {
 //			if(GameProgress.oldManExplained)
 				gp.gameState = gp.viewCharState; 
 			break;
-		case KeyEvent.VK_F: fireAway = true; break;
+		case KeyEvent.VK_F: 
+			fireAway = true; 
+			if(!gp.player.projectile.sufficientResource(gp.player)) 
+				gp.gui.addMessage("Not enough mana."+":RED");
+			break;
 		case KeyEvent.VK_ESCAPE: gp.gameState = gp.optionsState; break;
 		case KeyEvent.VK_L: 
 			if(debugPressed) debugPressed = false;
