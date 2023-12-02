@@ -105,12 +105,14 @@ public class DatabaseManagement {
 				e.printStackTrace();
 			}
 	        
-	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ? WHERE player_id = ?";
+	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ?, player_score = ?, player_playTime = ? WHERE player_id = ?";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        preparedStatement.setInt(1, gp.player.score);
-	        preparedStatement.setInt(2, gp.player.progress);
-	        preparedStatement.setBytes(3, playerSavedData);	        
-	        preparedStatement.setString(4, gp.player.ID);
+	        preparedStatement.setInt(2, gp.player.getProgress());
+	        preparedStatement.setBytes(3, playerSavedData);
+	        preparedStatement.setInt(4, gp.player.getScore());
+	        preparedStatement.setInt(5, gp.player.getPlayTime());
+	        preparedStatement.setString(6, gp.player.ID);
 
 	        preparedStatement.executeUpdate();
 

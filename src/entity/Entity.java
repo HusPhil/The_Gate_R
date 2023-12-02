@@ -88,6 +88,7 @@ public class Entity {
 	public boolean opened = false;
 	public int knockBackPower = 0;
 	public int defaultSpeed;
+	public int playTime = 0;
 	public int maxLife, life;
 	public int worldX;
 	public int worldY; 
@@ -103,6 +104,7 @@ public class Entity {
 	public int dropChance;
 	public int reqItem;
 	public int lightRadius;
+	public int killCount;
 	public Entity currentWeapon;
 	public Entity currentShield;
 	public Entity currentLightItem;

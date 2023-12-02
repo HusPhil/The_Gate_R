@@ -288,8 +288,8 @@ public class EventHandler {
 
 		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
 			if(gp.gameState != gp.cutSceneState)
-//			transition(gp.silvioHouse, 24, 23, gp.indoor);
-				transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
+			transition(gp.silvioHouse, 24, 23, gp.indoor);
+//				transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
 		}
 		else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
 			transition(gp.silvioHouse, 24, 40, gp.indoor);

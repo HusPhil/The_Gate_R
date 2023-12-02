@@ -44,8 +44,7 @@ public class Player extends Entity{
 	KeyHandler keys;
 	public String ID = "";
 	public int score = 0;
-	public int progress = 0;
-
+	public int progress = getProgress();
 	String temp;
 	int keynum = 0;
 	public final int screenX; 
@@ -779,8 +778,38 @@ public class Player extends Entity{
 		
 	}
 	
+	public int getScore() {
+		int score = 0;
+		score = (int) (getProgress()*10);
+		return score;
+	}
 	
+	public int getProgress() {
+		int _progress = 0;
+		
+		if(GameProgress.encounterOldMan) _progress = (int) (100*(1.0/14));
+		if(GameProgress.oldManExplained) _progress = (int) (100*(2.0/14));
+		if(GameProgress.intro_done) _progress = (int) (100*(3.0/14));
+		if(GameProgress.witchQuest1Complete) _progress = (int) (100*(4.0/14));
+		if(GameProgress.oldManQuest2Explained) _progress = (int) (100*(5.0/14));
+		if(GameProgress.waterGolemDefeated) _progress = (int) (100*(6.0/14));
+		if(GameProgress.waterCrystalActivated) _progress = (int) (100*(7.0/14));
+		if(GameProgress.knightEncountered) _progress = (int) (100*(8.0/14));
+		if(GameProgress.princessEncountered) _progress = (int) (100*(9.0/14));
+		if(GameProgress.defeatedSkeletonLord) _progress = (int) (100*(10.0/14));
+		if(GameProgress.witchReported) _progress = (int) (100*(11.0/14));
+		if(GameProgress.princessReunited) _progress = (int) (100*(12.0/14));
+		if(GameProgress.princessCrafted) _progress = (int) (100*(13.0/14));
+		if(GameProgress.ending) _progress = (int) (100*(14.0/14));
+		
+		System.out.println(_progress + "::" + 100*(11/14));
+		
+		return _progress;
+	}
 	
+	public int getPlayTime() {
+		return playTime/60;
+	}
 
 	public void update() {
 		

@@ -321,7 +321,7 @@ public class GamePanel extends JPanel implements Runnable{
 	//====================================================//
 	public void update() {
 		
-		
+		if(gameState != gameMenu) player.playTime++;
 		
 		if(gameState == gameOverState || gameState == ending) keys.delayTimer++;
 		else keys.delayTimer= 0;
