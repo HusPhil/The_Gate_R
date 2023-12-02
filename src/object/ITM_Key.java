@@ -7,6 +7,7 @@ import main.GamePanel;
 public class ITM_Key extends Entity{
 	GamePanel gp;
 	public static final String  objName = "Key";
+	
 	public ITM_Key(GamePanel gp) {
 		super(gp);
 		this.gp = gp;

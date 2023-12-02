@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
-import object.ITM_Wood;
 import object.OBJ_TerraBlade;
 
 public class IT_TrenkHeart extends InteractiveTiles{

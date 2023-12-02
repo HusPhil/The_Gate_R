@@ -240,7 +240,7 @@ public class KeyHandler implements KeyListener {
 					gp.player.ID = input;
 					gp.saverLoader.loadData(); 
 					gp.DBMS.loadGameProgress();
-					gp.createAssets.makeBosses();
+//					gp.createAssets.makeBosses();
 					
 					gp.gui.g2.setColor(Color.WHITE);
 					gp.g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -316,6 +316,7 @@ public class KeyHandler implements KeyListener {
 			else if(!debugPressed) debugPressed = true; 
 			break;
 		case KeyEvent.VK_X: 
+			gp.saverLoader.saveData();
 //			gp.gameState = gp.tradingState;
 //			gp.currentMap = 0;
 //			switch(gp.currentMap) {

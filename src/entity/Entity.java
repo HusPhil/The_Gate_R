@@ -81,7 +81,8 @@ public class Entity {
 	public boolean enraged = false;
 	public boolean asleep = false;
 	public boolean talking = false;
-		
+	public boolean invisible = false;
+	
 	//Entity's Attributes
 	public Entity loot;
 	public boolean opened = false;
@@ -466,19 +467,14 @@ public class Entity {
 		
 	}
 	public void dropItem(Entity item) {
-		int j = new Random().nextInt(2);
-		int k = new Random().nextInt(2);
-		int m = new Random().nextInt(2); 
 		
 		for(int i = 0; i < gp.gameObjs[1].length; i++) {
 			
 			if(gp.gameObjs[gp.currentMap][i] == null) {
 				gp.gameObjs[gp.currentMap][i] = item;
-				if (k == 0) gp.gameObjs[gp.currentMap][i].worldX = worldX + j*(gp.tileSize/2);
-				if (k == 1) gp.gameObjs[gp.currentMap][i].worldX = worldX - j*(gp.tileSize/2);
 				
-				if (m == 0) gp.gameObjs[gp.currentMap][i].worldY = worldY + k*(gp.tileSize/2);
-				if (m == 1) gp.gameObjs[gp.currentMap][i].worldY = worldY - k*(gp.tileSize/2);
+				gp.gameObjs[gp.currentMap][i].worldX = worldX;
+				gp.gameObjs[gp.currentMap][i].worldY = worldY;
 				break;
 			}
 		}

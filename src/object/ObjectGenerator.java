@@ -96,17 +96,15 @@ public class ObjectGenerator {
 		case OBJ_TerraBlade.objName:
 			obj = new OBJ_TerraBlade(gp);
 			break;
-		case ITM_Wood.objName:
-			obj = new ITM_Wood(gp);
-			break;
 		case ITM_VorpalStone.objName:
 			obj = new ITM_VorpalStone(gp);
 			break;
 		case ITM_VorpalGem.objName:
 			obj = new ITM_VorpalGem(gp);
 			break;
-			
-			
+		case OBJ_EvilStatue.objName:
+			obj = new OBJ_EvilStatue(gp);
+			break;
 		}
 		
 		return obj;

@@ -29,6 +29,7 @@ import object.ITM_Key;
 import object.OBJ_Castle;
 import object.OBJ_Chest;
 import object.OBJ_Door;
+import object.OBJ_EvilStatue;
 import object.OBJ_FireAmulet;
 import object.OBJ_Health_Potion;
 import object.OBJ_HeartCrystal;
@@ -36,7 +37,6 @@ import object.OBJ_IronDoor;
 import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_Pickaxe;
-import object.OBJ_Statue;
 import object.OBJ_TerraBlade;
 import object.OBJ_Throne;
 import object.OBJ_Iron_Shield;
@@ -107,6 +107,9 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 40*gp.tileSize; i++;
 		
+		
+
+		
 		i = 0;
 		mapNum = gp.silvioHouse;
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
@@ -147,7 +150,6 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 14*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 24*gp.tileSize; i++;
 		
-		
 
 		
 		i = 0;
@@ -179,10 +181,10 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 24*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
-		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
-		gp.gameObjs[mapNum][i].cs_id = "002A";
-		gp.gameObjs[mapNum][i].worldX = 30*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 22*gp.tileSize; i++;
+//		gp.gameObjs[mapNum][i] = new OBJ_Door(gp);
+//		gp.gameObjs[mapNum][i].cs_id = "002A";
+//		gp.gameObjs[mapNum][i].worldX = 30*gp.tileSize;
+//		gp.gameObjs[mapNum][i].worldY = 22*gp.tileSize; i++;
 		
 		
 		i = 0;
@@ -210,11 +212,11 @@ public class AssetsHandler {
 		
 		i = 0;
 		mapNum = gp.finalStage;
-		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
+		gp.gameObjs[mapNum][i] = new OBJ_EvilStatue(gp);
 		gp.gameObjs[mapNum][i].worldX = 12*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
-		gp.gameObjs[mapNum][i] = new OBJ_Statue(gp);
+		gp.gameObjs[mapNum][i] = new OBJ_EvilStatue(gp);
 		gp.gameObjs[mapNum][i].worldX = 35*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 

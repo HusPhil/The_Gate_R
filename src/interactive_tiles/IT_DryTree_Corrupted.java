@@ -5,7 +5,6 @@ import java.awt.Color;
 import entity.Entity;
 import main.GamePanel;
 import object.ITM_Coin;
-import object.ITM_Wood;
 
 public class IT_DryTree_Corrupted extends InteractiveTiles{
 	GamePanel gp;
@@ -43,7 +42,7 @@ public class IT_DryTree_Corrupted extends InteractiveTiles{
 	}
 	public InteractiveTiles destroyedForm() {
 		InteractiveTiles tile = new IT_TrunkBroke(gp, worldX/gp.tileSize, worldY/gp.tileSize);
-		dropItem(new ITM_Wood(gp));
+//		dropItem(new ITM_Wood(gp));
 		return tile;
 	}
 	public Color getParticleColor() {

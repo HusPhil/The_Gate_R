@@ -66,7 +66,6 @@ public class SaveLoad {
 			//OBJECTS ON THE MAP
 			ds.objectNames = new String[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectLootNames = new String[gp.maxMap][gp.gameObjs[1].length];
-			ds.objectCsId = new String[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectWorldX = new int[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectWorldY = new int[gp.maxMap][gp.gameObjs[1].length];
 			ds.objectOpened = new boolean[gp.maxMap][gp.gameObjs[1].length];
@@ -75,8 +74,8 @@ public class SaveLoad {
 				for(int i = 0; i < gp.gameObjs[1].length; i++){
 					if(gp.gameObjs[mapNum][i] == null) ds.objectNames[mapNum][i] = "NULL";
 					else {
+						System.out.println(gp.gameObjs[mapNum][i].name+"::"+mapNum+"::"+i);
 						ds.objectNames[mapNum][i] = gp.gameObjs[mapNum][i].name;
-						ds.objectCsId[mapNum][i] = gp.gameObjs[mapNum][i].cs_id;
 						ds.objectWorldX[mapNum][i] = gp.gameObjs[mapNum][i].worldX;
 						ds.objectWorldY[mapNum][i] = gp.gameObjs[mapNum][i].worldY;
 						if(gp.gameObjs[mapNum][i].loot != null) ds.objectLootNames[mapNum][i] = gp.gameObjs[mapNum][i].loot.name;
@@ -155,11 +154,14 @@ public class SaveLoad {
 				//OBJECTS ON MAP
 				for(int mapNum = 0; mapNum < gp.maxMap; mapNum++) {
 					for(int i = 0; i < gp.gameObjs[1].length; i++){
+						System.out.println(ds.objectNames[mapNum][i]+"::"+mapNum+"::"+i+"::"+ds.objectWorldX[mapNum][i]);
 						if(ds.objectNames[mapNum][i].equals("NULL")) gp.gameObjs[mapNum][i] = null;
 						
 						else {
+							if(gp.gameObjs[mapNum][i] != null) {
+								
+							}
 							gp.gameObjs[mapNum][i] = gp.objGen.getObjectFromName(ds.objectNames[mapNum][i]);
-							gp.gameObjs[mapNum][i].cs_id =  ds.objectCsId[mapNum][i];
 							gp.gameObjs[mapNum][i].worldX = ds.objectWorldX[mapNum][i];
 							gp.gameObjs[mapNum][i].worldY = ds.objectWorldY[mapNum][i];
 							if(ds.objectLootNames[mapNum][i] != null) gp.gameObjs[mapNum][i].setLoot(gp.objGen.getObjectFromName(ds.objectLootNames[mapNum][i]));

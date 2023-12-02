@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	
 	//MAP SETTINGS
-	public final int maxMap = 15;
+	public final int maxMap = 20;
 	
 	public int nextArea;
 	public int currentArea;
@@ -148,7 +148,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//Objects Handler//
 	//--------------------------//
-	public Entity gameObjs[][] = new Entity[maxMap][30];
+	public Entity gameObjs[][] = new Entity[maxMap][100];
 	public InteractiveTiles IT_Manager[][] = new InteractiveTiles[maxMap][20];
 	public ObjectGenerator objGen = new ObjectGenerator(this);
 	//==========================//
@@ -536,6 +536,8 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeMonster();
 		
 		if(reset) {
+			player.getPlayerAttackImage();
+			
 			//reset game progres
 			GameProgress.encounterOldMan = false;
 			GameProgress.oldManExplained = false;

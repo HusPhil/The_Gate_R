@@ -609,8 +609,8 @@ public class CutSceneHandler {
 				}
 			}
 			GameProgress.intro_done = true;
-			gp.saverLoader.saveData();
 			endScene();
+			gp.saverLoader.saveData();
 		}
 	}
 

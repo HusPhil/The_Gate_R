@@ -765,7 +765,7 @@ public class Player extends Entity{
 			}
 			if(selectedItem.type == type_consumables) {
 				inventory.get(itemIndex).use(this);
-				
+				gp.keys.enterPressed = false;
 			}
 		}
 		
