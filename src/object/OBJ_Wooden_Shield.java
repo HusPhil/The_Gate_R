@@ -14,7 +14,7 @@ public class OBJ_Wooden_Shield extends Entity{
 		dropChance = 15;
 		name = objName;
 		down1 = createImage("objects", "equips/shield_wood");
-		defVal = 1;
+		defVal = 5;
 		description = "["+name+"]" + "\nA shield made of wood.\nIt's old but still useful!" + "\n-SHIELD-";
 	}
 

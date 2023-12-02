@@ -50,9 +50,9 @@ public class GUI {
 	public void characterScreen() {
 		
 		
-		int frameX = gp.tileSize;
-		int frameY = gp.tileSize-24;
-		int frameW = (gp.screenWidth/2) - gp.tileSize*2;
+		int frameX = (gp.tileSize*2) + 24;
+		int frameY = (gp.tileSize*6) - 24;
+		int frameW = (gp.tileSize *8)+24;
 		int frameH = gp.screenHeight - (gp.tileSize*6)-12;
 		
 		//WINDOW FOR STATS
@@ -65,7 +65,7 @@ public class GUI {
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		
 		int textX = frameX + 30 ;
-		int textY = frameY + (gp.tileSize);
+		int textY = frameY + (gp.tileSize)-10;
 		int lineHeight = 35;
 		
 		//LABEL
@@ -98,7 +98,7 @@ public class GUI {
 		
 		//VALUES	
 		int tailX = (frameX + frameW) - 30;
-		textY = frameY + (gp.tileSize);
+		textY = frameY + (gp.tileSize)-12;
 		lineHeight = 35;
 		String value;
 		
@@ -148,10 +148,10 @@ public class GUI {
 		textY+=lineHeight;
 		
 		
-		frameX = gp.screenWidth/2 -24;
-		frameY = gp.tileSize-24;
-		frameW = (gp.screenWidth/2) - 24;
-		frameH = gp.screenHeight - (gp.tileSize*6)-12;
+		frameX = (gp.tileSize*2) + 24;
+		frameY = 24;
+		frameW = ( gp.tileSize*8)+24;
+		frameH = gp.tileSize*2;
 		
 		//WINDOW FOR EQUIPMENTS
 		subWindow(frameX, frameY, frameW, frameH);
@@ -162,17 +162,33 @@ public class GUI {
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
 		//DISPLAY EQUIPMENT IMAGES
-		g2.drawString("CURRENT WEAPON", textX, textY);
-		g2.drawImage(gp.player.currentWeapon.down1, textX, textY+12, null);
+		g2.drawString("CURRENT", textX, textY); textY += gp.tileSize-8;
+		g2.drawString("WEAPON", textX, textY);
+
+		textX += gp.tileSize*3;
+		textY = frameY + (gp.tileSize)-24;
+		g2.drawImage(gp.player.currentWeapon.down1, textX, textY, null);
 		textY+=gp.tileSize*2;
 		
-		g2.drawString("CURRENT SHIELD", textX, textY);
-		g2.drawImage(gp.player.currentShield.down1, textX, textY+12, null);
+		frameY += frameH + 24;
+		subWindow(frameX, frameY, frameW, frameH);
 		
-		textY += gp.tileSize*2 +24 ;
+		textY += gp.tileSize-8;
+		textX = frameX + 30 ;
+		g2.drawString("CURRENT", textX, textY); textY += gp.tileSize-8;
+		g2.drawString("SHIELD", textX, textY); textY -= gp.tileSize-8;
+		
+		textX = frameX + 30 ;
+		textX += gp.tileSize*3;
+		textY -= gp.tileSize-36;
+		g2.drawImage(gp.player.currentShield.down1, textX, textY, null);
+		
+		
+		textX = (gp.tileSize * 8) - 12;
+		textY = gp.tileSize*2;
 		g2.drawString("Attack:", textX, textY);
 		
-		textY += gp.tileSize;
+		textY += (gp.tileSize*2) + 24;
 		g2.drawString("Defense:", textX, textY);
 		
 		//DISPLAY EQUIPMENT Property
@@ -183,43 +199,42 @@ public class GUI {
 		
 		
 		
-		textY += gp.tileSize;
+		textY = gp.tileSize+12;
+		textX = (gp.tileSize*6)+12;
 		g2.drawString("ATK+", (textX+gp.tileSize)+24, textY);
 		
-		textY += gp.tileSize*2;
+		textY += (gp.tileSize*2)+24;
 		g2.drawString("DEF+", (textX+gp.tileSize)+24, textY);
 		
-		textX = frameX + 30 ;
-		textY = frameY + (gp.tileSize)*2;
+		textY = gp.tileSize+12;
+		textX = (gp.tileSize*9) + 12;
 		lineHeight = 35;
 		
 		value = String.valueOf(gp.player.currentWeapon.atkVal);
-		textX = gp.screenWidth - gp.tileSize*8;
 		g2.drawString(value, textX, textY);
 		
-		textY+=gp.tileSize*2;
+		textY+=(gp.tileSize*2)+24;
 		value = String.valueOf(gp.player.currentShield.defVal);
-		textX = gp.screenWidth - gp.tileSize*8;
 		g2.drawString(value, textX, textY);
+		
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
+		textX = (gp.tileSize*9) + 24;
+		textY = gp.tileSize*2;
 		
-		textY+=gp.tileSize +12;
 		value = String.valueOf(gp.player.getAtk());
-		textX = (gp.screenWidth - gp.tileSize*9) - 10;
 		g2.drawString(value, textX, textY);
 		
-		
-		textY+=gp.tileSize;
+		textY+=(gp.tileSize*2) + 24;
+		textX = (gp.tileSize*10) + 8;
 		value = String.valueOf(gp.player.getDef());
-		textX = (gp.screenWidth - gp.tileSize*9) + 14;
 		g2.drawString(value, textX, textY);
 		
 	}
 	public void showInventory() {
 		//SET WINDOW FRAME
-				int frameX = gp.tileSize;
-				int frameY = gp.screenHeight - (gp.tileSize*5)-12;
+				int frameX = ((gp.screenWidth/2) - gp.tileSize*2) + gp.tileSize*3; frameX -= 24;
+				int frameY = gp.tileSize-24;
 				int frameW = gp.tileSize*8;
 				int frameH = gp.tileSize*5;
 				
@@ -282,15 +297,15 @@ public class GUI {
 				g2.drawRoundRect(cursorX, cursorY, cursorW, cursorH, 10, 10);
 				
 				//Descriptiion window
-				int dFrameX = frameX + frameW +24;
-				int dFrameY = frameY;
-				int dFrameW = frameW-(gp.tileSize*2)-24;
-				int dFrameH = frameH - (gp.tileSize)+24;
+				int dFrameX = frameX;
+				int dFrameY = frameY + frameH +12;
+				int dFrameW = frameW -gp.tileSize * 3; dFrameW += 24;
+				int dFrameH = gp.tileSize*4;
 				
 				
 				//Description text
-				int textY = dFrameY + gp.tileSize;
-				int textX = dFrameX + 25;
+				int textY = dFrameY + 36;
+				int textX = dFrameX + 24;
 				g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
 				
 				int itemIndex = getItemIndex();

@@ -202,7 +202,7 @@ public class Player extends Entity{
 		return str/2 * currentWeapon.atkVal;
 	}
 	public int getDef() {
-		return dex * currentShield.defVal;
+		return dex * currentShield.defVal/2;
 	}
 	public int getPlayerWordlX() {
 		return (worldX + solidArea.x) / gp.tileSize;

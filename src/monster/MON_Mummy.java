@@ -21,7 +21,7 @@ public class MON_Mummy extends Entity{
 		attacking = !true;
 		name = monName;
 		life = maxLife;
-		atk = 4;
+		atk = 8;
 		def = 2;
 		exp = 5;
 		

@@ -224,7 +224,6 @@ public class Entity {
 			image = Utils.scaleImage(gp.tileSize, gp.tileSize, image); 
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return image;
@@ -238,7 +237,6 @@ public class Entity {
 			image = Utils.scaleImage(width, height, image);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return image;
@@ -741,7 +739,6 @@ public class Entity {
 	}
 	public void draw(Graphics2D g2) {
 		this.g2 = g2;
-		// TODO Auto-generated method stub
 		int screenX = worldX - gp.player.worldX + gp.player.screenX; 
 		int screenY = worldY - gp.player.worldY + gp.player.screenY;
 		

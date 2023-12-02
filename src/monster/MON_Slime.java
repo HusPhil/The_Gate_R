@@ -22,7 +22,7 @@ public class MON_Slime extends Entity{
 		maxLife = 16;
 		name = monName;
 		life = maxLife;
-		atk = 2;
+		atk = 5;
 		def = 1;
 		exp = 2;
 		
