@@ -46,28 +46,6 @@ public class DatabaseManagement {
         return player_id;
     }
 	
-	public void testPrintData() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(url, username, password);
-			
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("Select * FROM Program");
-			
-//			resultSet.next();
-//			System.out.println(resultSet.getString(1));
-			
-			while(resultSet.next()) {
-				System.out.println(resultSet.getString(1) +" "+resultSet.getString(2)+" ");
-			}
-			
-			connection.close();
-		}
-		catch (Exception e) {
-			System.out.print(e);
-		}
-	}
-
 	public static boolean checkUserExist(String column, String user) {
 		try {
 		    Class.forName("com.mysql.cj.jdbc.Driver");
@@ -173,7 +151,7 @@ public class DatabaseManagement {
 	}
 
 	public void loadGameProgress() {
-		System.out.println(GameProgress.defeatedSkeletonLord);
+		
 		
 		if(GameProgress.intro_done) {
 			int mapNum = gp.silvioVillage;
@@ -266,6 +244,7 @@ public class DatabaseManagement {
 			for(int i = 0; i < gp.monsters[1].length; i++) {
 				if(gp.monsters[gp.sacredRiver][i] != null && gp.monsters[gp.sacredRiver][i].name.equals(BOSS_WaterGolem.monName)) {
 					gp.monsters[gp.sacredRiver][i] = null;
+					System.out.println("WHYYYY!");
 				}
 			}
 			for(int i = 0; i < gp.npc[1].length; i++) {

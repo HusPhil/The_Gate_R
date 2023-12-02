@@ -188,13 +188,16 @@ public class EventHandler {
 
 		if(eventCollision(gp.forest, 11, 10, "left")) transition(gp.silvioHouse, 29, 6, gp.dungeon);
 		else if(eventCollision(gp.forest, 36, 32, "right", 0, 0, gp.tileSize, gp.tileSize)) {
-			transition(gp.sacredRiver, 11, 13, gp.outside);
+			transition(gp.sacredRiver, 11, 13, gp.dungeon);
 		}
 		else if(eventCollision(gp.forest, 33, 23, "up")) {
 			CS_knightEncounter();
 		}
 		else if(eventCollision(gp.forest, 38, 11, "right")) {
 			transition(gp.maze, 12, 9, gp.dungeon);
+		}
+		else if(eventCollision(gp.forest, 32, 40, "right")) {
+			transition(gp.merchantHouse, 24, 23, gp.indoor);
 		}
 		else if(eventCollision(gp.forest, 20, 35, "left")) {
 			transition(gp.princessCage, 19, 18, gp.dungeon);
@@ -285,7 +288,8 @@ public class EventHandler {
 
 		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
 			if(gp.gameState != gp.cutSceneState)
-			transition(gp.silvioHouse, 24, 23, gp.indoor);
+//			transition(gp.silvioHouse, 24, 23, gp.indoor);
+				transition(gp.dungeonMap_F2, 13, 21, gp.dungeon);
 		}
 		else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
 			transition(gp.silvioHouse, 24, 40, gp.indoor);
@@ -332,7 +336,7 @@ public class EventHandler {
 
 	private void merchantHouseEvents() {
 
-		if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.silvioVillage, 35, 15, gp.outside);
+		if(eventCollision(gp.merchantHouse, 24, 24, "down")) transition(gp.forest, 32, 40, gp.outside);
 		else if(eventCollision(gp.merchantHouse, 18, 20, "up")) {
 			gp.npc[2][gp.worldMapA].startDialogue(gp.npc[2][gp.worldMapA], 0);
 			touchEventON = false;

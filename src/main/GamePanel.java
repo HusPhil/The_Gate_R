@@ -536,7 +536,7 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeMonster();
 		
 		if(reset) {
-			player.getPlayerAttackImage();
+			
 			
 			//reset game progres
 			GameProgress.encounterOldMan = false;
@@ -580,6 +580,8 @@ public class GamePanel extends JPanel implements Runnable{
 			createAssets.makeObjects();
 			createAssets.makeNpc();
 			createAssets.makeMonster();
+			
+			player.getPlayerAttackImage();
 		}
  		
  		

@@ -4,6 +4,7 @@ package main;
 
 import DataHandling.GameProgress;
 import entity.NPC_Knight;
+import entity.NPC_Merchant;
 import entity.NPC_Princess;
 import entity.NPC_Soldier;
 import entity.NPC_BigRock;
@@ -106,8 +107,6 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new ITM_Key(gp);
 		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 40*gp.tileSize; i++;
-		
-		
 
 		
 		i = 0;
@@ -177,7 +176,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new ITM_Key(gp));
+		gp.gameObjs[mapNum][i].setLoot(new OBJ_HeartCrystal(gp));
 		gp.gameObjs[mapNum][i].worldX = 24*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
@@ -261,6 +260,14 @@ public class AssetsHandler {
 		gp.npc[mapNum][i] = new NPC_Princess(gp);
 		gp.npc[mapNum][i].speed = 0;
 		gp.npc[mapNum][i].worldX = 30*gp.tileSize;
+		gp.npc[mapNum][i].worldY = 18*gp.tileSize; i++;
+		
+		
+		i = 0;
+		mapNum = gp.merchantHouse;
+		gp.npc[mapNum][i] = new NPC_Merchant(gp);
+		gp.npc[mapNum][i].speed = 0;
+		gp.npc[mapNum][i].worldX = 18*gp.tileSize;
 		gp.npc[mapNum][i].worldY = 18*gp.tileSize; i++;
 		
 		i = 0;
@@ -351,7 +358,60 @@ public class AssetsHandler {
 		i++;
 		
 		//BOSS
-		makeBosses();
+		i = 0;
+		mapNum = gp.dungeonMap_F2;
+		if(!GameProgress.defeatedSkeletonLord) {
+			gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
+			gp.monsters[mapNum][i].worldX = 25*gp.tileSize;
+			gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
+			i++;
+		}
+						
+		i = 0;
+		mapNum = gp.sacredRiver;
+		if(!GameProgress.waterGolemDefeated) {
+			gp.monsters[mapNum][i] = new BOSS_WaterGolem(gp);
+			gp.monsters[mapNum][i].worldX = 20*gp.tileSize;
+			gp.monsters[mapNum][i].worldY = 36*gp.tileSize;
+			i++;
+		}
+
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 24*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 12*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 27*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 15*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 34*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 11*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 13*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 16*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 20*gp.tileSize;
+		i++;
+		
+		gp.monsters[mapNum][i] = new MON_Mummy(gp);
+		gp.monsters[mapNum][i].worldX = 12*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
+		i++;
+
+		i = 0;
+		mapNum = gp.finalStage;
+		gp.monsters[mapNum][i] = new BOSS_TrenkLord(gp);
+		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
+		gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
+		i++;
 		
 		
 		
@@ -407,37 +467,7 @@ public class AssetsHandler {
 		i++;
 		
 		
-		i = 0;
-		mapNum = gp.sacredRiver;
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 24*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 12*gp.tileSize;
-		i++;
 		
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 27*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 15*gp.tileSize;
-		i++;
-		
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 34*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 11*gp.tileSize;
-		i++;
-		
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 13*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 16*gp.tileSize;
-		i++;
-		
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 20*gp.tileSize;
-		i++;
-		
-		gp.monsters[mapNum][i] = new MON_Mummy(gp);
-		gp.monsters[mapNum][i].worldX = 12*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 27*gp.tileSize;
-		i++;
 		
 		
 		i = 0;
@@ -493,29 +523,6 @@ public class AssetsHandler {
 		i++;
 		
 		
-	}
-	public void makeBosses() {
-		
-		int i = 0;
-		int mapNum = 0;
-		gp.monsters[mapNum][i] = new BOSS_SkeletonLord(gp);
-		gp.monsters[mapNum][i].worldX = 25*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 35*gp.tileSize;
-		i++;
-						
-		i = 0;
-		mapNum = gp.sacredRiver;
-		gp.monsters[mapNum][i] = new BOSS_WaterGolem(gp);
-		gp.monsters[mapNum][i].worldX = 20*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 36*gp.tileSize;
-		i++;
-
-		i = 0;
-		mapNum = gp.finalStage;
-		gp.monsters[mapNum][i] = new BOSS_TrenkLord(gp);
-		gp.monsters[mapNum][i].worldX = 23*gp.tileSize;
-		gp.monsters[mapNum][i].worldY = 10*gp.tileSize;
-		i++;
 	}
 
 	public void makeInteractiveTiles() {

@@ -340,9 +340,11 @@ public class GUI {
 			int manaBarW;
 			
 			//limit the expansion of mana bar width
-			if((gp.player.maxLife/2)*gp.tileSize <= maxRedHP*gp.tileSize)
-				manaBarW = (gp.player.maxLife/2)*gp.tileSize;
-			else manaBarW = maxRedHP*gp.tileSize;
+//			if((gp.player.maxLife/2)*gp.tileSize <= maxRedHP*gp.tileSize)
+//				manaBarW = (gp.player.maxLife/2)*gp.tileSize;
+//			else 
+			
+			manaBarW = maxRedHP*gp.tileSize;
 			
 			g2.setColor(new Color(35, 35, 35));
 			g2.fillRect(x-1, y-16, manaBarW, 20);
@@ -615,7 +617,6 @@ public class GUI {
 
 			        } else {
 			        	message = originalString;
-			            System.out.println("The string does not contain a colon or does not split into two parts.");
 			        }
 					
 					switch(color) {
