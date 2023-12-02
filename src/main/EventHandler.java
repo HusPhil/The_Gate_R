@@ -300,8 +300,8 @@ public class EventHandler {
 				gp.csHandler.scenePhase++;
 			}
 			else CS_axeHint();
-			touchEventON = false;
 		}
+		touchEventON = false;
 			
 	}
 

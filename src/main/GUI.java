@@ -238,30 +238,31 @@ public class GUI {
 		value = String.valueOf(gp.player.getDef());
 		g2.drawString(value, textX, textY);
 	
-		frameW = (gp.tileSize*8)+24;
-		frameH = gp.tileSize*2;
-		frameX = frameW + gp.tileSize*3;
-		frameY = (gp.screenHeight - frameH) - gp.tileSize ;
+		frameW = (gp.tileSize*8);
+		frameH = gp.tileSize*2; 
+		frameX = frameW + gp.tileSize*3; frameX += 24;
+		frameY = (gp.screenHeight - frameH) - gp.tileSize;
+		frameY += 12;
 		
-		textX = frameX + gp.tileSize;
-		textY = frameY + gp.tileSize;
+		textX = frameX + gp.tileSize/2;
+		textY = frameY + (gp.tileSize/2) + 12;
 		
-		//WINDOW FOR EQUIPMENTS
+		//WINDOW FOR Score and killcount
 		subWindow(frameX, frameY, frameW, frameH);
 		
 		value = "Score: ";
 		g2.drawString(value, textX, textY);
 		
 		value = String.valueOf(gp.player.getScore());
-		g2.drawString(value, textX+gp.tileSize*2, textY);
+		g2.drawString(value, textAlignRight(value, frameW+gp.tileSize*11), textY);
 		
 		
-		textY += gp.tileSize;
+		textY += (gp.tileSize/2) + 16;
 		value = "Kill Count: ";
 		g2.drawString(value, textX, textY);
 		
 		value = String.valueOf(gp.player.killCount);
-		g2.drawString(value, (textX+gp.tileSize*3) + 12, textY);
+		g2.drawString(value, textAlignRight(value, frameW+gp.tileSize*11), textY);
 		
 	}
 	public void showInventory() {
@@ -289,9 +290,10 @@ public class GUI {
 					   gp.player.inventory.get(i) == gp.player.currentShield ||
 					   gp.player.inventory.get(i) == gp.player.currentLightItem ||
 					   gp.player.inventory.get(i) == gp.player.currentAmulet) {
-						g2.setColor(new Color(169, 239, 10));
-						g2.setStroke(new BasicStroke(3));
+						g2.setColor(new Color(64, 165, 103));
+						g2.setStroke(new BasicStroke(2));
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+						g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 					}
 					
 					g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
@@ -325,7 +327,7 @@ public class GUI {
 				int cursorW = gp.tileSize;
 				int cursorH = gp.tileSize;
 				
-				g2.setColor(Color.white);
+				g2.setColor(new Color(255, 204, 0));
 				g2.setStroke(new BasicStroke(3));
 				g2.drawRoundRect(cursorX, cursorY, cursorW, cursorH, 10, 10);
 				
