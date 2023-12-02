@@ -237,6 +237,31 @@ public class GUI {
 		textX = (gp.tileSize*10) + 8;
 		value = String.valueOf(gp.player.getDef());
 		g2.drawString(value, textX, textY);
+	
+		frameW = (gp.tileSize*8)+24;
+		frameH = gp.tileSize*2;
+		frameX = frameW + gp.tileSize*3;
+		frameY = (gp.screenHeight - frameH) - gp.tileSize ;
+		
+		textX = frameX + gp.tileSize;
+		textY = frameY + gp.tileSize;
+		
+		//WINDOW FOR EQUIPMENTS
+		subWindow(frameX, frameY, frameW, frameH);
+		
+		value = "Score: ";
+		g2.drawString(value, textX, textY);
+		
+		value = String.valueOf(gp.player.getScore());
+		g2.drawString(value, textX+gp.tileSize*2, textY);
+		
+		
+		textY += gp.tileSize;
+		value = "Kill Count: ";
+		g2.drawString(value, textX, textY);
+		
+		value = String.valueOf(gp.player.killCount);
+		g2.drawString(value, (textX+gp.tileSize*3) + 12, textY);
 		
 	}
 	public void showInventory() {

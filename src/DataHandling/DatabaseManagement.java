@@ -105,14 +105,15 @@ public class DatabaseManagement {
 				e.printStackTrace();
 			}
 	        
-	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ?, player_score = ?, player_playTime = ? WHERE player_id = ?";
+	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ?, player_score = ?, player_playTime = ?, player_killCount = ? WHERE player_id = ?";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        preparedStatement.setInt(1, gp.player.score);
 	        preparedStatement.setInt(2, gp.player.getProgress());
 	        preparedStatement.setBytes(3, playerSavedData);
 	        preparedStatement.setInt(4, gp.player.getScore());
 	        preparedStatement.setInt(5, gp.player.getPlayTime());
-	        preparedStatement.setString(6, gp.player.ID);
+	        preparedStatement.setInt(6, gp.player.killCount);
+	        preparedStatement.setString(7, gp.player.ID);
 
 	        preparedStatement.executeUpdate();
 
@@ -137,6 +138,8 @@ public class DatabaseManagement {
 		        gp.player.name = resultSet.getString("player_name");
 		        gp.player.score = resultSet.getInt("player_score");
 		        gp.player.progress = resultSet.getInt("player_progress");
+		        gp.player.playTime = resultSet.getInt("player_playTime");
+		        gp.player.killCount = resultSet.getInt("player_killCount");
 		        
 		        byte[] content = resultSet.getBytes("player_savedata");
 		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");

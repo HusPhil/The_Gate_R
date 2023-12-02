@@ -556,6 +556,7 @@ public class Player extends Entity{
 				gp.monsters[gp.currentMap][i].damageReaction();
 				
 				if(gp.monsters[gp.currentMap][i].life <= 0) {
+					killCount++;
 					gp.monsters[gp.currentMap][i].dying = true;
 					gp.gui.addMessage("You gained " + gp.monsters[gp.currentMap][i].exp + " exp");
 					exp += gp.monsters[gp.currentMap][i].exp; 
