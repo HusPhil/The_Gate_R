@@ -111,7 +111,7 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/5e415a5f-4bb0-4b61-80ee-406e1ddbf971)
 <br> <br>
 #Relational Structure <br>
-![Uploading image.png…]()
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/69422420-353f-403c-818e-7548a3ccb025)
 <br> <br>
 #EXAMPLE DATA <br>
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/08ca82f7-1144-4f57-a830-3b5045842cfd)
