@@ -47,13 +47,11 @@ A game about persuading people to fulfill SDGs by giving them a glimpse of a cha
 - Space to dash (experimetal)
 
 ## Game Mechanics
-Explain the rules, goals, or objectives of the game.
-
-## Contributing
-Information for contributors, if applicable.
-
-## Credits
-Acknowledgment to individuals or resources used in the game development.
-
+- The Game Mechanics is very simple, just follow the storyline and don't die!
+- Your score is based on you kill count and the progress you have made throughout the campgain.
+- If you finished the game, you may look if you made it to the top 10, by viewing the "Game Stats" in the Game Menu
+- You can also challenge yourself to beat the game faster, the top 10 fastest finisher is can also be viewed in the 'Game Stats'
+- 
 ## License
-Specify the license for the game's use or distribution.
+IMPORTANT!!
+Not all the resources used in this game is mine.
