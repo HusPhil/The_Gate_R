@@ -2,6 +2,10 @@
 > **Important Note:** <br> <span style="color:orange;">All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'</span>
 <span style="color:orange;">All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'</span>
 
+
+<br>
+<font color="orange">This text is in orange color.</font>
+
 ## Overview 
 A game designed to encourage players to fulfill Sustainable Development Goals (SDGs) by providing a glimpse of a chaotic future resulting from unfulfilled SDGs.
 
