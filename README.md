@@ -6,43 +6,43 @@ A game designed to encourage players to fulfill Sustainable Development Goals (S
 ## 🎯 Features
 
 - 📁 **Save and Load Game Data (Connected to the game database):** <br>
-Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly.
+Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly. <br> <br>
 
 - 📊 **View Comprehensive Game Statistics:** <br>
-Get an overview of the Game's Leaderboards.
+Get an overview of the Game's Leaderboards. <br> <br>
 
 - 🎒 **Inventory System:** <br> 
-View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure.
+View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure. <br> <br>
 
 - 💱 **Interactive Trading Mechanisms:** <br> 
-Engage in interactive trade with NPCs and buy items for your quest.
+Engage in interactive trade with NPCs and buy items for your quest. <br> <br>
 
 - 💬 **Intuitive Dialogue System:** <br> 
-Interact with diverse NPCs through an intuitive dialogue system, uncovering stories, quests, and useful information to progress in the game.
+Interact with diverse NPCs through an intuitive dialogue system, uncovering stories, quests, and useful information to progress in the game. <br> <br>
 
-- ⚔️ **Engaging Monster Combat System:** <br> Dive into thrilling combat encounters with monsters.
+- ⚔️ **Engaging Monster Combat System:** <br> Dive into thrilling combat encounters with monsters. <br> <br>
 
-- 🗺️ **Seamless Map Loading System:** <br>  Navigate through the game world seamlessly, exploring different locations with ease.
+- 🗺️ **Seamless Map Loading System:** <br>  Navigate through the game world seamlessly, exploring different locations with ease. <br> <br>
 
-- 🎮 **Event Handling:** <br> <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience.
+- 🎮 **Event Handling:** <br> <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience. <br> <br>
 
-- 🔔 **Message Notification System:** <br>  Messages that pop up about what the player is currently up to.
+- 🔔 **Message Notification System:** <br>  Messages that pop up about what the player is currently up to. <br> <br>
 
-- 🖥️ **Full-Screen Mode Compatibility:** <br>  Enjoy an immersive gaming experience with compatibility for full-screen mode.
+- 🖥️ **Full-Screen Mode Compatibility:** <br>  Enjoy an immersive gaming experience with compatibility for full-screen mode. <br> <br>
 
-- 🗺️ **Interactive Map and Character Display:** <br> Access an interactive map and character display, aiding navigation and enhancing the overall gaming experience.
+- 🗺️ **Interactive Map and Character Display:** <br> Access an interactive map and character display, aiding navigation and enhancing the overall gaming experience. <br> <br>
 
-- 🌞 **Day and Night Cycle:** <br> Immerse yourself in a dynamic environment with a day and night cycle, impacting gameplay and aesthetics.
+- 🌞 **Day and Night Cycle:** <br> Immerse yourself in a dynamic environment with a day and night cycle, impacting gameplay and aesthetics. <br> <br>
+ 
+- ✨ **Lighting Effects:** <br> Enjoy lighting effects, adding depth and realism to the game world. <br> <br>
 
-- ✨ **Lighting Effects:** <br> Enjoy lighting effects, adding depth and realism to the game world.
+- 🎬 **Storyline Cutscenes:** <br> Experience captivating storytelling through engaging cutscenes, deepening the narrative and player immersion. <br> <br>
 
-- 🎬 **Storyline Cutscenes:** <br> Experience captivating storytelling through engaging cutscenes, deepening the narrative and player immersion.
+- 🕹️ **Interactive Objects and Environments:** <br> Interact with various objects and environments, uncovering secrets and treasures. <br> <br>
 
-- 🕹️ **Interactive Objects and Environments:** <br> Interact with various objects and environments, uncovering secrets and treasures.
+- 🧙 **Magical Skills and Abilities:** <br> Harness magical skills and abilities to overcome obstacles and adversaries, adding depth to your gameplay strategy. <br> <br>
 
-- 🧙 **Magical Skills and Abilities:** <br> Harness magical skills and abilities to overcome obstacles and adversaries, adding depth to your gameplay strategy.
-
-- 🏰 **Thrilling Dungeon Exploration:** <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards.
+- 🏰 **Thrilling Dungeon Exploration:** <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards. <br> <br>
 
 
 
