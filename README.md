@@ -74,6 +74,11 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 - Check if you made it to the top 10 by viewing the "Game Stats" in the Game Menu after finishing the game.
 - Challenge yourself to complete the game faster; view the top 10 fastest finishers in 'Game Stats.'
 
+## Database
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/81924ba2-ffc7-439c-8e81-c5165cbec289)
+
+
+
 ## License
 IMPORTANT!! Not all the resources used in this game are mine.
 
