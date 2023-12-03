@@ -33,16 +33,18 @@ A game about persuading people to fulfill SDGs by giving them a glimpse of a cha
 6. Enjoy the game!
 
 ### Requirements
-List any prerequisites or software needed to run the game.
-
-### Installation Steps
-Provide step-by-step instructions for installing the game.
-
-## Usage
-Explain how to start or play the game.
+- Installed Java
+- Installed XAMPP
 
 ### Controls
-List the controls or commands used during gameplay.
+- W/A/S/D to control movement
+- Enter to attack / confirm
+- T to talk to NPC
+- C to view Character Screen / Inventory
+- ESC to view option state
+- F to use magic (if the required item is equipped)
+- M to exit from viewing the map
+- Space to dash (experimetal)
 
 ## Game Mechanics
 Explain the rules, goals, or objectives of the game.
