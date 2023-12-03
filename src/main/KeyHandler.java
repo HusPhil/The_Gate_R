@@ -308,6 +308,8 @@ public class KeyHandler implements KeyListener {
 			
 			System.out.println("X:" + x + " Y: " + y); 
 			gp.tManager.reloadMaps();
+			
+//			gp.gameState = gp.viewMapState;
 			break;
 		case KeyEvent.VK_P: 
 			gp.gameState = gp.pauseState; 
@@ -334,17 +336,17 @@ public class KeyHandler implements KeyListener {
 			else if(!debugPressed) debugPressed = true; 
 			break;
 		case KeyEvent.VK_X: 
-			gp.saverLoader.saveData();
+//			gp.saverLoader.saveData();
 //			gp.DBMS.createItemData();
-			gp.DBMS.updatePlayerInventory();
+//			gp.DBMS.updatePlayerInventory();
 //			gp.gameState = gp.tradingState;
 //			gp.currentMap = 0;
 //			switch(gp.currentMap) {
 //			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
 //			case 1: gp.tManager.loadMap("/maps/dungeonMap.txt", 1); break;
 //			}
-			if(!gp.map.minimapON) gp.map.minimapON = true;
-			else if(gp.map.minimapON) gp.map.minimapON = false;
+//			if(!gp.map.minimapON) gp.map.minimapON = true;
+//			else if(gp.map.minimapON) gp.map.minimapON = false;
 			break;
 		}
 	}

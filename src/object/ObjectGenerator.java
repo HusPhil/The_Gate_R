@@ -105,6 +105,9 @@ public class ObjectGenerator {
 		case ITM_VorpalGem.objName:
 			obj = new ITM_VorpalGem(gp);
 			break;
+		case ITM_Map.objName:
+			obj = new ITM_Map(gp);
+			break;
 		case OBJ_EvilStatue.objName:
 			obj = new OBJ_EvilStatue(gp);
 			break;

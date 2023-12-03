@@ -534,13 +534,14 @@ public class DatabaseManagement {
 
 	
 	public ArrayList<String> getTopPlayers() {
+
 	    ArrayList<String> topPlayers = new ArrayList<>();
 
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection connection = DriverManager.getConnection(url, username, password);
 
-	        String query = "SELECT player_name, player_score FROM player ORDER BY player_score DESC LIMIT 10";
+	        String query = "SELECT player_name, player_score FROM player WHERE player_progress = 100 ORDER BY player_score DESC LIMIT 10";
 	        Statement statement = connection.createStatement();
 	        ResultSet resultSet = statement.executeQuery(query);
 
@@ -548,7 +549,7 @@ public class DatabaseManagement {
 	            String playerName = resultSet.getString("player_name");
 	            int playerScore = resultSet.getInt("player_score");
 
-	            String playerInfo = playerName + ":         " + playerScore +"pts" ;
+	            String playerInfo = playerName + ": " + playerScore + "pts";
 	            topPlayers.add(playerInfo);
 	        }
 
@@ -561,30 +562,30 @@ public class DatabaseManagement {
 	}
 	
 	public ArrayList<String> getTopFinishers() {
-	    ArrayList<String> topFastestFinishers = new ArrayList<>();
+		 ArrayList<String> topFastestFinishers = new ArrayList<>();
 
-	    try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection connection = DriverManager.getConnection(url, username, password);
+		    try {
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+		        Connection connection = DriverManager.getConnection(url, username, password);
 
-	        String query = "SELECT player_name, player_playTime FROM player ORDER BY player_playTime ASC LIMIT 10";
-	        Statement statement = connection.createStatement();
-	        ResultSet resultSet = statement.executeQuery(query);
+		        String query = "SELECT player_name, player_playTime FROM player WHERE player_progress = 100 ORDER BY player_playTime ASC LIMIT 10";
+		        Statement statement = connection.createStatement();
+		        ResultSet resultSet = statement.executeQuery(query);
 
-	        while (resultSet.next()) {
-	            String playerName = resultSet.getString("player_name");
-	            int playerPlayTime = resultSet.getInt("player_playTime");
+		        while (resultSet.next()) {
+		            String playerName = resultSet.getString("player_name");
+		            int playerPlayTime = resultSet.getInt("player_playTime");
 
-	            String playerInfo = playerName + ":          " + playerPlayTime + "s";
-	            topFastestFinishers.add(playerInfo);
-	        }
+		            String playerInfo = playerName + ": " + playerPlayTime + "s";
+		            topFastestFinishers.add(playerInfo);
+		        }
 
-	        connection.close();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+		        connection.close();
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 
-	    return topFastestFinishers;
+		    return topFastestFinishers;
 	}
 
 

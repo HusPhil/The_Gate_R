@@ -23,7 +23,8 @@ public class ITM_VorpalGem extends Entity{
 	public void setDialogue() {
 		dialogues[0][0] = "You used the " + name + ". It shimmered with an otherworldy glow!";
 	}
-	public void use(Entity ent) {
+	public void use(Entity ent) 
+	{
 		CS_ending();
 		ammount--;
 		if(ammount <= 0) gp.player.inventory.remove(this);
@@ -32,4 +33,5 @@ public class ITM_VorpalGem extends Entity{
 		gp.gameState = gp.cutSceneState;
 		gp.csHandler.sceneNum = gp.csHandler.ending;
 	}
+
 }

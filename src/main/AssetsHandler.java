@@ -27,6 +27,7 @@ import monster.MON_Slime;
 import monster.MON_Trenklin;
 import monster.MON_Zombie;
 import object.ITM_Key;
+import object.ITM_Map;
 import object.OBJ_Castle;
 import object.OBJ_Chest;
 import object.OBJ_Door;
@@ -92,7 +93,7 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldY = 43*gp.tileSize; i++;
 		
 		gp.gameObjs[mapNum][i] = new OBJ_Chest(gp);
-		gp.gameObjs[mapNum][i].setLoot(new OBJ_Health_Potion(gp));
+		gp.gameObjs[mapNum][i].setLoot(new ITM_Map(gp));
 		gp.gameObjs[mapNum][i].worldX = 17*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 43*gp.tileSize; i++;
 		
@@ -107,6 +108,10 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i] = new ITM_Key(gp);
 		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 40*gp.tileSize; i++;
+		
+		gp.gameObjs[mapNum][i] = new ITM_Map(gp);
+		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
+		gp.gameObjs[mapNum][i].worldY = 39*gp.tileSize; i++;
 
 		
 		i = 0;

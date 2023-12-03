@@ -39,25 +39,10 @@ public class NPC_Merchant extends Entity{
 	}
 
 	private void getNpcImage() {
-		down1 = createImage("npc", "/merchant/monkey0");
-		down2 = createImage("npc", "/merchant/monkey1");
-		down3 = createImage("npc", "/merchant/monkey2");
-		down4 = createImage("npc", "/merchant/monkey0");
-
-		up1 = createImage("npc", "/merchant/monkey0");
-		up2 = createImage("npc", "/merchant/monkey1");
-		up3 = createImage("npc", "/merchant/monkey2");
-		up4 = createImage("npc", "/merchant/monkey0");
-		
-		left1 = createImage("npc", "/merchant/monkey0");
-		left2 = createImage("npc", "/merchant/monkey1");
-		left3 = createImage("npc", "/merchant/monkey2");
-		left4 = createImage("npc", "/merchant/monkey0");
-		
-		right1 = createImage("npc", "/merchant/monkey0");
-		right2 = createImage("npc", "/merchant/monkey1");
-		right3 = createImage("npc", "/merchant/monkey2");
-		right4 = createImage("npc", "/merchant/monkey0");
+		down1 = createImage("npc", "merchant/monkey0");
+		down2 = createImage("npc", "merchant/monkey1");
+		down3 = createImage("npc", "merchant/monkey2");
+		down4 = createImage("npc", "merchant/monkey0");
 	}
 	
 	public void setAction() {
@@ -112,11 +97,8 @@ public class NPC_Merchant extends Entity{
 //		dialogues[0][] = "You are heavily burdened, you cannot \ncarry anymore.";
 		int i = 0, j = 0;
 		
-		dialogues[i][j] = "kwk kwwkk kwk"; j++;
-		dialogues[i][j] = "kwkwkkk wkwwk"; j++;
-		dialogues[i][j] = "kwkwkw kwkwkwkwk kwkwkwkw kwk"; j++;
-		dialogues[i][j] = "I remember when I used to be a young \nadventurer like you. I was a fine warrior, \nthen. But now, I.."; j++;
-		dialogues[i][j] = "Oh forgive me, I have said too much. \nThen, take care boya.."; j++;
+		dialogues[i][j] = "Welcome to my store!"; j++;
+		dialogues[i][j] = "Please, look around!"; j++;
 		
 		i++; j = 0;
 		dialogues[i][j] = "Hmm.."; j++;
