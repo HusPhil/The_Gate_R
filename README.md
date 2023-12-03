@@ -1,7 +1,7 @@
 # 🎮 The Harmonial Principles (2D Top-Down Game)
 
 ## 🌟 Overview
-"The Harmonial Principles" is an engaging game that aims to inspire individuals to fulfill Sustainable Development Goals (SDGs) by presenting a vivid portrayal of a dystopian future where these goals were not accomplished.
+"The Harmonial Principles" is an engaging game that aims to inspire individuals to fulfill Sustainable Development Goals (SDGs) by presenting a vivid portrayal of a distant future where the world is full of chaos because these goals were not accomplished.
 
 ## 🎯 Features
 - 📁 Save and Load Game Data
