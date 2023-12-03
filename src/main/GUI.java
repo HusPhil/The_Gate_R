@@ -437,12 +437,12 @@ public class GUI {
 		}
 	}
 	public void gameMenuScreen() {
-		g2.setColor(Color.DARK_GRAY);
+		g2.setColor(Color.darkGray);
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-		g2.drawImage(gp.player.down1, 0, 0, gp.screenWidth, gp.screenHeight, null);
+		g2.drawImage(gp.player.down1, -gp.tileSize/2, 0, gp.screenWidth, gp.screenHeight, null);
 		
 		
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70F));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
 		String title = "";
 		int x1 = screenCenterX(title);
 		float y1 = gp.tileSize*2.5F;
@@ -455,7 +455,7 @@ public class GUI {
 		
 		String menuItem = "NEW GAME";
 		int x = screenCenterX(menuItem);
-		int y = gp.screenHeight - gp.tileSize*4;
+		int y = gp.screenHeight - gp.tileSize*6;
 		g2.drawString(menuItem, x, y);
 		if(selectItem == 0) g2.drawString(">", x-gp.tileSize, y);
 		
@@ -465,11 +465,17 @@ public class GUI {
 		g2.drawString(menuItem, x, y);
 		if(selectItem == 1) g2.drawString(">", x-gp.tileSize, y);
 		
-		menuItem = "QUIT";
+		menuItem = "GAME STATS";
 		x = screenCenterX(menuItem);
 		y+=gp.tileSize+12;
 		g2.drawString(menuItem, x, y);
 		if(selectItem == 2) g2.drawString(">", x-gp.tileSize, y);
+		
+		menuItem = "QUIT";
+		x = screenCenterX(menuItem);
+		y+=gp.tileSize+12;
+		g2.drawString(menuItem, x, y);
+		if(selectItem == 3) g2.drawString(">", x-gp.tileSize, y);
 	}
 	public void pauseScreen() {
 		String text = "PAUSED";
@@ -1573,20 +1579,123 @@ public class GUI {
 		//draw window
 		subWindow(frameX, frameY, frameW, frameH);
 		
-		switch(substate) {
+		//DRAW THE TITLE
+		String text = "Game Statistics";
+		frameH = gp.screenHeight - (gp.tileSize);
+		frameW = gp.tileSize*12;
+		g2.drawString(text, screenCenterX(text), frameY+gp.tileSize);
 		
-			case 0: highScoreScreen(); break;
-			case 1: speedRunScreen();break;
+		
+		switch(substate) {
+			case 0: selectStatsScreen(); break; 
+			case 1: highScoreScreen(); break;
+			case 2: speedRunScreen();break;
+			case 3: 
+				gp.gameState = gp.gameMenu;
+			break;
 		}
 		gp.keys.enterPressed = false;
 		
 	}
+	
+	private void selectStatsScreen() {
+
+		//DRAW THE LABELS
+		
+		
+		//Full Screen
+		int frameY = gp.tileSize*4;
+		String text = "Top Scorers";
+		int frameX = screenCenterX(text);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 0) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 1; selectItem = 0;}
+		}
+		
+		int lineheight = 55;
+		
+		//Volume
+		text = "Top Finishers";
+		frameY += lineheight;
+		frameX = screenCenterX(text);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 1) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 2; selectItem = 0;}
+		}
+				
+		
+		//Volume
+		text = "Back";
+		frameY += lineheight;
+		frameX = screenCenterX(text);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 2) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {
+				substate = 3; 
+				selectItem = 0;
+				gp.player.drawing = true;
+			}
+		}
+	}
+	
 	private void speedRunScreen() {
-		// TODO Auto-generated method stub
+
+		ArrayList<String> topFinisher = gp.DBMS.getTopFinishers();
+		
+		
+		int frameY = gp.tileSize*3;
+		g2.setColor(Color.orange);
+		String text = "Top Finishers";
+		int frameX = screenCenterX(text);
+		g2.drawString(text, frameX, frameY);
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+		if(selectItem == 0) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 0; selectItem = 0;}
+		}
+		
+		int lineheight = gp.tileSize-8;
+		frameY += gp.tileSize;
+		
+		
+		
+		for(String info: topFinisher) {
+			frameX = screenCenterX(info);
+			g2.drawString(info, frameX, frameY);
+			frameY += lineheight;
+		}
 		
 	}
 	private void highScoreScreen() {
-		// TODO Auto-generated method stub
+		ArrayList<String> topScorers = gp.DBMS.getTopPlayers();
+		
+		
+		int frameY = gp.tileSize*3;
+		g2.setColor(Color.orange);
+		String text = "Top Scorers";
+		int frameX = screenCenterX(text);
+		g2.drawString(text, frameX, frameY);
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+		if(selectItem == 0) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 0; selectItem = 0;}
+		}
+		
+		int lineheight = gp.tileSize-8;
+		frameY += gp.tileSize;
+		
+		
+		
+		for(String info: topScorers) {
+			frameX = screenCenterX(info);
+			g2.drawString(info, frameX, frameY);
+			frameY += lineheight;
+		}
 		
 	}
 	private void endingScreen() {

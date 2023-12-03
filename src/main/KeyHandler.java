@@ -116,6 +116,9 @@ public class KeyHandler implements KeyListener {
 			endingKeys(code);
 		}
 		
+		else if(gp.gameState == gp.gameStats) {
+			statsStateKeys(code);
+		}
 
 	}
 	
@@ -223,11 +226,11 @@ public class KeyHandler implements KeyListener {
 		switch(code) {
 		case KeyEvent.VK_W:
 			gp.gui.selectItem--;
-			if(gp.gui.selectItem < 0) gp.gui.selectItem = 2;
+			if(gp.gui.selectItem < 0) gp.gui.selectItem = 3;
 			break;
 		case KeyEvent.VK_S:
 			gp.gui.selectItem++;
-			if(gp.gui.selectItem > 2) gp.gui.selectItem = 0;
+			if(gp.gui.selectItem > 3) gp.gui.selectItem = 0;
 			break;
 		case KeyEvent.VK_ENTER:
 			gp.gui.messages.clear();
@@ -274,7 +277,13 @@ public class KeyHandler implements KeyListener {
 				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 				
 				}
-			else if(gp.gui.selectItem == 2) System.exit(0);
+			else if(gp.gui.selectItem == 2) {
+				gp.gameState = gp.gameStats;
+				gp.gui.substate = 0;
+				gp.gui.selectItem = 0;
+				gp.player.drawing = false;
+			}
+			else if(gp.gui.selectItem == 3) System.exit(0);
 			break;
 		}
 	}
@@ -494,5 +503,34 @@ public class KeyHandler implements KeyListener {
 		}
 	}
 
+	public void statsStateKeys(int code) {
+
+		int maxSelectNum = 0;
+		if(gp.gui.substate == 0) maxSelectNum = 2;
+		if(gp.gui.substate == 1) maxSelectNum = 0;
+		if(gp.gui.substate == 2) maxSelectNum = 0;
+		
+		
+		switch(code) {
+		case KeyEvent.VK_ESCAPE: 
+//			gp.gameState = gp.playState; 
+		break;
+		case KeyEvent.VK_ENTER: enterPressed = true; gp.playSE(5); break;
+		case KeyEvent.VK_W:
+			gp.gui.selectItem--;
+			gp.playSE(5);
+			if(gp.gui.selectItem < 0) gp.gui.selectItem = maxSelectNum;
+			break;
+		case KeyEvent.VK_S:
+			gp.gui.selectItem++;
+			gp.playSE(5);
+			if(gp.gui.selectItem > maxSelectNum) gp.gui.selectItem = 0;
+			break;
+			
+			
+			
+			
+		}
 	
+	}
 }

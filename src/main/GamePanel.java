@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int fadeIN = 14;
 	public final int fadeOUT = 15;
 	public final int ending = 16;
+	public final int gameStats= 17;
 	
 	//CUTSCENE Booelans
 	public boolean bossBattleOn = false;
@@ -230,6 +231,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//Game Saving and Loading Handler
 	public SaveLoad saverLoader = new SaveLoad(this);
+
 	
 	public void setupGame() {
 		
