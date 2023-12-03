@@ -87,7 +87,7 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/5e415a5f-4bb0-4b61-80ee-406e1ddbf971)
 <br> <br>
 
-#INVENTORY TABLE:
+#INVENTORY TABLE:<br>
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/a15d0a83-7a26-4774-aa23-b55920c58f1a)
 <br> <br>
 
