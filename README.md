@@ -3,8 +3,6 @@
 ## Overview
 A game designed to encourage players to fulfill Sustainable Development Goals (SDGs) by providing a glimpse of a chaotic future resulting from unfulfilled SDGs.
 
-## All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
-
 ## 🎯 Features
 
 - 📁 **Save and Load Game Data (Connected to the game database):** <br>
@@ -46,7 +44,7 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 
 - 🏰 **Thrilling Dungeon Exploration:** <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards. <br> <br>
 
-
+## All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
 
 ## Installation
 1. **Install Java:** [Download Java](https://www.jetbrains.com/webstorm/download/)
