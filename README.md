@@ -6,39 +6,74 @@ A game designed to encourage players to fulfill Sustainable Development Goals (S
 ## 🎯 Features
 
 - 📁 **Save and Load Game Data (Connected to the game database):**
+
+
 Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly.
+
 
 - 📊 **View Comprehensive Game Statistics:** Get an overview of the Game's Leaderboards.
 
+
+
 - 🎒 **Inventory System:** View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure.
+
+
 
 - 💱 **Interactive Trading Mechanisms:** Engage in interactive trade with NPCs and buy items for your quest.
 
+
+
 - 💬 **Intuitive Dialogue System:** Interact with diverse NPCs through an intuitive dialogue system, uncovering stories, quests, and useful information to progress in the game.
+
+
 
 - ⚔️ **Engaging Monster Combat System:** Dive into thrilling combat encounters with monsters.
 
+
+
 - 🗺️ **Seamless Map Loading System:** Navigate through the game world seamlessly, exploring different locations with ease.
+
+
 
 - 🎮 **Event Handling:** Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience.
 
+
+
 - 🔔 **Message Notification System:** Messages that pop up about what the player is currently up to.
+
+
 
 - 🖥️ **Full-Screen Mode Compatibility:** Enjoy an immersive gaming experience with compatibility for full-screen mode.
 
+
+
 - 🗺️ **Interactive Map and Character Display:** Access an interactive map and character display, aiding navigation and enhancing the overall gaming experience.
+
+
 
 - 🌞 **Day and Night Cycle:** Immerse yourself in a dynamic environment with a day and night cycle, impacting gameplay and aesthetics.
 
+
+
 - ✨ **Lighting Effects:** Enjoy lighting effects, adding depth and realism to the game world.
+
+
 
 - 🎬 **Storyline Cutscenes:** Experience captivating storytelling through engaging cutscenes, deepening the narrative and player immersion.
 
+
+
 - 🕹️ **Interactive Objects and Environments:** Interact with various objects and environments, uncovering secrets and treasures.
+
+
 
 - 🧙 **Magical Skills and Abilities:** Harness magical skills and abilities to overcome obstacles and adversaries, adding depth to your gameplay strategy.
 
+
+
 - 🏰 **Thrilling Dungeon Exploration:** Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards.
+
+
 
 ## Installation
 1. **Install Java:** [Download Java](https://www.jetbrains.com/webstorm/download/)
