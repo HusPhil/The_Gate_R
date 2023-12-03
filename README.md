@@ -14,8 +14,8 @@ A game designed to encourage players to fulfill Sustainable Development Goals (S
 ## 🎯 Features
 
 - 📁 **Save and Load Game Data (Connected to the game database):** <br>
-Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly. <br>
-The game automatically saves your game and to load a particular game, you must rememner your Player ID because it will be used to load your data.<br><br>
+Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly. <br><br>
+The game automatically saves your game and to load a particular game, you must remember your Player ID because it will be used to load your data.<br><br>
 
 - 📊 **View Comprehensive Game Statistics:** <br>
 Get an overview of the Game's Leaderboards. <br> <br>
