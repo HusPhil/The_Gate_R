@@ -3,7 +3,7 @@
 ## Overview
 A game designed to encourage players to fulfill Sustainable Development Goals (SDGs) by providing a glimpse of a chaotic future resulting from unfulfilled SDGs.
 
-## 🎯 Features  \|\|
+## 🎯 Features  <br> <br>
 
 - 📁 **Save and Load Game Data (Connected to the game database):**
 Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly.
