@@ -75,7 +75,8 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 - Challenge yourself to complete the game faster; view the top 10 fastest finishers in 'Game Stats.'
 
 ## Database
-🎯 All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
+##🎯 All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
+
 
 #PLAYER TABLE: (Structure)
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/81924ba2-ffc7-439c-8e81-c5165cbec289)
