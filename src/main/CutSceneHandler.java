@@ -155,15 +155,18 @@ public class CutSceneHandler {
 			gp.player.drawing = true;
 			scenePhase = sceneNum = NONE;
 			gp.gameState = gp.playState;
-			
+			gp.stopMusic();
+			gp.playMusic(SoundHandler.boss);
 			//change the music [stop current music and play new music]
 		}
 	}
 	
 	public void scene_Intro() {
 		gp.fxHandler.lighting.resetDay();
+		
 		//PHASE 0
 		if(scenePhase == 0) {
+			
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 //			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.princessKingdom, 24, 23, gp.indoor);
@@ -970,6 +973,8 @@ public class CutSceneHandler {
 	
 	public void waterGolem() {
 		gp.bossBattleOn = true;
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.boss);
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
 				if(gp.IT_Manager[gp.currentMap][i] == null) {

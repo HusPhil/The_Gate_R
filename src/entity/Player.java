@@ -11,6 +11,7 @@ import DataHandling.GameProgress;
 import interactive_tiles.IT_TrenkHeart;
 import main.GamePanel;
 import main.KeyHandler;
+import main.SoundHandler;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_TrenkLord;
 import object.ITM_Bandage;
@@ -1001,7 +1002,7 @@ public class Player extends Entity{
 		
 		projectileAction();
 //		if(mana <= 0) mana = maxMana;
-		if(life <= 0) life = maxLife;
+//		if(life <= 0) life = maxLife;
 		
 		//delay players damage receive
 		if(invincible) {
@@ -1014,7 +1015,10 @@ public class Player extends Entity{
 		
 		if(shotCounter < 30) {shotCounter++;}
 		
-		if(life <= 0) gp.gameState = gp.gameOverState;
+		if(life <= 0) {
+			
+			gp.gameState = gp.gameOverState;
+		}
 			
 		}
 	public void draw(Graphics2D g2) {
