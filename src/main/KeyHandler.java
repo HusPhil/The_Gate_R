@@ -243,6 +243,7 @@ public class KeyHandler implements KeyListener {
 			if (input == null) {
 				JOptionPane.showMessageDialog(null, "Hmm, so you decided not to partake in this journey, what a shame.", "What a shame..", JOptionPane.PLAIN_MESSAGE);
 			}
+			else if(input.isEmpty()) JOptionPane.showMessageDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			else if (!DatabaseManagement.checkUserExist("player_name", input)) {
 //				gp.gui.showTransition(true);
 				gp.narrator.player_name = input;
@@ -257,8 +258,9 @@ public class KeyHandler implements KeyListener {
 				
 				gp.gameState = gp.cutSceneState;
 				gp.csHandler.sceneNum = gp.csHandler.introduction;
+				gp.stopMusic();
+				gp.playMusic(SoundHandler.story);
 			}
-			else if(input.isEmpty()) JOptionPane.showMessageDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			else JOptionPane.showMessageDialog(null, "This name is already taken, try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			}
 			else if(gp.gui.selectItem == 1) {
@@ -272,7 +274,10 @@ public class KeyHandler implements KeyListener {
 					
 					gp.gui.g2.setColor(Color.WHITE);
 					gp.g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-					gp.gameState = gp.fadeIN;
+					gp.gameState = gp.fadeOUT;
+					gp.stopMusic();
+					gp.playMusic(SoundHandler.story);
+
 				} 
 				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 				

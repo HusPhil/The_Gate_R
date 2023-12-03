@@ -109,9 +109,6 @@ public class AssetsHandler {
 		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
 		gp.gameObjs[mapNum][i].worldY = 40*gp.tileSize; i++;
 		
-		gp.gameObjs[mapNum][i] = new ITM_Map(gp);
-		gp.gameObjs[mapNum][i].worldX = 38*gp.tileSize;
-		gp.gameObjs[mapNum][i].worldY = 39*gp.tileSize; i++;
 
 		
 		i = 0;

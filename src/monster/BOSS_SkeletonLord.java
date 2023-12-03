@@ -3,6 +3,7 @@ package monster;
 import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import main.SoundHandler;
 import object.ITM_EvilSkull;
 import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
@@ -210,7 +211,8 @@ public class BOSS_SkeletonLord extends Entity{
 		}
 		
 		
-		
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.story);
 		gp.saverLoader.saveData();
 	}
 	public void setDialogue() {

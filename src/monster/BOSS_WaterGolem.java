@@ -3,6 +3,7 @@ package monster;
 import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import main.SoundHandler;
 import object.ITM_Coin;
 import object.ITM_WaterEssence;
 import object.OBJ_Chest;
@@ -193,7 +194,8 @@ public class BOSS_WaterGolem extends Entity{
 		
 		dropItem(new ITM_WaterEssence(gp));
 		
-		
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.story);
 		
 		gp.saverLoader.saveData();
 	}

@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -437,20 +438,21 @@ public class GUI {
 		}
 	}
 	public void gameMenuScreen() {
-		g2.setColor(Color.darkGray);
+		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-		g2.drawImage(gp.player.down1, -gp.tileSize/2, 0, gp.screenWidth, gp.screenHeight, null);
+		Image img = gp.player.createImage("objects", "items/map");
+		g2.drawImage(img, (gp.tileSize*10)-24, (gp.tileSize*4), gp.tileSize*3, gp.tileSize*3, null);
 		
 		
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
-		String title = "";
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80F));
+		String title = "Harmonial Priciples";
 		int x1 = screenCenterX(title);
 		float y1 = gp.tileSize*2.5F;
 		g2.setColor(new Color(255,255,255));
-		g2.drawString(title, x1, y1);
+		g2.drawString(title, x1, y1+gp.tileSize);
 		
 		//Menu
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) gp.tileSize));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) 35));
 		g2.setColor(Color.white);
 		
 		String menuItem = "NEW GAME";
@@ -1321,6 +1323,8 @@ public class GUI {
 			if(gp.keys.enterPressed) {
 				selectItem = 0; 
 				gp.resetStatus(true);
+				gp.stopMusic();
+				gp.playMusic(SoundHandler.intro);
 				gp.gameState = gp.gameMenu; 
 				substate = 0;}
 		}
@@ -1558,6 +1562,7 @@ public class GUI {
 		//DRAW GAMEOVERSTATE
 		if(gp.gameState == gp.gameOverState) {
 			showGameOverScreen();
+			gp.playSE(SoundHandler.death);
 		}
 		if(gp.gameState == gp.ending) {
 			endingScreen();
@@ -1699,6 +1704,10 @@ public class GUI {
 		
 	}
 	private void endingScreen() {
+		
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.ending);
+		
 		g2.setColor(Color.black);
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
