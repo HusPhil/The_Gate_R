@@ -24,7 +24,7 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 
 - 🗺️ **Seamless Map Loading System:** <br>  Navigate through the game world seamlessly, exploring different locations with ease. <br> <br>
 
-- 🎮 **Event Handling:** <br> <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience. <br> <br>
+- 🎮 **Event Handling:** <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience. <br> <br>
 
 - 🔔 **Message Notification System:** <br>  Messages that pop up about what the player is currently up to. <br> <br>
 
