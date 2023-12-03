@@ -1,14 +1,36 @@
-# Game Name
+# The Harmonial Principles (2D Top Down Game)
 
 ## Overview
-Brief description of the game and its objectives.
+A game about persuading people to fulfill SDGs by giving them a glimpse of a chaotic future where the SDGs were not accomplished
 
 ## Features
-- List of key features and functionalities.
-- Highlight any unique aspects or gameplay mechanics.
+- Save Game Data
+- Load Game Data
+- View Game Statistics
+- Inventory System
+- Trading System
+- Dialogue System
+- Monster Combat System
+- Map Loading System
+- Event Handling System
+- Notification System
+- Full Screen Mode
+- View Map Mode
+- View Character Mode
+- Day and Night Cycle
+- Lighting Effects
+- Storyline Cutscenes
+- Interactive Objects
+- Magic / Skill
+- Dungeons
 
 ## Installation
-Describe how to install or set up the game.
+1. Install Java from https://www.jetbrains.com/webstorm/download/
+2. Install XAMPP https://www.apachefriends.org/download.html
+3. Download the Runnable Jar File from the setup folder
+4. Download the 'gamedb' folder and place it on your xampp's 'mysql' folder
+5. Start the local server of MariaDB
+6. Enjoy the game!
 
 ### Requirements
 List any prerequisites or software needed to run the game.
