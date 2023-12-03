@@ -2,6 +2,7 @@
 
 ## Overview
 A game designed to encourage players to fulfill Sustainable Development Goals (SDGs) by providing a glimpse of a chaotic future resulting from unfulfilled SDGs.
+> **Important Note:** This section contains critical details about the game mechanics.
 
 ## 🎯 Features
 
