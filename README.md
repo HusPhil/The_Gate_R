@@ -1,8 +1,8 @@
 # The Harmonial Principles (2D Top Down Game)
 > **Important Note:** <br> <span style="color:orange;">All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'</span>
-<span style="color:orange;">All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'</span>
 
-<font color="orange">This text is in orange color</font>
+
+
 
 
 ## Overview 
