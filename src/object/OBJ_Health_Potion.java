@@ -13,6 +13,7 @@ public class OBJ_Health_Potion extends Entity{
 		coin = 80;
 		dropChance = 50;
 		plus = 2;
+		itm_id = "ITM13";
 		type = type_consumables;
 		stackable = true;
 		name = objName;

@@ -12,6 +12,7 @@ public class OBJ_Iron_Shield extends Entity{
 		coin = 2200;
 		name = objName;
 		down1 = createImage("objects", "equips/shield_slime");
+		itm_id = "ITM16";
 		defVal = 10;
 		description = "["+name+"]" + "\nA shield made of iron!\nIt's shiny and sturdy!" + "\n-SHIELD-";
 	}

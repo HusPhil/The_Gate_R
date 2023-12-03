@@ -12,6 +12,7 @@ public class OBJ_HeartCrystal extends Entity{
 		this.gp = gp;
 		coin = 25;
 		dropChance = 50;
+		itm_id = "ITM14";
 		plus = 2;
 		type = type_consumables;
 		stackable = true;

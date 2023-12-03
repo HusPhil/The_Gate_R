@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import entity.NPC_Cursed_Villager;
@@ -22,6 +23,29 @@ import entity.NPC_Witch;
 import main.GamePanel;
 import monster.BOSS_SkeletonLord;
 import monster.BOSS_WaterGolem;
+import object.ITM_Bandage;
+import object.ITM_EvilSkull;
+import object.ITM_FireGel;
+import object.ITM_Key;
+import object.ITM_SlimeGel;
+import object.ITM_TrenkAmulet;
+import object.ITM_TrenkMeat;
+import object.ITM_VorpalGem;
+import object.ITM_VorpalStone;
+import object.ITM_WaterCrystal;
+import object.ITM_WaterEssence;
+import object.OBJ_FireAmulet;
+import object.OBJ_Health_Potion;
+import object.OBJ_HeartCrystal;
+import object.OBJ_Iron_Axe;
+import object.OBJ_Iron_Shield;
+import object.OBJ_Iron_Sword;
+import object.OBJ_Lantern;
+import object.OBJ_Mana_Potion;
+import object.OBJ_Pickaxe;
+import object.OBJ_TerraBlade;
+import object.OBJ_Wooden_Shield;
+import object.OBJ_Wooden_Sword;
 
 public class DatabaseManagement {
 	GamePanel gp;
@@ -44,6 +68,19 @@ public class DatabaseManagement {
         String player_id = "pl_" + truncatedUUID;
         // Return the truncated UUID as the player ID
         return player_id;
+    }
+	
+	public static String generateInventoryID() {
+		// Generate a random UUID (Universally Unique Identifier)
+        UUID uuid = UUID.randomUUID();
+
+        // Convert the UUID to a string and limit its length to 12 characters
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String truncatedUUID = uuidString.substring(0, 5);
+
+        String inv_id = "inv_" + truncatedUUID;
+        // Return the truncated UUID as the player ID
+        return inv_id;
     }
 	
 	public static boolean checkUserExist(String column, String user) {
@@ -71,19 +108,24 @@ public class DatabaseManagement {
 		
 
 	    try {
+	    	
+
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection connection = DriverManager.getConnection(url, username, password);
 
-	        String query = "INSERT IGNORE INTO player (player_id, player_name, player_score, player_progress, player_savedata) VALUES (?,?,null,null,null)";
+	        String query = "INSERT IGNORE INTO player (player_id, player_name,inventory_id, player_score, player_progress, player_savedata) VALUES (?,?,?,null,null,null)";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        preparedStatement.setString(1, gp.player.ID);
 	        preparedStatement.setString(2, gp.player.name);
+	        preparedStatement.setString(3, gp.player.inv_ID);
 
 	        
 	        preparedStatement.executeUpdate();
 
 	        System.out.println("Content has been inserted into the database.");
 	        connection.close();
+	    
+	    	
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    }
@@ -154,9 +196,167 @@ public class DatabaseManagement {
 		    e.printStackTrace();
 		}
 	}
+	
+	public void createItemData() {
+		saveItems(ITM_Bandage.objName);
+		saveItems(ITM_EvilSkull.objName);
+		saveItems(ITM_FireGel.objName);
+		saveItems(ITM_Key.objName);
+		saveItems(ITM_SlimeGel.objName);
+		saveItems(ITM_TrenkAmulet.objName);
+		saveItems(ITM_TrenkMeat.objName);
+		saveItems(ITM_VorpalGem.objName);
+		saveItems(ITM_VorpalStone.objName);
+		saveItems(ITM_WaterCrystal.objName);
+		saveItems(ITM_WaterEssence.objName);
+		saveItems(OBJ_FireAmulet.objName);
+		saveItems(OBJ_Health_Potion.objName);
+		saveItems(OBJ_HeartCrystal.objName);
+		saveItems(OBJ_Iron_Axe.objName);
+		saveItems(OBJ_Iron_Shield.objName);
+		saveItems(OBJ_Iron_Sword.objName);
+		saveItems(OBJ_Lantern.objName);
+		saveItems(OBJ_Mana_Potion.objName);
+		saveItems(OBJ_Pickaxe.objName);
+		saveItems(OBJ_TerraBlade.objName);
+		saveItems(OBJ_Wooden_Shield.objName);
+		saveItems(OBJ_Mana_Potion.objName);
+		saveItems(OBJ_Wooden_Sword.objName);
+	}
+	
+	public void saveItems(String objName) {
 
+		
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+
+	        String query = "INSERT IGNORE INTO item (itm_id, itm_name, itmType_id, itm_coin, itm_stackable, itm_collision) VALUES (?,?,?,?,?,?)";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, gp.objGen.getObjectFromName(objName).itm_id);
+	        preparedStatement.setString(2, gp.objGen.getObjectFromName(objName).name);
+	        preparedStatement.setInt(3, gp.objGen.getObjectFromName(objName).type);
+	        preparedStatement.setInt(4, gp.objGen.getObjectFromName(objName).coin);
+	        preparedStatement.setBoolean(5, gp.objGen.getObjectFromName(objName).stackable);
+	        preparedStatement.setBoolean(6, gp.objGen.getObjectFromName(objName).collision);
+
+	        
+	        preparedStatement.executeUpdate();
+
+	        System.out.println("Content has been inserted into the database.");
+	        connection.close();
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	
+
+	
+	}
+	
+	public void savePlayerInventory() {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+		    
+		    ArrayList<String> inv_itm_names = new ArrayList<>();
+		    
+		    int j = 2;
+		    String query = "INSERT IGNORE INTO inventory ("
+		            + "inventory_id, "
+		            + "itm1_id, itm2_id, itm3_id, itm4_id, itm5_id, itm6_id, itm7_id,"
+		            + "itm8_id, itm9_id, itm10_id, itm11_id, itm12_id, itm13_id, itm14_id,"
+		            + "itm15_id, itm16_id, itm17_id, itm18_id, itm19_id, itm20_id, itm21_id,"
+		            + "itm22_id, itm23_id, itm24_id, itm25_id, itm26_id, itm27_id, itm28_id"
+		            + ") VALUES ("
+		            + "?,"
+		            + "?,?,?,?,?,?,?,"
+		            + "?,?,?,?,?,?,?,"
+		            + "?,?,?,?,?,?,?,"
+		            + "?,?,?,?,?,?,?"
+		            + ")";
+		    PreparedStatement preparedStatement = connection.prepareStatement(query);
+		    preparedStatement.setString(1, gp.player.inv_ID);
+
+		    for(int i = 0; i < gp.player.inventory.size(); i++) {
+		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
+		    }
+		    
+		    for(String id: inv_itm_names) {
+		    	
+		    	preparedStatement.setString(j, id); 
+		    	j++;
+		    }
+		    if(gp.player.inventory.size() < gp.player.maxInventorySize) {
+		    	for(int i = (inv_itm_names.size()+2); i < 30; i++) {
+			    	preparedStatement.setNull(i, java.sql.Types.VARCHAR);
+			    }
+		    }
+		    System.out.println("Size: ." + (30 - inv_itm_names.size()));
+		    preparedStatement.executeUpdate();
+		    
+		    System.out.println("Content has been inserted into the database." + (30 - inv_itm_names.size()));
+		    connection.close();
+		} catch (SQLException | ClassNotFoundException e) {
+		    e.printStackTrace();
+		}
+
+	}
+	
+	public void updatePlayerInventory() {
+
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+		    
+		    ArrayList<String> inv_itm_names = new ArrayList<>();
+		    
+		    int j = 1;
+		    String query = "UPDATE inventory SET "
+		            + "itm1_id = ?, itm2_id = ?, itm3_id = ?, itm4_id = ?, "
+		            + "itm5_id = ?, itm6_id = ?, itm7_id = ?, itm8_id = ?, "
+		            + "itm9_id = ?, itm10_id = ?, itm11_id = ?, itm12_id = ?, "
+		            + "itm13_id = ?, itm14_id = ?, itm15_id = ?, itm16_id = ?, "
+		            + "itm17_id = ?, itm18_id = ?, itm19_id = ?, itm20_id = ?, "
+		            + "itm21_id = ?, itm22_id = ?, itm23_id = ?, itm24_id = ?, "
+		            + "itm25_id = ?, itm26_id = ?, itm27_id = ?, itm28_id = ? "
+		            + "WHERE inventory_id = ?";
+		    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+		    for(int i = 0; i < gp.player.inventory.size(); i++) {
+		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
+		    }
+		    
+		    for(String id: inv_itm_names) {
+		    	
+		    	preparedStatement.setString(j, id); 
+		    	j++;
+		    }
+		    if(gp.player.inventory.size() < gp.player.maxInventorySize) {
+		    	for(int i = (inv_itm_names.size()+1); i < 29; i++) {
+			    	preparedStatement.setNull(i, java.sql.Types.VARCHAR);
+			    }
+		    }
+
+		    preparedStatement.setString(29, gp.player.inv_ID);
+		    
+		    preparedStatement.executeUpdate();
+		    
+		    System.out.println("Content has been inserted into the database." + (30 - inv_itm_names.size()));
+		    connection.close();
+		} catch (SQLException | ClassNotFoundException e) {
+		    e.printStackTrace();
+		}
+
+	
+	}
+	
 	public void loadGameProgress() {
 		
+		
+		if(GameProgress.ending) {
+			gp.gameState = gp.cutSceneState;
+			gp.csHandler.sceneNum = gp.csHandler.ending;
+		}
 		
 		if(GameProgress.intro_done) {
 			int mapNum = gp.silvioVillage;
@@ -329,6 +529,9 @@ public class DatabaseManagement {
 			}
 		}
 	}
+
+	
+	
 }
 
 

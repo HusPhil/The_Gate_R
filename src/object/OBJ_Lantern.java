@@ -12,6 +12,7 @@ public class OBJ_Lantern extends Entity{
 		
 		type = type_lightSource;
 		name = objName;
+		itm_id = "ITM18";
 		down1 = createImage("objects", "equips/lantern");
 		description = "[" + name + "]" + "\nIt gives off light; very \nuseful in the darkness.";
 		coin = 150;

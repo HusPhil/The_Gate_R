@@ -11,6 +11,8 @@ public class ITM_TrenkMeat extends Entity{
 		super(gp);
 		this.gp = gp;
 		type = type_materials;
+		itm_id = "ITM07";
+		coin = 120;
 		stackable = true;
 		dropChance = 90;
 		name = objName;

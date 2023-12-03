@@ -10,7 +10,8 @@ public class OBJ_Mana_Potion extends Entity{
 	public OBJ_Mana_Potion(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		coin = 100;
+		coin = 200;
+		itm_id = "ITM19";
 		dropChance = 50;
 		plus = 80;
 		type = type_consumables;

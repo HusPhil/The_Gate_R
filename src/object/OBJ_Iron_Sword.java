@@ -11,6 +11,7 @@ public class OBJ_Iron_Sword extends Entity{
 		type = type_sword;
 		dropChance = 12;
 		name = objName;
+		itm_id = "ITM17";
 		knockBackPower = 4;
 		down1 = createImage("objects", "equips/sword_iron");
 		description = "["+name+"]" + "\nA sword that is much \nsturdier and sharper. \nIt makes you stronger. \n-SWORD-";

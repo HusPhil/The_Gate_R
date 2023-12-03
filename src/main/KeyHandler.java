@@ -15,6 +15,29 @@ import javax.swing.JOptionPane;
 import DataHandling.DatabaseManagement;
 import DataHandling.GameProgress;
 import entity.NPC_Narrator;
+import object.ITM_Bandage;
+import object.ITM_EvilSkull;
+import object.ITM_FireGel;
+import object.ITM_Key;
+import object.ITM_SlimeGel;
+import object.ITM_TrenkAmulet;
+import object.ITM_TrenkMeat;
+import object.ITM_VorpalGem;
+import object.ITM_VorpalStone;
+import object.ITM_WaterCrystal;
+import object.ITM_WaterEssence;
+import object.OBJ_FireAmulet;
+import object.OBJ_Health_Potion;
+import object.OBJ_HeartCrystal;
+import object.OBJ_Iron_Axe;
+import object.OBJ_Iron_Shield;
+import object.OBJ_Iron_Sword;
+import object.OBJ_Lantern;
+import object.OBJ_Mana_Potion;
+import object.OBJ_Pickaxe;
+import object.OBJ_TerraBlade;
+import object.OBJ_Wooden_Shield;
+import object.OBJ_Wooden_Sword;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -225,6 +248,8 @@ public class KeyHandler implements KeyListener {
 //				gp.gameState = gp.playState; 
 				gp.gui.addMessage("Welcome! " + input+"!:BLUE");
 				gp.player.ID = DatabaseManagement.generatePlayerID();
+				gp.player.inv_ID = DatabaseManagement.generateInventoryID();
+				gp.DBMS.savePlayerInventory();
 				gp.DBMS.createPlayerData();
 				
 				gp.gameState = gp.cutSceneState;
@@ -270,32 +295,13 @@ public class KeyHandler implements KeyListener {
 			dashPressed = true;
 			break;
 		case KeyEvent.VK_M: 
-//			gp.DBMS.storeFileContentToDatabase("save.dat");
 			x = gp.player.worldX;	
 			
 			System.out.println("X:" + x + " Y: " + y); 
 			gp.tManager.reloadMaps();
-//			gp.DBMS.createPlayerData();
-//			gp.DBMS.loadPlayerData();
-
-			
-//			gp.DBMS.retrieveAndSaveToFile();
-//			gp.gui.addMessage(DatabaseManagement.generatePlayerID());
-			//gp.gameState = gp.viewMapState;
 			break;
 		case KeyEvent.VK_P: 
 			gp.gameState = gp.pauseState; 
-			
-//			gp.createAssets.makeMonster();
-//			gp.tManager.loadMap("/maps/worldMapA.txt", gp.worldMapA);
-//		    gp.tManager.loadMap("/maps/dungeonMap_F1.txt", gp.dungeonMap_F1);
-//		    gp.tManager.loadMap("/maps/merchantHouse.txt", gp.merchantHouse);
-//		    gp.tManager.loadMap("/maps/dungeonMap_F2.txt", gp.dungeonMap_F2);
-//		    gp.tManager.loadMap("/maps/corrupted_area1.txt", gp.corrupted1);
-//		    gp.tManager.loadMap("/maps/silvioVillage.txt", gp.silvioVillage);
-//		    gp.tManager.loadMap("/maps/silvioHouse.txt", gp.silvioHouse);
-//		    gp.tManager.loadMap("/maps/forest.txt", gp.forest);
-			
 			break;
 		case KeyEvent.VK_T: talkOn = true; break;
 		case KeyEvent.VK_ENTER: 
@@ -306,7 +312,6 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_Y: yesOn = true; break;
 		case KeyEvent.VK_C: 
-//			if(GameProgress.oldManExplained)
 				gp.gameState = gp.viewCharState; 
 			break;
 		case KeyEvent.VK_F: 
@@ -321,14 +326,16 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_X: 
 			gp.saverLoader.saveData();
+//			gp.DBMS.createItemData();
+			gp.DBMS.updatePlayerInventory();
 //			gp.gameState = gp.tradingState;
 //			gp.currentMap = 0;
 //			switch(gp.currentMap) {
 //			case 0: gp.tManager.loadMap("/maps/worldMapA.txt", 0); break;
 //			case 1: gp.tManager.loadMap("/maps/dungeonMap.txt", 1); break;
 //			}
-//			if(!gp.map.minimapON) gp.map.minimapON = true;
-//			else if(gp.map.minimapON) gp.map.minimapON = false;
+			if(!gp.map.minimapON) gp.map.minimapON = true;
+			else if(gp.map.minimapON) gp.map.minimapON = false;
 			break;
 		}
 	}

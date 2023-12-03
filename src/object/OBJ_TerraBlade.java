@@ -10,6 +10,7 @@ public class OBJ_TerraBlade extends Entity{
 		coin = 1000;
 		type = type_sword;
 		dropChance = 12;
+		itm_id = "ITM21";
 		name = objName;
 		knockBackPower = 3;
 		down1 = createImage("objects", "equips/terra");

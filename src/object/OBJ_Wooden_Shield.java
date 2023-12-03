@@ -10,6 +10,8 @@ public class OBJ_Wooden_Shield extends Entity{
 		coin = 1000;
 		type = type_shield;
 		motion_duration1 = 15;
+		
+		itm_id = "ITM22";
 		motion_duration2 = 50;
 		dropChance = 15;
 		name = objName;

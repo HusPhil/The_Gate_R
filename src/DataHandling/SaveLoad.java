@@ -95,6 +95,7 @@ public class SaveLoad {
 		
 		//ditoo
 		gp.gui.addMessage("Successfully saved your data!:GREEN");
+		gp.DBMS.updatePlayerInventory();
 		gp.DBMS.updatePlayerData("temp0.dat");
 		
 		

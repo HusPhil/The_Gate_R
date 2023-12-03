@@ -10,6 +10,7 @@ public class ITM_EvilSkull extends Entity{
 	public ITM_EvilSkull(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
+		itm_id = "ITM02";
 		type = type_questItem;
 		stackable = true;
 		dropChance = 90;

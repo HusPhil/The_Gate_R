@@ -11,8 +11,9 @@ public class ITM_Key extends Entity{
 	public ITM_Key(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		type = type_consumables;
+		type = type_questItem;
 		stackable = true;
+		itm_id = "ITM04";
 		name = objName;
 		down1 = createImage("objects", "items/key");
 		collision = true;

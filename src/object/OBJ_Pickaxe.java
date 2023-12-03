@@ -12,6 +12,7 @@ public class OBJ_Pickaxe extends Entity{
 		knockBackPower = 1;
 		coin = 150;
 		type = type_pickaxe;
+		itm_id = "ITM20";
 		dropChance = 0;
 		name = objName;
 		down1 = createImage("objects", "equips/pickaxe");

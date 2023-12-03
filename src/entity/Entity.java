@@ -31,6 +31,7 @@ public class Entity {
 	public BufferedImage attackDown1,attackDown2, attackDown3, attackDown4;
 	public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4;
 	public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4;
+	public String itm_id;
 	
 	//Entity's Solid Area
 	public Rectangle solidArea = new Rectangle();
@@ -137,15 +138,16 @@ public class Entity {
 	public final int type_player = 0;
 	public final int type_npc = 1;
 	public final int type_monster = 2;
+	public final int type_merchant = 9;
+	public final int type_mon_cs = 11;
+	public final int type_interactiveObjects = 7;
+
 	public final int type_sword = 3;
 	public final int type_shield = 4;
 	public final int type_axe = 5;
 	public final int type_consumables = 6;
-	public final int type_interactiveObjects = 7;
 	public final int type_lightSource = 8;
-	public final int type_merchant = 9;
 	public final int type_pickaxe = 10;
-	public final int type_mon_cs = 11;
 	public final int type_materials = 12;
 	public final int type_questItem = 13;
 	public final int type_amulet = 14;

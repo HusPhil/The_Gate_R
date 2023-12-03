@@ -43,6 +43,7 @@ public class Player extends Entity{
 
 	KeyHandler keys;
 	public String ID = "";
+	public String inv_ID = "";
 	public int playTime = 0;
 	public int tester = 0;
 	public int score = getScore();
@@ -373,6 +374,30 @@ public class Player extends Entity{
 	}
 	public void addInventoryItems() {
 //		inventory.add(new ITM_Bandage(gp));
+//		gp.DBMS.saveItems(ITM_EvilSkull.objName);
+//		gp.DBMS.saveItems(ITM_FireGel.objName);
+//		gp.DBMS.saveItems(ITM_Key.objName);
+//		gp.DBMS.saveItems(ITM_SlimeGel.objName);
+//		gp.DBMS.saveItems(ITM_TrenkAmulet.objName);
+//		gp.DBMS.saveItems(ITM_TrenkMeat.objName);
+//		gp.DBMS.saveItems(ITM_VorpalGem.objName);
+//		gp.DBMS.saveItems(ITM_VorpalStone.objName);
+//		gp.DBMS.saveItems(ITM_WaterCrystal.objName);
+//		gp.DBMS.saveItems(ITM_WaterEssence.objName);
+//		gp.DBMS.saveItems(OBJ_FireAmulet.objName);
+//		gp.DBMS.saveItems(OBJ_Health_Potion.objName);
+//		gp.DBMS.saveItems(OBJ_HeartCrystal.objName);
+//		gp.DBMS.saveItems(OBJ_Iron_Axe.objName);
+//		gp.DBMS.saveItems(OBJ_Iron_Shield.objName);
+//		gp.DBMS.saveItems(OBJ_Iron_Sword.objName);
+//		gp.DBMS.saveItems(OBJ_Lantern.objName);
+//		gp.DBMS.saveItems(OBJ_Mana_Potion.objName);
+//		gp.DBMS.saveItems(OBJ_Pickaxe.objName);
+//		gp.DBMS.saveItems(OBJ_TerraBlade.objName);
+//		gp.DBMS.saveItems(OBJ_Wooden_Shield.objName);
+//		gp.DBMS.saveItems(OBJ_Mana_Potion.objName);
+//		gp.DBMS.saveItems(OBJ_Wooden_Sword.objName);
+
 //		inventory.add(new ITM_EvilSkull(gp));
 //		inventory.add(new ITM_FireGel(gp));
 //		inventory.add(new ITM_Key(gp));

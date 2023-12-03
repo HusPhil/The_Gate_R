@@ -11,6 +11,7 @@ public class ITM_WaterCrystal extends Entity{
 		super(gp);
 		this.gp = gp;
 		type = type_questItem;
+		itm_id = "ITM10";
 		stackable = true;
 		dropChance = 90;
 		name = objName;

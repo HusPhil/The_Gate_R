@@ -11,6 +11,8 @@ public class ITM_SlimeGel extends Entity{
 		super(gp);
 		this.gp = gp;
 		type = type_materials;
+		itm_id = "ITM05";
+		coin = 100;
 		dropChance = 90;
 		stackable = true;
 		name = objName;

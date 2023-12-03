@@ -10,8 +10,8 @@ public class ITM_VorpalGem extends Entity{
 	public ITM_VorpalGem(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		coin = 25;
 		dropChance = 50;
+		itm_id = "ITM08";
 		plus = 2;
 		type = type_questItem;
 		stackable = true;

@@ -847,8 +847,6 @@ public class GUI {
 	//TRADING STATE
 	public void showTrade() {
 		
-		
-		
 		//CONTROLLING THE SUBSTATE
 		switch(substate) {
 		case 0: tradeOptions(); break;
@@ -1558,6 +1556,38 @@ public class GUI {
 		if(gp.gameState == gp.ending) {
 			endingScreen();
 		}
+		if(gp.gameState == gp.gameStats) {
+			gameStatsScreen();
+		}
+	}
+	private void gameStatsScreen() {
+
+		//Set color and font
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+		//Set frame
+		int frameW = gp.tileSize*12;
+		int frameH = gp.screenHeight - (gp.tileSize);
+		int frameX = (int)((gp.screenWidth/2) - gp.tileSize*6);
+		int frameY = gp.tileSize-24;
+		//draw window
+		subWindow(frameX, frameY, frameW, frameH);
+		
+		switch(substate) {
+		
+			case 0: highScoreScreen(); break;
+			case 1: speedRunScreen();break;
+		}
+		gp.keys.enterPressed = false;
+		
+	}
+	private void speedRunScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+	private void highScoreScreen() {
+		// TODO Auto-generated method stub
+		
 	}
 	private void endingScreen() {
 		g2.setColor(Color.black);

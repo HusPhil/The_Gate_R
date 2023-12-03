@@ -12,6 +12,7 @@ public class ITM_TrenkAmulet extends Entity{
 		this.gp = gp;
 		type = type_questItem;
 		stackable = true;
+		itm_id = "ITM06";
 		dropChance = 90;
 		name = objName;
 		down1 = createImage("objects", "items/trenk_amulet");

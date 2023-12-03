@@ -11,6 +11,7 @@ public class OBJ_Iron_Axe extends Entity{
 		// TODO Auto-generated constructor stub
 		knockBackPower = 6;
 		coin = 1500;
+		itm_id = "ITM15";
 		type = type_axe;
 		dropChance = 5;
 		name = objName;

@@ -11,8 +11,10 @@ public class ITM_FireGel extends Entity{
 		super(gp);
 		this.gp = gp;
 		type = type_materials;
+		itm_id = "ITM03";
 		dropChance = 90;
 		stackable = true;
+		coin = 80;
 		name = objName;
 		down1 = createImage("objects", "items/fire_gel");
 		description = "["+name+"]" + "\nDropped by a fire slime! \nIt's squishy but so hot!"

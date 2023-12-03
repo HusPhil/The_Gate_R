@@ -10,6 +10,7 @@ public class OBJ_Wooden_Sword extends Entity{
 		coin = 800;
 		type = type_sword;
 		dropChance = 12;
+		itm_id = "ITM23";
 		name = objName;
 		knockBackPower = 2;
 		down1 = createImage("objects", "equips/sword_wood");

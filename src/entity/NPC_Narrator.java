@@ -235,8 +235,7 @@ public class NPC_Narrator extends Entity{
 				"Congratulations, valiant adventurer! With the Trenk"
 				+ "\nLord vanquished and the world's balance restored, "
 				+ "\nharmony prevails once more. Yet, our victory today"
-				+ "\nis merely a testament to the power of unity and"
-				+ "\nresilience."; j++;
+				+ "\nis merely a testament to the power of unity."; j++;
 				
 				
 		dialogues[endingA][j] = 
@@ -278,8 +277,9 @@ public class NPC_Narrator extends Entity{
 				
 		dialogues[endingA][j] = 
 				"Let this victory inspire a continuous journey "
-				+ "\ntowards a future where the legacy of the Trenk Lord remains "
-				+ "\nin the past, forever sealed by the collective dedication to the SDGs."; j++; 
+				+ "\ntowards a future where the legacy of the Trenk Lord\n"
+				+ "remains in the past, forever sealed by the collective\n"
+				+ "dedication to the SDGs."; j++; 
 				
 				
 		dialogues[endingA][j] = 
