@@ -11,64 +11,38 @@ Keep your progress secured and accessible through the game's connected database,
 - 📊 **View Comprehensive Game Statistics:** <br>
 Get an overview of the Game's Leaderboards.
 
-- 🎒 **Inventory System:** <br>
+- 🎒 **Inventory System:** <br> <br>
 View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure.
 
-- 💱 **Interactive Trading Mechanisms:** <br>
+- 💱 **Interactive Trading Mechanisms:** <br> <br>
 Engage in interactive trade with NPCs and buy items for your quest.
 
-
-
-- 💬 **Intuitive Dialogue System:** <br>
+- 💬 **Intuitive Dialogue System:** <br> <br>
 Interact with diverse NPCs through an intuitive dialogue system, uncovering stories, quests, and useful information to progress in the game.
 
+- ⚔️ **Engaging Monster Combat System:** <br> <br> Dive into thrilling combat encounters with monsters.
 
+- 🗺️ **Seamless Map Loading System:** <br> <br> Navigate through the game world seamlessly, exploring different locations with ease.
 
-- ⚔️ **Engaging Monster Combat System:** <br> Dive into thrilling combat encounters with monsters.
+- 🎮 **Event Handling:** <br> <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience.
 
+- 🔔 **Message Notification System:** <br> <br> Messages that pop up about what the player is currently up to.
 
+- 🖥️ **Full-Screen Mode Compatibility:** <br> <br> Enjoy an immersive gaming experience with compatibility for full-screen mode.
 
-- 🗺️ **Seamless Map Loading System:** <br> Navigate through the game world seamlessly, exploring different locations with ease.
+- 🗺️ **Interactive Map and Character Display:** <br> <br> Access an interactive map and character display, aiding navigation and enhancing the overall gaming experience.
 
+- 🌞 **Day and Night Cycle:** <br> <br> Immerse yourself in a dynamic environment with a day and night cycle, impacting gameplay and aesthetics.
 
+- ✨ **Lighting Effects:** <br> <br> Enjoy lighting effects, adding depth and realism to the game world.
 
-- 🎮 **Event Handling:** <br> Experience immersive events that drive the storyline, creating an engaging and dynamic gameplay experience.
+- 🎬 **Storyline Cutscenes:** <br> <br> Experience captivating storytelling through engaging cutscenes, deepening the narrative and player immersion.
 
+- 🕹️ **Interactive Objects and Environments:** <br> <br> Interact with various objects and environments, uncovering secrets and treasures.
 
+- 🧙 **Magical Skills and Abilities:** <br> <br> Harness magical skills and abilities to overcome obstacles and adversaries, adding depth to your gameplay strategy.
 
-- 🔔 **Message Notification System:** <br> Messages that pop up about what the player is currently up to.
-
-
-
-- 🖥️ **Full-Screen Mode Compatibility:** <br> Enjoy an immersive gaming experience with compatibility for full-screen mode.
-
-
-
-- 🗺️ **Interactive Map and Character Display:** <br> Access an interactive map and character display, aiding navigation and enhancing the overall gaming experience.
-
-
-
-- 🌞 **Day and Night Cycle:** <br> Immerse yourself in a dynamic environment with a day and night cycle, impacting gameplay and aesthetics.
-
-
-
-- ✨ **Lighting Effects:** <br> Enjoy lighting effects, adding depth and realism to the game world.
-
-
-
-- 🎬 **Storyline Cutscenes:** <br> Experience captivating storytelling through engaging cutscenes, deepening the narrative and player immersion.
-
-
-
-- 🕹️ **Interactive Objects and Environments:** <br> Interact with various objects and environments, uncovering secrets and treasures.
-
-
-
-- 🧙 **Magical Skills and Abilities:** <br> Harness magical skills and abilities to overcome obstacles and adversaries, adding depth to your gameplay strategy.
-
-
-
-- 🏰 **Thrilling Dungeon Exploration:** <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards.
+- 🏰 **Thrilling Dungeon Exploration:** <br> <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards.
 
 
 
