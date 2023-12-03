@@ -6,18 +6,18 @@
 ## 🎯 Features
 - 📁 Save and Load Game Data
 - 📊 View Comprehensive Game Statistics
-- 🎒 Robust Inventory System
+- 🎒 Inventory System
 - 💱 Interactive Trading Mechanisms
 - 💬 Intuitive Dialogue System
 - ⚔️ Engaging Monster Combat System
 - 🗺️ Seamless Map Loading System
-- 🎮 Efficient Event Handling
-- 🔔 User-Friendly Notification System
+- 🎮 Event Handling
+- 🔔 Message Notification System
 - 🖥️ Full-Screen Mode Compatibility
 - 🗺️ Interactive Map and Character Display
-- 🌞 Realistic Day and Night Cycle
-- ✨ Immersive Lighting Effects
-- 🎬 Captivating Storyline Cutscenes
+- 🌞 Day and Night Cycle
+- ✨ Lighting Effects
+- 🎬 Storyline Cutscenes
 - 🕹️ Interactive Objects and Environments
 - 🧙 Magical Skills and Abilities
 - 🏰 Thrilling Dungeon Exploration
