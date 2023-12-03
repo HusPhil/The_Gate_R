@@ -75,22 +75,36 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 - Challenge yourself to complete the game faster; view the top 10 fastest finishers in 'Game Stats.'
 
 ## Database
-#PLAYER TABLE:
+#PLAYER TABLE: (Structure)
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/81924ba2-ffc7-439c-8e81-c5165cbec289)
+<br> <br>
+#EXAMPLE DATA
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/7555fd0e-d55d-4095-89c1-b0beede7c0e1)
 <br> <br>
 
 #INVENTORY TABLE:<br>
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/a15d0a83-7a26-4774-aa23-b55920c58f1a)
 <br> <br>
+#EXAMPLE DATA
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/138a9519-f269-40df-b598-7aa457a9a00d)
+<br> <br>
+
 
 #ITEM TABLE:
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/865a193d-fdec-467a-8640-beea525403d7)
 <br> <br>
+#EXAMPLE DATA
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/c0cb3826-2779-408a-999d-9e15a8063bd2)
+<br> <br>
+
 
 #ITEM_TYPE TABLE:
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/5e415a5f-4bb0-4b61-80ee-406e1ddbf971)
 <br> <br>
+#EXAMPLE DATA
+![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/08ca82f7-1144-4f57-a830-3b5045842cfd)
 
+<br> <br>
 
 
 
