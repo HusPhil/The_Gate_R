@@ -1,59 +1,57 @@
-# The Harmonial Principles (2D Top Down Game)
+# 🎮 The Harmonial Principles (2D Top-Down Game)
 
-## Overview
-A game about persuading people to fulfill SDGs by giving them a glimpse of a chaotic future where the SDGs were not accomplished
+## 🌟 Overview
+"The Harmonial Principles" is an engaging game that aims to inspire individuals to fulfill Sustainable Development Goals (SDGs) by presenting a vivid portrayal of a dystopian future where these goals were not accomplished.
 
-## Features
-- Save Game Data
-- Load Game Data
-- View Game Statistics
-- Inventory System
-- Trading System
-- Dialogue System
-- Monster Combat System
-- Map Loading System
-- Event Handling System
-- Notification System
-- Full Screen Mode
-- View Map Mode
-- View Character Mode
-- Day and Night Cycle
-- Lighting Effects
-- Storyline Cutscenes
-- Interactive Objects
-- Magic / Skill
-- Dungeons
+## 🎯 Features
+- 📁 Save and Load Game Data
+- 📊 View Comprehensive Game Statistics
+- 🎒 Robust Inventory System
+- 💱 Interactive Trading Mechanisms
+- 💬 Intuitive Dialogue System
+- ⚔️ Engaging Monster Combat System
+- 🗺️ Seamless Map Loading System
+- 🎮 Efficient Event Handling
+- 🔔 User-Friendly Notification System
+- 🖥️ Full-Screen Mode Compatibility
+- 🗺️ Interactive Map and Character Display
+- 🌞 Realistic Day and Night Cycle
+- ✨ Immersive Lighting Effects
+- 🎬 Captivating Storyline Cutscenes
+- 🕹️ Interactive Objects and Environments
+- 🧙 Magical Skills and Abilities
+- 🏰 Thrilling Dungeon Exploration
 
-## Installation
-1. Install Java from https://www.jetbrains.com/webstorm/download/
-2. Install XAMPP https://www.apachefriends.org/download.html
-3. Download the Runnable Jar File from the setup folder
-4. Download the 'gamedb' folder and place it on your xampp's 'mysql' folder
-5. Start the local server of MariaDB
-6. Enjoy the game!
+## ⚙️ Installation
+1. Download and Install Java from [here](https://www.jetbrains.com/webstorm/download/).
+2. Get XAMPP installed from [this link](https://www.apachefriends.org/download.html).
+3. Obtain the Runnable Jar File from the provided setup folder.
+4. Download the 'gamedb' folder and place it into your XAMPP's 'mysql' folder.
+5. Launch the local server of MariaDB using XAMPP.
+6. Dive into the game and immerse yourself in the adventure!
 
-### Requirements
-- Installed Java
-- Installed XAMPP
+### ⚠️ Requirements
+- Java Installed
+- XAMPP Installed
 
-### Controls
-- W/A/S/D to control movement
-- Enter to attack / confirm
-- T to talk to NPC
-- C to view Character Screen / Inventory
-- ESC to view option state
-- F to use magic (if the required item is equipped)
-- M to exit from viewing the map
-- Space to dash (experimetal)
+### 🎮 Controls
+- Use W/A/S/D for movement controls
+- Press Enter to attack or confirm actions
+- Use T to initiate conversations with NPCs
+- Press C to view Character Screen or Inventory
+- ESC to view the options menu
+- Press F to unleash magic (provided the required item is equipped)
+- Use M to exit from the map view
+- Space for dashing (experimental)
 
-## Game Mechanics
-Explain the rules, goals, or objectives of the game.
+## 🎮 Game Mechanics
+- The game mechanics are straightforward; progress through the storyline while avoiding death.
+- Your score is calculated based on your kill count and campaign progress.
+- Upon game completion, check if you've made it to the top 10 by reviewing the "Game Stats" in the Game Menu.
+- Challenge yourself to finish the game faster; view the top 10 fastest finishers in 'Game Stats'.
 
-## Contributing
-Information for contributors, if applicable.
+## 📜 License
+**IMPORTANT!**
+Not all resources used in this game are owned by me.
 
-## Credits
-Acknowledgment to individuals or resources used in the game development.
-
-## License
-Specify the license for the game's use or distribution.
+*Please note: This information is subject to change based on updates or game modifications.*
