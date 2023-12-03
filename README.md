@@ -5,11 +5,14 @@ A game designed to encourage players to fulfill Sustainable Development Goals (S
 
 ## 🎯 Features
 
-- 📁 **Save and Load Game Data (Connected to the game database):** Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly.
+- 📁 **Save and Load Game Data (Connected to the game database):**
+  Keep your progress secured and accessible through the game's connected database, allowing you to resume your adventure seamlessly.
 
-- 📊 **View Comprehensive Game Statistics:** Get an overview of the Game's Leaderboards.
+- 📊 **View Comprehensive Game Statistics:**
+  Get an overview of the Game's Leaderboards.
 
-- 🎒 **Inventory System:** View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure.
+- 🎒 **Inventory System:**
+  View your items efficiently with an intuitive inventory system. Collect, store, and use items strategically throughout your adventure.
 
 - 💱 **Interactive Trading Mechanisms:** Engage in interactive trade with NPCs and buy items for your quest.
 
