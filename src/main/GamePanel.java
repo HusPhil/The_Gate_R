@@ -507,11 +507,6 @@ public class GamePanel extends JPanel implements Runnable{
 		soundM.stop();
 	}
 	public void resetStatus(boolean reset) {
-		
-		
-		
-		
-		
  		//set default pos
 		removeTempEnt();
 		currentArea = outside;
@@ -536,9 +531,8 @@ public class GamePanel extends JPanel implements Runnable{
 		createAssets.makeMonster();
 		
 		if(reset) {
-			
-			
 			//reset game progres
+			player.playTime = 0;
 			GameProgress.encounterOldMan = false;
 			GameProgress.oldManExplained = false;
 			GameProgress.intro_done = false;

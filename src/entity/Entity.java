@@ -88,7 +88,6 @@ public class Entity {
 	public boolean opened = false;
 	public int knockBackPower = 0;
 	public int defaultSpeed;
-	public int playTime = 0;
 	public int maxLife, life;
 	public int worldX;
 	public int worldY; 
@@ -316,7 +315,6 @@ public class Entity {
 		}
 	}
 	public void startDialogue(Entity ent, int setNum) {
-		System.out.println("ediwow");
 
 		gp.keys.enterPressed = false;
 		gp.gameState = gp.dialogueState;
@@ -607,7 +605,6 @@ public class Entity {
 			if(nextCol+gp.tileSize == goalCol+gp.tileSize && nextRow+gp.tileSize == goalRow+gp.tileSize) {
 				if(!chase)
 				currentSearchPath = pathOFF;
-				System.out.println(worldX/gp.tileSize+ "::"+ worldY/gp.tileSize);
 			}
 			
 		}
@@ -734,7 +731,6 @@ public class Entity {
  		
  		//DEBUG
 		if(gp.keys.debugPressed) {
- 			System.out.println(gp.keys.debugPressed);
  			if(gp.keys.debugPressed) gp.keys.debugPressed = false;
  			else if(!gp.keys.debugPressed) gp.keys.debugPressed = true;
  		}

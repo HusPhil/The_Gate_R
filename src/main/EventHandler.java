@@ -1,5 +1,8 @@
 package main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import DataHandling.GameProgress;
 import entity.Entity;
 import entity.NPC_Narrator;
@@ -58,73 +61,40 @@ public class EventHandler {
 	}
 
 	public void checkEvent() {
-		//CHECK THE PLAYER POS FROM PREV EVENT
-		int distanceX = Math.abs(gp.player.worldX - prevEventX);
-		int distanceY = Math.abs(gp.player.worldY - prevEventY);
-		int realDistance = Math.max(distanceX, distanceY);
-		if(realDistance > gp.tileSize) touchEventON = true;
-		
-		if(touchEventON) {
-			
-			//WorldMapA
-			if(gp.currentMap == gp.worldMapA) {
-				worldMapAEvents();
-			}
-			
-			//Merchant House
-			else if(gp.currentMap == gp.merchantHouse) {
-				merchantHouseEvents();
-			}
-			//Dungeon F1
-			else if(gp.currentMap == gp.dungeonMap_F1) {
-				dungeonF1events();
-			}
-			//DUngeon F2
-			else if(gp.currentMap == gp.dungeonMap_F2) {
-				dungeonF2Events();
-			}
-			
-			else if(gp.currentMap == gp.corrupted1) {
-				corrupterArea1Events();
-				
-			}
-			
-			else if(gp.currentMap == gp.silvioVillage) {
-				silvioVillageEvents();
-			}
-			
-			else if(gp.currentMap == gp.silvioHouse) {
-				silvioHouseEvents();
-			}
-			
-			else if(gp.currentMap == gp.forest) {
-				forestEvents();
-			}
-			
-			else if(gp.currentMap == gp.corrupted2) {
-				corruptedArea2Events();
-			}
-			
-			else if(gp.currentMap == gp.princessKingdom) {
-				princessKingdomEvents();
-			}
-			
-			else if(gp.currentMap == gp.sacredRiver) {
-				sacredRiverEvents();
-			}
-			
-			else if(gp.currentMap == gp.maze) {
-				mazeEvents();
-			}
-			
-			else if(gp.currentMap == gp.princessCage) {
-				princessCageEvents();
-			}
-						
-			else if(gp.currentMap == gp.finalStage) {
-				finalStageEvent();
-			}
-		}
+
+        // Create a map to associate each map with its corresponding event function
+        Map<Integer, Runnable> eventsMap = new HashMap<>();
+        eventsMap.put(gp.worldMapA, this::worldMapAEvents);
+        eventsMap.put(gp.merchantHouse, this::merchantHouseEvents);
+        eventsMap.put(gp.finalStage, this::finalStageEvent);
+        eventsMap.put(gp.dungeonMap_F1, this::dungeonF1events);
+        eventsMap.put(gp.dungeonMap_F2, this::dungeonF2Events);
+        eventsMap.put(gp.corrupted1, this::corruptedArea1Events);
+        eventsMap.put(gp.silvioVillage, this::silvioVillageEvents);
+        eventsMap.put(gp.silvioHouse, this::silvioHouseEvents);
+        eventsMap.put(gp.forest, this::forestEvents);
+        eventsMap.put(gp.corrupted2, this::corruptedArea2Events);
+        eventsMap.put(gp.princessKingdom, this::princessKingdomEvents);
+        eventsMap.put(gp.sacredRiver, this::sacredRiverEvents);
+        eventsMap.put(gp.maze, this::mazeEvents);
+        eventsMap.put(gp.princessCage, this::princessCageEvents);
+        // Add other mappings here...
+
+        //CHECK THE PLAYER POS FROM PREV EVENT
+        int distanceX = Math.abs(gp.player.worldX - prevEventX);
+        int distanceY = Math.abs(gp.player.worldY - prevEventY);
+        int realDistance = Math.max(distanceX, distanceY);
+        if (realDistance > gp.tileSize) {
+            touchEventON = true;
+        }
+        
+        if (touchEventON) {
+            // Check if the current map exists in the events map
+            if (eventsMap.containsKey(gp.currentMap)) {
+                // Execute the corresponding event function
+            	eventsMap.get(gp.currentMap).run();
+            }
+        }
 	}
 	
 	private void princessCageEvents() {
@@ -305,7 +275,7 @@ public class EventHandler {
 			
 	}
 
-	private void corrupterArea1Events() {
+	private void corruptedArea1Events() {
 
 		if(eventCollision(gp.corrupted1, 27, 25, "down")) {
 			CS_oldManEncounter();

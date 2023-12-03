@@ -239,7 +239,7 @@ public class GUI {
 		g2.drawString(value, textX, textY);
 	
 		frameW = (gp.tileSize*8);
-		frameH = gp.tileSize*2; 
+		frameH = gp.tileSize*3; 
 		frameX = frameW + gp.tileSize*3; frameX += 24;
 		frameY = (gp.screenHeight - frameH) - gp.tileSize;
 		frameY += 12;
@@ -262,6 +262,18 @@ public class GUI {
 		g2.drawString(value, textX, textY);
 		
 		value = String.valueOf(gp.player.killCount);
+		g2.drawString(value, textAlignRight(value, frameW+gp.tileSize*11), textY);
+		
+		int m = gp.player.getPlayTime() / 60;
+		int s = gp.player.getPlayTime() - (60*m);
+		
+		textY += (gp.tileSize/2) + 16;
+		value = "Play time: ";
+		g2.drawString(value, textX, textY);
+		
+		
+
+		value = String.valueOf(m + "m" + s + "s");
 		g2.drawString(value, textAlignRight(value, frameW+gp.tileSize*11), textY);
 		
 	}
@@ -333,7 +345,7 @@ public class GUI {
 				
 				//Descriptiion window
 				int dFrameX = frameX;
-				int dFrameY = frameY + frameH +12;
+				int dFrameY = frameY + frameH ;
 				int dFrameW = frameW -gp.tileSize * 3; dFrameW += 24;
 				int dFrameH = gp.tileSize*4;
 				

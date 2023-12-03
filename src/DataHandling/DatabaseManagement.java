@@ -138,7 +138,7 @@ public class DatabaseManagement {
 		        gp.player.name = resultSet.getString("player_name");
 		        gp.player.score = resultSet.getInt("player_score");
 		        gp.player.progress = resultSet.getInt("player_progress");
-		        gp.player.playTime = resultSet.getInt("player_playTime");
+		        gp.player.playTime = resultSet.getInt("player_playTime")*60;
 		        gp.player.killCount = resultSet.getInt("player_killCount");
 		        
 		        byte[] content = resultSet.getBytes("player_savedata");

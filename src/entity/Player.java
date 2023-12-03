@@ -43,7 +43,9 @@ public class Player extends Entity{
 
 	KeyHandler keys;
 	public String ID = "";
-	public int score = 0;
+	public int playTime = 0;
+	public int tester = 0;
+	public int score = getScore();
 	public int progress = getProgress();
 	String temp;
 	int keynum = 0;
@@ -370,29 +372,29 @@ public class Player extends Entity{
 				}  
 	}
 	public void addInventoryItems() {
-		inventory.add(new ITM_Bandage(gp));
-		inventory.add(new ITM_EvilSkull(gp));
-		inventory.add(new ITM_FireGel(gp));
-		inventory.add(new ITM_Key(gp));
-		inventory.add(new ITM_SlimeGel(gp));
-		inventory.add(new ITM_TrenkAmulet(gp));
-		inventory.add(new ITM_TrenkMeat(gp));
-		inventory.add(new ITM_VorpalGem(gp));
-		inventory.add(new ITM_VorpalStone(gp));
-		inventory.add(new ITM_WaterCrystal(gp));
-		inventory.add(new ITM_WaterEssence(gp));
-		inventory.add(new OBJ_FireAmulet(gp));
-		inventory.add(new OBJ_Health_Potion(gp));
-		inventory.add(new OBJ_HeartCrystal(gp));
-		inventory.add(new OBJ_Iron_Axe(gp));
-		inventory.add(new OBJ_Iron_Shield(gp));
-		inventory.add(new OBJ_Iron_Sword(gp));
-		inventory.add(new OBJ_Lantern(gp));
-		inventory.add(new OBJ_Mana_Potion(gp));
-		inventory.add(new OBJ_Pickaxe(gp));
-		inventory.add(new OBJ_TerraBlade(gp));
-		inventory.add(new OBJ_Wooden_Shield(gp));
-		inventory.add(new OBJ_Wooden_Sword(gp));
+//		inventory.add(new ITM_Bandage(gp));
+//		inventory.add(new ITM_EvilSkull(gp));
+//		inventory.add(new ITM_FireGel(gp));
+//		inventory.add(new ITM_Key(gp));
+//		inventory.add(new ITM_SlimeGel(gp));
+//		inventory.add(new ITM_TrenkAmulet(gp));
+//		inventory.add(new ITM_TrenkMeat(gp));
+//		inventory.add(new ITM_VorpalGem(gp));
+//		inventory.add(new ITM_VorpalStone(gp));
+//		inventory.add(new ITM_WaterCrystal(gp));
+//		inventory.add(new ITM_WaterEssence(gp));
+//		inventory.add(new OBJ_FireAmulet(gp));
+//		inventory.add(new OBJ_Health_Potion(gp));
+//		inventory.add(new OBJ_HeartCrystal(gp));
+//		inventory.add(new OBJ_Iron_Axe(gp));
+//		inventory.add(new OBJ_Iron_Shield(gp));
+//		inventory.add(new OBJ_Iron_Sword(gp));
+//		inventory.add(new OBJ_Lantern(gp));
+//		inventory.add(new OBJ_Mana_Potion(gp));
+//		inventory.add(new OBJ_Pickaxe(gp));
+//		inventory.add(new OBJ_TerraBlade(gp));
+//		inventory.add(new OBJ_Wooden_Shield(gp));
+//		inventory.add(new OBJ_Wooden_Sword(gp));
 		
 	}
 	
@@ -516,7 +518,6 @@ public class Player extends Entity{
 							gp.IT_Manager[gp.currentMap][i] = null; i++;
 							gp.IT_Manager[gp.currentMap][i] = null;
 						}
-						System.out.println(gp.monsters[gp.currentMap][j].life);
 						break;
 					}
 				}
@@ -544,7 +545,6 @@ public class Player extends Entity{
 		if (i != 777) {
 			
 			if(!gp.monsters[gp.currentMap][i].invincible) {
-				System.out.println("mon" + i);
 				knockBackAction(gp.monsters[gp.currentMap][i], currentWeapon.knockBackPower, direction);
 				gp.playSE(1);
 				int dmg = atk - gp.monsters[gp.currentMap][i].def;
@@ -771,7 +771,7 @@ public class Player extends Entity{
 				
 				getEquippedAmulet();
 			}
-			if(selectedItem.type == type_consumables) {
+			if(selectedItem.type == type_consumables || selectedItem.type == type_questItem) {
 				inventory.get(itemIndex).use(this);
 				gp.keys.enterPressed = false;
 			}
@@ -780,9 +780,19 @@ public class Player extends Entity{
 	}
 	
 	public int getScore() {
-		int score = 0;
-		score = (int) (getProgress()*10);
-		return score;
+		final double KILL_WEIGHT = 10.0;
+        final double PROGRESS_WEIGHT = 5.0;
+        final double LEVEL_WEIGHT = 20.0;
+
+        // Normalize the progress percentage to a scale of 0 to 1
+        double normalizedProgress = progress / 100.0;
+
+        // Calculate score based on the formula with weighted parameters
+        double score = (killCount * KILL_WEIGHT) +
+                       (normalizedProgress * PROGRESS_WEIGHT * 100) +
+                       (level * LEVEL_WEIGHT);
+
+        return (int) score;
 	}
 	
 	public int getProgress() {
@@ -802,9 +812,6 @@ public class Player extends Entity{
 		if(GameProgress.princessReunited) _progress = (int) (100*(12.0/14));
 		if(GameProgress.princessCrafted) _progress = (int) (100*(13.0/14));
 		if(GameProgress.ending) _progress = (int) (100*(14.0/14));
-		
-		System.out.println(_progress + "::" + 100*(11/14));
-		
 		return _progress;
 	}
 	
@@ -814,6 +821,7 @@ public class Player extends Entity{
 
 	public void update() {
 		
+//		System.out.println("playtime: " + tester);
 		//IDEA to not attack while the sword is not given: make booelean in GameProgress
 		
 		setDialogue();
