@@ -1,5 +1,5 @@
 # The Harmonial Principles (2D Top Down Game)
-> **Important Note:** ## All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
+> **Important Note:** <br>All the functions concerning the Database Management System (DBMS) is found on the "Data Handling" Package under 'src'
 ## Overview
 A game designed to encourage players to fulfill Sustainable Development Goals (SDGs) by providing a glimpse of a chaotic future resulting from unfulfilled SDGs.
 
