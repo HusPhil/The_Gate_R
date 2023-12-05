@@ -199,20 +199,11 @@ public class KeyHandler implements KeyListener {
 			case KeyEvent.VK_ENTER:
 				delayTimer++;
 					if(gp.gui.selectItem == 0) {
-//						gp.saverLoader.saveData();
-//						gp.playSE(0);
-//						gp.resetStatus(false);
-//						
 						gp.playSE(0);
 						
 						gp.resetStatus(true);
 						gp.gameState = gp.gameMenu;
 					} 
-//					else {
-//						gp.playSE(0);
-//						gp.gameState = gp.gameMenu;
-//						gp.resetStatus(true);
-//					}
 					delayTimer = 0;
 				
 				break;

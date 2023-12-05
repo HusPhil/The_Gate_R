@@ -1540,11 +1540,11 @@ public class GUI {
 		int timer =  3 - (gp.keys.delayTimer/60);
 		//RETRY OPTION
 		
-		g2.setFont(g2.getFont().deriveFont(50f));
+		g2.setFont(g2.getFont().deriveFont(35f));
 		
 		text = "Guess you did not have";
 		x = screenCenterX(text);
-		y += 55;
+		y += 65;
 		g2.drawString(text, x, y);
 		
 		text = "what it takes, huh..?";
