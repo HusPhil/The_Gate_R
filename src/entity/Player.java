@@ -114,10 +114,10 @@ public class Player extends Entity{
 		life = maxLife;
 		level = 1;
 		str = 6;
-		dex = 1;
+		dex = 3;
 		exp = 0;  	
 		nextLvlExp = 20;
-		coin = 1000000900;
+		coin = 10000;
 		currentLightItem = null;
 		currentAmulet = null;
 		currentWeapon = new OBJ_Wooden_Sword(gp);
@@ -849,7 +849,7 @@ public class Player extends Entity{
 		
 //		System.out.println("playtime: " + tester);
 		//IDEA to not attack while the sword is not given: make booelean in GameProgress
-		
+		gp.eventHandler.checkEvent();
 		setDialogue();
 		if(gp.keys.debugPressed) {
  			System.out.println(debugOn);
@@ -998,7 +998,7 @@ public class Player extends Entity{
 //		pickupItem(itemIndex);
 		interactObj(objIndex);
 
-		gp.eventHandler.checkEvent();
+		
 		
 		projectileAction();
 //		if(mana <= 0) mana = maxMana;
@@ -1015,12 +1015,14 @@ public class Player extends Entity{
 		
 		if(shotCounter < 30) {shotCounter++;}
 		
+		checkGameOver();
+			
+		}
+	public void checkGameOver() {
 		if(life <= 0) {
-			
 			gp.gameState = gp.gameOverState;
-		}
-			
-		}
+		}		
+	}
 	public void draw(Graphics2D g2) {
 		
 		int tempScreenX = screenX;

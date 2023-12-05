@@ -200,14 +200,10 @@ public class KeyHandler implements KeyListener {
 				delayTimer++;
 					if(gp.gui.selectItem == 0) {
 						gp.playSE(0);
-						gp.gameState = gp.playState;
-						gp.resetStatus(false);
-					} 
-					else {
-						gp.playSE(0);
-						gp.gameState = gp.gameMenu;
+						
 						gp.resetStatus(true);
-					}
+						gp.gameState = gp.gameMenu;
+					} 
 					delayTimer = 0;
 				
 				break;
@@ -243,7 +239,8 @@ public class KeyHandler implements KeyListener {
 			if (input == null) {
 				JOptionPane.showMessageDialog(null, "Hmm, so you decided not to partake in this journey, what a shame.", "What a shame..", JOptionPane.PLAIN_MESSAGE);
 			}
-			else if(input.isEmpty()) JOptionPane.showMessageDialog(null, "You name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+			else if(input.length() > 10) JOptionPane.showMessageDialog(null, "Your name cannot be longer than 10 characters, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
+			else if(input.isEmpty()) JOptionPane.showMessageDialog(null, "Your name cannot be blank, try again.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			else if (!DatabaseManagement.checkUserExist("player_name", input)) {
 //				gp.gui.showTransition(true);
 				gp.narrator.player_name = input;
@@ -471,9 +468,10 @@ public class KeyHandler implements KeyListener {
 
 	public void optionsStateKeys(int code) {
 		int maxSelectNum = 0;
-		if(gp.gui.substate == 0) maxSelectNum = 5;
+		if(gp.gui.substate == 0) maxSelectNum = 6;
 		if(gp.gui.substate == 1) maxSelectNum = 1;
 		if(gp.gui.substate == 3) maxSelectNum = 1;
+		if(gp.gui.substate == 4) maxSelectNum = 1;
 		
 		
 		switch(code) {

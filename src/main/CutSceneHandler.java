@@ -93,6 +93,7 @@ public class CutSceneHandler {
 	
 	public void scene_SkeletonLord() {
 		//PHASE 0
+		gp.player.checkGameOver();
 		
 		if(scenePhase == 0) {
 			gp.bossBattleOn = true;
@@ -162,6 +163,7 @@ public class CutSceneHandler {
 	}
 	
 	public void scene_Intro() {
+		
 		gp.fxHandler.lighting.resetDay();
 		
 		//PHASE 0
@@ -220,6 +222,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManEncounter() {
+		gp.player.checkGameOver();
 		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			//place player dummy
@@ -279,6 +282,7 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManExplain() {
+		gp.player.checkGameOver();
 		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
@@ -452,12 +456,15 @@ public class CutSceneHandler {
 			GameProgress.oldManExplained = true;
 		}
 		if(scenePhase == 17) {
+			
+			
 			setGuiNpc(NPC_Hermit.NPC_Name);
 			
 			gp.keys.talkOn = false;
 			gp.gui.npc.talking = false;
 			
 			gp.gameState = gp.playState;
+			gp.player.checkGameOver();
 			boolean monstersAlive = false;
 
 			for (int i = 0; i < gp.monsters[1].length; i++) {
@@ -618,6 +625,7 @@ public class CutSceneHandler {
 	}
 
 	public void axeHint() {
+		gp.player.checkGameOver();
 		if(scenePhase == 0) {
 			showInfoScreen(NPC_Narrator.axeHint_1);
 		}
@@ -625,7 +633,7 @@ public class CutSceneHandler {
 	}
 	
 	public void witchEncounter() {
-		
+		gp.player.checkGameOver();
 		if(!GameProgress.witchQuest1Complete) {
 			if(scenePhase == 0) {
 				setGuiNpc(NPC_Witch.NPC_Name);
