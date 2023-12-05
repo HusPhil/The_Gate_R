@@ -135,6 +135,32 @@ public class DatabaseManagement {
 
 	}
 	
+	public void deletePlayerData() {
+		String playerId = gp.player.ID;
+		
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+
+	        String query = "DELETE FROM player WHERE player_id = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, playerId);
+
+	        int rowsDeleted = preparedStatement.executeUpdate();
+
+	        if (rowsDeleted > 0) {
+	            System.out.println("Player data with ID " + playerId + " has been deleted.");
+	        } else {
+	            System.out.println("No player data found with ID " + playerId + ". Nothing deleted.");
+	        }
+
+	        connection.close();
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public void updatePlayerData(String saveFile) {
 		try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");

@@ -176,7 +176,9 @@ public class GUI {
 
 		textX += gp.tileSize*3;
 		textY = frameY + (gp.tileSize)-24;
-		g2.drawImage(gp.player.currentWeapon.down1, textX, textY, null);
+		if(GameProgress.intro_done) {
+			g2.drawImage(gp.player.currentWeapon.down1, textX, textY, null);
+		}
 		textY+=gp.tileSize*2;
 		
 		frameY += frameH + 24;
@@ -190,15 +192,21 @@ public class GUI {
 		textX = frameX + 30 ;
 		textX += gp.tileSize*3;
 		textY -= gp.tileSize-36;
-		g2.drawImage(gp.player.currentShield.down1, textX, textY, null);
+		if(GameProgress.intro_done) {
+			g2.drawImage(gp.player.currentShield.down1, textX, textY, null);
+		}
 		
 		
 		textX = (gp.tileSize * 8) - 12;
 		textY = gp.tileSize*2;
-		g2.drawString("Attack:", textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString("Attack:", textX, textY);
+		}
 		
 		textY += (gp.tileSize*2) + 24;
-		g2.drawString("Defense:", textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString("Defense:", textX, textY);
+		}
 		
 		//DISPLAY EQUIPMENT Property
 		tailX = (frameX + frameW) - 30;
@@ -210,21 +218,31 @@ public class GUI {
 		
 		textY = gp.tileSize+12;
 		textX = (gp.tileSize*6)+12;
-		g2.drawString("ATK+", (textX+gp.tileSize)+24, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString("ATK+", (textX+gp.tileSize)+24, textY);
+		}
 		
 		textY += (gp.tileSize*2)+24;
-		g2.drawString("DEF+", (textX+gp.tileSize)+24, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString("DEF+", (textX+gp.tileSize)+24, textY);
+		}
+
 		
 		textY = gp.tileSize+12;
 		textX = (gp.tileSize*9) + 12;
 		lineHeight = 35;
-		
 		value = String.valueOf(gp.player.currentWeapon.atkVal);
-		g2.drawString(value, textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString(value, textX, textY);
+		}
+
 		
 		textY+=(gp.tileSize*2)+24;
 		value = String.valueOf(gp.player.currentShield.defVal);
-		g2.drawString(value, textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString(value, textX, textY);
+		}
+
 		
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, fSize));
@@ -232,12 +250,18 @@ public class GUI {
 		textY = gp.tileSize*2;
 		
 		value = String.valueOf(gp.player.getAtk());
-		g2.drawString(value, textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString(value, textX, textY);
+		}
+
 		
 		textY+=(gp.tileSize*2) + 24;
 		textX = (gp.tileSize*10) + 8;
 		value = String.valueOf(gp.player.getDef());
-		g2.drawString(value, textX, textY);
+		if(GameProgress.intro_done) {
+			g2.drawString(value, textX, textY);
+		}
+
 	
 		frameW = (gp.tileSize*8);
 		frameH = gp.tileSize*3; 
@@ -749,6 +773,7 @@ public class GUI {
 			case 1: optionsNotif(frameX, frameY);break;
 			case 2: optionsControls(frameX, frameY); break;
 			case 3: optionsTitleScreen(frameX, frameY); break;
+			case 4: deleteWarning(frameX, frameY); break;
 		}
 		gp.keys.enterPressed = false;
 		//save the config
@@ -797,7 +822,7 @@ public class GUI {
 		//when the counter hits a certain amoun, it stops and imlements the transition
 		if(counter == 50) {
 			gp.gameState = gp.playState;
-			System.out.println("haldoh");
+			gp.player.drawing = true;
 			//ALWAYS RESET THE COUNTER
 			counter = 0;
 		}
@@ -1249,12 +1274,22 @@ public class GUI {
 			g2.drawString(">", frameX-35, frameY);
 			if(gp.keys.enterPressed) {substate = 3; selectItem = 0;}
 		}
+		//Delete this account
+		text = "Delete account";
+		frameY += lineheight;
+		g2.setColor(Color.red);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 5) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 4; selectItem = 0;}
+		}
 		
 		
 		text = "BACK";
 		frameY = frameH-gp.tileSize;
+		g2.setColor(Color.white);
 		g2.drawString(text, frameX, frameY);
-		if(selectItem == 5 ) {
+		if(selectItem == 6 ) {
 			g2.drawString(">", frameX-35, frameY);
 			if(gp.keys.enterPressed) {
 				if(substate == 0) gp.gameState= gp.playState;
@@ -1321,6 +1356,46 @@ public class GUI {
 		if(selectItem == 1) {
 			g2.drawString(">", frameX-35, frameY);
 			if(gp.keys.enterPressed) {
+				if(!GameProgress.intro_done) gp.DBMS.deletePlayerData();
+				selectItem = 0; 
+				gp.resetStatus(true);
+				gp.stopMusic();
+				gp.playMusic(SoundHandler.intro);
+				gp.gameState = gp.gameMenu; 
+				substate = 0;}
+		}
+	}
+	public void deleteWarning(int frameX, int frameY) {
+		
+		String text = "ARE YOU SURE?";
+		int frameH = gp.screenHeight - (gp.tileSize);
+		int lineheight = 50;
+		int textX = frameX + gp.tileSize;
+		int textY = frameY + gp.tileSize*3;
+		
+		currentDialogue = "Are you sure you want to \nDELETE this account?";
+		for(String line: currentDialogue.split("\n")){
+			g2.drawString(line, textX, textY);
+			textY += lineheight+10;
+		}
+			
+		text = "BACK";
+		frameY = frameH-gp.tileSize;
+		frameX = gp.tileSize + (frameX+35);
+		g2.setColor(Color.white);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 0) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {substate = 0; selectItem = 4;}
+		}
+		frameY -= lineheight;
+		text = "YES";
+		g2.setColor(Color.red);
+		g2.drawString(text, frameX, frameY);
+		if(selectItem == 1) {
+			g2.drawString(">", frameX-35, frameY);
+			if(gp.keys.enterPressed) {
+				gp.DBMS.deletePlayerData();
 				selectItem = 0; 
 				gp.resetStatus(true);
 				gp.stopMusic();
@@ -1464,19 +1539,26 @@ public class GUI {
 		
 		int timer =  3 - (gp.keys.delayTimer/60);
 		//RETRY OPTION
-		text = "RETRY";
+		
+		g2.setFont(g2.getFont().deriveFont(50f));
+		
+		text = "Guess you did not have";
+		x = screenCenterX(text);
+		y += 55;
+		g2.drawString(text, x, y);
+		
+		text = "what it takes, huh..?";
+		x = screenCenterX(text);
+		y += 55;
+		g2.drawString(text, x, y);
+		
+		
+		text = "QUIT";
 		g2.setFont(g2.getFont().deriveFont(50f));
 		x = screenCenterX(text);
 		y += gp.tileSize*4;
 		g2.drawString(text, x, y);
 		if(selectItem == 0 && timer <= 0) g2.drawString(">", x-40, y);
-		
-		
-		text = "QUIT";
-		x = screenCenterX(text);
-		y += 55;
-		g2.drawString(text, x, y);
-		if(selectItem == 1 && timer <= 0) g2.drawString(">", x-40, y);
 		
 		text = String.valueOf(timer);
 		g2.setFont(g2.getFont().deriveFont(35f));
@@ -1562,7 +1644,6 @@ public class GUI {
 		//DRAW GAMEOVERSTATE
 		if(gp.gameState == gp.gameOverState) {
 			showGameOverScreen();
-			gp.playSE(SoundHandler.death);
 		}
 		if(gp.gameState == gp.ending) {
 			endingScreen();
@@ -1608,7 +1689,7 @@ public class GUI {
 		//DRAW THE LABELS
 		
 		
-		//Full Screen
+		//top scorer
 		int frameY = gp.tileSize*4;
 		String text = "Top Scorers";
 		int frameX = screenCenterX(text);
@@ -1620,7 +1701,7 @@ public class GUI {
 		
 		int lineheight = 55;
 		
-		//Volume
+		//top finsher
 		text = "Top Finishers";
 		frameY += lineheight;
 		frameX = screenCenterX(text);
@@ -1631,7 +1712,8 @@ public class GUI {
 		}
 				
 		
-		//Volume
+		
+		//bak;
 		text = "Back";
 		frameY += lineheight;
 		frameX = screenCenterX(text);

@@ -27,10 +27,26 @@ public class EventHandler {
 	public boolean telOn = false;
 	
 	
+	Map<Integer, Runnable> eventsMap = new HashMap<>();
+    
+	
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
 		setEventRectangle(23,23,5,5);
-		
+		eventsMap.put(gp.worldMapA, this::worldMapAEvents);
+	    eventsMap.put(gp.merchantHouse, this::merchantHouseEvents);
+	    eventsMap.put(gp.finalStage, this::finalStageEvent);
+	    eventsMap.put(gp.dungeonMap_F1, this::dungeonF1events);
+	    eventsMap.put(gp.dungeonMap_F2, this::dungeonF2Events);
+	    eventsMap.put(gp.corrupted1, this::corruptedArea1Events);
+	    eventsMap.put(gp.silvioVillage, this::silvioVillageEvents);
+	    eventsMap.put(gp.silvioHouse, this::silvioHouseEvents);
+	    eventsMap.put(gp.forest, this::forestEvents);
+	    eventsMap.put(gp.corrupted2, this::corruptedArea2Events);
+	    eventsMap.put(gp.princessKingdom, this::princessKingdomEvents);
+	    eventsMap.put(gp.sacredRiver, this::sacredRiverEvents);
+	    eventsMap.put(gp.maze, this::mazeEvents);
+	    eventsMap.put(gp.princessCage, this::princessCageEvents);
 	}
 	
 	public void setEventRectangle(int _x, int _y, int _width, int _height) {
@@ -63,21 +79,7 @@ public class EventHandler {
 	public void checkEvent() {
 
         // Create a map to associate each map with its corresponding event function
-        Map<Integer, Runnable> eventsMap = new HashMap<>();
-        eventsMap.put(gp.worldMapA, this::worldMapAEvents);
-        eventsMap.put(gp.merchantHouse, this::merchantHouseEvents);
-        eventsMap.put(gp.finalStage, this::finalStageEvent);
-        eventsMap.put(gp.dungeonMap_F1, this::dungeonF1events);
-        eventsMap.put(gp.dungeonMap_F2, this::dungeonF2Events);
-        eventsMap.put(gp.corrupted1, this::corruptedArea1Events);
-        eventsMap.put(gp.silvioVillage, this::silvioVillageEvents);
-        eventsMap.put(gp.silvioHouse, this::silvioHouseEvents);
-        eventsMap.put(gp.forest, this::forestEvents);
-        eventsMap.put(gp.corrupted2, this::corruptedArea2Events);
-        eventsMap.put(gp.princessKingdom, this::princessKingdomEvents);
-        eventsMap.put(gp.sacredRiver, this::sacredRiverEvents);
-        eventsMap.put(gp.maze, this::mazeEvents);
-        eventsMap.put(gp.princessCage, this::princessCageEvents);
+        
         // Add other mappings here...
 
         //CHECK THE PLAYER POS FROM PREV EVENT
@@ -254,13 +256,14 @@ public class EventHandler {
 			
 	}
 
-	private void silvioVillageEvents() {
+	public void silvioVillageEvents() {
 
 		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
 			if(gp.gameState != gp.cutSceneState)
 			transition(gp.silvioHouse, 24, 23, gp.indoor);
 		}
-		else if(eventCollision(gp.silvioVillage, 37, 38, "any")) {
+		else 
+			if(eventCollision(gp.silvioVillage, 37, 38, "right")) {
 			transition(gp.silvioHouse, 24, 40, gp.indoor);
 			
 		}
