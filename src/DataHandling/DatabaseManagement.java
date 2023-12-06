@@ -117,9 +117,9 @@ public class DatabaseManagement {
 
 	        String query = "INSERT IGNORE INTO player (player_id, player_name,inventory_id, player_score, player_progress, player_savedata) VALUES (?,?,?,null,null,null)";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
-	        preparedStatement.setString(1, gp.player.ID);
+	        preparedStatement.setString(1, gp.player.getID());
 	        preparedStatement.setString(2, gp.player.name);
-	        preparedStatement.setString(3, gp.player.inv_ID);
+	        preparedStatement.setString(3, gp.player.getInv_ID());
 
 	        
 	        preparedStatement.executeUpdate();
@@ -136,7 +136,7 @@ public class DatabaseManagement {
 	}
 	
 	public void deletePlayerData() {
-		String playerId = gp.player.ID;
+		String playerId = gp.player.getID();
 		
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -183,7 +183,7 @@ public class DatabaseManagement {
 	        preparedStatement.setInt(4, gp.player.getScore());
 	        preparedStatement.setInt(5, gp.player.getPlayTime());
 	        preparedStatement.setInt(6, gp.player.killCount);
-	        preparedStatement.setString(7, gp.player.ID);
+	        preparedStatement.setString(7, gp.player.getID());
 
 	        preparedStatement.executeUpdate();
 
@@ -199,12 +199,12 @@ public class DatabaseManagement {
 		    Class.forName("com.mysql.cj.jdbc.Driver");
 		    Connection connection = DriverManager.getConnection(url, username, password);
 
-		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.ID + "'";
+		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.getID() + "'";
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
 
 		    if (resultSet.next()) {
-		        gp.player.ID = resultSet.getString("player_id");
+		        gp.player.setID(resultSet.getString("player_id"));
 		        gp.player.name = resultSet.getString("player_name");
 		        gp.player.score = resultSet.getInt("player_score");
 		        gp.player.progress = resultSet.getInt("player_progress");
@@ -303,7 +303,7 @@ public class DatabaseManagement {
 		            + "?,?,?,?,?,?,?"
 		            + ")";
 		    PreparedStatement preparedStatement = connection.prepareStatement(query);
-		    preparedStatement.setString(1, gp.player.inv_ID);
+		    preparedStatement.setString(1, gp.player.getInv_ID());
 
 		    for(int i = 0; i < gp.player.inventory.size(); i++) {
 		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
@@ -365,7 +365,7 @@ public class DatabaseManagement {
 			    }
 		    }
 
-		    preparedStatement.setString(29, gp.player.inv_ID);
+		    preparedStatement.setString(29, gp.player.getInv_ID());
 		    
 		    preparedStatement.executeUpdate();
 		    

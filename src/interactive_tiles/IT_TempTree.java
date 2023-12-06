@@ -1,6 +1,7 @@
 package interactive_tiles;
 
 
+import entity.Entity;
 import main.GamePanel;
 
 public class IT_TempTree extends InteractiveTiles{
@@ -21,6 +22,12 @@ public class IT_TempTree extends InteractiveTiles{
 		defaultSolidAreaY = solidArea.y;
 		
 		down1 = createImage("interactive_tiles", "temp_tree");
+	}
+
+	@Override
+	public boolean checkReqItem(Entity item) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
 

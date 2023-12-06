@@ -529,7 +529,7 @@ public class GamePanel extends JPanel implements Runnable{
  		player.mana = player.maxMana;
  		player.attacking = false;
  		player.knockBackState = false;
- 		player.lightUpdated = true;
+ 		player.setLightUpdated(true);
  		player.invincible = false;
 		
 		//reset nps and mobs pos

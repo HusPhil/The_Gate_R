@@ -167,11 +167,11 @@ public class KeyHandler implements KeyListener {
 			
 			break;
 		case KeyEvent.VK_Y:
-			gp.player.offsetRand++;
+			gp.player.setOffsetRand(gp.player.getOffsetRand() + 1);
 			yesOn = false;
 			break;
 		case KeyEvent.VK_F:
-			gp.player.offsetRand--;
+			gp.player.setOffsetRand(gp.player.getOffsetRand() - 1);
 			 fireAway = false;
 			break;
 		case KeyEvent.VK_L: 
@@ -248,8 +248,8 @@ public class KeyHandler implements KeyListener {
 				gp.player.name = input;
 //				gp.gameState = gp.playState; 
 				gp.gui.addMessage("Welcome! " + input+"!:BLUE");
-				gp.player.ID = DatabaseManagement.generatePlayerID();
-				gp.player.inv_ID = DatabaseManagement.generateInventoryID();
+				gp.player.setID(DatabaseManagement.generatePlayerID());
+				gp.player.setInv_ID(DatabaseManagement.generateInventoryID());
 				gp.DBMS.savePlayerInventory();
 				gp.DBMS.createPlayerData();
 				
@@ -264,7 +264,7 @@ public class KeyHandler implements KeyListener {
 				String input = JOptionPane.showInputDialog(null, "Enter your player ID", "Verification", JOptionPane.PLAIN_MESSAGE);
 				
 				if (DatabaseManagement.checkUserExist("player_id", input)) {
-					gp.player.ID = input;
+					gp.player.setID(input);
 					gp.saverLoader.loadData(); 
 					gp.DBMS.loadGameProgress();
 //					gp.createAssets.makeBosses();

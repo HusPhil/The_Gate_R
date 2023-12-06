@@ -256,4 +256,10 @@ public class BOSS_TrenkLord extends Entity{
 		attacking = false;
 //		invincible = true;
 	}
+
+	@Override
+	public void speak() {
+		// TODO Auto-generated method stub
+		
+	}
 }

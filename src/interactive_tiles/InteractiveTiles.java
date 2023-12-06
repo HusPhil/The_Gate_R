@@ -3,7 +3,7 @@ package interactive_tiles;
 import entity.Entity;
 import main.GamePanel;
 
-public class InteractiveTiles extends Entity{
+public abstract class InteractiveTiles extends Entity{
 	GamePanel gp;
 	public int reqItem;
 	public boolean destroyOn = false;
@@ -22,10 +22,7 @@ public class InteractiveTiles extends Entity{
 			}
 		}
 	}
-	public boolean checkReqItem(Entity item) {
-		boolean _item = false;
-		return _item;
-	}
+	public abstract boolean checkReqItem(Entity item);
 	public void playSE() {
 		
 	}

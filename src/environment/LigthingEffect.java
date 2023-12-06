@@ -87,9 +87,9 @@ public class LigthingEffect {
 	}
 	
 	public void update() {
-		if(gp.player.lightUpdated) {
+		if(gp.player.isLightUpdated()) {
 			setLightSource();
-			gp.player.lightUpdated = false;
+			gp.player.setLightUpdated(false);
 		}
 		//Changing the state of time
 		if(timeState == day) {

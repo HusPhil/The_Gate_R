@@ -146,7 +146,7 @@ public class GUI {
 		g2.drawString(value, textX, textY);
 		textY+=lineHeight;
 		
-		value = gp.player.ID;
+		value = gp.player.getID();
 		textX = textAlignRight(value, tailX);
 		g2.drawString(value, textX, textY);
 		textY+=lineHeight;
@@ -421,7 +421,7 @@ public class GUI {
 		}
 	}
 	public void showPlayerMana() {
-		if(gp.player.magicOn) {
+		if(gp.player.isMagicOn()) {
 			double oneScale = (double)gp.tileSize/gp.player.maxMana;
 			double manaVal = oneScale*gp.player.mana;
 			int maxRedHP = 6;

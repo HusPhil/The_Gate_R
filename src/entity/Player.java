@@ -43,10 +43,16 @@ import object.SKL_Fireball;
 public class Player extends Entity{
 
 	KeyHandler keys;
-	public String ID = "";
-	public String inv_ID = "";
+	private String ID = "";
+	private String inv_ID = "";
+	private boolean magicOn = false;
+	private boolean lightUpdated = false;
+	private int offsetRand = 0;
+	private int timer;
+	private float expMultiplier = 1.2f;
+	private boolean DashAbility = true;
+	
 	public int playTime = 0;
-	public int tester = 0;
 	public int score = getScore();
 	public int progress = getProgress();
 	String temp;
@@ -54,16 +60,6 @@ public class Player extends Entity{
 	public final int screenX; 
 	public final int screenY;
 	public boolean attackCanceled = false;
-	
-	public boolean magicOn = false;
-	public boolean lightUpdated = false;
-	
-	public int offsetRand = 0;
-	
-	//Abilities
-	int timer;
-	float expMultiplier = 1.2f;
-	boolean DashAbility = true;
 	
 	public Player(GamePanel gp, KeyHandler keys) {
 		super(gp);
@@ -183,11 +179,11 @@ public class Player extends Entity{
  	
 	public void getEquippedAmulet() {
 			if(currentAmulet == null) {
-				magicOn = false;
+				setMagicOn(false);
 		//		gp.gui.showPlayerMana();
 			}
 			else if(currentAmulet.name.contentEquals(OBJ_FireAmulet.objName)) {
-					magicOn = true;
+					setMagicOn(true);
 	//				gp.gui.showPlayerMana();
 				}
 			
@@ -358,7 +354,7 @@ public class Player extends Entity{
 	public void projectileAction() {
 				
 				if(
-				gp.keys.fireAway && !projectile.alive && magicOn &&
+				gp.keys.fireAway && !projectile.alive && isMagicOn() &&
 				shotCounter == 30 && projectile.sufficientResource(this)
 				) {
 					projectile.set(worldX, worldY, true, direction, this);
@@ -787,7 +783,7 @@ public class Player extends Entity{
 					currentLightItem = null;
 				else currentLightItem = selectedItem; 
 				
-				lightUpdated = true;
+				setLightUpdated(true);
 			}
 			if(selectedItem.type == type_amulet) {
 				if(currentAmulet == selectedItem) {
@@ -820,7 +816,6 @@ public class Player extends Entity{
 
         return (int) score;
 	}
-	
 	public int getProgress() {
 		int _progress = 0;
 		
@@ -840,11 +835,152 @@ public class Player extends Entity{
 		if(GameProgress.ending) _progress = (int) (100*(14.0/14));
 		return _progress;
 	}
-	
 	public int getPlayTime() {
 		return playTime/60;
 	}
+	
+	public void draw(Graphics2D g2) {
+		
+		int tempScreenX = screenX;
+		int tempScreenY = screenY;
+		
+		BufferedImage image = null;
+		
+			switch(direction) {
+			case "up":
+				if(!attacking) {
+					if(spriteNum == 1) {image = up1;}
+					if(spriteNum == 2) {image = up2;}
+					if(spriteNum == 3) {image = up3;}
+					if(spriteNum == 4) {image = up4;}
+					if(!keys.upPressed) image = up1;
+				} else if(attacking) {
+					tempScreenY-=gp.tileSize;
+					if(spriteNum == 1) {image = attackUp1;}
+					if(spriteNum == 2) {image = attackUp2;}
+					if(spriteNum == 3) {image = attackUp3;}
+					if(spriteNum == 4) {image = attackUp4;}
+				}
+				break;
+			case "down":
+				if(!attacking) {
+					if(spriteNum == 1) {image = down1;}
+					if(spriteNum == 2) {image = down2;}
+					if(spriteNum == 3) {image = down3;}
+					if(spriteNum == 4) {image = down4;}
+					if(!keys.downPressed) image = down1;
+				} else if(attacking) {
+					if(spriteNum == 1) {image = attackDown1;}
+					if(spriteNum == 2) {image = attackDown2;}
+					if(spriteNum == 3) {image = attackDown3;}
+					if(spriteNum == 4) {image = attackDown4;}
+				}
+				break;
+			case "left":
+				if(!attacking) {
+					if(spriteNum == 1) {image = left1;}
+					if(spriteNum == 2) {image = left2;}
+					if(spriteNum == 3) {image = left3;}
+					if(spriteNum == 4) {image = left4;}
+					if(!keys.leftPressed) image = left1;
+				} else if(attacking) {
+					tempScreenX-=gp.tileSize;
+					if(spriteNum == 1) {image = attackLeft1;}
+					if(spriteNum == 2) {image = attackLeft2;}
+					if(spriteNum == 3) {image = attackLeft3;}
+					if(spriteNum == 4) {image = attackLeft4;}
+				}
+				break;
+			case "right":
+				if(!attacking) {
+					if(spriteNum == 1) {image = right1;}
+					if(spriteNum == 2) {image = right2;}
+					if(spriteNum == 3) {image = right3;}
+					if(spriteNum == 4) {image = right4;}
+					if(!keys.rightPressed) image = right1;
+				} else if(attacking) {
+					if(spriteNum == 1) {image = attackRight1;}
+					if(spriteNum == 2) {image = attackRight2;}
+					if(spriteNum == 3) {image = attackRight3;}
+					if(spriteNum == 4) {image = attackRight4;}
+				}
+				break;
+			}
+			
+			if(invincible) g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+			
+			if(drawing) g2.drawImage(image, tempScreenX, tempScreenY, null);
+			
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			
+			// DEBUG
+			//AttackArea
+			if(debugOn) {
+				g2.setColor(Color.red);
+				
+				
+				if(attacking) {
+					
+					int x = screenX+solidArea.x;
+					int y = screenY+solidArea.y;
+					
+					switch(direction) {
+					case "up": 
+						y -= attackArea.height;
+						break;
+					case "down": 
+						y += solidArea.height/2;
+						break;
+					case "left": 
+						x -= attackArea.width; 
+						break;
+					case "right": 
+						x += solidArea.width;
+						break;
+					}
+					
+					
+					g2.drawRect(x, y, attackArea.width, attackArea.height);
+				}
+				else g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+			}
+			}
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public String getInv_ID() {
+		return inv_ID;
+	}
+	public void setInv_ID(String inv_ID) {
+		this.inv_ID = inv_ID;
+	}
+	public boolean isLightUpdated() {
+		return lightUpdated;
+	}
+	public void setLightUpdated(boolean lightUpdated) {
+		this.lightUpdated = lightUpdated;
+	}
+	public int getOffsetRand() {
+		return offsetRand;
+	}
+	public void setOffsetRand(int offsetRand) {
+		this.offsetRand = offsetRand;
+	}
+	public boolean isMagicOn() {
+		return magicOn;
+	}
+	public void setMagicOn(boolean magicOn) {
+		this.magicOn = magicOn;
+	}
 
+	public void checkGameOver() {
+		if(life <= 0) {
+			gp.gameState = gp.gameOverState;
+		}		
+	}
 	public void update() {
 		
 //		System.out.println("playtime: " + tester);
@@ -1018,115 +1154,4 @@ public class Player extends Entity{
 		checkGameOver();
 			
 		}
-	public void checkGameOver() {
-		if(life <= 0) {
-			gp.gameState = gp.gameOverState;
-		}		
-	}
-	public void draw(Graphics2D g2) {
-		
-		int tempScreenX = screenX;
-		int tempScreenY = screenY;
-		
-		BufferedImage image = null;
-		
-			switch(direction) {
-			case "up":
-				if(!attacking) {
-					if(spriteNum == 1) {image = up1;}
-					if(spriteNum == 2) {image = up2;}
-					if(spriteNum == 3) {image = up3;}
-					if(spriteNum == 4) {image = up4;}
-					if(!keys.upPressed) image = up1;
-				} else if(attacking) {
-					tempScreenY-=gp.tileSize;
-					if(spriteNum == 1) {image = attackUp1;}
-					if(spriteNum == 2) {image = attackUp2;}
-					if(spriteNum == 3) {image = attackUp3;}
-					if(spriteNum == 4) {image = attackUp4;}
-				}
-				break;
-			case "down":
-				if(!attacking) {
-					if(spriteNum == 1) {image = down1;}
-					if(spriteNum == 2) {image = down2;}
-					if(spriteNum == 3) {image = down3;}
-					if(spriteNum == 4) {image = down4;}
-					if(!keys.downPressed) image = down1;
-				} else if(attacking) {
-					if(spriteNum == 1) {image = attackDown1;}
-					if(spriteNum == 2) {image = attackDown2;}
-					if(spriteNum == 3) {image = attackDown3;}
-					if(spriteNum == 4) {image = attackDown4;}
-				}
-				break;
-			case "left":
-				if(!attacking) {
-					if(spriteNum == 1) {image = left1;}
-					if(spriteNum == 2) {image = left2;}
-					if(spriteNum == 3) {image = left3;}
-					if(spriteNum == 4) {image = left4;}
-					if(!keys.leftPressed) image = left1;
-				} else if(attacking) {
-					tempScreenX-=gp.tileSize;
-					if(spriteNum == 1) {image = attackLeft1;}
-					if(spriteNum == 2) {image = attackLeft2;}
-					if(spriteNum == 3) {image = attackLeft3;}
-					if(spriteNum == 4) {image = attackLeft4;}
-				}
-				break;
-			case "right":
-				if(!attacking) {
-					if(spriteNum == 1) {image = right1;}
-					if(spriteNum == 2) {image = right2;}
-					if(spriteNum == 3) {image = right3;}
-					if(spriteNum == 4) {image = right4;}
-					if(!keys.rightPressed) image = right1;
-				} else if(attacking) {
-					if(spriteNum == 1) {image = attackRight1;}
-					if(spriteNum == 2) {image = attackRight2;}
-					if(spriteNum == 3) {image = attackRight3;}
-					if(spriteNum == 4) {image = attackRight4;}
-				}
-				break;
-			}
-			
-			if(invincible) g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-			
-			if(drawing) g2.drawImage(image, tempScreenX, tempScreenY, null);
-			
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-			
-			// DEBUG
-			//AttackArea
-			if(debugOn) {
-				g2.setColor(Color.red);
-				
-				
-				if(attacking) {
-					
-					int x = screenX+solidArea.x;
-					int y = screenY+solidArea.y;
-					
-					switch(direction) {
-					case "up": 
-						y -= attackArea.height;
-						break;
-					case "down": 
-						y += solidArea.height/2;
-						break;
-					case "left": 
-						x -= attackArea.width; 
-						break;
-					case "right": 
-						x += solidArea.width;
-						break;
-					}
-					
-					
-					g2.drawRect(x, y, attackArea.width, attackArea.height);
-				}
-				else g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
-			}
-			}
 }
