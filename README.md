@@ -63,9 +63,10 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 1. **Install Java:** [Download Java](https://www.jetbrains.com/webstorm/download/)
 2. **Install XAMPP:** [Download XAMPP](https://www.apachefriends.org/download.html)
 3. **Download the Runnable Jar File** from the setup folder
-4. **Download the 'gamedb' folder** and place it in your XAMPP's 'mysql' folder
-5. Start the local server of MariaDB
-6. Enjoy the game!
+4. **Download the 'gamedb' sql file** and import it.
+5. You must name the database 'gamedb'.
+6. Start the local server of MariaDB
+7. Enjoy the game!
 
 ### Requirements
 - Installed Java
