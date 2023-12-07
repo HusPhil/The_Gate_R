@@ -53,7 +53,7 @@ Interact with diverse NPCs through an intuitive dialogue system, uncovering stor
 - 🏰 **Thrilling Dungeon Exploration:** <br> Embark on exhilarating dungeon explorations, filled with challenges, puzzles, and valuable rewards. <br> <br>
 
 ## Gameplay
-# Full uncut gameplay: [GamePlay]([https://www.jetbrains.com/webstorm/download/](https://drive.google.com/file/d/1qXlCnzVcgKddgcOckYUtfKYhss27SBMn/view?usp=drive_link))
+# Full uncut gameplay: [GamePlay](https://drive.google.com/file/d/1qXlCnzVcgKddgcOckYUtfKYhss27SBMn/view?usp=drive_link)
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/6986b715-f637-4f41-8b56-8cd6c867a252)
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/48d936ef-4931-49ba-9f3b-304966fe2057)
 ![image](https://github.com/HusPhil/The_Gate_R/assets/109849545/237f8a1e-3141-489e-93fa-6733f09d9116)
