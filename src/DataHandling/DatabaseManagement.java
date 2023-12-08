@@ -59,53 +59,8 @@ public class DatabaseManagement {
 	static String username = "root";
 	static String password = "";
 	
-	public static String generatePlayerID() {
-		// Generate a random UUID (Universally Unique Identifier)
-        UUID uuid = UUID.randomUUID();
-
-        // Convert the UUID to a string and limit its length to 12 characters
-        String uuidString = uuid.toString().replaceAll("-", "");
-        String truncatedUUID = uuidString.substring(0, 5);
-
-        String player_id = "pl_" + truncatedUUID;
-        // Return the truncated UUID as the player ID
-        return player_id;
-    }
 	
-	public static String generateInventoryID() {
-		// Generate a random UUID (Universally Unique Identifier)
-        UUID uuid = UUID.randomUUID();
-
-        // Convert the UUID to a string and limit its length to 12 characters
-        String uuidString = uuid.toString().replaceAll("-", "");
-        String truncatedUUID = uuidString.substring(0, 5);
-
-        String inv_id = "inv_" + truncatedUUID;
-        // Return the truncated UUID as the player ID
-        return inv_id;
-    }
-	
-	public static boolean checkUserExist(String column, String user) {
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, username, password);
-
-		    String query = "SELECT " + column +" FROM player";
-		    Statement statement = connection.createStatement();
-		    ResultSet resultSet = statement.executeQuery(query);
-
-		    while (resultSet.next()) {
-		    	String data = resultSet.getString(column);
-		    	if(data.equals(user)) return true;
-		    }
-		    connection.close();
-		    
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-		return false;
-	}
-	
+	//CREATE
 	public void createPlayerData() {
 		
 
@@ -117,9 +72,9 @@ public class DatabaseManagement {
 
 	        String query = "INSERT IGNORE INTO player (player_id, player_name,inventory_id, player_score, player_progress, player_savedata) VALUES (?,?,?,null,null,null)";
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
-	        preparedStatement.setString(1, gp.player.ID);
+	        preparedStatement.setString(1, gp.player.getID());
 	        preparedStatement.setString(2, gp.player.name);
-	        preparedStatement.setString(3, gp.player.inv_ID);
+	        preparedStatement.setString(3, gp.player.getInv_ID());
 
 	        
 	        preparedStatement.executeUpdate();
@@ -133,96 +88,6 @@ public class DatabaseManagement {
 	    }
 	
 
-	}
-	
-	public void deletePlayerData() {
-		String playerId = gp.player.ID;
-		
-	    try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection connection = DriverManager.getConnection(url, username, password);
-
-	        String query = "DELETE FROM player WHERE player_id = ?";
-	        PreparedStatement preparedStatement = connection.prepareStatement(query);
-	        preparedStatement.setString(1, playerId);
-
-	        int rowsDeleted = preparedStatement.executeUpdate();
-
-	        if (rowsDeleted > 0) {
-	            System.out.println("Player data with ID " + playerId + " has been deleted.");
-	        } else {
-	            System.out.println("No player data found with ID " + playerId + ". Nothing deleted.");
-	        }
-
-	        connection.close();
-
-	    } catch (SQLException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
-	}
-	
-	public void updatePlayerData(String saveFile) {
-		try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection connection = DriverManager.getConnection(url, username, password);
-	        
-	        byte[] playerSavedData = null;
-	        
-			try {
-				playerSavedData = Files.readAllBytes(Paths.get(saveFile));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        
-	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ?, player_score = ?, player_playTime = ?, player_killCount = ? WHERE player_id = ?";
-	        PreparedStatement preparedStatement = connection.prepareStatement(query);
-	        preparedStatement.setInt(1, gp.player.score);
-	        preparedStatement.setInt(2, gp.player.getProgress());
-	        preparedStatement.setBytes(3, playerSavedData);
-	        preparedStatement.setInt(4, gp.player.getScore());
-	        preparedStatement.setInt(5, gp.player.getPlayTime());
-	        preparedStatement.setInt(6, gp.player.killCount);
-	        preparedStatement.setString(7, gp.player.ID);
-
-	        preparedStatement.executeUpdate();
-
-	        System.out.println("Player data has been updated in the database.");
-	        connection.close();
-	    } catch (SQLException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
-	}
-	
-	public void loadPlayerData() {
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, username, password);
-
-		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.ID + "'";
-		    Statement statement = connection.createStatement();
-		    ResultSet resultSet = statement.executeQuery(query);
-
-		    if (resultSet.next()) {
-		        gp.player.ID = resultSet.getString("player_id");
-		        gp.player.name = resultSet.getString("player_name");
-		        gp.player.score = resultSet.getInt("player_score");
-		        gp.player.progress = resultSet.getInt("player_progress");
-		        gp.player.playTime = resultSet.getInt("player_playTime")*60;
-		        gp.player.killCount = resultSet.getInt("player_killCount");
-		        
-		        byte[] content = resultSet.getBytes("player_savedata");
-		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");
-		        fileOutputStream.write(content);
-		        fileOutputStream.close();
-		        System.out.println("Content from the database has been saved to save_data.dat.");
-		    } else {
-		        System.out.println("No data found in the database.");
-		    }
-		    connection.close();
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
 	}
 	
 	public void createItemData() {
@@ -252,6 +117,193 @@ public class DatabaseManagement {
 		saveItems(OBJ_Wooden_Sword.objName);
 	}
 	
+	//READ
+	public ArrayList<String> getTopPlayers() {
+
+	    ArrayList<String> topPlayers = new ArrayList<>();
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+
+	        String query = "SELECT player_name, player_score FROM player WHERE player_progress = 100 ORDER BY player_score DESC LIMIT 10";
+	        Statement statement = connection.createStatement();
+	        ResultSet resultSet = statement.executeQuery(query);
+
+	        while (resultSet.next()) {
+	            String playerName = resultSet.getString("player_name");
+	            int playerScore = resultSet.getInt("player_score");
+
+	            String playerInfo = playerName + ": " + playerScore + "pts";
+	            topPlayers.add(playerInfo);
+	        }
+
+	        connection.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return topPlayers;
+	}
+	
+	public ArrayList<String> getTopFinishers() {
+		 ArrayList<String> topFastestFinishers = new ArrayList<>();
+
+		    try {
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+		        Connection connection = DriverManager.getConnection(url, username, password);
+
+		        String query = "SELECT player_name, player_playTime FROM player WHERE player_progress = 100 ORDER BY player_playTime ASC LIMIT 10";
+		        Statement statement = connection.createStatement();
+		        ResultSet resultSet = statement.executeQuery(query);
+
+		        while (resultSet.next()) {
+		            String playerName = resultSet.getString("player_name");
+		            int playerPlayTime = resultSet.getInt("player_playTime");
+
+		            String playerInfo = playerName + ": " + playerPlayTime + "s";
+		            topFastestFinishers.add(playerInfo);
+		        }
+
+		        connection.close();
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return topFastestFinishers;
+	}
+	
+	public static boolean checkUserExist(String column, String user) {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+
+		    String query = "SELECT " + column +" FROM player";
+		    Statement statement = connection.createStatement();
+		    ResultSet resultSet = statement.executeQuery(query);
+
+		    while (resultSet.next()) {
+		    	String data = resultSet.getString(column);
+		    	if(data.equals(user)) return true;
+		    }
+		    connection.close();
+		    
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//UPDATE
+	public void updatePlayerData(String saveFile) {
+		try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+	        
+	        byte[] playerSavedData = null;
+	        
+			try {
+				playerSavedData = Files.readAllBytes(Paths.get(saveFile));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        String query = "UPDATE player SET player_score = ?, player_progress = ?, player_savedata = ?, player_score = ?, player_playTime = ?, player_killCount = ? WHERE player_id = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setInt(1, gp.player.score);
+	        preparedStatement.setInt(2, gp.player.getProgress());
+	        preparedStatement.setBytes(3, playerSavedData);
+	        preparedStatement.setInt(4, gp.player.getScore());
+	        preparedStatement.setInt(5, gp.player.getPlayTime());
+	        preparedStatement.setInt(6, gp.player.killCount);
+	        preparedStatement.setString(7, gp.player.getID());
+
+	        preparedStatement.executeUpdate();
+
+	        System.out.println("Player data has been updated in the database.");
+	        connection.close();
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void updatePlayerInventory() {
+
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+		    
+		    ArrayList<String> inv_itm_names = new ArrayList<>();
+		    
+		    int j = 1;
+		    String query = "UPDATE inventory SET "
+		            + "itm1_id = ?, itm2_id = ?, itm3_id = ?, itm4_id = ?, "
+		            + "itm5_id = ?, itm6_id = ?, itm7_id = ?, itm8_id = ?, "
+		            + "itm9_id = ?, itm10_id = ?, itm11_id = ?, itm12_id = ?, "
+		            + "itm13_id = ?, itm14_id = ?, itm15_id = ?, itm16_id = ?, "
+		            + "itm17_id = ?, itm18_id = ?, itm19_id = ?, itm20_id = ?, "
+		            + "itm21_id = ?, itm22_id = ?, itm23_id = ?, itm24_id = ?, "
+		            + "itm25_id = ?, itm26_id = ?, itm27_id = ?, itm28_id = ? "
+		            + "WHERE inventory_id = ?";
+		    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+		    for(int i = 0; i < gp.player.inventory.size(); i++) {
+		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
+		    }
+		    
+		    for(String id: inv_itm_names) {
+		    	
+		    	preparedStatement.setString(j, id); 
+		    	j++;
+		    }
+		    if(gp.player.inventory.size() < gp.player.maxInventorySize) {
+		    	for(int i = (inv_itm_names.size()+1); i < 29; i++) {
+			    	preparedStatement.setNull(i, java.sql.Types.VARCHAR);
+			    }
+		    }
+
+		    preparedStatement.setString(29, gp.player.getInv_ID());
+		    
+		    preparedStatement.executeUpdate();
+		    
+		    System.out.println("Content has been inserted into the database." + (30 - inv_itm_names.size()));
+		    connection.close();
+		} catch (SQLException | ClassNotFoundException e) {
+		    e.printStackTrace();
+		}
+
+	
+	}
+	
+	//DELETE
+	public void deletePlayerData() {
+		String playerId = gp.player.getID();
+		
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection connection = DriverManager.getConnection(url, username, password);
+
+	        String query = "DELETE FROM player WHERE player_id = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, playerId);
+
+	        int rowsDeleted = preparedStatement.executeUpdate();
+
+	        if (rowsDeleted > 0) {
+	            System.out.println("Player data with ID " + playerId + " has been deleted.");
+	        } else {
+	            System.out.println("No player data found with ID " + playerId + ". Nothing deleted.");
+	        }
+
+	        connection.close();
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}	
+	
+	//MISC
 	public void saveItems(String objName) {
 
 		
@@ -303,7 +355,7 @@ public class DatabaseManagement {
 		            + "?,?,?,?,?,?,?"
 		            + ")";
 		    PreparedStatement preparedStatement = connection.prepareStatement(query);
-		    preparedStatement.setString(1, gp.player.inv_ID);
+		    preparedStatement.setString(1, gp.player.getInv_ID());
 
 		    for(int i = 0; i < gp.player.inventory.size(); i++) {
 		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
@@ -328,54 +380,6 @@ public class DatabaseManagement {
 		    e.printStackTrace();
 		}
 
-	}
-	
-	public void updatePlayerInventory() {
-
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, username, password);
-		    
-		    ArrayList<String> inv_itm_names = new ArrayList<>();
-		    
-		    int j = 1;
-		    String query = "UPDATE inventory SET "
-		            + "itm1_id = ?, itm2_id = ?, itm3_id = ?, itm4_id = ?, "
-		            + "itm5_id = ?, itm6_id = ?, itm7_id = ?, itm8_id = ?, "
-		            + "itm9_id = ?, itm10_id = ?, itm11_id = ?, itm12_id = ?, "
-		            + "itm13_id = ?, itm14_id = ?, itm15_id = ?, itm16_id = ?, "
-		            + "itm17_id = ?, itm18_id = ?, itm19_id = ?, itm20_id = ?, "
-		            + "itm21_id = ?, itm22_id = ?, itm23_id = ?, itm24_id = ?, "
-		            + "itm25_id = ?, itm26_id = ?, itm27_id = ?, itm28_id = ? "
-		            + "WHERE inventory_id = ?";
-		    PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-		    for(int i = 0; i < gp.player.inventory.size(); i++) {
-		    	inv_itm_names.add(gp.player.inventory.get(i).itm_id);
-		    }
-		    
-		    for(String id: inv_itm_names) {
-		    	
-		    	preparedStatement.setString(j, id); 
-		    	j++;
-		    }
-		    if(gp.player.inventory.size() < gp.player.maxInventorySize) {
-		    	for(int i = (inv_itm_names.size()+1); i < 29; i++) {
-			    	preparedStatement.setNull(i, java.sql.Types.VARCHAR);
-			    }
-		    }
-
-		    preparedStatement.setString(29, gp.player.inv_ID);
-		    
-		    preparedStatement.executeUpdate();
-		    
-		    System.out.println("Content has been inserted into the database." + (30 - inv_itm_names.size()));
-		    connection.close();
-		} catch (SQLException | ClassNotFoundException e) {
-		    e.printStackTrace();
-		}
-
-	
 	}
 	
 	public void loadGameProgress() {
@@ -558,62 +562,62 @@ public class DatabaseManagement {
 		}
 	}
 
-	
-	public ArrayList<String> getTopPlayers() {
+	public void loadPlayerData() {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
 
-	    ArrayList<String> topPlayers = new ArrayList<>();
+		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.getID() + "'";
+		    Statement statement = connection.createStatement();
+		    ResultSet resultSet = statement.executeQuery(query);
 
-	    try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection connection = DriverManager.getConnection(url, username, password);
-
-	        String query = "SELECT player_name, player_score FROM player WHERE player_progress = 100 ORDER BY player_score DESC LIMIT 10";
-	        Statement statement = connection.createStatement();
-	        ResultSet resultSet = statement.executeQuery(query);
-
-	        while (resultSet.next()) {
-	            String playerName = resultSet.getString("player_name");
-	            int playerScore = resultSet.getInt("player_score");
-
-	            String playerInfo = playerName + ": " + playerScore + "pts";
-	            topPlayers.add(playerInfo);
-	        }
-
-	        connection.close();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return topPlayers;
-	}
-	
-	public ArrayList<String> getTopFinishers() {
-		 ArrayList<String> topFastestFinishers = new ArrayList<>();
-
-		    try {
-		        Class.forName("com.mysql.cj.jdbc.Driver");
-		        Connection connection = DriverManager.getConnection(url, username, password);
-
-		        String query = "SELECT player_name, player_playTime FROM player WHERE player_progress = 100 ORDER BY player_playTime ASC LIMIT 10";
-		        Statement statement = connection.createStatement();
-		        ResultSet resultSet = statement.executeQuery(query);
-
-		        while (resultSet.next()) {
-		            String playerName = resultSet.getString("player_name");
-		            int playerPlayTime = resultSet.getInt("player_playTime");
-
-		            String playerInfo = playerName + ": " + playerPlayTime + "s";
-		            topFastestFinishers.add(playerInfo);
-		        }
-
-		        connection.close();
-		    } catch (Exception e) {
-		        e.printStackTrace();
+		    if (resultSet.next()) {
+		        gp.player.setID(resultSet.getString("player_id"));
+		        gp.player.name = resultSet.getString("player_name");
+		        gp.player.score = resultSet.getInt("player_score");
+		        gp.player.progress = resultSet.getInt("player_progress");
+		        gp.player.playTime = resultSet.getInt("player_playTime")*60;
+		        gp.player.killCount = resultSet.getInt("player_killCount");
+		        
+		        byte[] content = resultSet.getBytes("player_savedata");
+		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");
+		        fileOutputStream.write(content);
+		        fileOutputStream.close();
+		        System.out.println("Content from the database has been saved to save_data.dat.");
+		    } else {
+		        System.out.println("No data found in the database.");
 		    }
-
-		    return topFastestFinishers;
+		    connection.close();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 	}
+	
+	public static String generatePlayerID() {
+		// Generate a random UUID (Universally Unique Identifier)
+        UUID uuid = UUID.randomUUID();
 
+        // Convert the UUID to a string and limit its length to 12 characters
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String truncatedUUID = uuidString.substring(0, 5);
+
+        String player_id = "pl_" + truncatedUUID;
+        // Return the truncated UUID as the player ID
+        return player_id;
+    }
+	
+	public static String generateInventoryID() {
+		// Generate a random UUID (Universally Unique Identifier)
+        UUID uuid = UUID.randomUUID();
+
+        // Convert the UUID to a string and limit its length to 12 characters
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String truncatedUUID = uuidString.substring(0, 5);
+
+        String inv_id = "inv_" + truncatedUUID;
+        // Return the truncated UUID as the player ID
+        return inv_id;
+    }
 
 }
 

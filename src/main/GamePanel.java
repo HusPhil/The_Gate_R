@@ -325,7 +325,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		if(gameState != gameMenu) player.playTime++;
 		
-		if(gameState == cutSceneState) {
+		if(gameState != cutSceneState) {
 			player.checkGameOver();
 		}
 		
@@ -529,7 +529,7 @@ public class GamePanel extends JPanel implements Runnable{
  		player.mana = player.maxMana;
  		player.attacking = false;
  		player.knockBackState = false;
- 		player.lightUpdated = true;
+ 		player.setLightUpdated(true);
  		player.invincible = false;
 		
 		//reset nps and mobs pos
@@ -588,8 +588,8 @@ public class GamePanel extends JPanel implements Runnable{
  	}
 	public void changeArea() {
 		if(currentArea != nextArea) {
-			stopMusic();
-			
+//			stopMusic();
+//			playMusic(SoundHandler.story);
 			if(nextArea == outside) {
 				//playmusic for this
 			}

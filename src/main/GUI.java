@@ -146,7 +146,7 @@ public class GUI {
 		g2.drawString(value, textX, textY);
 		textY+=lineHeight;
 		
-		value = gp.player.ID;
+		value = gp.player.getID();
 		textX = textAlignRight(value, tailX);
 		g2.drawString(value, textX, textY);
 		textY+=lineHeight;
@@ -332,20 +332,21 @@ public class GUI {
 						g2.drawRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 						g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 					}
-					
+					if(gp.player.inventory.get(i) != null)
 					g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
 					
 					//DISPLAY AMOUNT OF STACKABLE ITEMS
-					if(gp.player.inventory.get(i).ammount > 1) {
-						//draw
-						g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
-						String amount = String.valueOf(gp.player.inventory.get(i).ammount);;
-						int amountX = textAlignRight(amount, slotX);
-						int amountY = slotY + gp.tileSize ;
-						
-						g2.setColor(Color.white);
-						g2.drawString(amount, amountX + slotSize, amountY);
-						
+					if(gp.player.inventory.get(i) != null) {
+						if(gp.player.inventory.get(i).ammount > 1) {
+							//draw
+							g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
+							String amount = String.valueOf(gp.player.inventory.get(i).ammount);;
+							int amountX = textAlignRight(amount, slotX);
+							int amountY = slotY + gp.tileSize ;
+							
+							g2.setColor(Color.white);
+							g2.drawString(amount, amountX + slotSize, amountY);
+						}
 					}
 					
 					slotX+=slotSize;
@@ -421,7 +422,7 @@ public class GUI {
 		}
 	}
 	public void showPlayerMana() {
-		if(gp.player.magicOn) {
+		if(gp.player.isMagicOn()) {
 			double oneScale = (double)gp.tileSize/gp.player.maxMana;
 			double manaVal = oneScale*gp.player.mana;
 			int maxRedHP = 6;
@@ -1553,7 +1554,7 @@ public class GUI {
 		g2.drawString(text, x, y);
 		
 		
-		text = "QUIT";
+		text = "Well, just try again..!";
 		g2.setFont(g2.getFont().deriveFont(50f));
 		x = screenCenterX(text);
 		y += gp.tileSize*4;
@@ -1562,9 +1563,10 @@ public class GUI {
 		
 		text = String.valueOf(timer);
 		g2.setFont(g2.getFont().deriveFont(35f));
-		if (timer <= 0) {
+		if (timer < 0) {
 			timer = 0;
-			text = "Please select your option.";
+			gp.resetStatus(true);
+			gp.gameState = gp.gameMenu;
 		}
 		x = screenCenterX(text);
 		y += 55;
@@ -1787,8 +1789,6 @@ public class GUI {
 	}
 	private void endingScreen() {
 		
-		gp.stopMusic();
-		gp.playMusic(SoundHandler.ending);
 		
 		g2.setColor(Color.black);
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);

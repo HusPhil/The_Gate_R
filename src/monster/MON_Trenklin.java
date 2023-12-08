@@ -27,7 +27,7 @@ public class MON_Trenklin extends Entity{
 		attacking = !true;
 		
 		life = maxLife;
-		atk = 10;
+		atk = 13;
 		def = 2;
 		exp = 5;
 		

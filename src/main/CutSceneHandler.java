@@ -52,6 +52,7 @@ public class CutSceneHandler {
 	
 	//Scenes' Number
 	public final int NONE = 0;
+	public final int gameOver = 22;
 	public final int bossSkeletonLord = 1;
 	public final int introduction = 2;
 	public final int oldManEncounter = 3;
@@ -93,7 +94,6 @@ public class CutSceneHandler {
 	
 	public void scene_SkeletonLord() {
 		//PHASE 0
-		gp.player.checkGameOver();
 		
 		if(scenePhase == 0) {
 			gp.bossBattleOn = true;
@@ -168,7 +168,9 @@ public class CutSceneHandler {
 		
 		//PHASE 0
 		if(scenePhase == 0) {
-			
+			gp.stopMusic();
+			if(!GameProgress.ending)
+			gp.playMusic(SoundHandler.story);
 			gp.eventHandler.loadingScreen(gp.corrupted1, 25, 12, gp.outside);
 //			gp.eventHandler.transition(gp.forest, 21, 36, gp.outside);
 //			gp.eventHandler.loadingScreen(gp.princessKingdom, 24, 23, gp.indoor);
@@ -222,7 +224,6 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManEncounter() {
-		gp.player.checkGameOver();
 		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			//place player dummy
@@ -282,7 +283,6 @@ public class CutSceneHandler {
 	}
 	
 	public void oldManExplain() {
-		gp.player.checkGameOver();
 		gp.fxHandler.lighting.resetDay();
 		if(scenePhase == 0) {
 			for(int i = 0; i < gp.npc[1].length; i++) {
@@ -464,7 +464,6 @@ public class CutSceneHandler {
 			gp.gui.npc.talking = false;
 			
 			gp.gameState = gp.playState;
-			gp.player.checkGameOver();
 			boolean monstersAlive = false;
 
 			for (int i = 0; i < gp.monsters[1].length; i++) {
@@ -625,7 +624,6 @@ public class CutSceneHandler {
 	}
 
 	public void axeHint() {
-		gp.player.checkGameOver();
 		if(scenePhase == 0) {
 			showInfoScreen(NPC_Narrator.axeHint_1);
 		}
@@ -633,7 +631,6 @@ public class CutSceneHandler {
 	}
 	
 	public void witchEncounter() {
-		gp.player.checkGameOver();
 		if(!GameProgress.witchQuest1Complete) {
 			if(scenePhase == 0) {
 				setGuiNpc(NPC_Witch.NPC_Name);
@@ -980,10 +977,10 @@ public class CutSceneHandler {
 	}
 	
 	public void waterGolem() {
-		gp.bossBattleOn = true;
-		gp.stopMusic();
-		gp.playMusic(SoundHandler.boss);
+		
+		
 		if(scenePhase == 0) {
+			gp.bossBattleOn = true;
 			for(int i = 0; i < gp.IT_Manager[1].length; i++) {
 				if(gp.IT_Manager[gp.currentMap][i] == null) {
 					gp.IT_Manager[gp.currentMap][i] = new IT_TempTree(gp, 11, 32);
@@ -1039,6 +1036,8 @@ public class CutSceneHandler {
 			}
 		}
 		if(scenePhase == 4 ) {
+			gp.stopMusic();
+			gp.playMusic(SoundHandler.boss);
 			endScene();
 		}
 	}
@@ -2097,6 +2096,8 @@ public class CutSceneHandler {
 		
 		
 		if(scenePhase ==  11) {
+			gp.stopMusic();
+			gp.playMusic(SoundHandler.boss);
 			for(int  i = 0; i < gp.npc[1].length; i++) {
 				if(gp.npc[gp.currentMap][i].name.equals(NPC_PlayerDummy.NPC_Name) && gp.npc[gp.currentMap][i] != null) {
 					gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
@@ -3621,13 +3622,25 @@ public class CutSceneHandler {
 	public void ending() {
 		System.out.println("sinpeys: " + scenePhase);
 		if(scenePhase == 0) {
+			gp.stopMusic();
 			gp.gameState = gp.fadeIN;
 			scenePhase++;
 		}
 		if(scenePhase == 1) {
-			if(gp.gameState == gp.playState) scenePhase++;
+			
+			if(gp.gameState == gp.playState) {
+				gp.playMusic(SoundHandler.finale);
+				scenePhase++;
+			}
+			
 		}
 		if(scenePhase == 2) {
+			
+			scenePhase++;
+		}
+		
+		if(scenePhase == 3 ) {
+			
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			gp.gameState = gp.cutSceneState;
@@ -3636,29 +3649,36 @@ public class CutSceneHandler {
 			gp.gui.dialogueScreen(true);
 		}
 		
-		if(scenePhase == 3) {
+		if(scenePhase == 4) {
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-			
 			gp.gameState = gp.fadeOUT;
 			scenePhase++;
 		}
-		if(scenePhase == 4) {
+		if(scenePhase == 5) {
+			
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			if(gp.gameState == gp.playState) scenePhase++;
 		}
-		if(scenePhase == 5) {
+		if(scenePhase == 6) {
+			
 			g2.setColor(Color.white);
 			g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 			GameProgress.ending = true;
 			gp.saverLoader.saveData();
-			gp.gameState = gp.ending;
+			scenePhase++;
 			
+		}
+		if(scenePhase == 7) {
+			
+			gp.gameState = gp.ending;
 		}
 		
 		
+		
 	}
+	
 	
 	
 	
@@ -3671,7 +3691,25 @@ public class CutSceneHandler {
 		gp.gui.informationScreen();
 	}
 
-
+	public void gameOverCs() {
+		if(scenePhase == 0) {
+			gp.gameState = gp.fadeIN;
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			if(gp.gameState == gp.playState) {
+				scenePhase++;
+			}
+		}
+		if(scenePhase == 2) {
+			gp.resetStatus(true);
+			scenePhase++;
+		}
+		if(scenePhase == 3) {
+			gp.gameState = gp.gameMenu;
+			endScene();
+		}
+	}
 	public void endScene() {
 		gp.gameState = gp.playState;
 		sceneNum = NONE;
@@ -3691,6 +3729,7 @@ public class CutSceneHandler {
 		
 		switch(sceneNum) {
 		case bossSkeletonLord: scene_SkeletonLord(); break;
+		case gameOver: gameOverCs(); break;
 		case introduction: scene_Intro(); break;
 		case oldManEncounter: oldManEncounter(); break; 
 		case oldManExplain: oldManExplain(); break;

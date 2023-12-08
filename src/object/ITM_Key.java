@@ -30,9 +30,11 @@ public class ITM_Key extends Entity{
 		int objIndex = getDetectedItem(user, gp.gameObjs, "Door");
 		if(objIndex != 777) {
 			startDialogue(this, 0);
-			gp.gameObjs[gp.currentMap][objIndex] = null;
 			ammount--;
-			if(ammount <= 0) gp.player.inventory.remove(this);
+			if(ammount <= 0) {
+				gp.player.inventory.remove(this);
+				gp.gameObjs[gp.currentMap][objIndex] = null;
+			}
 		} else {
 			startDialogue(this, 1);
 		}
