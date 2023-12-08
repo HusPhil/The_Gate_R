@@ -1137,7 +1137,7 @@ public class Player extends Entity{
 		
 		
 		projectileAction();
-//		if(mana <= 0) mana = maxMana;
+		if(mana <= 0) mana = maxMana;
 //		if(life <= 0) life = maxLife;
 		
 		//delay players damage receive

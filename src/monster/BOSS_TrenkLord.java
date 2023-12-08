@@ -3,6 +3,7 @@ package monster;
 import DataHandling.GameProgress;
 import entity.Entity;
 import main.GamePanel;
+import main.SoundHandler;
 import object.ITM_Coin;
 import object.ITM_WaterEssence;
 import object.OBJ_IronDoor;
@@ -154,6 +155,9 @@ public class BOSS_TrenkLord extends Entity{
 	}
 	public void checkDrop() {
 		gp.bossBattleOn = false;
+		
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.story);
 //		GameProgress.water = true;
 		
 		//stopTheBossMusic
@@ -255,11 +259,5 @@ public class BOSS_TrenkLord extends Entity{
 		
 		attacking = false;
 //		invincible = true;
-	}
-
-	@Override
-	public void speak() {
-		// TODO Auto-generated method stub
-		
 	}
 }

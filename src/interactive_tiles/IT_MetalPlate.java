@@ -1,6 +1,5 @@
 package interactive_tiles;
 
-import entity.Entity;
 import main.GamePanel;
 
 public class IT_MetalPlate extends InteractiveTiles{
@@ -24,10 +23,5 @@ public class IT_MetalPlate extends InteractiveTiles{
 		defaultSolidAreaX = solidArea.x;
 		defaultSolidAreaY = solidArea.y;
 		
-	}
-	@Override
-	public boolean checkReqItem(Entity item) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

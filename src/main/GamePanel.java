@@ -325,7 +325,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		if(gameState != gameMenu) player.playTime++;
 		
-		if(gameState == cutSceneState) {
+		if(gameState != cutSceneState) {
 			player.checkGameOver();
 		}
 		
@@ -588,8 +588,8 @@ public class GamePanel extends JPanel implements Runnable{
  	}
 	public void changeArea() {
 		if(currentArea != nextArea) {
-			stopMusic();
-			
+//			stopMusic();
+//			playMusic(SoundHandler.story);
 			if(nextArea == outside) {
 				//playmusic for this
 			}

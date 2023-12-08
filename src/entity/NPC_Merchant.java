@@ -36,6 +36,8 @@ public class NPC_Merchant extends Entity{
 		getNpcImage();
 		setDialouge();
 		addInventoryItems();
+		
+		direction = "down";
 	}
 
 	private void getNpcImage() {
@@ -46,6 +48,8 @@ public class NPC_Merchant extends Entity{
 	}
 	
 	public void setAction() {
+		direction = "down";
+
 		//if (gp.keys.talkOn) gp.gameState = gp.tradingState;
 		if(pathAI) {
 //			int pWorldX = (gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
@@ -56,16 +60,16 @@ public class NPC_Merchant extends Entity{
 			
 		}
 		else {
-			actionDelay++;
-			if(actionDelay == 120 ) {
-				int n = rN.nextInt(100)+1;
-				
-				if(n<=25) direction = "up";
-				if(n>=25 && n<=50) direction = "down";
-				if(n>=50 && n<=75) direction = "left";
-				if(n>=75 && n<=100) direction = "right";
-				actionDelay = 0;
-			}
+//			actionDelay++;
+//			if(actionDelay == 120 ) {
+//				int n = rN.nextInt(100)+1;
+//				
+//				if(n<=25) direction = "up";
+//				if(n>=25 && n<=50) direction = "down";
+//				if(n>=50 && n<=75) direction = "left";
+//				if(n>=75 && n<=100) direction = "right";
+//				actionDelay = 0;
+//			}
 //			if(!projectile.alive && shotCounter == 30) {
 //				projectile.set(worldX, worldY, true, direction, this);
 //				for(int i = 0; i < gp.projectiles[1].length; i++) {

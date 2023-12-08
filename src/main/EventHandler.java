@@ -259,22 +259,26 @@ public class EventHandler {
 	public void silvioVillageEvents() {
 
 		if(eventCollision(gp.silvioVillage, 28, 12, "any") && GameProgress.intro_done) {
+			System.out.println("hakdog");
 			if(gp.gameState != gp.cutSceneState)
 			transition(gp.silvioHouse, 24, 23, gp.indoor);
+			touchEventON = false;
 		}
 		else 
 			if(eventCollision(gp.silvioVillage, 37, 38, "right")) {
 			transition(gp.silvioHouse, 24, 40, gp.indoor);
-			
+			touchEventON = false;
 		}
 		else if(eventCollision(gp.silvioVillage, 22, 22, "any")) {
 			if(gp.csHandler.sceneNum == gp.csHandler.princessReunited) {
 				transition(gp.silvioHouse, 18, 21, gp.indoor);
 				gp.csHandler.scenePhase++;
+				touchEventON = false;
 			}
 			else CS_axeHint();
+			touchEventON = false;
 		}
-		touchEventON = false;
+		
 			
 	}
 

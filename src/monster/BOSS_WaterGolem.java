@@ -164,7 +164,8 @@ public class BOSS_WaterGolem extends Entity{
 	public void checkDrop() {
 		gp.bossBattleOn = false;
 		GameProgress.waterGolemDefeated = true;
-		
+		gp.stopMusic();
+		gp.playMusic(SoundHandler.story);
 		
 		//stopTheBossMusic
 		//playDungeonMusic
@@ -188,8 +189,6 @@ public class BOSS_WaterGolem extends Entity{
 				break;
 			}
 		}
-		
-		
 		
 		
 		dropItem(new ITM_WaterEssence(gp));

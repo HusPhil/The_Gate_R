@@ -255,8 +255,7 @@ public class KeyHandler implements KeyListener {
 				
 				gp.gameState = gp.cutSceneState;
 				gp.csHandler.sceneNum = gp.csHandler.introduction;
-				gp.stopMusic();
-				gp.playMusic(SoundHandler.story);
+				
 			}
 			else JOptionPane.showMessageDialog(null, "This name is already taken, try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 			}
@@ -273,8 +272,8 @@ public class KeyHandler implements KeyListener {
 					gp.g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 					gp.gameState = gp.fadeOUT;
 					gp.stopMusic();
+					if(!GameProgress.ending)
 					gp.playMusic(SoundHandler.story);
-
 				} 
 				else JOptionPane.showMessageDialog(null, "The ID you entered was not found in the database. Try another one.", "There seems to be a problem..", JOptionPane.WARNING_MESSAGE);
 				

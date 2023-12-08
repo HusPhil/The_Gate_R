@@ -59,52 +59,6 @@ public class DatabaseManagement {
 	static String username = "root";
 	static String password = "";
 	
-	public static String generatePlayerID() {
-		// Generate a random UUID (Universally Unique Identifier)
-        UUID uuid = UUID.randomUUID();
-
-        // Convert the UUID to a string and limit its length to 12 characters
-        String uuidString = uuid.toString().replaceAll("-", "");
-        String truncatedUUID = uuidString.substring(0, 5);
-
-        String player_id = "pl_" + truncatedUUID;
-        // Return the truncated UUID as the player ID
-        return player_id;
-    }
-	
-	public static String generateInventoryID() {
-		// Generate a random UUID (Universally Unique Identifier)
-        UUID uuid = UUID.randomUUID();
-
-        // Convert the UUID to a string and limit its length to 12 characters
-        String uuidString = uuid.toString().replaceAll("-", "");
-        String truncatedUUID = uuidString.substring(0, 5);
-
-        String inv_id = "inv_" + truncatedUUID;
-        // Return the truncated UUID as the player ID
-        return inv_id;
-    }
-	
-	public static boolean checkUserExist(String column, String user) {
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, username, password);
-
-		    String query = "SELECT " + column +" FROM player";
-		    Statement statement = connection.createStatement();
-		    ResultSet resultSet = statement.executeQuery(query);
-
-		    while (resultSet.next()) {
-		    	String data = resultSet.getString(column);
-		    	if(data.equals(user)) return true;
-		    }
-		    connection.close();
-		    
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-		return false;
-	}
 	
 	//CREATE
 	public void createPlayerData() {
@@ -219,35 +173,25 @@ public class DatabaseManagement {
 		    return topFastestFinishers;
 	}
 	
-	public void loadPlayerData() {
+	public static boolean checkUserExist(String column, String user) {
 		try {
 		    Class.forName("com.mysql.cj.jdbc.Driver");
 		    Connection connection = DriverManager.getConnection(url, username, password);
 
-		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.getID() + "'";
+		    String query = "SELECT " + column +" FROM player";
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
 
-		    if (resultSet.next()) {
-		        gp.player.setID(resultSet.getString("player_id"));
-		        gp.player.name = resultSet.getString("player_name");
-		        gp.player.score = resultSet.getInt("player_score");
-		        gp.player.progress = resultSet.getInt("player_progress");
-		        gp.player.playTime = resultSet.getInt("player_playTime")*60;
-		        gp.player.killCount = resultSet.getInt("player_killCount");
-		        
-		        byte[] content = resultSet.getBytes("player_savedata");
-		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");
-		        fileOutputStream.write(content);
-		        fileOutputStream.close();
-		        System.out.println("Content from the database has been saved to save_data.dat.");
-		    } else {
-		        System.out.println("No data found in the database.");
+		    while (resultSet.next()) {
+		    	String data = resultSet.getString(column);
+		    	if(data.equals(user)) return true;
 		    }
 		    connection.close();
+		    
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
+		return false;
 	}
 	
 	//UPDATE
@@ -357,9 +301,7 @@ public class DatabaseManagement {
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    }
-	}
-	
-	
+	}	
 	
 	//MISC
 	public void saveItems(String objName) {
@@ -619,6 +561,63 @@ public class DatabaseManagement {
 			}
 		}
 	}
+
+	public void loadPlayerData() {
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, username, password);
+
+		    String query = "SELECT * FROM player WHERE player_id = '" + gp.player.getID() + "'";
+		    Statement statement = connection.createStatement();
+		    ResultSet resultSet = statement.executeQuery(query);
+
+		    if (resultSet.next()) {
+		        gp.player.setID(resultSet.getString("player_id"));
+		        gp.player.name = resultSet.getString("player_name");
+		        gp.player.score = resultSet.getInt("player_score");
+		        gp.player.progress = resultSet.getInt("player_progress");
+		        gp.player.playTime = resultSet.getInt("player_playTime")*60;
+		        gp.player.killCount = resultSet.getInt("player_killCount");
+		        
+		        byte[] content = resultSet.getBytes("player_savedata");
+		        FileOutputStream fileOutputStream = new FileOutputStream("save_data.dat");
+		        fileOutputStream.write(content);
+		        fileOutputStream.close();
+		        System.out.println("Content from the database has been saved to save_data.dat.");
+		    } else {
+		        System.out.println("No data found in the database.");
+		    }
+		    connection.close();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}
+	
+	public static String generatePlayerID() {
+		// Generate a random UUID (Universally Unique Identifier)
+        UUID uuid = UUID.randomUUID();
+
+        // Convert the UUID to a string and limit its length to 12 characters
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String truncatedUUID = uuidString.substring(0, 5);
+
+        String player_id = "pl_" + truncatedUUID;
+        // Return the truncated UUID as the player ID
+        return player_id;
+    }
+	
+	public static String generateInventoryID() {
+		// Generate a random UUID (Universally Unique Identifier)
+        UUID uuid = UUID.randomUUID();
+
+        // Convert the UUID to a string and limit its length to 12 characters
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String truncatedUUID = uuidString.substring(0, 5);
+
+        String inv_id = "inv_" + truncatedUUID;
+        // Return the truncated UUID as the player ID
+        return inv_id;
+    }
 
 }
 
